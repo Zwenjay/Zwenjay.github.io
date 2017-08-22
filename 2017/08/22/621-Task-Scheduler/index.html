@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Array,Queue,Greedy," />
 
 
 
@@ -94,17 +94,18 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="QuestionGiven a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each task">
+<meta name="keywords" content="Array,Queue,Greedy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://wenjiezhang.com/2017/08/21/hello-world/index.html">
+<meta property="og:title" content="621 Task Scheduler">
+<meta property="og:url" content="http://wenjiezhang.com/2017/08/22/621-Task-Scheduler/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="QuestionGiven a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each task">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-22T05:24:19.254Z">
+<meta property="og:updated_time" content="2017-08-22T22:07:50.523Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="621 Task Scheduler">
+<meta name="twitter:description" content="QuestionGiven a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each task">
 
 
 
@@ -134,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/2017/08/21/hello-world/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/08/22/621-Task-Scheduler/"/>
 
 
 
 
 
-  <title>Hello World | Coding Zone</title>
+  <title>621 Task Scheduler | Coding Zone</title>
   
 
 
@@ -237,7 +238,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/21/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/22/621-Task-Scheduler/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wenjie Zhang">
@@ -254,7 +255,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">621 Task Scheduler</h1>
         
 
         <div class="post-meta">
@@ -266,8 +267,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-21T22:24:19-07:00">
-                2017-08-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-22T14:20:29-07:00">
+                2017-08-22
               </time>
             
 
@@ -304,16 +305,14 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h1><p>Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each task could be done in one interval. For each interval, CPU could finish one task or just be idle.</p>
+<p>However, there is a non-negative cooling interval n that means between two same tasks, there must be at least n intervals that CPU are doing different tasks or just be idle.</p>
+<p>You need to return the least number of intervals the CPU will take to finish all the given tasks.</p>
+<p><strong>example</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">__Input__ : tasks = [&apos;A&apos;,&apos;A&apos;,&apos;A&apos;,&apos;B&apos;,&apos;B&apos;,&apos;B&apos;], n = 2</div><div class="line"></div><div class="line">__Output__ : 8</div><div class="line"></div><div class="line">__Explanation__: A -&gt; B -&gt; idle -&gt; A -&gt; B -&gt; idle -&gt; A -&gt; B.</div></pre></td></tr></table></figure>
+<h2 id="Solution-1-Max-Heap"><a href="#Solution-1-Max-Heap" class="headerlink" title="Solution 1 Max-Heap"></a>Solution 1 Max-Heap</h2><p>Since what a charcter is does not affect the result, we only have to ocnsider their counts. Following is an intutional solution, we arrange the largest first, which is to be verify. But it works.</p>
+<h3 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h3><p>Store the number of each charaters in a <strong>Max-Heap</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">leastInterval</span><span class="params">(<span class="keyword">char</span>[] tasks, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> tasks.length;</div><div class="line">        <span class="keyword">int</span>[] map = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</div><div class="line">        <span class="keyword">int</span> time = <span class="number">0</span>, i=<span class="number">0</span>;</div><div class="line">        PriorityQueue &lt; Integer &gt; queue = <span class="keyword">new</span> PriorityQueue &lt; Integer &gt; (<span class="number">26</span>, Collections.reverseOrder());</div><div class="line">        <span class="keyword">int</span> intervals=<span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c : tasks)</div><div class="line">            map[(<span class="keyword">int</span>)(c-<span class="string">'A'</span>)]++;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : map)&#123;</div><div class="line">            <span class="keyword">if</span>(x &gt; <span class="number">0</span>)</div><div class="line">                queue.add(x);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(queue.size()&gt;<span class="number">0</span>)&#123;</div><div class="line">            i=<span class="number">0</span>;</div><div class="line">            List&lt;Integer&gt; temp = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">            <span class="keyword">while</span>(i &lt;= n)&#123;</div><div class="line">                <span class="keyword">if</span>(queue.peek()&gt;<span class="number">1</span>)</div><div class="line">                    temp.add(queue.poll()-<span class="number">1</span>);</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    queue.poll();</div><div class="line">                time++;</div><div class="line">                i++;</div><div class="line">                <span class="keyword">if</span>(queue.size()==<span class="number">0</span>)&#123;</div><div class="line">                    <span class="keyword">if</span>(temp.size()!=<span class="number">0</span>)&#123;</div><div class="line">                        time+=n-i+<span class="number">1</span>;</div><div class="line">                        <span class="keyword">break</span>;   </div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">else</span>&#123;</div><div class="line">                        <span class="keyword">return</span> time;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> x: temp)</div><div class="line">                queue.add(x);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> time;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -328,6 +327,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Array/" rel="tag"># Array</a>
+          
+            <a href="/tags/Queue/" rel="tag"># Queue</a>
+          
+            <a href="/tags/Greedy/" rel="tag"># Greedy</a>
+          
+        </div>
+      
 
       
       
@@ -337,15 +346,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/08/22/New-Article/" rel="next" title="My Blog Starts Here">
+                <i class="fa fa-chevron-left"></i> My Blog Starts Here
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/22/New-Article/" rel="prev" title="My Blog Start Here">
-                My Blog Start Here <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -431,6 +440,15 @@
           
 
           
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
 
         </nav>
 
@@ -461,7 +479,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Max-Heap"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Max-Heap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1"><span class="nav-number">1.1.1.</span> <span class="nav-text">Step 1</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
