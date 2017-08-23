@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="general," />
+  <meta name="keywords" content="Array,Math," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Hi, this is a blog about coding, recoding my learning journey from 2017 summer.">
-<meta name="keywords" content="general">
+<meta name="description" content="QuestionGiven an integer array, find three numbers whose product is maximum and output the maximum product. Example: Input: [1,2,3]Output: 6 Solution 1 SortThere are only 3 possible largest comninatio">
+<meta name="keywords" content="Array,Math">
 <meta property="og:type" content="article">
-<meta property="og:title" content="My Blog Starts Here">
-<meta property="og:url" content="http://wenjiezhang.com/2017/08/22/New-Article/index.html">
+<meta property="og:title" content="628 Maximum Product of Three Numbers">
+<meta property="og:url" content="http://wenjiezhang.com/2017/08/22/628-Maximum-Product-of-Three-Numbers/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="Hi, this is a blog about coding, recoding my learning journey from 2017 summer.">
+<meta property="og:description" content="QuestionGiven an integer array, find three numbers whose product is maximum and output the maximum product. Example: Input: [1,2,3]Output: 6 Solution 1 SortThere are only 3 possible largest comninatio">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-23T04:12:33.660Z">
+<meta property="og:updated_time" content="2017-08-23T06:09:00.368Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="My Blog Starts Here">
-<meta name="twitter:description" content="Hi, this is a blog about coding, recoding my learning journey from 2017 summer.">
+<meta name="twitter:title" content="628 Maximum Product of Three Numbers">
+<meta name="twitter:description" content="QuestionGiven an integer array, find three numbers whose product is maximum and output the maximum product. Example: Input: [1,2,3]Output: 6 Solution 1 SortThere are only 3 possible largest comninatio">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/2017/08/22/New-Article/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/08/22/628-Maximum-Product-of-Three-Numbers/"/>
 
 
 
 
 
-  <title>My Blog Starts Here | Coding Zone</title>
+  <title>628 Maximum Product of Three Numbers | Coding Zone</title>
   
 
 
@@ -268,7 +268,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/22/New-Article/">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/22/628-Maximum-Product-of-Three-Numbers/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wenjie Zhang">
@@ -285,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">My Blog Starts Here</h1>
+          <h1 class="post-title" itemprop="name headline">628 Maximum Product of Three Numbers</h1>
         
 
         <div class="post-meta">
@@ -297,7 +297,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-22T13:38:35-07:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-22T22:55:25-07:00">
                 2017-08-22
               </time>
             
@@ -320,8 +320,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/life/" itemprop="url" rel="index">
-                    <span itemprop="name">life</span>
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
                   </a>
                 </span>
 
@@ -357,7 +357,13 @@
       
 
       
-        <p>Hi, this is a blog about coding, recoding my learning journey from 2017 summer.</p>
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/task-scheduler/description/" target="_blank" rel="external">Question</a></h1><p>Given an integer array, find three numbers whose product is maximum and output the maximum product.</p>
+<p><strong>Example:</strong></p>
+<p><strong>Input:</strong> [1,2,3]<br><strong>Output:</strong> 6</p>
+<h2 id="Solution-1-Sort"><a href="#Solution-1-Sort" class="headerlink" title="Solution 1 Sort"></a>Solution 1 Sort</h2><p>There are only 3 possible largest comnination, 2 smallest negative + 1 largest positive, or 3 largest positive, or 3 smallest negative. Thus, sorting first, then it is a very straightforward problem.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumProduct</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        Arrays.sort(nums);</div><div class="line">        <span class="keyword">int</span> l = nums.length;</div><div class="line">        <span class="keyword">int</span> a = nums[<span class="number">0</span>], b = nums[<span class="number">1</span>], c= nums[<span class="number">2</span>],</div><div class="line">            d = nums[l-<span class="number">1</span>], e = nums[l-<span class="number">2</span>], f = nums[l-<span class="number">3</span>];</div><div class="line">        <span class="keyword">return</span> Math.max(a*b*c, Math.max(a*b*d, d*e*f));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Since there is only one <strong>sort</strong> operation and some constant tiem operations, its time complexity is O(nlogn), where n represents the length of the array.</p>
+<p><strong>Space:</strong> Space complexity is obviously O(nlogn), since only <strong>sorting</strong> cost extra space.</p>
 
       
     </div>
@@ -375,7 +381,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/general/" rel="tag"># general</a>
+            <a href="/tags/Array/" rel="tag"># Array</a>
+          
+            <a href="/tags/Math/" rel="tag"># Math</a>
           
         </div>
       
@@ -388,15 +396,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/08/22/621-Task-Scheduler/" rel="next" title="621 Task Scheduler">
+                <i class="fa fa-chevron-left"></i> 621 Task Scheduler
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/22/621-Task-Scheduler/" rel="prev" title="621 Task Scheduler">
-                621 Task Scheduler <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -448,8 +456,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -511,6 +528,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Sort"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Sort</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
