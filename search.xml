@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[661 Image Smoother]]></title>
+      <url>/2017/08/23/661-Image-Smoother/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/image-smoother/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a 2D integer matrix M representing the gray scale of an image, you need to design a smoother to make the gray scale of each cell becomes the average gray scale (rounding down) of all the 8 surrounding cells and itself. If a cell has less than 8 surrounding cells, then use as many as you can.</p>
+<p><strong>example:</strong></p>
+<p><strong>Input:</strong><br>[[1,1,1],<br> [1,0,1],<br> [1,1,1]]</p>
+<p><strong>Output:</strong><br>[[0, 0, 0],<br> [0, 0, 0],<br> [0, 0, 0]]</p>
+<p><strong>Explanation:</strong></p>
+<p>For the point (0,0), (0,2), (2,0), (2,2): floor(3/4) = floor(0.75) = 0</p>
+<p>For the point (0,1), (1,0), (1,2), (2,1): floor(5/6) = floor(0.83333333) = 0</p>
+<p>For the point (1,1): floor(8/9) = floor(0.88888889) = 0</p>
+</blockquote>
+<h2 id="Solution-1-Temp-Array-to-Save-Space"><a href="#Solution-1-Temp-Array-to-Save-Space" class="headerlink" title="Solution 1 Temp Array to Save Space"></a>Solution 1 Temp Array to Save Space</h2><p>As I see the problem, I know that time complexity will not be less than O(row * col). Thus, I try to find a way to save space, which shold have been O(row * col), too. </p>
+<p>In this solution, I used two temp arraies, <em>temp1</em> and <em>temp2</em>, see the code below.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><pre><code class="java">
+<span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{
+    <span class="keyword">public</span> <span class="keyword">int</span>[][] imageSmoother(<span class="keyword">int</span>[][] M) {
+        <span class="keyword">int</span> row = M.length, col = M[<span class="number">0</span>].length;
+        <span class="keyword">int</span>[] temp1 = <span class="keyword">new</span> <span class="keyword">int</span>[row];
+        <span class="keyword">int</span>[] temp2 = <span class="keyword">new</span> <span class="keyword">int</span>[row];
+
+        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++){
+            temp1[i] = findAve(M, i, <span class="number">0</span>);
+        }
+
+        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; col; j++){
+            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++)
+                temp2[i] = findAve(M, i, j);
+            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++){
+                M[i][j-<span class="number">1</span>]=temp1[i];
+                temp1[i] = temp2[i];
+            }
+        }
+        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++)
+            M[i][col-<span class="number">1</span>] = temp1[i];
+        <span class="keyword">return</span> M;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findAve</span><span class="params">(<span class="keyword">int</span> [][] M, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>{
+        <span class="keyword">int</span> sum = <span class="number">0</span>, num = <span class="number">9</span>;
+        <span class="keyword">for</span>(<span class="keyword">int</span> a = i-<span class="number">1</span>; a &lt;= i+<span class="number">1</span>; a++){
+            <span class="keyword">for</span>(<span class="keyword">int</span> b = j-<span class="number">1</span>; b&lt;=j+<span class="number">1</span>; b++){
+                <span class="keyword">if</span>((a&lt;<span class="number">0</span> || a&gt; M.length-<span class="number">1</span>) || (b&lt;<span class="number">0</span> || b&gt;M[<span class="number">0</span>].length-<span class="number">1</span>)){
+                    num--;
+                }<span class="keyword">else</span>{
+                    sum+=M[a][b];
+                }
+            }
+        }
+        <span class="keyword">return</span> sum/num;
+    }
+
+}
+</code></pre>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> The time complexity should not be lesser, it’s O(row * col).</p>
+<p><strong>Space:</strong> Only constant extra space is used, except the two temp array, thus space complexity is O(row), whic could be turned to O(min(row, col)) by choosing the fewer one, but the code will be much longer.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Array </tag>
+            
+            <tag> Space Saving </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[643 Maxium Average Subarray I]]></title>
+      <url>/2017/08/23/643-Maxium-Average-Subarray-I/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/maximum-average-subarray-i/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given an array consisting of n integers, find the contiguous subarray of given length k that has the maximum average value. And you need to output the maximum average value.</p>
+<p><strong>example:</strong></p>
+<p><strong>Input:</strong> [1,12,-5,-6,50,3], k = 4</p>
+<p><strong>Output:</strong> 12.75</p>
+<p><strong>Explanation:</strong> Maximum average is (12-5-6+50)/4 = 51/4 = 12.75</p>
+</blockquote>
+<h2 id="Solution-1-Cumulative-Array"><a href="#Solution-1-Cumulative-Array" class="headerlink" title="Solution 1 Cumulative Array"></a>Solution 1 Cumulative Array</h2><p>Since it’s a contiguous array comparasion, we can first find the sum array, then deduce accordingly to easily find those sums.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMaxAverage</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++ )&#123;</div><div class="line">            nums[i]+=nums[i-<span class="number">1</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> max = nums[k-<span class="number">1</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length-k; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(nums[i+k] - nums[i] &gt; max)</div><div class="line">                max = nums[i+k] - nums[i];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">double</span>)max/k;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong>  Only O(n) because we scanned the array two times.</p>
+<p><strong>Space:</strong> O(1), if we use the orginal array to store the <strong>cumulative array</strong>.<br>Otherwise, it should be O(n).</p>
+<h2 id="Solution-2-Window-Scan"><a href="#Solution-2-Window-Scan" class="headerlink" title="Solution 2 Window Scan"></a>Solution 2 Window Scan</h2><p>If we know one continous sum, we can easily find out the next by adding the next number and deducting the head number.</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMaxAverage</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> maxS = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; k; i++)&#123;</div><div class="line">            maxS+=nums[i];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> current = maxS;</div><div class="line">        <span class="keyword">int</span> head = <span class="number">0</span>, tail = k-<span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span>(tail &lt; nums.length-<span class="number">1</span>)&#123;</div><div class="line">            current = current+nums[tail+<span class="number">1</span>]-nums[head];</div><div class="line">            maxS = Math.max(maxS, current);</div><div class="line">            head++;</div><div class="line">            tail++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">double</span>)maxS/k;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Since only scan once, the time complexity is o(n).</p>
+<p><strong>Space:</strong> Constant extra space is used, thus space complexity is O(1).</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Array </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[628 Maximum Product of Three Numbers]]></title>
+      <url>/2017/08/22/628-Maximum-Product-of-Three-Numbers/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/task-scheduler/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given an integer array, find three numbers whose product is maximum and output the maximum product.</p>
+<p><strong>Example:</strong></p>
+<p><strong>Input:</strong> [1,2,3]<br><strong>Output:</strong> 6</p>
+</blockquote>
+<h2 id="Solution-1-Sort"><a href="#Solution-1-Sort" class="headerlink" title="Solution 1 Sort"></a>Solution 1 Sort</h2><p>There are only 3 possible largest comnination, 2 smallest negative + 1 largest positive, or 3 largest positive, or 3 smallest negative. Thus, sorting first, then it is a very straightforward problem.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumProduct</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        Arrays.sort(nums);</div><div class="line">        <span class="keyword">int</span> l = nums.length;</div><div class="line">        <span class="keyword">int</span> a = nums[<span class="number">0</span>], b = nums[<span class="number">1</span>], c= nums[<span class="number">2</span>],</div><div class="line">            d = nums[l-<span class="number">1</span>], e = nums[l-<span class="number">2</span>], f = nums[l-<span class="number">3</span>];</div><div class="line">        <span class="keyword">return</span> Math.max(a*b*c, Math.max(a*b*d, d*e*f));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Since there is only one <strong>sort</strong> operation and some constant time operations, its time complexity is O(nlogn), where n represents the length of the array.</p>
+<p><strong>Space:</strong> Space complexity is obviously O(nlogn), since only <strong>sorting</strong> cost extra space.</p>
+<p><hr></p>
+<h5 id="P-S"><a href="#P-S" class="headerlink" title="P.S."></a>P.S.</h5><p>Since we only have to find those 5 numbers, we can at most scan the array one time to get them, in this way, we get an O(n) time and O(1) Extra Space solution.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Array </tag>
+            
+            <tag> Math </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[621 Task Scheduler]]></title>
+      <url>/2017/08/22/621-Task-Scheduler/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/task-scheduler/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each task could be done in one interval. For each interval, CPU could finish one task or just be idle.</p>
+<p>However, there is a non-negative cooling interval n that means between two same tasks, there must be at least n intervals that CPU are doing different tasks or just be idle.</p>
+<p>You need to return the least number of intervals the CPU will take to finish all the given tasks.</p>
+<p><strong>example:</strong></p>
+<p><strong>Input</strong> : tasks = [‘A’,’A’,’A’,’B’,’B’,’B’], n = 2</p>
+<p><strong>Output</strong> : 8</p>
+<p><strong>Explanation</strong> : A -&gt; B -&gt; idle -&gt; A -&gt; B -&gt; idle -&gt; A -&gt; B.</p>
+</blockquote>
+<h2 id="Solution-1-Max-Heap"><a href="#Solution-1-Max-Heap" class="headerlink" title="Solution 1 Max-Heap"></a>Solution 1 Max-Heap</h2><p>Since what a charcter is does not affect the result, we only have to ocnsider their counts. Following is an intutional solution, we arrange the largest first, which is to be verify. But it works. So we need a max-heap – a fast way to find the largest.</p>
+<h3 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h3><p>Store the number of each charaters in a <strong>Max-Heap</strong></p>
+<h3 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h3><p>Loop. One loop contains n steps, each step remove one current largest, if it is still not totally removed, add it to a <strong>temp</strong> ArrayList. If the <strong>queue</strong> is empty before n steps, then add<br>idle time interval accordingly. Afterwards, put all elements in the <strong>temp</strong> array to the <strong>queue</strong> again.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">leastInterval</span><span class="params">(<span class="keyword">char</span>[] tasks, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> tasks.length;</div><div class="line">        <span class="keyword">int</span>[] map = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</div><div class="line">        <span class="keyword">int</span> time = <span class="number">0</span>, i=<span class="number">0</span>;</div><div class="line">        PriorityQueue &lt; Integer &gt; queue = <span class="keyword">new</span> PriorityQueue &lt; Integer &gt; (<span class="number">26</span>, Collections.reverseOrder());</div><div class="line">        <span class="keyword">int</span> intervals=<span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c : tasks)</div><div class="line">            map[(<span class="keyword">int</span>)(c-<span class="string">'A'</span>)]++;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : map)&#123;</div><div class="line">            <span class="keyword">if</span>(x &gt; <span class="number">0</span>)</div><div class="line">                queue.add(x);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(queue.size()&gt;<span class="number">0</span>)&#123;</div><div class="line">            i=<span class="number">0</span>;</div><div class="line">            List&lt;Integer&gt; temp = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">            <span class="keyword">while</span>(i &lt;= n)&#123;</div><div class="line">                <span class="keyword">if</span>(queue.peek()&gt;<span class="number">1</span>)</div><div class="line">                    temp.add(queue.poll()-<span class="number">1</span>);</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    queue.poll();</div><div class="line">                time++;</div><div class="line">                i++;</div><div class="line">                <span class="keyword">if</span>(queue.size()==<span class="number">0</span>)&#123;</div><div class="line">                    <span class="keyword">if</span>(temp.size()!=<span class="number">0</span>)&#123;</div><div class="line">                        time+=n-i+<span class="number">1</span>;</div><div class="line">                        <span class="keyword">break</span>;   </div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">else</span>&#123;</div><div class="line">                        <span class="keyword">return</span> time;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> x: temp)</div><div class="line">                queue.add(x);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> time;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Since the size of queue is limited under 26, time complexity only depend on <strong>n</strong> linearly, thus, time complexity is O(n).</p>
+<p><strong>Space:</strong> Space complexity is obviously O(1), because there are at most 26 kinds of characters.</p>
+<h2 id="Solution-2-Counting-Idle-Time"><a href="#Solution-2-Counting-Idle-Time" class="headerlink" title="Solution 2 Counting Idle Time"></a>Solution 2 Counting Idle Time</h2><p>This method first count the minium idle time, then calculate out the result.</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">leastInterval</span><span class="params">(<span class="keyword">char</span>[] tasks, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span>[] map = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c: tasks)</div><div class="line">            map[c - <span class="string">'A'</span>]++;</div><div class="line">        Arrays.sort(map);</div><div class="line">        <span class="keyword">int</span> max_val = map[<span class="number">25</span>] - <span class="number">1</span>, idle_slots = max_val * n;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">24</span>; i &gt;= <span class="number">0</span> &amp;&amp; map[i] &gt; <span class="number">0</span>; i--) &#123;</div><div class="line">            idle_slots -= Math.min(map[i], max_val);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> idle_slots &gt; <span class="number">0</span> ? idle_slots + tasks.length : tasks.length;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n). It is obvious.</p>
+<p><strong>Spaece:</strong> O(1). Also obvious.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Array </tag>
+            
+            <tag> Queue </tag>
+            
+            <tag> Greedy </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[My Blog Starts Here]]></title>
+      <url>/2017/08/22/New-Article/</url>
+      <content type="html"><![CDATA[<p>Hi, this is a blog about coding, recoding my learning journey from 2017 summer.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> life </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> general </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+</search>
