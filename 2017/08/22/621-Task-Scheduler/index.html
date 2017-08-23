@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="QuestionGiven a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each task">
+<meta name="description" content="Question Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each tas">
 <meta name="keywords" content="Array,Queue,Greedy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="621 Task Scheduler">
 <meta property="og:url" content="http://wenjiezhang.com/2017/08/22/621-Task-Scheduler/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="QuestionGiven a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each task">
+<meta property="og:description" content="Question Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each tas">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-23T06:15:01.136Z">
+<meta property="og:updated_time" content="2017-08-23T18:08:50.948Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="621 Task Scheduler">
-<meta name="twitter:description" content="QuestionGiven a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each task">
+<meta name="twitter:description" content="Question Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each tas">
 
 
 
@@ -357,13 +357,15 @@
       
 
       
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/task-scheduler/description/" target="_blank" rel="external">Question</a></h1><p>Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each task could be done in one interval. For each interval, CPU could finish one task or just be idle.</p>
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/task-scheduler/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each task could be done in one interval. For each interval, CPU could finish one task or just be idle.</p>
 <p>However, there is a non-negative cooling interval n that means between two same tasks, there must be at least n intervals that CPU are doing different tasks or just be idle.</p>
 <p>You need to return the least number of intervals the CPU will take to finish all the given tasks.</p>
-<p> <strong>example:</strong></p>
+<p><strong>example:</strong></p>
 <p><strong>Input</strong> : tasks = [‘A’,’A’,’A’,’B’,’B’,’B’], n = 2</p>
 <p><strong>Output</strong> : 8</p>
 <p><strong>Explanation</strong> : A -&gt; B -&gt; idle -&gt; A -&gt; B -&gt; idle -&gt; A -&gt; B.</p>
+</blockquote>
 <h2 id="Solution-1-Max-Heap"><a href="#Solution-1-Max-Heap" class="headerlink" title="Solution 1 Max-Heap"></a>Solution 1 Max-Heap</h2><p>Since what a charcter is does not affect the result, we only have to ocnsider their counts. Following is an intutional solution, we arrange the largest first, which is to be verify. But it works. So we need a max-heap – a fast way to find the largest.</p>
 <h3 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h3><p>Store the number of each charaters in a <strong>Max-Heap</strong></p>
 <h3 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h3><p>Loop. One loop contains n steps, each step remove one current largest, if it is still not totally removed, add it to a <strong>temp</strong> ArrayList. If the <strong>queue</strong> is empty before n steps, then add<br>idle time interval accordingly. Afterwards, put all elements in the <strong>temp</strong> array to the <strong>queue</strong> again.</p>
@@ -497,7 +499,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -519,7 +521,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

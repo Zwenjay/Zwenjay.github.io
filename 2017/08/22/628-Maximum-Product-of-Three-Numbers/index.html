@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="QuestionGiven an integer array, find three numbers whose product is maximum and output the maximum product. Example: Input: [1,2,3]Output: 6 Solution 1 SortThere are only 3 possible largest comninatio">
+<meta name="description" content="Question Given an integer array, find three numbers whose product is maximum and output the maximum product. Example: Input: [1,2,3]Output: 6  Solution 1 SortThere are only 3 possible largest comninat">
 <meta name="keywords" content="Array,Math">
 <meta property="og:type" content="article">
 <meta property="og:title" content="628 Maximum Product of Three Numbers">
 <meta property="og:url" content="http://wenjiezhang.com/2017/08/22/628-Maximum-Product-of-Three-Numbers/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="QuestionGiven an integer array, find three numbers whose product is maximum and output the maximum product. Example: Input: [1,2,3]Output: 6 Solution 1 SortThere are only 3 possible largest comninatio">
+<meta property="og:description" content="Question Given an integer array, find three numbers whose product is maximum and output the maximum product. Example: Input: [1,2,3]Output: 6  Solution 1 SortThere are only 3 possible largest comninat">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-23T06:13:23.750Z">
+<meta property="og:updated_time" content="2017-08-23T18:08:15.497Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="628 Maximum Product of Three Numbers">
-<meta name="twitter:description" content="QuestionGiven an integer array, find three numbers whose product is maximum and output the maximum product. Example: Input: [1,2,3]Output: 6 Solution 1 SortThere are only 3 possible largest comninatio">
+<meta name="twitter:description" content="Question Given an integer array, find three numbers whose product is maximum and output the maximum product. Example: Input: [1,2,3]Output: 6  Solution 1 SortThere are only 3 possible largest comninat">
 
 
 
@@ -357,9 +357,11 @@
       
 
       
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/task-scheduler/description/" target="_blank" rel="external">Question</a></h1><p>Given an integer array, find three numbers whose product is maximum and output the maximum product.</p>
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/task-scheduler/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given an integer array, find three numbers whose product is maximum and output the maximum product.</p>
 <p><strong>Example:</strong></p>
 <p><strong>Input:</strong> [1,2,3]<br><strong>Output:</strong> 6</p>
+</blockquote>
 <h2 id="Solution-1-Sort"><a href="#Solution-1-Sort" class="headerlink" title="Solution 1 Sort"></a>Solution 1 Sort</h2><p>There are only 3 possible largest comnination, 2 smallest negative + 1 largest positive, or 3 largest positive, or 3 smallest negative. Thus, sorting first, then it is a very straightforward problem.</p>
 <h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumProduct</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        Arrays.sort(nums);</div><div class="line">        <span class="keyword">int</span> l = nums.length;</div><div class="line">        <span class="keyword">int</span> a = nums[<span class="number">0</span>], b = nums[<span class="number">1</span>], c= nums[<span class="number">2</span>],</div><div class="line">            d = nums[l-<span class="number">1</span>], e = nums[l-<span class="number">2</span>], f = nums[l-<span class="number">3</span>];</div><div class="line">        <span class="keyword">return</span> Math.max(a*b*c, Math.max(a*b*d, d*e*f));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Since there is only one <strong>sort</strong> operation and some constant tiem operations, its time complexity is O(nlogn), where n represents the length of the array.</p>
@@ -487,7 +489,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -509,7 +511,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
