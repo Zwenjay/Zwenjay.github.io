@@ -371,7 +371,7 @@
 <p>For the point (0,1), (1,0), (1,2), (2,1): floor(5/6) = floor(0.83333333) = 0</p>
 <p>For the point (1,1): floor(8/9) = floor(0.88888889) = 0</p>
 </blockquote>
-<h2 id="Solution-1-Temp-Array-to-Save-Space"><a href="#Solution-1-Temp-Array-to-Save-Space" class="headerlink" title="Solution 1 Temp Array to Save Space"></a>Solution 1 Temp Array to Save Space</h2><p>As I see the problem, I know that time complexity will not be less than O(row<em>col). Thus, I try to find a way to save space, which shold have been O(row</em>col), too. </p>
+<h2 id="Solution-1-Temp-Array-to-Save-Space"><a href="#Solution-1-Temp-Array-to-Save-Space" class="headerlink" title="Solution 1 Temp Array to Save Space"></a>Solution 1 Temp Array to Save Space</h2><p>As I see the problem, I know that time complexity will not be less than O(row * col). Thus, I try to find a way to save space, which shold have been O(row * col), too. </p>
 <p>In this solution, I used two temp arraies, <em>temp1</em> and <em>temp2</em>, see the code below.</p>
 <h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><pre><code class="java">
 <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{
@@ -413,7 +413,7 @@
 
 }
 </code></pre>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> The time complexity should not be lesser, it’s O(row*col).</p>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> The time complexity should not be lesser, it’s O(row * col).</p>
 <p><strong>Space:</strong> Only constant extra space is used, except the two temp array, thus space complexity is O(row), whic could be turned to O(min(row, col)) by choosing the fewer one, but the code will be much longer.</p>
 
           
