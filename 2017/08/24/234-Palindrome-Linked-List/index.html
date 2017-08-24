@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linked List," />
+  <meta name="keywords" content="Linked List,Two Pointers," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Question Reverse a singly linked list.  Solution 1 Easy solutionToo easy to explain. Code12345678910111213class Solution &amp;#123;    public ListNode reverseList(ListNode head) &amp;#123;        ListNode cur">
-<meta name="keywords" content="Linked List">
+<meta name="description" content="Question Given a singly linked list, determine if it is a palindrome.  Solution 1 Reverse HalfI reversed the latter half, and compare. Code1234567891011121314151617181920212223242526272829class Soluti">
+<meta name="keywords" content="Linked List,Two Pointers">
 <meta property="og:type" content="article">
-<meta property="og:title" content="206 Reverse Linked List">
-<meta property="og:url" content="http://wenjiezhang.com/2017/08/24/206-Reverse-Linked-List/index.html">
+<meta property="og:title" content="234 Palindrome Linked List">
+<meta property="og:url" content="http://wenjiezhang.com/2017/08/24/234-Palindrome-Linked-List/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="Question Reverse a singly linked list.  Solution 1 Easy solutionToo easy to explain. Code12345678910111213class Solution &amp;#123;    public ListNode reverseList(ListNode head) &amp;#123;        ListNode cur">
+<meta property="og:description" content="Question Given a singly linked list, determine if it is a palindrome.  Solution 1 Reverse HalfI reversed the latter half, and compare. Code1234567891011121314151617181920212223242526272829class Soluti">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-24T21:21:35.797Z">
+<meta property="og:updated_time" content="2017-08-24T21:41:07.827Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="206 Reverse Linked List">
-<meta name="twitter:description" content="Question Reverse a singly linked list.  Solution 1 Easy solutionToo easy to explain. Code12345678910111213class Solution &amp;#123;    public ListNode reverseList(ListNode head) &amp;#123;        ListNode cur">
+<meta name="twitter:title" content="234 Palindrome Linked List">
+<meta name="twitter:description" content="Question Given a singly linked list, determine if it is a palindrome.  Solution 1 Reverse HalfI reversed the latter half, and compare. Code1234567891011121314151617181920212223242526272829class Soluti">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/2017/08/24/206-Reverse-Linked-List/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/08/24/234-Palindrome-Linked-List/"/>
 
 
 
 
 
-  <title>206 Reverse Linked List | Coding Zone</title>
+  <title>234 Palindrome Linked List | Coding Zone</title>
   
 
 
@@ -302,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/206-Reverse-Linked-List/">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/234-Palindrome-Linked-List/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wenjie Zhang">
@@ -319,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">206 Reverse Linked List</h1>
+          <h1 class="post-title" itemprop="name headline">234 Palindrome Linked List</h1>
         
 
         <div class="post-meta">
@@ -331,7 +331,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T14:13:40-07:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T14:38:44-07:00">
                 2017-08-24
               </time>
             
@@ -391,11 +391,11 @@
       
 
       
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/reverse-linked-list/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Reverse a singly linked list.</p>
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/palindrome-linked-list/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a singly linked list, determine if it is a palindrome.</p>
 </blockquote>
-<h2 id="Solution-1-Easy-solution"><a href="#Solution-1-Easy-solution" class="headerlink" title="Solution 1 Easy solution"></a>Solution 1 Easy solution</h2><p>Too easy to explain.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        ListNode cur = head, last=<span class="keyword">null</span>, temp;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            temp = cur.next;</div><div class="line">            cur.next = last;</div><div class="line">            last = cur;</div><div class="line">            cur = temp;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> last;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Solution-1-Reverse-Half"><a href="#Solution-1-Reverse-Half" class="headerlink" title="Solution 1 Reverse Half"></a>Solution 1 Reverse Half</h2><p>I reversed the latter half, and compare.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPalindrome</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        ListNode fast = head, slow = head;</div><div class="line">        <span class="keyword">while</span>(fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>)&#123;</div><div class="line">            slow = slow.next;</div><div class="line">            fast = fast.next.next;</div><div class="line">        &#125;</div><div class="line">        slow=reverseList(slow);</div><div class="line">        fast = head;</div><div class="line">        <span class="keyword">while</span>(slow != <span class="keyword">null</span> &amp;&amp; fast !=<span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(slow.val != fast.val)</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            slow = slow.next;</div><div class="line">            fast =fast.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode p)</span></span>&#123;</div><div class="line">        ListNode last = <span class="keyword">null</span>, cur = p, temp;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            temp = cur.next;</div><div class="line">            cur.next = last;</div><div class="line">            last = cur;</div><div class="line">            cur = temp;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> last;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Obviously, O(n).</p>
 <p><strong>Space:</strong> Obviously, O(1).</p>
 
@@ -417,6 +417,8 @@
           
             <a href="/tags/Linked-List/" rel="tag"># Linked List</a>
           
+            <a href="/tags/Two-Pointers/" rel="tag"># Two Pointers</a>
+          
         </div>
       
 
@@ -428,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/24/203-Removed-Linked-List-Elements/" rel="next" title="203 Removed Linked List Elements">
-                <i class="fa fa-chevron-left"></i> 203 Removed Linked List Elements
+              <a href="/2017/08/24/206-Reverse-Linked-List/" rel="next" title="206 Reverse Linked List">
+                <i class="fa fa-chevron-left"></i> 206 Reverse Linked List
               </a>
             
           </div>
@@ -437,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/24/234-Palindrome-Linked-List/" rel="prev" title="234 Palindrome Linked List">
-                234 Palindrome Linked List <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -576,7 +574,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Easy-solution"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Easy solution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Reverse-Half"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Reverse Half</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
