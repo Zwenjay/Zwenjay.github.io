@@ -16,7 +16,7 @@
     <url>%2F2017%2F08%2F24%2F203-Removed-Linked-List-Elements%2F</url>
     <content type="text"><![CDATA[Question Remove all elements from a linked list of integers that have value val. Example Given: 1 –&gt; 2 –&gt; 6 –&gt; 3 –&gt; 4 –&gt; 5 –&gt; 6, val = 6 Return: 1 –&gt; 2 –&gt; 3 –&gt; 4 –&gt; 5 Solution 1 Easy Problem, Easy SolutionNo explanation. Code:123456789101112131415161718class Solution &#123; public ListNode removeElements(ListNode head, int val) &#123; ListNode dumpy = new ListNode(0); dumpy.next = head; ListNode p = dumpy; ListNode q; while(p != null &amp;&amp; p.next != null)&#123; q = p; while(p.next!=null &amp;&amp; p.next.val == val) p=p.next; q.next=p.next; p=p.next; &#125; return dumpy.next; &#125;&#125; T&amp;S AnalysisTime: Obviously, O(n). Space: Obviously, O(1).]]></content>
       <categories>
-        <category>ALgorithm</category>
+        <category>Algorithm</category>
       </categories>
       <tags>
         <tag>Linked List</tag>
