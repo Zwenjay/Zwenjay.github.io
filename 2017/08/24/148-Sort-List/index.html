@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Linked List,Sort," />
 
 
 
@@ -94,17 +94,18 @@
 
 
 
-<meta name="description" content="I like codding, coding makes me happy.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="category">
-<meta property="og:url" content="http://wenjiezhang.com/categories/index.html">
+<meta name="description" content="Question Sort a linked list in O(n log n) time using constant space complexity.  Solution 1 Bottom to TopSince we could only use O(1) extra space, recursive method will not be acceptable. Thus, there">
+<meta name="keywords" content="Linked List,Sort">
+<meta property="og:type" content="article">
+<meta property="og:title" content="148 Sort List">
+<meta property="og:url" content="http://wenjiezhang.com/2017/08/24/148-Sort-List/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="I like codding, coding makes me happy.">
+<meta property="og:description" content="Question Sort a linked list in O(n log n) time using constant space complexity.  Solution 1 Bottom to TopSince we could only use O(1) extra space, recursive method will not be acceptable. Thus, there">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-23T04:12:20.567Z">
+<meta property="og:updated_time" content="2017-08-24T20:18:55.122Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="category">
-<meta name="twitter:description" content="I like codding, coding makes me happy.">
+<meta name="twitter:title" content="148 Sort List">
+<meta name="twitter:description" content="Question Sort a linked list in O(n log n) time using constant space complexity.  Solution 1 Bottom to TopSince we could only use O(1) extra space, recursive method will not be acceptable. Thus, there">
 
 
 
@@ -134,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/categories/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/08/24/148-Sort-List/"/>
 
 
 
 
 
-  <title>category | Coding Zone</title>
+  <title>148 Sort List | Coding Zone</title>
   
 
 
@@ -289,40 +290,175 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/148-Sort-List/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">category</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="category-all-page">
-            <div class="category-all-title">
-                2 categories in total
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li></ul>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">148 Sort List</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T13:12:52-07:00">
+                2017-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/reorder-list/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Sort a linked list in O(n log n) time using constant space complexity.</p>
+</blockquote>
+<h2 id="Solution-1-Bottom-to-Top"><a href="#Solution-1-Bottom-to-Top" class="headerlink" title="Solution 1 Bottom to Top"></a>Solution 1 Bottom to Top</h2><p>Since we could only use O(1) extra space, recursive method will not be acceptable. Thus, there is a <strong>Bottom-to-Top</strong> solution.</p>
+<p>Its idea is same as <strong>merge sort</strong>, just it’s not recursive, it is not easy to explain in detail, but the code is below. We need to be careful of boundary problems.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">sortList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> length = <span class="number">0</span>;</div><div class="line">        ListNode left, right, tail, cur;</div><div class="line">        ListNode dumy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">        dumy.next = head;</div><div class="line">        cur = dumy.next;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            length++;</div><div class="line">            cur = cur.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> step = <span class="number">1</span>; step &lt; length; step&lt;&lt;=<span class="number">1</span>)&#123;</div><div class="line">            cur = dumy.next;</div><div class="line">            tail = dumy;</div><div class="line">            <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">                left = cur;</div><div class="line">                right = seperate(left, step);</div><div class="line">                cur = seperate(right, step);</div><div class="line">                tail = merge(left, right, tail);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dumy.next;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="comment">// seperate the list from the "step" point</span></div><div class="line">    <span class="function"><span class="keyword">private</span> ListNode <span class="title">seperate</span><span class="params">(ListNode head, <span class="keyword">int</span> step)</span></span>&#123;</div><div class="line">        ListNode p;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; head != <span class="keyword">null</span> &amp;&amp; i &lt; step; i++)</div><div class="line">            head = head.next;</div><div class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        p = head.next;</div><div class="line">        head.next = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">return</span> p;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="comment">// merge two list, add to the "head" and return its tail</span></div><div class="line">    <span class="function"><span class="keyword">private</span> ListNode <span class="title">merge</span><span class="params">(ListNode l1, ListNode l2, ListNode head)</span></span>&#123;</div><div class="line">        ListNode p = head;</div><div class="line">        <span class="keyword">while</span>( l1 != <span class="keyword">null</span> &amp;&amp; l2 != <span class="keyword">null</span> )&#123;</div><div class="line">            <span class="keyword">if</span>(l1.val &lt;= l2.val)&#123;</div><div class="line">                p.next = l1;</div><div class="line">                l1 = l1.next;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                p.next = l2;</div><div class="line">                l2 = l2.next;</div><div class="line">            &#125;</div><div class="line">            p = p.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(l1 == <span class="keyword">null</span>)&#123;</div><div class="line">            p.next = l2;</div><div class="line">            <span class="keyword">while</span>(l2.next != <span class="keyword">null</span>)</div><div class="line">                l2 = l2.next;</div><div class="line">            <span class="keyword">return</span> l2;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            p.next = l1;</div><div class="line">            <span class="keyword">while</span>(l1.next != <span class="keyword">null</span>)</div><div class="line">                l1 = l1.next;</div><div class="line">            <span class="keyword">return</span> l1;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Obviously, as the problem required, it’s O(nlogn).</p>
+<p><strong>Space:</strong> It’s O(1) for not using recursion.</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linked-List/" rel="tag"># Linked List</a>
+          
+            <a href="/tags/Sort/" rel="tag"># Sort</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/24/143-Reorder-List/" rel="next" title="143 Reorder List">
+                <i class="fa fa-chevron-left"></i> 143 Reorder List
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -357,8 +493,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg"
@@ -420,6 +565,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Bottom-to-Top"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Bottom to Top</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -543,10 +704,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 

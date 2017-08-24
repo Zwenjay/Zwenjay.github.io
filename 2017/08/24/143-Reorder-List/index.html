@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="QuestionGiven a singly linked list L: L0?L1?…?Ln-1?Ln, reorder it to: L0?Ln?L1?Ln-1?L2?Ln-2?… You must do this in-place without altering the nodes’ values. For example, Given {1,2,3,4}, reorder it to">
+<meta name="description" content="Question Given a singly linked list L: L0?L1?…?Ln-1?Ln, reorder it to: L0?Ln?L1?Ln-1?L2?Ln-2?… You must do this in-place without altering the nodes’ values. For example, Given {1,2,3,4}, reorder it to">
 <meta name="keywords" content="Linked List">
 <meta property="og:type" content="article">
 <meta property="og:title" content="143 Reorder List">
 <meta property="og:url" content="http://wenjiezhang.com/2017/08/24/143-Reorder-List/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="QuestionGiven a singly linked list L: L0?L1?…?Ln-1?Ln, reorder it to: L0?Ln?L1?Ln-1?L2?Ln-2?… You must do this in-place without altering the nodes’ values. For example, Given {1,2,3,4}, reorder it to">
+<meta property="og:description" content="Question Given a singly linked list L: L0?L1?…?Ln-1?Ln, reorder it to: L0?Ln?L1?Ln-1?L2?Ln-2?… You must do this in-place without altering the nodes’ values. For example, Given {1,2,3,4}, reorder it to">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-24T19:19:27.764Z">
+<meta property="og:updated_time" content="2017-08-24T19:49:11.905Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="143 Reorder List">
-<meta name="twitter:description" content="QuestionGiven a singly linked list L: L0?L1?…?Ln-1?Ln, reorder it to: L0?Ln?L1?Ln-1?L2?Ln-2?… You must do this in-place without altering the nodes’ values. For example, Given {1,2,3,4}, reorder it to">
+<meta name="twitter:description" content="Question Given a singly linked list L: L0?L1?…?Ln-1?Ln, reorder it to: L0?Ln?L1?Ln-1?L2?Ln-2?… You must do this in-place without altering the nodes’ values. For example, Given {1,2,3,4}, reorder it to">
 
 
 
@@ -391,11 +391,13 @@
       
 
       
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/reorder-list/description/" target="_blank" rel="external">Question</a></h1><p>Given a singly linked list L: L<sub>0</sub>?L<sub>1</sub>?…?L<sub>n-1</sub>?L<sub>n</sub>,</p>
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/reorder-list/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a singly linked list L: L<sub>0</sub>?L<sub>1</sub>?…?L<sub>n-1</sub>?L<sub>n</sub>,</p>
 <p>reorder it to: L<sub>0</sub>?L<sub>n</sub>?L<sub>1</sub>?L<sub>n-1</sub>?L<sub>2</sub>?<sub>Ln-2</sub>?…</p>
 <p>You must do this in-place without altering the nodes’ values.</p>
 <p>For example,</p>
 <p>Given {1,2,3,4}, reorder it to {1,4,2,3}.</p>
+</blockquote>
 <h2 id="Solution-1-Seperate-Reverse-and-Merge"><a href="#Solution-1-Seperate-Reverse-and-Merge" class="headerlink" title="Solution 1 Seperate, Reverse and Merge"></a>Solution 1 Seperate, Reverse and Merge</h2><p>This solution might seem complicated, but it is in fact fast and require only constant extra space.</p>
 <p>First, <strong>SEPERATE</strong> the list into two parts at its middle point. If its length is odd, then the former one should be longer.</p>
 <p>Second, <strong>REVERSE</strong> the latter part using the function <em>reverseList</em>.</p>
@@ -442,6 +444,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/24/148-Sort-List/" rel="prev" title="148 Sort List">
+                148 Sort List <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -520,7 +526,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -542,7 +548,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
