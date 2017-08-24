@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[328 Odd Even Linked List]]></title>
+    <url>%2F2017%2F08%2F24%2F328-Odd-Even-Linked-List%2F</url>
+    <content type="text"><![CDATA[Question Given a singly linked list, group all odd nodes together followed by the even nodes. Please note here we are talking about the node number and not the value in the nodes. You should try to do it in place. The program should run in O(1) space complexity and O(nodes) time complexity. Example: Given 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, return 1-&gt;3-&gt;5-&gt;2-&gt;4-&gt;NULL. Note: The relative order inside both the even and odd groups should remain as it was in the input. The first node is considered odd, the second node even and so on … Solution 1 Pointers TrackingI use three pointers to track the list, and add to the tail according. 1234567891011121314151617181920212223242526272829303132333435363738394041class Solution &#123; public ListNode oddEvenList(ListNode head) &#123; if(head == null) return null; ListNode headOdd = new ListNode(0), headEven = new ListNode(0), curOdd = headOdd, curEven = headEven, cur=new ListNode(0), dumpy = cur; cur.next = head; boolean isOdd = false; while(cur != null)&#123; isOdd = !isOdd; cur = cur.next; if(isOdd)&#123; curOdd.next = cur; curOdd = curOdd.next; &#125;else&#123; curEven.next = cur; curEven = curEven.next; &#125; &#125; cur = dumpy; curEven = headEven.next; curOdd = headOdd.next; while(curOdd != null)&#123; cur.next = curOdd; cur = cur.next; curOdd = curOdd.next; &#125; while(curEven != null)&#123; cur.next = curEven; cur = cur.next; curEven = curEven.next; &#125; return dumpy.next; &#125; &#125; T&amp;S AnalysisTime: I sanned the list for constant, so time complexity is O(n). Space: Obviously, O(1).]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Linked List</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[237 Delete Node in a Linked List]]></title>
+    <url>%2F2017%2F08%2F24%2F237-Delete-Node-in-a-Linked-List%2F</url>
+    <content type="text"><![CDATA[Question Write a function to delete a node (except the tail) in a singly linked list, given only access to that node. Supposed the linked list is 1 -&gt; 2 -&gt; 3 -&gt; 4 and you are given the third node with value 3, the linked list should become 1 -&gt; 2 -&gt; 4 after calling your function. Solution 1 Easy SolutionCode1234567class Solution &#123; public void deleteNode(ListNode node) &#123; node.val = node.next.val; node.next = node.next.next; &#125;&#125; T&amp;S AnalysisTime: Obviously, O(1). Space: Obviously, O(1).]]></content>
+      <categories>
+        <category>ALgorithm</category>
+      </categories>
+      <tags>
+        <tag>Linked List</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[234 Palindrome Linked List]]></title>
     <url>%2F2017%2F08%2F24%2F234-Palindrome-Linked-List%2F</url>
     <content type="text"><![CDATA[Question Given a singly linked list, determine if it is a palindrome. Solution 1 Reverse HalfI reversed the latter half, and compare. Code1234567891011121314151617181920212223242526272829class Solution &#123; public boolean isPalindrome(ListNode head) &#123; ListNode fast = head, slow = head; while(fast != null &amp;&amp; fast.next != null)&#123; slow = slow.next; fast = fast.next.next; &#125; slow=reverseList(slow); fast = head; while(slow != null &amp;&amp; fast !=null)&#123; if(slow.val != fast.val) return false; slow = slow.next; fast =fast.next; &#125; return true; &#125; private ListNode reverseList(ListNode p)&#123; ListNode last = null, cur = p, temp; while(cur != null)&#123; temp = cur.next; cur.next = last; last = cur; cur = temp; &#125; return last; &#125;&#125; T&amp;S AnalysisTime: Obviously, O(n). Space: Obviously, O(1).]]></content>
