@@ -1,235 +1,856 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title><![CDATA[572 Subtree of Another Tree]]></title>
-    <url>%2F2017%2F08%2F25%2F572-Subtree-of-Another-Tree%2F</url>
-    <content type="text"><![CDATA[Question) Given two non-empty binary trees s and t, check whether tree t has exactly the same structure and node values with a subtree of s. A subtree of s is a tree consists of a node in s and all of this node’s descendants. The tree s could also be considered as a subtree of itself. Example 1: Given tree s: 3 / \ 4 5 / \ 1 2 Given tree t: 4 / \ 1 2 Return true, because t has the same structure and node values with a subtree of s. Example2:Given tree s: 3 / \ 4 5 / \ 1 2 / 0 Given tree t: 4 / \ 1 2 Return false. Solution 1 Recursive Find and Recursive CompareSince this problem is signed as Easy, I did not think much and use normal solutions. 1234567891011121314151617181920212223242526272829class Solution &#123; public boolean isSubtree(TreeNode s, TreeNode t) &#123; List&lt;TreeNode&gt; store = new ArrayList&lt;TreeNode&gt;(); findSameRoot(s, t.val, store); for(TreeNode x: store)&#123; if(sameTree(x, t)) return true; &#125; return false; &#125; private boolean sameTree(TreeNode x, TreeNode t)&#123; if(x == null &amp;&amp; t == null) return true; if((x == null &amp;&amp; t !=null) || (x != null &amp;&amp; t == null)) return false; return (x.val == t.val) &amp;&amp; (sameTree(x.left, t.left)) &amp;&amp; (sameTree(x.right, t.right)); &#125; private void findSameRoot(TreeNode s, int v, List&lt;TreeNode&gt; store)&#123; if(s == null) return; if(s.val == v) store.add(s); findSameRoot(s.left, v, store); findSameRoot(s.right, v, store); &#125;&#125; T&amp;S AnalysisTime: Time complexity is large, it is O( n(s)*n(t) ) in the worst case, but I think in most case, there is not much same root, maybe one or two, so generally it is O(n(s)+n(t)). Space: Recursion is used, thus as calculated it should be O(n(s)). Solution 2 MorrisInorderThis is a beautiful solution to test morrisInorder. Code12345678910111213141516171819202122232425262728293031323334353637class Solution &#123; public boolean isSubtree(TreeNode s, TreeNode t) &#123; return morrisInorder(s).contains(morrisInorder(t)); &#125; private String morrisInorder(TreeNode t)&#123; String str = ""; TreeNode cur = t, temp; while(cur != null)&#123; if(cur.left == null)&#123; str+="l"; str+=cur.val; cur = cur.right; if(cur == null)&#123; System.out.println(str+"r"); return str+"r"; &#125; &#125;else&#123; temp=cur.left; while(temp.right != null &amp;&amp; temp.right !=cur) temp = temp.right; if(temp.right == null)&#123; temp.right = cur; cur = cur.left; &#125;else&#123; str+="r"; str+=cur.val; temp.right = null; cur = cur.right; &#125; &#125; &#125; System.out.println(str+"r"); return str+"r"; &#125;&#125; T&amp;S AnalysisTime: O(n)Space: O(n)]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Tree</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[513 Find Bottom Left Tree Value]]></title>
-    <url>%2F2017%2F08%2F25%2F513-Find-Bottom-Left-Tree-Value%2F</url>
-    <content type="text"><![CDATA[Question Given a binary tree, find the leftmost value in the last row of the tree. Example1: Input: 1 / \ 2 3 / / \ 4 5 6 / 7 Output: 7 Note: You may assume the tree (i.e., the given root node) is not NULL. Solution 1 BFS-LevelorderCode123456789101112131415161718192021222324class Solution &#123; public int findBottomLeftValue(TreeNode root) &#123; List&lt;TreeNode&gt; q = new ArrayList&lt;TreeNode&gt;(); List&lt;Integer&gt; temp = new ArrayList&lt;Integer&gt;(); TreeNode p; int len; q.add(root); while(q.size()&gt;0)&#123; len = q.size(); for(int i = 0; i &lt; len; i++)&#123; p = q.remove(0); if(p.left != null) q.add(p.left); if(p.right != null) q.add(p.right); temp.add(p.val); &#125; if(q.size()&gt;0) temp.clear(); &#125; return temp.get(0); &#125;&#125; T&amp;S AnalysisTime: Every node is visited once, so the time complexity is O(n). Space: One Stack is used to store at most half of the elements, thus, the space complexity is also O(n). Solution 2 DFS Solution-PreorderThis method does not requires stack or queue, first go as left as it can, record its maxLevel. Than go right step by step, once the level is more than maxLevel turn the res to that value. Code12345678910111213141516171819202122public class Solution &#123; private int maxLevel = -1; private int res = 0; public int findBottomLeftValue(TreeNode root) &#123; dfs(root, 0); return res; &#125; private void dfs(TreeNode root, int level) &#123; if(root == null) return; dfs(root.left, level+1); if(level &gt; maxLevel)&#123; maxLevel = level; res = root.val; &#125; dfs(root.right, level+1); &#125;&#125; T&amp;S AnalysisTime: Every node is visited once, so the time complexity is O(n). Space: Though it does not use apparent extra data structure, it uses recursions in the dfs function, thus its space complexity is also O(n)]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Tree</tag>
-        <tag>DFS</tag>
-        <tag>BFS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[563 Binary Tree Tilt]]></title>
-    <url>%2F2017%2F08%2F25%2F563-Binary-Tree-Tilt%2F</url>
-    <content type="text"><![CDATA[Question Given a binary tree, return the tilt of the whole tree. The tilt of a tree node is defined as the absolute difference between the sum of all left subtree node values and the sum of all right subtree node values. Null node has tilt 0. The tilt of the whole tree is defined as the sum of all nodes’ tilt. Example: Input: 1 / \ 2 3 Output: 1 Explanation: Tilt of node 2 : 0 Tilt of node 3 : 0 Tilt of node 1 : |2-3| = 1 Tilt of binary tree : 0 + 0 + 1 = 1 Note: The sum of node values in any subtree won’t exceed the range of 32-bit integer. All the tilt values won’t exceed the range of 32-bit integer. Solution 1 Brute Force – Recusion in RecusionIt is the easiest way for a coder to come up with a recusion solution, but I have to addmit that it is hard for the computer. So, mostly, I’d rather think much longer to come up with a iterative way. This time, however, I can’t find one, and even put a recusion into a recusion. Though the solution is accepted, I am still not satisfied. Code:123456789101112131415161718192021class Solution &#123; public int findTilt(TreeNode root) &#123; return getTilt(root); &#125; private int getTilt(TreeNode t)&#123; int sum = 0; if(t == null) return 0; sum += Math.abs(getSum(t.left)-getSum(t.right)); return sum + getTilt(t.left) + getTilt(t.right); &#125; private int getSum(TreeNode t)&#123; int sum = 0; if(t == null) return 0; return sum + getSum(t.left)+getSum(t.right)+t.val; &#125;&#125; T&amp;S AnalysisTime: As I calculated, the getSum() function has time complexity of O(n), and getTilt()‘s is O(nlogn). Space: As calculated, both functions’ space complexities are O(n). Solution 2 Use Global VaribleAs I see the leetcode’s official solution, there is only a method with a class-global varible, I thought it was not allowed. Code:1234567891011121314151617public class Solution &#123; int tilt=0; public int findTilt(TreeNode root) &#123; traverse(root); return tilt; &#125; public int traverse(TreeNode root) &#123; if(root==null ) return 0; int left=traverse(root.left); int right=traverse(root.right); tilt+=Math.abs(left-right); return left+right+root.val; &#125;&#125; T&amp;S AnalysisTime: In this case, the time complexity is O(n). Space: As calculated the space complexity is also O(n).]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Tree</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[144 Binary Tree Preorder Traversal]]></title>
-    <url>%2F2017%2F08%2F24%2F144-Binary-Tree-Preorder-Traversal%2F</url>
-    <content type="text"><![CDATA[Question Given a binary tree, return the preorder traversal of its nodes’ values. For example: Given binary tree {1, #, 2, 3}, 1 \ 2 / 3 Note: Recursive solution is trivial, could you do it iteratively? Solution 1 Morris Order TraverseAs I see this problem, I thought I need a Stack or Queue or something like that. But I was wrong. After I knew this solution, I was so surprised that I decided to consider this method of traversing every time I meet Tree problem. Let me explain, to make inorder with using only constant space and linear time, we need only follow these principles: When left child is null, visit the current node and set current node as itd right child. Other wise, find the pre-node of current node: if the pre-node‘s right child is null, then visit current node set its right child as current node and set current child as its left child otherwise, the pre-node‘s right child must be current node, and set pre-node‘s _right child as null to reset the original tree. Then set current node as its right child. Q: How to find ones pre-node? A: In its left subtree, find the mose right node. Code123456789101112131415161718192021222324252627282930class Solution &#123; public List&lt;Integer&gt; inorderTraversal(TreeNode root) &#123; List&lt;Integer&gt; ans = new ArrayList&lt;Integer&gt;(); morrisOrder(ans, root); return ans; &#125; private void morrisOrder(List&lt;Integer&gt; li, TreeNode t)&#123; TreeNode p; while(t != null)&#123; if(t.left == null)&#123; li.add(t.val); t=t.right; &#125;else&#123; p = t.left; while(p.right != t &amp;&amp; p.right != null) p = p.right; if(p.right == null)&#123; p.right = t; li.add(t.val); t = t.left; &#125;else&#123; p.right = null; t = t.right; &#125; &#125; &#125; &#125;&#125; T&amp;S AnalysisTime: As analysed, every node would be visted at most twice, thus time complexity is O(n); Space: This is where it’s excellent, we did not use any other space that is proportion to node numbers, nor do we used recursion, thus extra space complexity is O(1);]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Tree</tag>
-        <tag>Morris Order</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[94 Binary Tree Inorder Traversal]]></title>
-    <url>%2F2017%2F08%2F24%2F94-Binary-Tree-Inorder-Traversal%2F</url>
-    <content type="text"><![CDATA[Question Given a binary tree, return the inorder traversal of its nodes’ values. For example: Given binary tree [1,null,2,3], Note: Recursive solution is trivial, could you do it iteratively? Solution 1 Morris Order TraverseAs I see this problem, I thought I need a Stack or Queue or something like that. But I was wrong. After I knew this solution, I was so surprised that I decided to consider this method of traversing every time I meet Tree problem. Let me explain, to make inorder with using only constant space and linear time, we need only follow these principles: When left child is null, visit the current node and set current node as itd right child. Other wise, find the pre-node of current node: if the pre-node‘s right child is null, then set its right child as current node and set current child as its left child otherwise, the pre-node‘s right child must be current node, visit current node and set pre-node‘s _right child as null to reset the original tree. Then set current node as its right child. Q: How to find ones pre-node? A: In its left subtree, find the mose right node. Code123456789101112131415161718192021222324252627282930class Solution &#123; public List&lt;Integer&gt; inorderTraversal(TreeNode root) &#123; List&lt;Integer&gt; ans = new ArrayList&lt;Integer&gt;(); morrisOrder(ans, root); return ans; &#125; private void morrisOrder(List&lt;Integer&gt; li, TreeNode t)&#123; TreeNode p; while(t != null)&#123; if(t.left == null)&#123; li.add(t.val); t=t.right; &#125;else&#123; p = t.left; while(p.right != t &amp;&amp; p.right != null) p = p.right; if(p.right == null)&#123; p.right = t; t = t.left; &#125;else&#123; p.right = null; li.add(t.val); t = t.right; &#125; &#125; &#125; &#125;&#125; T&amp;S AnalysisTime: As analysed, every node would be visted at most twice, thus time complexity is O(n); Space: This is where it’s excellent, we did not use any other space that is proportion to node numbers, nor do we used recursion, thus extra space complexity is O(1);]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Tree</tag>
-        <tag>Morris Order</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[455 Add Two Numbers II]]></title>
-    <url>%2F2017%2F08%2F24%2F455-Add-Two-Numbers-II%2F</url>
-    <content type="text"><![CDATA[Question You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list. You may assume the two numbers do not contain any leading zero, except the number 0 itself. Follow up: What if you cannot modify the input lists? In other words, reversing the lists is not allowed. Example: Input: (7 -&gt; 2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)Output: 7 -&gt; 8 -&gt; 0 -&gt; 7 Solution 1 Use StackUse Stack to save time, but lose space. Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162class Solution &#123; public ListNode addTwoNumbers(ListNode l1, ListNode l2) &#123; int len1 = 0, len2 = 0; ListNode dumpy = new ListNode(0); ListNode cur1 = l1, cur2 = l2, cur = dumpy; int c = 0; Stack&lt;ListNode&gt; s = new Stack&lt;ListNode&gt;(); while(cur1 != null)&#123; len1++; cur1 = cur1.next; &#125; while(cur2 != null)&#123; len2++; cur2 = cur2.next; &#125; cur1 = l1; cur2 = l2; s.push(dumpy); if(len1 &gt;= len2)&#123; for(int i =0; i&lt; len1-len2; i++)&#123; cur.next = new ListNode(cur1.val); cur1 = cur1.next; cur = cur.next; s.push(cur); &#125; &#125;else&#123; for(int i =0; i&lt; len2-len1; i++)&#123; cur.next = new ListNode(cur2.val); cur2 = cur2.next; cur = cur.next; s.push(cur); &#125; &#125; while(cur1 != null)&#123; cur.next = new ListNode(cur1.val + cur2.val); s.push(cur.next); cur1 = cur1.next; cur2 = cur2.next; cur = cur.next; &#125; while(s.size()&gt;0)&#123; if(s.peek().val+c&gt;=10)&#123; s.pop().val+=c-10; c=1; &#125;else&#123; s.pop().val+=c; c=0; &#125; &#125; if(dumpy.val == 0) return dumpy.next; return dumpy; &#125; &#125; T&amp;S AnalysisTime: I sanned the list and Stack for constant, so time complexity is O(n). Space: Obviously, O(n), since I used the Stack.]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Link List</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[328 Odd Even Linked List]]></title>
-    <url>%2F2017%2F08%2F24%2F328-Odd-Even-Linked-List%2F</url>
-    <content type="text"><![CDATA[Question Given a singly linked list, group all odd nodes together followed by the even nodes. Please note here we are talking about the node number and not the value in the nodes. You should try to do it in place. The program should run in O(1) space complexity and O(nodes) time complexity. Example: Given 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, return 1-&gt;3-&gt;5-&gt;2-&gt;4-&gt;NULL. Note: The relative order inside both the even and odd groups should remain as it was in the input. The first node is considered odd, the second node even and so on … Solution 1 Pointers TrackingI use three pointers to track the list, and add to the tail according. 1234567891011121314151617181920212223242526272829303132333435363738394041class Solution &#123; public ListNode oddEvenList(ListNode head) &#123; if(head == null) return null; ListNode headOdd = new ListNode(0), headEven = new ListNode(0), curOdd = headOdd, curEven = headEven, cur=new ListNode(0), dumpy = cur; cur.next = head; boolean isOdd = false; while(cur != null)&#123; isOdd = !isOdd; cur = cur.next; if(isOdd)&#123; curOdd.next = cur; curOdd = curOdd.next; &#125;else&#123; curEven.next = cur; curEven = curEven.next; &#125; &#125; cur = dumpy; curEven = headEven.next; curOdd = headOdd.next; while(curOdd != null)&#123; cur.next = curOdd; cur = cur.next; curOdd = curOdd.next; &#125; while(curEven != null)&#123; cur.next = curEven; cur = cur.next; curEven = curEven.next; &#125; return dumpy.next; &#125; &#125; T&amp;S AnalysisTime: I sanned the list for constant, so time complexity is O(n). Space: Obviously, O(1).]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Linked List</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[237 Delete Node in a Linked List]]></title>
-    <url>%2F2017%2F08%2F24%2F237-Delete-Node-in-a-Linked-List%2F</url>
-    <content type="text"><![CDATA[Question Write a function to delete a node (except the tail) in a singly linked list, given only access to that node. Supposed the linked list is 1 -&gt; 2 -&gt; 3 -&gt; 4 and you are given the third node with value 3, the linked list should become 1 -&gt; 2 -&gt; 4 after calling your function. Solution 1 Easy SolutionCode1234567class Solution &#123; public void deleteNode(ListNode node) &#123; node.val = node.next.val; node.next = node.next.next; &#125;&#125; T&amp;S AnalysisTime: Obviously, O(1). Space: Obviously, O(1).]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Linked List</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[234 Palindrome Linked List]]></title>
-    <url>%2F2017%2F08%2F24%2F234-Palindrome-Linked-List%2F</url>
-    <content type="text"><![CDATA[Question Given a singly linked list, determine if it is a palindrome. Solution 1 Reverse HalfI reversed the latter half, and compare. Code1234567891011121314151617181920212223242526272829class Solution &#123; public boolean isPalindrome(ListNode head) &#123; ListNode fast = head, slow = head; while(fast != null &amp;&amp; fast.next != null)&#123; slow = slow.next; fast = fast.next.next; &#125; slow=reverseList(slow); fast = head; while(slow != null &amp;&amp; fast !=null)&#123; if(slow.val != fast.val) return false; slow = slow.next; fast =fast.next; &#125; return true; &#125; private ListNode reverseList(ListNode p)&#123; ListNode last = null, cur = p, temp; while(cur != null)&#123; temp = cur.next; cur.next = last; last = cur; cur = temp; &#125; return last; &#125;&#125; T&amp;S AnalysisTime: Obviously, O(n). Space: Obviously, O(1).]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Linked List</tag>
-        <tag>Two Pointers</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[206 Reverse Linked List]]></title>
-    <url>%2F2017%2F08%2F24%2F206-Reverse-Linked-List%2F</url>
-    <content type="text"><![CDATA[Question Reverse a singly linked list. Solution 1 Easy solutionToo easy to explain. Code12345678910111213class Solution &#123; public ListNode reverseList(ListNode head) &#123; ListNode cur = head, last=null, temp; while(cur != null)&#123; temp = cur.next; cur.next = last; last = cur; cur = temp; &#125; return last; &#125;&#125; T&amp;S AnalysisTime: Obviously, O(n). Space: Obviously, O(1).]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Linked List</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[203 Removed Linked List Elements]]></title>
-    <url>%2F2017%2F08%2F24%2F203-Removed-Linked-List-Elements%2F</url>
-    <content type="text"><![CDATA[Question Remove all elements from a linked list of integers that have value val. Example Given: 1 –&gt; 2 –&gt; 6 –&gt; 3 –&gt; 4 –&gt; 5 –&gt; 6, val = 6 Return: 1 –&gt; 2 –&gt; 3 –&gt; 4 –&gt; 5 Solution 1 Easy Problem, Easy SolutionNo explanation. Code:123456789101112131415161718class Solution &#123; public ListNode removeElements(ListNode head, int val) &#123; ListNode dumpy = new ListNode(0); dumpy.next = head; ListNode p = dumpy; ListNode q; while(p != null &amp;&amp; p.next != null)&#123; q = p; while(p.next!=null &amp;&amp; p.next.val == val) p=p.next; q.next=p.next; p=p.next; &#125; return dumpy.next; &#125;&#125; T&amp;S AnalysisTime: Obviously, O(n). Space: Obviously, O(1).]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Linked List</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[160 Intersection of Two Linked Lists]]></title>
-    <url>%2F2017%2F08%2F24%2F160-Intersection-of-Two-Linked-Lists%2F</url>
-    <content type="text"><![CDATA[Question Write a program to find the node at which the intersection of two singly linked lists begins. For example, the following two linked lists: A: a1 → a2 ↘ c1 → c2 → c3 ↗ B: b1 → b2 → b3 begin to intersect at node c1. Notes: If the two linked lists have no intersection at all, return null. The linked lists must retain their original structure after the function returns. Your code should preferably run in O(n) time and use only O(1) memory. Solution 1 Fast and Slow PointersSince we could change the structure in the process, we can make it a circle and usc fast and slow pointers to solve the problem. Code123456789101112131415161718192021222324252627282930313233public class Solution &#123; public ListNode getIntersectionNode(ListNode headA, ListNode headB) &#123; ListNode fast = headB, slow = headB, p = headA; if(headA == null || headB == null) return null; while(p.next != null) p=p.next; p.next = headA; slow = slow.next; if(slow == null)&#123; p.next = null; return null; &#125; fast = slow.next; while(fast != null &amp;&amp; fast.next != null &amp;&amp; fast != slow)&#123; fast = fast.next.next; slow = slow.next; &#125; if(fast == null || fast.next == null)&#123; p.next =null; return null; &#125; slow =headB; while(fast != slow)&#123; fast = fast.next; slow =slow.next; &#125; p.next = null; return fast; &#125;&#125; T&amp;S AnalysisTime: It only envolve sanning the circle constant times, thus time complexity is O(n). Space: Constant extra Space is used, thus, O(1).]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Linked List</tag>
-        <tag>Two Pointers</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[148 Sort List]]></title>
-    <url>%2F2017%2F08%2F24%2F148-Sort-List%2F</url>
-    <content type="text"><![CDATA[Question Sort a linked list in O(n log n) time using constant space complexity. Solution 1 Bottom to TopSince we could only use O(1) extra space, recursive method will not be acceptable. Thus, there is a Bottom-to-Top solution. Its idea is same as merge sort, just it’s not recursive, it is not easy to explain in detail, but the code is below. We need to be careful of boundary problems. Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566class Solution &#123; public ListNode sortList(ListNode head) &#123; int length = 0; ListNode left, right, tail, cur; ListNode dumy = new ListNode(0); dumy.next = head; cur = dumy.next; while(cur != null)&#123; length++; cur = cur.next; &#125; for(int step = 1; step &lt; length; step&lt;&lt;=1)&#123; cur = dumy.next; tail = dumy; while(cur != null)&#123; left = cur; right = seperate(left, step); cur = seperate(right, step); tail = merge(left, right, tail); &#125; &#125; return dumy.next; &#125; // seperate the list from the "step" point private ListNode seperate(ListNode head, int step)&#123; ListNode p; for(int i = 1; head != null &amp;&amp; i &lt; step; i++) head = head.next; if(head == null) return null; p = head.next; head.next = null; return p; &#125; // merge two list, add to the "head" and return its tail private ListNode merge(ListNode l1, ListNode l2, ListNode head)&#123; ListNode p = head; while( l1 != null &amp;&amp; l2 != null )&#123; if(l1.val &lt;= l2.val)&#123; p.next = l1; l1 = l1.next; &#125;else&#123; p.next = l2; l2 = l2.next; &#125; p = p.next; &#125; if(l1 == null)&#123; p.next = l2; while(l2.next != null) l2 = l2.next; return l2; &#125; else&#123; p.next = l1; while(l1.next != null) l1 = l1.next; return l1; &#125; &#125; T&amp;S AnalysisTime: Obviously, as the problem required, it’s O(nlogn). Space: It’s O(1) for not using recursion.]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Linked List</tag>
-        <tag>Sort</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[143 Reorder List]]></title>
-    <url>%2F2017%2F08%2F24%2F143-Reorder-List%2F</url>
-    <content type="text"><![CDATA[Question Given a singly linked list L: L0?L1?…?Ln-1?Ln, reorder it to: L0?Ln?L1?Ln-1?L2?Ln-2?… You must do this in-place without altering the nodes’ values. For example, Given {1,2,3,4}, reorder it to {1,4,2,3}. Solution 1 Seperate, Reverse and MergeThis solution might seem complicated, but it is in fact fast and require only constant extra space. First, SEPERATE the list into two parts at its middle point. If its length is odd, then the former one should be longer. Second, REVERSE the latter part using the function reverseList. Finally, MERGE the two lists again, and we fot the correct answer. Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354/** * Definition for singly-linked list. * public class ListNode &#123; * int val; * ListNode next; * ListNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123; public void reorderList(ListNode head) &#123; if(head == null || head.next == null) return; int l = 0, i; ListNode p = head, temp1, temp2, q=p, t; while(p!=null)&#123; l += 1; p = p.next; &#125; p=head; for(i = 0; i &lt; (l-1)/2; i++) q=q.next; t=q; q.next=reverseList(q.next); q=q.next; t.next=null; for(i = 0; i &lt;= (l-1)/2; i++)&#123; if(q == null) return; temp1 = p.next; p.next = q; temp2 = q.next; q.next =temp1; p = temp1; q = temp2; &#125; &#125; public ListNode reverseList( ListNode p)&#123; ListNode head; head = p; ListNode temp = null, q; while(p != null)&#123; head = p; q = p.next; p.next = temp; temp = p; p=q; &#125; return head; &#125;&#125; T&amp;S AnalysisTime: As I said, it is fast enough, since it is only evolved with some scanning operation, thus the time complexity is O(n). Space: Space Complexity is obviously O(1), since only constant extra space is used.]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Linked List</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[138 Copy List with Random Pointer]]></title>
-    <url>%2F2017%2F08%2F23%2F138-Copy-List-with-Random-Pointer%2F</url>
-    <content type="text"><![CDATA[QuestionA linked list is given such that each node contains an additional random pointer which could point to any node in the list or null. Return a deep copy of the list. Solution 1 Hasp-MapWe have to copy the whole list and random pointers, thus we first copy the next line, meanwhile, push the original : new to haspmap, for convenience of copying the random line. Code12345678910111213141516171819202122232425262728293031323334353637/** * Definition for singly-linked list with a random pointer. * class RandomListNode &#123; * int label; * RandomListNode next, random; * RandomListNode(int x) &#123; this.label = x; &#125; * &#125;; */public class Solution &#123; public RandomListNode copyRandomList(RandomListNode head) &#123; if(head==null) return null; HashMap&lt;RandomListNode, RandomListNode&gt; map = new HashMap&lt;&gt;(); RandomListNode res = new RandomListNode(0); RandomListNode p = res; RandomListNode q = head; while(q != null)&#123; p.next = new RandomListNode(q.label); map.put(q, p.next); q=q.next; p=p.next; &#125; map.put(null, null); p=res.next; q=head; while(q != null)&#123; p.random=map.get(q.random); p=p.next; q=q.next; &#125; return res.next; &#125;&#125; T&amp;S AnalysisTime: Hashing inserting and querying operation is so fast that it could be considered as O(1), in this case, since we scanned the linked list two times, time complexity should be O(n). Space: Considering extra space, it is obvious O(n), to build the hash map. Solution 2 Without HashThis method is not accepted, because it has to change the original linked list’s next attribution, but it only cost O(1) Space! Code1234567891011121314151617181920212223242526272829public class Solution &#123; public RandomListNode copyRandomList(RandomListNode head) &#123; if(head==null) return null; RandomListNode p = head; RandomListNode res = new RandomListNode(0); RandomListNode q = res; RandomListNode temp; while(p != null)&#123; q.next = new RandomListNode(p.label); q.next.random = p.random; temp = p; p=p.next; temp.next = q.next; q=q.next; &#125; q = res.next; while(q != null)&#123; if(q.random != null) q.random = q.random.next; q=q.next; &#125; return res.next; &#125;&#125; T&amp;S AnalysisTime: Same as above, O(n). Space:Only Constant extra space used, so it’s O(1).]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Hash Table</tag>
-        <tag>Linked List</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[661 Image Smoother]]></title>
-    <url>%2F2017%2F08%2F23%2F661-Image-Smoother%2F</url>
-    <content type="text"><![CDATA[Question Given a 2D integer matrix M representing the gray scale of an image, you need to design a smoother to make the gray scale of each cell becomes the average gray scale (rounding down) of all the 8 surrounding cells and itself. If a cell has less than 8 surrounding cells, then use as many as you can. example: Input:[[1,1,1], [1,0,1], [1,1,1]] Output:[[0, 0, 0], [0, 0, 0], [0, 0, 0]] Explanation: For the point (0,0), (0,2), (2,0), (2,2): floor(3/4) = floor(0.75) = 0 For the point (0,1), (1,0), (1,2), (2,1): floor(5/6) = floor(0.83333333) = 0 For the point (1,1): floor(8/9) = floor(0.88888889) = 0 Solution 1 Temp Array to Save SpaceAs I see the problem, I know that time complexity will not be less than O(row * col). Thus, I try to find a way to save space, which shold have been O(row * col), too. In this solution, I used two temp arraies, temp1 and temp2, see the code below. Code class Solution { public int[][] imageSmoother(int[][] M) { int row = M.length, col = M[0].length; int[] temp1 = new int[row]; int[] temp2 = new int[row]; for(int i = 0; i &lt; row; i++){ temp1[i] = findAve(M, i, 0); } for(int j = 1; j &lt; col; j++){ for(int i = 0; i &lt; row; i++) temp2[i] = findAve(M, i, j); for(int i = 0; i &lt; row; i++){ M[i][j-1]=temp1[i]; temp1[i] = temp2[i]; } } for( int i = 0; i &lt; row; i++) M[i][col-1] = temp1[i]; return M; } public int findAve(int [][] M, int i, int j){ int sum = 0, num = 9; for(int a = i-1; a &lt;= i+1; a++){ for(int b = j-1; b&lt;=j+1; b++){ if((a&lt;0 || a&gt; M.length-1) || (b&lt;0 || b&gt;M[0].length-1)){ num--; }else{ sum+=M[a][b]; } } } return sum/num; } } T&amp;S AnalysisTime: The time complexity should not be lesser, it’s O(row * col). Space: Only constant extra space is used, except the two temp array, thus space complexity is O(row), whic could be turned to O(min(row, col)) by choosing the fewer one, but the code will be much longer.]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Array</tag>
-        <tag>Space Saving</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[643 Maxium Average Subarray I]]></title>
-    <url>%2F2017%2F08%2F23%2F643-Maxium-Average-Subarray-I%2F</url>
-    <content type="text"><![CDATA[Question Given an array consisting of n integers, find the contiguous subarray of given length k that has the maximum average value. And you need to output the maximum average value. example: Input: [1,12,-5,-6,50,3], k = 4 Output: 12.75 Explanation: Maximum average is (12-5-6+50)/4 = 51/4 = 12.75 Solution 1 Cumulative ArraySince it’s a contiguous array comparasion, we can first find the sum array, then deduce accordingly to easily find those sums. Code1234567891011121314class Solution &#123; public double findMaxAverage(int[] nums, int k) &#123; for(int i = 1; i &lt; nums.length; i++ )&#123; nums[i]+=nums[i-1]; &#125; int max = nums[k-1]; for(int i = 0; i &lt; nums.length-k; i++)&#123; if(nums[i+k] - nums[i] &gt; max) max = nums[i+k] - nums[i]; &#125; return (double)max/k; &#125;&#125; T&amp;S AnalysisTime: Only O(n) because we scanned the array two times. Space: O(1), if we use the orginal array to store the cumulative array.Otherwise, it should be O(n). Solution 2 Window ScanIf we know one continous sum, we can easily find out the next by adding the next number and deducting the head number. Code123456789101112131415161718class Solution &#123; public double findMaxAverage(int[] nums, int k) &#123; int maxS = 0; for(int i=0; i &lt; k; i++)&#123; maxS+=nums[i]; &#125; int current = maxS; int head = 0, tail = k-1; while(tail &lt; nums.length-1)&#123; current = current+nums[tail+1]-nums[head]; maxS = Math.max(maxS, current); head++; tail++; &#125; return (double)maxS/k; &#125;&#125; T&amp;S AnalysisTime: Since only scan once, the time complexity is o(n). Space: Constant extra space is used, thus space complexity is O(1).]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Array</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[628 Maximum Product of Three Numbers]]></title>
-    <url>%2F2017%2F08%2F22%2F628-Maximum-Product-of-Three-Numbers%2F</url>
-    <content type="text"><![CDATA[Question Given an integer array, find three numbers whose product is maximum and output the maximum product. Example: Input: [1,2,3]Output: 6 Solution 1 SortThere are only 3 possible largest comnination, 2 smallest negative + 1 largest positive, or 3 largest positive, or 3 smallest negative. Thus, sorting first, then it is a very straightforward problem. Code12345678910class Solution &#123; public int maximumProduct(int[] nums) &#123; Arrays.sort(nums); int l = nums.length; int a = nums[0], b = nums[1], c= nums[2], d = nums[l-1], e = nums[l-2], f = nums[l-3]; return Math.max(a*b*c, Math.max(a*b*d, d*e*f)); &#125;&#125; T&amp;S AnalysisTime: Since there is only one sort operation and some constant time operations, its time complexity is O(nlogn), where n represents the length of the array. Space: Space complexity is obviously O(nlogn), since only sorting cost extra space. P.S.Since we only have to find those 5 numbers, we can at most scan the array one time to get them, in this way, we get an O(n) time and O(1) Extra Space solution.]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Array</tag>
-        <tag>Math</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[621 Task Scheduler]]></title>
-    <url>%2F2017%2F08%2F22%2F621-Task-Scheduler%2F</url>
-    <content type="text"><![CDATA[Question Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each task could be done in one interval. For each interval, CPU could finish one task or just be idle. However, there is a non-negative cooling interval n that means between two same tasks, there must be at least n intervals that CPU are doing different tasks or just be idle. You need to return the least number of intervals the CPU will take to finish all the given tasks. example: Input : tasks = [‘A’,’A’,’A’,’B’,’B’,’B’], n = 2 Output : 8 Explanation : A -&gt; B -&gt; idle -&gt; A -&gt; B -&gt; idle -&gt; A -&gt; B. Solution 1 Max-HeapSince what a charcter is does not affect the result, we only have to ocnsider their counts. Following is an intutional solution, we arrange the largest first, which is to be verify. But it works. So we need a max-heap – a fast way to find the largest. Step 1Store the number of each charaters in a Max-Heap Step 2Loop. One loop contains n steps, each step remove one current largest, if it is still not totally removed, add it to a temp ArrayList. If the queue is empty before n steps, then addidle time interval accordingly. Afterwards, put all elements in the temp array to the queue again. Code:12345678910111213141516171819202122232425262728293031323334353637383940class Solution &#123; public int leastInterval(char[] tasks, int n) &#123; if(n==0) return tasks.length; int[] map = new int[26]; int time = 0, i=0; PriorityQueue &lt; Integer &gt; queue = new PriorityQueue &lt; Integer &gt; (26, Collections.reverseOrder()); int intervals=0; for(char c : tasks) map[(int)(c-'A')]++; for(int x : map)&#123; if(x &gt; 0) queue.add(x); &#125; while(queue.size()&gt;0)&#123; i=0; List&lt;Integer&gt; temp = new ArrayList&lt;Integer&gt;(); while(i &lt;= n)&#123; if(queue.peek()&gt;1) temp.add(queue.poll()-1); else queue.poll(); time++; i++; if(queue.size()==0)&#123; if(temp.size()!=0)&#123; time+=n-i+1; break; &#125; else&#123; return time; &#125; &#125; &#125; for(int x: temp) queue.add(x); &#125; return time; &#125;&#125; T&amp;S AnalysisTime: Since the size of queue is limited under 26, time complexity only depend on n linearly, thus, time complexity is O(n). Space: Space complexity is obviously O(1), because there are at most 26 kinds of characters. Solution 2 Counting Idle TimeThis method first count the minium idle time, then calculate out the result. Code12345678910111213public class Solution &#123; public int leastInterval(char[] tasks, int n) &#123; int[] map = new int[26]; for (char c: tasks) map[c - 'A']++; Arrays.sort(map); int max_val = map[25] - 1, idle_slots = max_val * n; for (int i = 24; i &gt;= 0 &amp;&amp; map[i] &gt; 0; i--) &#123; idle_slots -= Math.min(map[i], max_val); &#125; return idle_slots &gt; 0 ? idle_slots + tasks.length : tasks.length; &#125;&#125; T&amp;S AnalysisTime: O(n). It is obvious. Spaece: O(1). Also obvious.]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Array</tag>
-        <tag>Queue</tag>
-        <tag>Greedy</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[My Blog Starts Here]]></title>
-    <url>%2F2017%2F08%2F22%2FNew-Article%2F</url>
-    <content type="text"><![CDATA[Hi, this is a blog about coding, recoding my learning journey from 2017 summer.]]></content>
-      <categories>
-        <category>life</category>
-      </categories>
-      <tags>
-        <tag>general</tag>
-      </tags>
-  </entry>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[606 Construct String from Binary Tree]]></title>
+      <url>/2017/08/25/606-Construct-String-from-Binary-Tree/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/construct-string-from-binary-tree/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>You need to construct a string consists of parenthesis and integers from a binary tree with the preorder traversing way.</p>
+<p>The null node needs to be represented by empty parenthesis pair “()”. And you need to omit all the empty parenthesis pairs that don’t affect the one-to-one mapping relationship between the string and the original binary tree.</p>
+<p><strong>Example 1:</strong></p>
+<pre><b>Input:</b> Binary tree: [1,2,3,4]
+       1
+     /   \
+    2     3
+   /    
+  4     
+
+<b>Output:</b> "1(2(4))(3)"
+<br><b>Explanation:</b> Originallay it needs to be "1(2(4)())(3()())", <br>but you need to omit all the unnecessary empty parenthesis pairs. <br>And it will be "1(2(4))(3)".
+</pre>
+
+<p><strong>Example2:</strong></p>
+<pre><b>Input:</b> Binary tree: [1,2,3,null,4]
+       1
+     /   \
+    2     3
+     \  
+      4 
+
+<b>Output:</b> "1(2()(4))(3)"
+<br><b>Explanation:</b> Almost the same as the first example, <br>except we can't omit the first parenthesis pair to break the one-to-one mapping relationship between the input and the output.
+</pre>
+
+</blockquote>
+<h2 id="Solution-1-Recursive-Solution"><a href="#Solution-1-Recursive-Solution" class="headerlink" title="Solution 1 Recursive Solution"></a>Solution 1 Recursive Solution</h2><p>Easy to understand.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">tree2str</span><span class="params">(TreeNode t)</span> </span>&#123;</div><div class="line">        String s=<span class="string">""</span>;</div><div class="line">        <span class="keyword">return</span> T2S(t);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">T2S</span><span class="params">(TreeNode t)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(t == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">        <span class="keyword">if</span>(t.left == <span class="keyword">null</span> &amp;&amp; t.right == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> t.val+<span class="string">""</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(t.left == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> t.val +<span class="string">"()"</span>+<span class="string">"("</span>+ T2S(t.right) +<span class="string">")"</span>;</div><div class="line">        <span class="keyword">else</span></div><div class="line">            <span class="keyword">if</span>(t.right == <span class="keyword">null</span>)</div><div class="line">                <span class="keyword">return</span> t.val + <span class="string">"("</span>+ T2S(t.left) +<span class="string">")"</span>;</div><div class="line">            <span class="keyword">else</span></div><div class="line">                <span class="keyword">return</span> t.val + <span class="string">"("</span>+ T2S(t.left) +<span class="string">")"</span>+<span class="string">"("</span>+ T2S(t.right) +<span class="string">")"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n)<br><strong>Space:</strong> O(n)</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Tree </tag>
+            
+            <tag> String </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[572 Subtree of Another Tree]]></title>
+      <url>/2017/08/25/572-Subtree-of-Another-Tree/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/find-bottom-left-tree-value/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given two non-empty binary trees s and t, check whether tree t has exactly the same structure and node values with a subtree of s. A subtree of s is a tree consists of a node in s and all of this node’s descendants. The tree s could also be considered as a subtree of itself.</p>
+<p>Example 1:</p>
+<p>Given tree s:</p>
+<pre>     3
+    / \
+   4   5
+  / \
+ 1   2
+</pre>
+
+<p>Given tree t:</p>
+<pre>   4 
+  / \
+ 1   2
+</pre>
+
+<p>Return <strong>true</strong>, because t has the same structure and node values with a subtree of s.</p>
+<p><strong>Example2:</strong><br>Given tree s:</p>
+<pre>     3
+    / \
+   4   5
+  / \
+ 1   2
+    /
+   0
+</pre>
+
+
+<p>Given tree t:</p>
+<pre>   4
+  / \
+ 1   2
+</pre>
+
+<p>Return <strong>false</strong>.</p>
+</blockquote>
+<h2 id="Solution-1-Recursive-Find-and-Recursive-Compare"><a href="#Solution-1-Recursive-Find-and-Recursive-Compare" class="headerlink" title="Solution 1 Recursive Find and Recursive Compare"></a>Solution 1 Recursive Find and Recursive Compare</h2><p>Since this problem is signed as <em>Easy</em>, I did not think much and use normal solutions.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSubtree</span><span class="params">(TreeNode s, TreeNode t)</span> </span>&#123;</div><div class="line">        List&lt;TreeNode&gt; store = <span class="keyword">new</span> ArrayList&lt;TreeNode&gt;();</div><div class="line">        findSameRoot(s, t.val, store);</div><div class="line">        <span class="keyword">for</span>(TreeNode x: store)&#123;</div><div class="line">            <span class="keyword">if</span>(sameTree(x, t))</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">sameTree</span><span class="params">(TreeNode x, TreeNode t)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(x == <span class="keyword">null</span> &amp;&amp; t == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">if</span>((x == <span class="keyword">null</span> &amp;&amp; t !=<span class="keyword">null</span>) || (x != <span class="keyword">null</span> &amp;&amp; t == <span class="keyword">null</span>))</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">return</span> (x.val == t.val) &amp;&amp; (sameTree(x.left, t.left)) &amp;&amp; (sameTree(x.right, t.right));</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">findSameRoot</span><span class="params">(TreeNode s, <span class="keyword">int</span> v, List&lt;TreeNode&gt; store)</span></span>&#123;</div><div class="line">            <span class="keyword">if</span>(s == <span class="keyword">null</span>)</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            <span class="keyword">if</span>(s.val == v)</div><div class="line">                store.add(s);</div><div class="line">            findSameRoot(s.left, v, store);</div><div class="line">            findSameRoot(s.right, v, store); </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Time complexity is large, it is O( n(s)*n(t) ) in the worst case, but I think in most case, there is not much same root,  maybe one or two, so generally it is O(n(s)+n(t)).</p>
+<p><strong>Space:</strong> Recursion is used, thus as calculated it should be O(n(s)).</p>
+<p><br><br><br></p>
+<h2 id="Solution-2-MorrisInorder"><a href="#Solution-2-MorrisInorder" class="headerlink" title="Solution 2 MorrisInorder"></a>Solution 2 MorrisInorder</h2><p>This is a beautiful solution to test morrisInorder.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSubtree</span><span class="params">(TreeNode s, TreeNode t)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> morrisInorder(s).contains(morrisInorder(t));</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">morrisInorder</span><span class="params">(TreeNode t)</span></span>&#123;</div><div class="line">        String str = <span class="string">""</span>;</div><div class="line">        TreeNode cur = t, temp;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(cur.left == <span class="keyword">null</span>)&#123;</div><div class="line">                str+=<span class="string">"l"</span>;</div><div class="line">                str+=cur.val;</div><div class="line">                cur = cur.right;</div><div class="line">                <span class="keyword">if</span>(cur == <span class="keyword">null</span>)&#123;</div><div class="line">                    System.out.println(str+<span class="string">"r"</span>);</div><div class="line">                    <span class="keyword">return</span> str+<span class="string">"r"</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                temp=cur.left;</div><div class="line">                <span class="keyword">while</span>(temp.right != <span class="keyword">null</span> &amp;&amp; temp.right !=cur)</div><div class="line">                    temp = temp.right;</div><div class="line">                <span class="keyword">if</span>(temp.right == <span class="keyword">null</span>)&#123;</div><div class="line">                    temp.right = cur;</div><div class="line">                    cur = cur.left;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    str+=<span class="string">"r"</span>;</div><div class="line">                    str+=cur.val;</div><div class="line">                    temp.right = <span class="keyword">null</span>;</div><div class="line">                    cur = cur.right;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        System.out.println(str+<span class="string">"r"</span>);</div><div class="line">        <span class="keyword">return</span> str+<span class="string">"r"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n)<br><strong>Space:</strong> O(n)</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Tree </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[513 Find Bottom Left Tree Value]]></title>
+      <url>/2017/08/25/513-Find-Bottom-Left-Tree-Value/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/find-bottom-left-tree-value/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a binary tree, find the leftmost value in the last row of the tree.</p>
+<p><strong>Example1:</strong></p>
+</blockquote>
+<pre>Input:
+
+        1
+       / \
+      2   3
+     /   / \
+    4   5   6
+       /
+      7
+
+Output:
+7
+</pre>
+
+<blockquote>
+<p><strong>Note:</strong> You may assume the tree (i.e., the given root node) is not <strong>NULL</strong>.</p>
+</blockquote>
+<h2 id="Solution-1-BFS-Levelorder"><a href="#Solution-1-BFS-Levelorder" class="headerlink" title="Solution 1 BFS-Levelorder"></a>Solution 1 BFS-Levelorder</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        List&lt;TreeNode&gt; q = <span class="keyword">new</span> ArrayList&lt;TreeNode&gt;();</div><div class="line">        List&lt;Integer&gt; temp = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        TreeNode p;</div><div class="line">        <span class="keyword">int</span> len;</div><div class="line">        </div><div class="line">        q.add(root);</div><div class="line">        <span class="keyword">while</span>(q.size()&gt;<span class="number">0</span>)&#123;</div><div class="line">            len = q.size();</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</div><div class="line">                p = q.remove(<span class="number">0</span>);</div><div class="line">                <span class="keyword">if</span>(p.left != <span class="keyword">null</span>)</div><div class="line">                    q.add(p.left);</div><div class="line">                <span class="keyword">if</span>(p.right != <span class="keyword">null</span>)</div><div class="line">                    q.add(p.right);</div><div class="line">                temp.add(p.val);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(q.size()&gt;<span class="number">0</span>)</div><div class="line">                temp.clear();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> temp.get(<span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Every node is visited once, so the time complexity is O(n).</p>
+<p><strong>Space:</strong> One Stack is used to store at most half of the elements, thus, the space complexity is also O(n).</p>
+<p><br><br><br></p>
+<h2 id="Solution-2-DFS-Solution-Preorder"><a href="#Solution-2-DFS-Solution-Preorder" class="headerlink" title="Solution 2 DFS Solution-Preorder"></a>Solution 2 DFS Solution-Preorder</h2><p>This method does not requires stack or queue, first go as left as it can, record its <strong>maxLevel</strong>. Than go right step by step, once the level is more than <strong>maxLevel</strong> turn the <strong>res</strong> to that value.</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxLevel = -<span class="number">1</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        dfs(root, <span class="number">0</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode root, <span class="keyword">int</span> level)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        dfs(root.left, level+<span class="number">1</span>);</div><div class="line">        <span class="keyword">if</span>(level &gt; maxLevel)&#123;</div><div class="line">            maxLevel = level;</div><div class="line">            res = root.val;</div><div class="line">        &#125;</div><div class="line">        dfs(root.right, level+<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Every node is visited once, so the time complexity is O(n).</p>
+<p><strong>Space:</strong> Though it does not use apparent extra data structure, it uses recursions in the <strong>dfs</strong> function, thus its space complexity is also O(n)</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Tree </tag>
+            
+            <tag> DFS </tag>
+            
+            <tag> BFS </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[563 Binary Tree Tilt]]></title>
+      <url>/2017/08/25/563-Binary-Tree-Tilt/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/binary-tree-tilt/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a binary tree, return the tilt of the <strong>whole tree</strong>.</p>
+<p>The tilt of a <strong>tree node</strong> is defined as the <strong>absolute difference</strong> between the sum of all left subtree node values and the sum of all right subtree node values. Null node has tilt 0.</p>
+<p>The tilt of the <strong>whole tree</strong> is defined as the sum of all nodes’ tilt.</p>
+<p><strong>Example:</strong></p>
+<pre><b>Input:</b> 
+         1
+       /   \
+      2     3
+<b>Output:</b> 1
+<b>Explanation:</b> 
+Tilt of node 2 : 0
+Tilt of node 3 : 0
+Tilt of node 1 : |2-3| = 1
+Tilt of binary tree : 0 + 0 + 1 = 1
+</pre>
+
+<p><strong>Note:</strong></p>
+<ol>
+<li>The sum of node values in any subtree won’t exceed the range of 32-bit integer.</li>
+<li>All the tilt values won’t exceed the range of 32-bit integer.</li>
+</ol>
+</blockquote>
+<h2 id="Solution-1-Brute-Force-–-Recusion-in-Recusion"><a href="#Solution-1-Brute-Force-–-Recusion-in-Recusion" class="headerlink" title="Solution 1 Brute Force – Recusion in Recusion"></a>Solution 1 Brute Force – Recusion in Recusion</h2><p>It is the easiest way for a coder to come up with a recusion solution, but I have to addmit that it is hard for the computer. So, mostly, I’d rather think much longer to come up with a iterative way. This time, however, I can’t find one, and even put a recusion into a recusion. Though the solution is accepted, I am still not satisfied.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findTilt</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span>  getTilt(root);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getTilt</span><span class="params">(TreeNode t)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">if</span>(t == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        sum += Math.abs(getSum(t.left)-getSum(t.right));</div><div class="line">        <span class="keyword">return</span> sum + getTilt(t.left) + getTilt(t.right);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getSum</span><span class="params">(TreeNode t)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">if</span>(t == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        <span class="keyword">return</span> sum + getSum(t.left)+getSum(t.right)+t.val;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> As I calculated, the <strong>getSum()</strong> function has time complexity of O(n), and <strong>getTilt()</strong>‘s is O(nlogn).</p>
+<p><strong>Space:</strong> As calculated, both functions’ space complexities are O(n).</p>
+<p><br><br><br></p>
+<h2 id="Solution-2-Use-Global-Varible"><a href="#Solution-2-Use-Global-Varible" class="headerlink" title="Solution 2 Use Global Varible"></a>Solution 2 Use Global Varible</h2><p>As I see the <em>leetcode’s</em> official solution, there is only a method with a class-global varible, I thought it was not allowed.</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> tilt=<span class="number">0</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findTilt</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        traverse(root);</div><div class="line">        <span class="keyword">return</span> tilt;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">traverse</span><span class="params">(TreeNode root)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span> )</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> left=traverse(root.left);</div><div class="line">        <span class="keyword">int</span> right=traverse(root.right);</div><div class="line">        tilt+=Math.abs(left-right);</div><div class="line">        <span class="keyword">return</span> left+right+root.val;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> In this case, the time complexity is O(n).</p>
+<p><strong>Space:</strong> As calculated the space complexity is also O(n).</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Tree </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[144 Binary Tree Preorder Traversal]]></title>
+      <url>/2017/08/24/144-Binary-Tree-Preorder-Traversal/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/binary-tree-preorder-traversal/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a binary tree, return the preorder traversal of its nodes’ values.</p>
+<p>For example:</p>
+<p>Given binary tree {1, #, 2, 3},</p>
+<pre>   1
+   \
+    2
+   /
+  3
+</pre>
+
+<p><strong>Note:</strong> Recursive solution is trivial, could you do it iteratively?</p>
+</blockquote>
+<h2 id="Solution-1-Morris-Order-Traverse"><a href="#Solution-1-Morris-Order-Traverse" class="headerlink" title="Solution 1 Morris Order Traverse"></a>Solution 1 Morris Order Traverse</h2><p>As I see this problem, I thought I need a <em>Stack</em> or <em>Queue</em> or something like that. But I was wrong. After I knew this solution, I was so surprised that I decided to consider this method of traversing every time I meet <em>Tree</em> problem. </p>
+<p>Let me explain, to make inorder with using only constant space and linear time, we need only follow these principles:</p>
+<ul>
+<li><p>When <em>left child</em> is null, visit the <em>current node</em> and set current node as itd <em>right child</em>.</p>
+</li>
+<li><p>Other wise, find the <em>pre-node</em> of <em>current node</em>:</p>
+<ul>
+<li>if the <em>pre-node</em>‘s <em>right child</em> is null, then <font color="red"> visit <em>current node</em> </font> set its <em>right child</em> as current node and set current child as its <em>left child</em></li>
+<li>otherwise, the <em>pre-node</em>‘s <em>right child</em> must be <em>current node</em>, and set <em>pre-node</em>‘s _right child as null to reset the original tree. Then set <em>current node</em> as its <em>right child</em>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Q:</strong> How to find ones <em>pre-node</em>?</p>
+<p><strong>A:</strong> In its left <em>subtree</em>, find the mose right node.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        List&lt;Integer&gt; ans = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        morrisOrder(ans, root);</div><div class="line">        <span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">morrisOrder</span><span class="params">(List&lt;Integer&gt; li, TreeNode t)</span></span>&#123;</div><div class="line">        TreeNode p;</div><div class="line">        <span class="keyword">while</span>(t != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(t.left == <span class="keyword">null</span>)&#123;</div><div class="line">                li.add(t.val);</div><div class="line">                t=t.right;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                p = t.left;</div><div class="line">                <span class="keyword">while</span>(p.right != t &amp;&amp; p.right != <span class="keyword">null</span>)</div><div class="line">                    p = p.right;</div><div class="line">                <span class="keyword">if</span>(p.right == <span class="keyword">null</span>)&#123;</div><div class="line">                    p.right = t;</div><div class="line">                    li.add(t.val);</div><div class="line">                    t = t.left;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    p.right = <span class="keyword">null</span>; </div><div class="line">                    t = t.right;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> As analysed, every node would be visted at most twice, thus time complexity is O(n);</p>
+<p><strong>Space:</strong> This is where it’s excellent, we did not use any other space that is proportion to node numbers, nor do we used recursion, thus extra space complexity is O(1);</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Tree </tag>
+            
+            <tag> Morris Order </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[94 Binary Tree Inorder Traversal]]></title>
+      <url>/2017/08/24/94-Binary-Tree-Inorder-Traversal/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/binary-tree-inorder-traversal/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a binary tree, return the inorder traversal of its nodes’ values.</p>
+<p>For example:</p>
+<p>Given binary tree [1,null,2,3],</p>
+<p><strong>Note:</strong> Recursive solution is trivial, could you do it iteratively?</p>
+</blockquote>
+<h2 id="Solution-1-Morris-Order-Traverse"><a href="#Solution-1-Morris-Order-Traverse" class="headerlink" title="Solution 1 Morris Order Traverse"></a>Solution 1 Morris Order Traverse</h2><p>As I see this problem, I thought I need a <em>Stack</em> or <em>Queue</em> or something like that. But I was wrong. After I knew this solution, I was so surprised that I decided to consider this method of traversing every time I meet <em>Tree</em> problem. </p>
+<p>Let me explain, to make inorder with using only constant space and linear time, we need only follow these principles:</p>
+<ul>
+<li><p>When <em>left child</em> is null, visit the <em>current node</em> and set current node as itd <em>right child</em>.</p>
+</li>
+<li><p>Other wise, find the <em>pre-node</em> of <em>current node</em>:</p>
+<ul>
+<li>if the <em>pre-node</em>‘s <em>right child</em> is null, then set its <em>right child</em> as current node and set current child as its <em>left child</em></li>
+<li>otherwise, the <em>pre-node</em>‘s <em>right child</em> must be <em>current node</em>, visit <em>current node</em> and set <em>pre-node</em>‘s _right child as null to reset the original tree. Then set <em>current node</em> as its <em>right child</em>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Q:</strong> How to find ones <em>pre-node</em>?</p>
+<p><strong>A:</strong> In its left <em>subtree</em>, find the mose right node.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        List&lt;Integer&gt; ans = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        morrisOrder(ans, root);</div><div class="line">        <span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">morrisOrder</span><span class="params">(List&lt;Integer&gt; li, TreeNode t)</span></span>&#123;</div><div class="line">        TreeNode p;</div><div class="line">        <span class="keyword">while</span>(t != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(t.left == <span class="keyword">null</span>)&#123;</div><div class="line">                li.add(t.val);</div><div class="line">                t=t.right;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                p = t.left;</div><div class="line">                <span class="keyword">while</span>(p.right != t &amp;&amp; p.right != <span class="keyword">null</span>)</div><div class="line">                    p = p.right;</div><div class="line">                <span class="keyword">if</span>(p.right == <span class="keyword">null</span>)&#123;</div><div class="line">                    p.right = t;</div><div class="line">                    t = t.left;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    p.right = <span class="keyword">null</span>;</div><div class="line">                    li.add(t.val);</div><div class="line">                    t = t.right;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> As analysed, every node would be visted at most twice, thus time complexity is O(n);</p>
+<p><strong>Space:</strong> This is where it’s excellent, we did not use any other space that is proportion to node numbers, nor do we used recursion, thus extra space complexity is O(1);</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Tree </tag>
+            
+            <tag> Morris Order </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[455 Add Two Numbers II]]></title>
+      <url>/2017/08/24/455-Add-Two-Numbers-II/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/add-two-numbers-ii/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
+<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+<p><strong>Follow up</strong>:</p>
+<p>What if you cannot modify the input lists? In other words, reversing the lists is not allowed.</p>
+<p><strong>Example:</strong></p>
+<p><strong>Input:</strong> (7 -&gt; 2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br><strong>Output:</strong> 7 -&gt; 8 -&gt; 0 -&gt; 7</p>
+</blockquote>
+<h2 id="Solution-1-Use-Stack"><a href="#Solution-1-Use-Stack" class="headerlink" title="Solution 1 Use Stack"></a>Solution 1 Use Stack</h2><p>Use Stack to save time, but lose space.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> len1 = <span class="number">0</span>, len2 = <span class="number">0</span>;</div><div class="line">        ListNode dumpy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">        ListNode cur1 = l1, cur2 = l2, cur = dumpy;</div><div class="line">        <span class="keyword">int</span> c = <span class="number">0</span>;</div><div class="line">        Stack&lt;ListNode&gt; s = <span class="keyword">new</span> Stack&lt;ListNode&gt;();</div><div class="line">            </div><div class="line">        <span class="keyword">while</span>(cur1 != <span class="keyword">null</span>)&#123;</div><div class="line">            len1++;</div><div class="line">            cur1 = cur1.next;    </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(cur2 != <span class="keyword">null</span>)&#123;</div><div class="line">            len2++;</div><div class="line">            cur2 = cur2.next;    </div><div class="line">        &#125;</div><div class="line">        cur1 = l1;</div><div class="line">        cur2 = l2;</div><div class="line">        </div><div class="line">        s.push(dumpy);</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(len1 &gt;= len2)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i&lt; len1-len2; i++)&#123;</div><div class="line">                cur.next = <span class="keyword">new</span> ListNode(cur1.val);</div><div class="line">                cur1 = cur1.next;</div><div class="line">                cur = cur.next;</div><div class="line">                s.push(cur);</div><div class="line">            &#125;</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i&lt; len2-len1; i++)&#123;</div><div class="line">                    cur.next = <span class="keyword">new</span> ListNode(cur2.val);</div><div class="line">                    cur2 = cur2.next;</div><div class="line">                    cur = cur.next;</div><div class="line">                    s.push(cur);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line"></div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(cur1 != <span class="keyword">null</span>)&#123;</div><div class="line">            cur.next = <span class="keyword">new</span> ListNode(cur1.val + cur2.val);</div><div class="line">            s.push(cur.next);</div><div class="line">            cur1 = cur1.next;</div><div class="line">            cur2 = cur2.next;</div><div class="line">            cur = cur.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(s.size()&gt;<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(s.peek().val+c&gt;=<span class="number">10</span>)&#123;</div><div class="line">                s.pop().val+=c-<span class="number">10</span>;</div><div class="line">                c=<span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                s.pop().val+=c;</div><div class="line">                c=<span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(dumpy.val == <span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> dumpy.next;</div><div class="line">        <span class="keyword">return</span> dumpy;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> I sanned the list and <em>Stack</em> for constant, so time complexity is O(n).</p>
+<p><strong>Space:</strong> Obviously, O(n), since I used the Stack.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Link List </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[328 Odd Even Linked List]]></title>
+      <url>/2017/08/24/328-Odd-Even-Linked-List/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/odd-even-linked-list/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a singly linked list, group all odd nodes together followed by the even nodes. Please note here we are talking about the node number and not the value in the nodes.</p>
+<p>You should try to do it in place. The program should run in O(1) space complexity and O(nodes) time complexity.</p>
+<p><strong>Example:</strong></p>
+<p>Given 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL,</p>
+<p>return 1-&gt;3-&gt;5-&gt;2-&gt;4-&gt;NULL.</p>
+<p><strong>Note:</strong></p>
+<p>The relative order inside both the even and odd groups should remain as it was in the input. </p>
+<p>The first node is considered odd, the second node even and so on …</p>
+</blockquote>
+<h2 id="Solution-1-Pointers-Tracking"><a href="#Solution-1-Pointers-Tracking" class="headerlink" title="Solution 1 Pointers Tracking"></a>Solution 1 Pointers Tracking</h2><p>I use three pointers to track the list, and add to the tail according.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">oddEvenList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        ListNode headOdd = <span class="keyword">new</span> ListNode(<span class="number">0</span>), headEven = <span class="keyword">new</span> ListNode(<span class="number">0</span>), curOdd = headOdd, curEven = headEven, cur=<span class="keyword">new</span> ListNode(<span class="number">0</span>), dumpy = cur;</div><div class="line">        </div><div class="line">        cur.next = head;</div><div class="line">        <span class="keyword">boolean</span> isOdd = <span class="keyword">false</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            isOdd = !isOdd;</div><div class="line">            cur = cur.next;</div><div class="line">            <span class="keyword">if</span>(isOdd)&#123;</div><div class="line">                curOdd.next = cur;</div><div class="line">                curOdd = curOdd.next;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                curEven.next = cur;</div><div class="line">                curEven = curEven.next; </div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        cur = dumpy;</div><div class="line">        curEven = headEven.next;</div><div class="line">        curOdd = headOdd.next;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(curOdd != <span class="keyword">null</span>)&#123;</div><div class="line">            cur.next = curOdd;</div><div class="line">            cur = cur.next;</div><div class="line">            curOdd = curOdd.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(curEven != <span class="keyword">null</span>)&#123;</div><div class="line">            cur.next = curEven;</div><div class="line">            cur = cur.next;</div><div class="line">            curEven = curEven.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dumpy.next;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> I sanned the list for constant, so time complexity is O(n).</p>
+<p><strong>Space:</strong> Obviously, O(1).</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linked List </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[237 Delete Node in a Linked List]]></title>
+      <url>/2017/08/24/237-Delete-Node-in-a-Linked-List/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/delete-node-in-a-linked-list/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Write a function to delete a node (except the tail) in a singly linked list, given only access to that node.</p>
+<p>Supposed the linked list is 1 -&gt; 2 -&gt; 3 -&gt; 4 and you are given the third node with value 3, the linked list should become 1 -&gt; 2 -&gt; 4 after calling your function.</p>
+</blockquote>
+<h2 id="Solution-1-Easy-Solution"><a href="#Solution-1-Easy-Solution" class="headerlink" title="Solution 1 Easy Solution"></a>Solution 1 Easy Solution</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span> </span>&#123;</div><div class="line">        node.val = node.next.val;</div><div class="line">        node.next = node.next.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Obviously, O(1).</p>
+<p><strong>Space:</strong> Obviously, O(1).</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linked List </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[234 Palindrome Linked List]]></title>
+      <url>/2017/08/24/234-Palindrome-Linked-List/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/palindrome-linked-list/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a singly linked list, determine if it is a palindrome.</p>
+</blockquote>
+<h2 id="Solution-1-Reverse-Half"><a href="#Solution-1-Reverse-Half" class="headerlink" title="Solution 1 Reverse Half"></a>Solution 1 Reverse Half</h2><p>I reversed the latter half, and compare.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPalindrome</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        ListNode fast = head, slow = head;</div><div class="line">        <span class="keyword">while</span>(fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>)&#123;</div><div class="line">            slow = slow.next;</div><div class="line">            fast = fast.next.next;</div><div class="line">        &#125;</div><div class="line">        slow=reverseList(slow);</div><div class="line">        fast = head;</div><div class="line">        <span class="keyword">while</span>(slow != <span class="keyword">null</span> &amp;&amp; fast !=<span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(slow.val != fast.val)</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            slow = slow.next;</div><div class="line">            fast =fast.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode p)</span></span>&#123;</div><div class="line">        ListNode last = <span class="keyword">null</span>, cur = p, temp;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            temp = cur.next;</div><div class="line">            cur.next = last;</div><div class="line">            last = cur;</div><div class="line">            cur = temp;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> last;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Obviously, O(n).</p>
+<p><strong>Space:</strong> Obviously, O(1).</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linked List </tag>
+            
+            <tag> Two Pointers </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[206 Reverse Linked List]]></title>
+      <url>/2017/08/24/206-Reverse-Linked-List/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/reverse-linked-list/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Reverse a singly linked list.</p>
+</blockquote>
+<h2 id="Solution-1-Easy-solution"><a href="#Solution-1-Easy-solution" class="headerlink" title="Solution 1 Easy solution"></a>Solution 1 Easy solution</h2><p>Too easy to explain.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        ListNode cur = head, last=<span class="keyword">null</span>, temp;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            temp = cur.next;</div><div class="line">            cur.next = last;</div><div class="line">            last = cur;</div><div class="line">            cur = temp;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> last;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Obviously, O(n).</p>
+<p><strong>Space:</strong> Obviously, O(1).</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linked List </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[203 Removed Linked List Elements]]></title>
+      <url>/2017/08/24/203-Removed-Linked-List-Elements/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/remove-linked-list-elements/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Remove all elements from a linked list of integers that have value <strong><em>val</em></strong>.</p>
+<p><strong>Example</strong></p>
+<p><strong><em>Given:</em></strong> 1 –&gt; 2 –&gt; 6 –&gt; 3 –&gt; 4 –&gt; 5 –&gt; 6, val = 6</p>
+<p><strong><em>Return:</em></strong> 1 –&gt; 2 –&gt; 3 –&gt; 4 –&gt; 5</p>
+</blockquote>
+<h2 id="Solution-1-Easy-Problem-Easy-Solution"><a href="#Solution-1-Easy-Problem-Easy-Solution" class="headerlink" title="Solution 1 Easy Problem, Easy Solution"></a>Solution 1 Easy Problem, Easy Solution</h2><p>No explanation.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeElements</span><span class="params">(ListNode head, <span class="keyword">int</span> val)</span> </span>&#123;</div><div class="line">        ListNode dumpy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">        dumpy.next = head;</div><div class="line">        ListNode p = dumpy;</div><div class="line">        ListNode q;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(p != <span class="keyword">null</span> &amp;&amp; p.next != <span class="keyword">null</span>)&#123;</div><div class="line">            q = p;</div><div class="line">            <span class="keyword">while</span>(p.next!=<span class="keyword">null</span> &amp;&amp; p.next.val == val)</div><div class="line">                p=p.next;</div><div class="line">            q.next=p.next;</div><div class="line">            p=p.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> dumpy.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Obviously, O(n).</p>
+<p><strong>Space:</strong> Obviously, O(1).</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linked List </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[160 Intersection of Two Linked Lists]]></title>
+      <url>/2017/08/24/160-Intersection-of-Two-Linked-Lists/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/intersection-of-two-linked-lists/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Write a program to find the node at which the intersection of two singly linked lists begins.</p>
+<p>For example, the following two linked lists:</p>
+<pre>
+
+   A:          a1 → a2
+                       ↘
+                         c1 → c2 → c3
+                       ↗            
+    B:     b1 → b2 → b3
+</pre>
+
+<p>begin to intersect at node c1.</p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>If the two linked lists have no intersection at all, return null.</li>
+<li>The linked lists must retain their original structure after the function returns.</li>
+<li>Your code should preferably run in O(n) time and use only O(1) memory.</li>
+</ul>
+</blockquote>
+<h2 id="Solution-1-Fast-and-Slow-Pointers"><a href="#Solution-1-Fast-and-Slow-Pointers" class="headerlink" title="Solution 1 Fast and Slow Pointers"></a>Solution 1 Fast and Slow Pointers</h2><p>Since we could change the structure in the process, we can make it a circle and usc <strong>fast and slow pointers</strong> to solve the problem. </p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</div><div class="line">        ListNode fast = headB, slow = headB, p = headA;</div><div class="line">        <span class="keyword">if</span>(headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">while</span>(p.next != <span class="keyword">null</span>)</div><div class="line">            p=p.next;</div><div class="line">        p.next = headA;</div><div class="line">        slow = slow.next;</div><div class="line">        <span class="keyword">if</span>(slow == <span class="keyword">null</span>)&#123;</div><div class="line">            p.next = <span class="keyword">null</span>;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        fast = slow.next;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span> &amp;&amp; fast != slow)&#123;</div><div class="line">            fast = fast.next.next;</div><div class="line">            slow = slow.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(fast == <span class="keyword">null</span> || fast.next == <span class="keyword">null</span>)&#123;</div><div class="line">            p.next =<span class="keyword">null</span>;   </div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        slow =headB;</div><div class="line">        <span class="keyword">while</span>(fast != slow)&#123;</div><div class="line">            fast = fast.next;</div><div class="line">            slow =slow.next;</div><div class="line">        &#125;</div><div class="line">        p.next = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">return</span> fast;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> It only envolve sanning the circle constant times, thus time complexity is O(n).</p>
+<p><strong>Space:</strong> Constant extra Space is used, thus, O(1).</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linked List </tag>
+            
+            <tag> Two Pointers </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[148 Sort List]]></title>
+      <url>/2017/08/24/148-Sort-List/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/sort-list/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Sort a linked list in O(n log n) time using constant space complexity.</p>
+</blockquote>
+<h2 id="Solution-1-Bottom-to-Top"><a href="#Solution-1-Bottom-to-Top" class="headerlink" title="Solution 1 Bottom to Top"></a>Solution 1 Bottom to Top</h2><p>Since we could only use O(1) extra space, recursive method will not be acceptable. Thus, there is a <strong>Bottom-to-Top</strong> solution.</p>
+<p>Its idea is same as <strong>merge sort</strong>, just it’s not recursive, it is not easy to explain in detail, but the code is below. We need to be careful of boundary problems.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">sortList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> length = <span class="number">0</span>;</div><div class="line">        ListNode left, right, tail, cur;</div><div class="line">        ListNode dumy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">        dumy.next = head;</div><div class="line">        cur = dumy.next;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            length++;</div><div class="line">            cur = cur.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> step = <span class="number">1</span>; step &lt; length; step&lt;&lt;=<span class="number">1</span>)&#123;</div><div class="line">            cur = dumy.next;</div><div class="line">            tail = dumy;</div><div class="line">            <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">                left = cur;</div><div class="line">                right = seperate(left, step);</div><div class="line">                cur = seperate(right, step);</div><div class="line">                tail = merge(left, right, tail);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dumy.next;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="comment">// seperate the list from the "step" point</span></div><div class="line">    <span class="function"><span class="keyword">private</span> ListNode <span class="title">seperate</span><span class="params">(ListNode head, <span class="keyword">int</span> step)</span></span>&#123;</div><div class="line">        ListNode p;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; head != <span class="keyword">null</span> &amp;&amp; i &lt; step; i++)</div><div class="line">            head = head.next;</div><div class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        p = head.next;</div><div class="line">        head.next = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">return</span> p;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="comment">// merge two list, add to the "head" and return its tail</span></div><div class="line">    <span class="function"><span class="keyword">private</span> ListNode <span class="title">merge</span><span class="params">(ListNode l1, ListNode l2, ListNode head)</span></span>&#123;</div><div class="line">        ListNode p = head;</div><div class="line">        <span class="keyword">while</span>( l1 != <span class="keyword">null</span> &amp;&amp; l2 != <span class="keyword">null</span> )&#123;</div><div class="line">            <span class="keyword">if</span>(l1.val &lt;= l2.val)&#123;</div><div class="line">                p.next = l1;</div><div class="line">                l1 = l1.next;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                p.next = l2;</div><div class="line">                l2 = l2.next;</div><div class="line">            &#125;</div><div class="line">            p = p.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(l1 == <span class="keyword">null</span>)&#123;</div><div class="line">            p.next = l2;</div><div class="line">            <span class="keyword">while</span>(l2.next != <span class="keyword">null</span>)</div><div class="line">                l2 = l2.next;</div><div class="line">            <span class="keyword">return</span> l2;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            p.next = l1;</div><div class="line">            <span class="keyword">while</span>(l1.next != <span class="keyword">null</span>)</div><div class="line">                l1 = l1.next;</div><div class="line">            <span class="keyword">return</span> l1;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Obviously, as the problem required, it’s O(nlogn).</p>
+<p><strong>Space:</strong> It’s O(1) for not using recursion.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linked List </tag>
+            
+            <tag> Sort </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[143 Reorder List]]></title>
+      <url>/2017/08/24/143-Reorder-List/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/reorder-list/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a singly linked list L: L<sub>0</sub>?L<sub>1</sub>?…?L<sub>n-1</sub>?L<sub>n</sub>,</p>
+<p>reorder it to: L<sub>0</sub>?L<sub>n</sub>?L<sub>1</sub>?L<sub>n-1</sub>?L<sub>2</sub>?<sub>Ln-2</sub>?…</p>
+<p>You must do this in-place without altering the nodes’ values.</p>
+<p>For example,</p>
+<p>Given {1,2,3,4}, reorder it to {1,4,2,3}.</p>
+</blockquote>
+<h2 id="Solution-1-Seperate-Reverse-and-Merge"><a href="#Solution-1-Seperate-Reverse-and-Merge" class="headerlink" title="Solution 1 Seperate, Reverse and Merge"></a>Solution 1 Seperate, Reverse and Merge</h2><p>This solution might seem complicated, but it is in fact fast and require only constant extra space.</p>
+<p>First, <strong>SEPERATE</strong> the list into two parts at its middle point. If its length is odd, then the former one should be longer.</p>
+<p>Second, <strong>REVERSE</strong> the latter part using the function <em>reverseList</em>.</p>
+<p>Finally, <strong>MERGE</strong> the two lists again, and we fot the correct answer. </p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * public class ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reorderList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, i;</div><div class="line">        ListNode p = head, temp1, temp2, q=p, t;</div><div class="line">        <span class="keyword">while</span>(p!=<span class="keyword">null</span>)&#123;</div><div class="line">            l += <span class="number">1</span>;</div><div class="line">            p = p.next;</div><div class="line">        &#125;</div><div class="line">        p=head;</div><div class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; (l-<span class="number">1</span>)/<span class="number">2</span>; i++)</div><div class="line">            q=q.next;</div><div class="line">        </div><div class="line">        t=q;</div><div class="line">        q.next=reverseList(q.next);</div><div class="line">        q=q.next;</div><div class="line">        t.next=<span class="keyword">null</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt;= (l-<span class="number">1</span>)/<span class="number">2</span>; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(q == <span class="keyword">null</span>)</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            temp1 = p.next;</div><div class="line">            p.next = q;</div><div class="line">            temp2 = q.next;</div><div class="line">            q.next =temp1;</div><div class="line">            p = temp1;</div><div class="line">            q = temp2;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">( ListNode p)</span></span>&#123;</div><div class="line">        ListNode head;</div><div class="line">        head = p;</div><div class="line">        ListNode temp = <span class="keyword">null</span>, q;</div><div class="line">        <span class="keyword">while</span>(p != <span class="keyword">null</span>)&#123;</div><div class="line">            head = p;</div><div class="line">            q = p.next;</div><div class="line">            p.next = temp;</div><div class="line">            temp = p;</div><div class="line">            p=q;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> head;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> As I said, it is fast enough, since it is only evolved with some scanning operation, thus the time complexity is O(n).</p>
+<p><strong>Space:</strong> Space Complexity is obviously O(1), since only constant extra space is used.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linked List </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[138 Copy List with Random Pointer]]></title>
+      <url>/2017/08/23/138-Copy-List-with-Random-Pointer/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/copy-list-with-random-pointer/description/" target="_blank" rel="external">Question</a></h1><p>A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.</p>
+<p>Return a deep copy of the list.</p>
+<h2 id="Solution-1-Hasp-Map"><a href="#Solution-1-Hasp-Map" class="headerlink" title="Solution 1 Hasp-Map"></a>Solution 1 Hasp-Map</h2><p>We have to copy the whole list and random pointers, thus we first copy the <em>next line</em>, meanwhile, push the <strong>original</strong> : <strong>new</strong>  to haspmap, for convenience of copying the <em>random</em> line.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list with a random pointer.</span></div><div class="line"><span class="comment"> * class RandomListNode &#123;</span></div><div class="line"><span class="comment"> *     int label;</span></div><div class="line"><span class="comment"> *     RandomListNode next, random;</span></div><div class="line"><span class="comment"> *     RandomListNode(int x) &#123; this.label = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> RandomListNode <span class="title">copyRandomList</span><span class="params">(RandomListNode head)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(head==<span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        HashMap&lt;RandomListNode, RandomListNode&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">        RandomListNode res = <span class="keyword">new</span> RandomListNode(<span class="number">0</span>);</div><div class="line">        RandomListNode p = res;</div><div class="line">        RandomListNode q = head;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(q != <span class="keyword">null</span>)&#123;</div><div class="line">            p.next = <span class="keyword">new</span> RandomListNode(q.label);</div><div class="line">            map.put(q, p.next);</div><div class="line">            q=q.next;</div><div class="line">            p=p.next;</div><div class="line">        &#125;</div><div class="line">        map.put(<span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line">        p=res.next;</div><div class="line">        q=head;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(q != <span class="keyword">null</span>)&#123;</div><div class="line">            p.random=map.get(q.random);</div><div class="line">            p=p.next;</div><div class="line">            q=q.next;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> res.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Hashing inserting and querying operation is so fast that it could be considered as O(1), in this case, since we scanned the linked list two times, time complexity should be O(n).</p>
+<p><strong>Space:</strong> Considering extra space, it is obvious O(n), to build the hash map.</p>
+<h2 id="Solution-2-Without-Hash"><a href="#Solution-2-Without-Hash" class="headerlink" title="Solution 2 Without Hash"></a>Solution 2 Without Hash</h2><p>This method is not accepted, because it has to change the original linked list’s <em>next</em> attribution, but it only cost O(1) Space!</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> RandomListNode <span class="title">copyRandomList</span><span class="params">(RandomListNode head)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(head==<span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        </div><div class="line">        RandomListNode p = head;</div><div class="line">        RandomListNode res = <span class="keyword">new</span> RandomListNode(<span class="number">0</span>);</div><div class="line">        RandomListNode q = res;</div><div class="line">        RandomListNode temp;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(p != <span class="keyword">null</span>)&#123;</div><div class="line">            q.next = <span class="keyword">new</span> RandomListNode(p.label);</div><div class="line">            q.next.random = p.random;</div><div class="line">            temp = p;</div><div class="line">            p=p.next;</div><div class="line">            temp.next = q.next;</div><div class="line">            q=q.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        q = res.next;</div><div class="line">        <span class="keyword">while</span>(q != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(q.random != <span class="keyword">null</span>)</div><div class="line">                q.random = q.random.next;</div><div class="line">            q=q.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> res.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Same as above, O(n).</p>
+<p><strong>Space:</strong>Only Constant extra space used, so it’s O(1).</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Hash Table </tag>
+            
+            <tag> Linked List </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[661 Image Smoother]]></title>
+      <url>/2017/08/23/661-Image-Smoother/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/image-smoother/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a 2D integer matrix M representing the gray scale of an image, you need to design a smoother to make the gray scale of each cell becomes the average gray scale (rounding down) of all the 8 surrounding cells and itself. If a cell has less than 8 surrounding cells, then use as many as you can.</p>
+<p><strong>example:</strong></p>
+<p><strong>Input:</strong><br>[[1,1,1],<br> [1,0,1],<br> [1,1,1]]</p>
+<p><strong>Output:</strong><br>[[0, 0, 0],<br> [0, 0, 0],<br> [0, 0, 0]]</p>
+<p><strong>Explanation:</strong></p>
+<p>For the point (0,0), (0,2), (2,0), (2,2): floor(3/4) = floor(0.75) = 0</p>
+<p>For the point (0,1), (1,0), (1,2), (2,1): floor(5/6) = floor(0.83333333) = 0</p>
+<p>For the point (1,1): floor(8/9) = floor(0.88888889) = 0</p>
+</blockquote>
+<h2 id="Solution-1-Temp-Array-to-Save-Space"><a href="#Solution-1-Temp-Array-to-Save-Space" class="headerlink" title="Solution 1 Temp Array to Save Space"></a>Solution 1 Temp Array to Save Space</h2><p>As I see the problem, I know that time complexity will not be less than O(row * col). Thus, I try to find a way to save space, which shold have been O(row * col), too. </p>
+<p>In this solution, I used two temp arraies, <em>temp1</em> and <em>temp2</em>, see the code below.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><pre><code class="java">
+<span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{
+    <span class="keyword">public</span> <span class="keyword">int</span>[][] imageSmoother(<span class="keyword">int</span>[][] M) {
+        <span class="keyword">int</span> row = M.length, col = M[<span class="number">0</span>].length;
+        <span class="keyword">int</span>[] temp1 = <span class="keyword">new</span> <span class="keyword">int</span>[row];
+        <span class="keyword">int</span>[] temp2 = <span class="keyword">new</span> <span class="keyword">int</span>[row];
+
+        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++){
+            temp1[i] = findAve(M, i, <span class="number">0</span>);
+        }
+
+        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; col; j++){
+            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++)
+                temp2[i] = findAve(M, i, j);
+            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++){
+                M[i][j-<span class="number">1</span>]=temp1[i];
+                temp1[i] = temp2[i];
+            }
+        }
+        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++)
+            M[i][col-<span class="number">1</span>] = temp1[i];
+        <span class="keyword">return</span> M;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findAve</span><span class="params">(<span class="keyword">int</span> [][] M, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>{
+        <span class="keyword">int</span> sum = <span class="number">0</span>, num = <span class="number">9</span>;
+        <span class="keyword">for</span>(<span class="keyword">int</span> a = i-<span class="number">1</span>; a &lt;= i+<span class="number">1</span>; a++){
+            <span class="keyword">for</span>(<span class="keyword">int</span> b = j-<span class="number">1</span>; b&lt;=j+<span class="number">1</span>; b++){
+                <span class="keyword">if</span>((a&lt;<span class="number">0</span> || a&gt; M.length-<span class="number">1</span>) || (b&lt;<span class="number">0</span> || b&gt;M[<span class="number">0</span>].length-<span class="number">1</span>)){
+                    num--;
+                }<span class="keyword">else</span>{
+                    sum+=M[a][b];
+                }
+            }
+        }
+        <span class="keyword">return</span> sum/num;
+    }
+
+}
+</code></pre>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> The time complexity should not be lesser, it’s O(row * col).</p>
+<p><strong>Space:</strong> Only constant extra space is used, except the two temp array, thus space complexity is O(row), whic could be turned to O(min(row, col)) by choosing the fewer one, but the code will be much longer.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Array </tag>
+            
+            <tag> Space Saving </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[643 Maxium Average Subarray I]]></title>
+      <url>/2017/08/23/643-Maxium-Average-Subarray-I/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/maximum-average-subarray-i/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given an array consisting of n integers, find the contiguous subarray of given length k that has the maximum average value. And you need to output the maximum average value.</p>
+<p><strong>example:</strong></p>
+<p><strong>Input:</strong> [1,12,-5,-6,50,3], k = 4</p>
+<p><strong>Output:</strong> 12.75</p>
+<p><strong>Explanation:</strong> Maximum average is (12-5-6+50)/4 = 51/4 = 12.75</p>
+</blockquote>
+<h2 id="Solution-1-Cumulative-Array"><a href="#Solution-1-Cumulative-Array" class="headerlink" title="Solution 1 Cumulative Array"></a>Solution 1 Cumulative Array</h2><p>Since it’s a contiguous array comparasion, we can first find the sum array, then deduce accordingly to easily find those sums.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMaxAverage</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++ )&#123;</div><div class="line">            nums[i]+=nums[i-<span class="number">1</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> max = nums[k-<span class="number">1</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length-k; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(nums[i+k] - nums[i] &gt; max)</div><div class="line">                max = nums[i+k] - nums[i];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">double</span>)max/k;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong>  Only O(n) because we scanned the array two times.</p>
+<p><strong>Space:</strong> O(1), if we use the orginal array to store the <strong>cumulative array</strong>.<br>Otherwise, it should be O(n).</p>
+<h2 id="Solution-2-Window-Scan"><a href="#Solution-2-Window-Scan" class="headerlink" title="Solution 2 Window Scan"></a>Solution 2 Window Scan</h2><p>If we know one continous sum, we can easily find out the next by adding the next number and deducting the head number.</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMaxAverage</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> maxS = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; k; i++)&#123;</div><div class="line">            maxS+=nums[i];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> current = maxS;</div><div class="line">        <span class="keyword">int</span> head = <span class="number">0</span>, tail = k-<span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span>(tail &lt; nums.length-<span class="number">1</span>)&#123;</div><div class="line">            current = current+nums[tail+<span class="number">1</span>]-nums[head];</div><div class="line">            maxS = Math.max(maxS, current);</div><div class="line">            head++;</div><div class="line">            tail++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">double</span>)maxS/k;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Since only scan once, the time complexity is o(n).</p>
+<p><strong>Space:</strong> Constant extra space is used, thus space complexity is O(1).</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Array </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[628 Maximum Product of Three Numbers]]></title>
+      <url>/2017/08/22/628-Maximum-Product-of-Three-Numbers/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/task-scheduler/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given an integer array, find three numbers whose product is maximum and output the maximum product.</p>
+<p><strong>Example:</strong></p>
+<p><strong>Input:</strong> [1,2,3]<br><strong>Output:</strong> 6</p>
+</blockquote>
+<h2 id="Solution-1-Sort"><a href="#Solution-1-Sort" class="headerlink" title="Solution 1 Sort"></a>Solution 1 Sort</h2><p>There are only 3 possible largest comnination, 2 smallest negative + 1 largest positive, or 3 largest positive, or 3 smallest negative. Thus, sorting first, then it is a very straightforward problem.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumProduct</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        Arrays.sort(nums);</div><div class="line">        <span class="keyword">int</span> l = nums.length;</div><div class="line">        <span class="keyword">int</span> a = nums[<span class="number">0</span>], b = nums[<span class="number">1</span>], c= nums[<span class="number">2</span>],</div><div class="line">            d = nums[l-<span class="number">1</span>], e = nums[l-<span class="number">2</span>], f = nums[l-<span class="number">3</span>];</div><div class="line">        <span class="keyword">return</span> Math.max(a*b*c, Math.max(a*b*d, d*e*f));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Since there is only one <strong>sort</strong> operation and some constant time operations, its time complexity is O(nlogn), where n represents the length of the array.</p>
+<p><strong>Space:</strong> Space complexity is obviously O(nlogn), since only <strong>sorting</strong> cost extra space.</p>
+<p><hr></p>
+<h5 id="P-S"><a href="#P-S" class="headerlink" title="P.S."></a>P.S.</h5><p>Since we only have to find those 5 numbers, we can at most scan the array one time to get them, in this way, we get an O(n) time and O(1) Extra Space solution.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Array </tag>
+            
+            <tag> Math </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[621 Task Scheduler]]></title>
+      <url>/2017/08/22/621-Task-Scheduler/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/task-scheduler/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each task could be done in one interval. For each interval, CPU could finish one task or just be idle.</p>
+<p>However, there is a non-negative cooling interval n that means between two same tasks, there must be at least n intervals that CPU are doing different tasks or just be idle.</p>
+<p>You need to return the least number of intervals the CPU will take to finish all the given tasks.</p>
+<p><strong>example:</strong></p>
+<p><strong>Input</strong> : tasks = [‘A’,’A’,’A’,’B’,’B’,’B’], n = 2</p>
+<p><strong>Output</strong> : 8</p>
+<p><strong>Explanation</strong> : A -&gt; B -&gt; idle -&gt; A -&gt; B -&gt; idle -&gt; A -&gt; B.</p>
+</blockquote>
+<h2 id="Solution-1-Max-Heap"><a href="#Solution-1-Max-Heap" class="headerlink" title="Solution 1 Max-Heap"></a>Solution 1 Max-Heap</h2><p>Since what a charcter is does not affect the result, we only have to ocnsider their counts. Following is an intutional solution, we arrange the largest first, which is to be verify. But it works. So we need a max-heap – a fast way to find the largest.</p>
+<h3 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h3><p>Store the number of each charaters in a <strong>Max-Heap</strong></p>
+<h3 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h3><p>Loop. One loop contains n steps, each step remove one current largest, if it is still not totally removed, add it to a <strong>temp</strong> ArrayList. If the <strong>queue</strong> is empty before n steps, then add<br>idle time interval accordingly. Afterwards, put all elements in the <strong>temp</strong> array to the <strong>queue</strong> again.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">leastInterval</span><span class="params">(<span class="keyword">char</span>[] tasks, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> tasks.length;</div><div class="line">        <span class="keyword">int</span>[] map = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</div><div class="line">        <span class="keyword">int</span> time = <span class="number">0</span>, i=<span class="number">0</span>;</div><div class="line">        PriorityQueue &lt; Integer &gt; queue = <span class="keyword">new</span> PriorityQueue &lt; Integer &gt; (<span class="number">26</span>, Collections.reverseOrder());</div><div class="line">        <span class="keyword">int</span> intervals=<span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c : tasks)</div><div class="line">            map[(<span class="keyword">int</span>)(c-<span class="string">'A'</span>)]++;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : map)&#123;</div><div class="line">            <span class="keyword">if</span>(x &gt; <span class="number">0</span>)</div><div class="line">                queue.add(x);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(queue.size()&gt;<span class="number">0</span>)&#123;</div><div class="line">            i=<span class="number">0</span>;</div><div class="line">            List&lt;Integer&gt; temp = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">            <span class="keyword">while</span>(i &lt;= n)&#123;</div><div class="line">                <span class="keyword">if</span>(queue.peek()&gt;<span class="number">1</span>)</div><div class="line">                    temp.add(queue.poll()-<span class="number">1</span>);</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    queue.poll();</div><div class="line">                time++;</div><div class="line">                i++;</div><div class="line">                <span class="keyword">if</span>(queue.size()==<span class="number">0</span>)&#123;</div><div class="line">                    <span class="keyword">if</span>(temp.size()!=<span class="number">0</span>)&#123;</div><div class="line">                        time+=n-i+<span class="number">1</span>;</div><div class="line">                        <span class="keyword">break</span>;   </div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">else</span>&#123;</div><div class="line">                        <span class="keyword">return</span> time;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> x: temp)</div><div class="line">                queue.add(x);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> time;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Since the size of queue is limited under 26, time complexity only depend on <strong>n</strong> linearly, thus, time complexity is O(n).</p>
+<p><strong>Space:</strong> Space complexity is obviously O(1), because there are at most 26 kinds of characters.</p>
+<h2 id="Solution-2-Counting-Idle-Time"><a href="#Solution-2-Counting-Idle-Time" class="headerlink" title="Solution 2 Counting Idle Time"></a>Solution 2 Counting Idle Time</h2><p>This method first count the minium idle time, then calculate out the result.</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">leastInterval</span><span class="params">(<span class="keyword">char</span>[] tasks, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span>[] map = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c: tasks)</div><div class="line">            map[c - <span class="string">'A'</span>]++;</div><div class="line">        Arrays.sort(map);</div><div class="line">        <span class="keyword">int</span> max_val = map[<span class="number">25</span>] - <span class="number">1</span>, idle_slots = max_val * n;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">24</span>; i &gt;= <span class="number">0</span> &amp;&amp; map[i] &gt; <span class="number">0</span>; i--) &#123;</div><div class="line">            idle_slots -= Math.min(map[i], max_val);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> idle_slots &gt; <span class="number">0</span> ? idle_slots + tasks.length : tasks.length;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n). It is obvious.</p>
+<p><strong>Spaece:</strong> O(1). Also obvious.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Array </tag>
+            
+            <tag> Queue </tag>
+            
+            <tag> Greedy </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[My Blog Starts Here]]></title>
+      <url>/2017/08/22/New-Article/</url>
+      <content type="html"><![CDATA[<p>Hi, this is a blog about coding, recoding my learning journey from 2017 summer.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> life </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> general </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
 </search>
