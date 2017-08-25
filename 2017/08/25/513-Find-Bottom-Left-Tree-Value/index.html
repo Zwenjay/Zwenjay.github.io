@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Array," />
+  <meta name="keywords" content="Tree,DFS,BFS," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Question Given an array consisting of n integers, find the contiguous subarray of given length k that has the maximum average value. And you need to output the maximum average value. example: Input: [">
-<meta name="keywords" content="Array">
+<meta name="description" content="Question Given a binary tree, find the leftmost value in the last row of the tree. Example1:  Input:          1        / \       2   3      /   / \     4   5   6        /       7  Output: 7    Note: Y">
+<meta name="keywords" content="Tree,DFS,BFS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="643 Maxium Average Subarray I">
-<meta property="og:url" content="http://wenjiezhang.com/2017/08/23/643-Maxium-Average-Subarray-I/index.html">
+<meta property="og:title" content="513 Find Bottom Left Tree Value">
+<meta property="og:url" content="http://wenjiezhang.com/2017/08/25/513-Find-Bottom-Left-Tree-Value/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="Question Given an array consisting of n integers, find the contiguous subarray of given length k that has the maximum average value. And you need to output the maximum average value. example: Input: [">
+<meta property="og:description" content="Question Given a binary tree, find the leftmost value in the last row of the tree. Example1:  Input:          1        / \       2   3      /   / \     4   5   6        /       7  Output: 7    Note: Y">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-23T18:07:53.282Z">
+<meta property="og:updated_time" content="2017-08-25T17:20:20.625Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="643 Maxium Average Subarray I">
-<meta name="twitter:description" content="Question Given an array consisting of n integers, find the contiguous subarray of given length k that has the maximum average value. And you need to output the maximum average value. example: Input: [">
+<meta name="twitter:title" content="513 Find Bottom Left Tree Value">
+<meta name="twitter:description" content="Question Given a binary tree, find the leftmost value in the last row of the tree. Example1:  Input:          1        / \       2   3      /   / \     4   5   6        /       7  Output: 7    Note: Y">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/2017/08/23/643-Maxium-Average-Subarray-I/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/08/25/513-Find-Bottom-Left-Tree-Value/"/>
 
 
 
 
 
-  <title>643 Maxium Average Subarray I | Coding Zone</title>
+  <title>513 Find Bottom Left Tree Value | Coding Zone</title>
   
 
 
@@ -311,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/23/643-Maxium-Average-Subarray-I/">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/25/513-Find-Bottom-Left-Tree-Value/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wenjie Zhang">
@@ -328,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">643 Maxium Average Subarray I</h1>
+          <h1 class="post-title" itemprop="name headline">513 Find Bottom Left Tree Value</h1>
         
 
         <div class="post-meta">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-23T08:22:20-07:00">
-                2017-08-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-25T10:15:05-07:00">
+                2017-08-25
               </time>
             
 
@@ -405,21 +405,30 @@
       
 
       
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/maximum-average-subarray-i/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given an array consisting of n integers, find the contiguous subarray of given length k that has the maximum average value. And you need to output the maximum average value.</p>
-<p><strong>example:</strong></p>
-<p><strong>Input:</strong> [1,12,-5,-6,50,3], k = 4</p>
-<p><strong>Output:</strong> 12.75</p>
-<p><strong>Explanation:</strong> Maximum average is (12-5-6+50)/4 = 51/4 = 12.75</p>
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/find-bottom-left-tree-value/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a binary tree, find the leftmost value in the last row of the tree.</p>
+<p><strong>Example1:</strong></p>
 </blockquote>
-<h2 id="Solution-1-Cumulative-Array"><a href="#Solution-1-Cumulative-Array" class="headerlink" title="Solution 1 Cumulative Array"></a>Solution 1 Cumulative Array</h2><p>Since it’s a contiguous array comparasion, we can first find the sum array, then deduce accordingly to easily find those sums.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMaxAverage</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++ )&#123;</div><div class="line">            nums[i]+=nums[i-<span class="number">1</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> max = nums[k-<span class="number">1</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length-k; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(nums[i+k] - nums[i] &gt; max)</div><div class="line">                max = nums[i+k] - nums[i];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">double</span>)max/k;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong>  Only O(n) because we scanned the array two times.</p>
-<p><strong>Space:</strong> O(1), if we use the orginal array to store the <strong>cumulative array</strong>.<br>Otherwise, it should be O(n).</p>
-<h2 id="Solution-2-Window-Scan"><a href="#Solution-2-Window-Scan" class="headerlink" title="Solution 2 Window Scan"></a>Solution 2 Window Scan</h2><p>If we know one continous sum, we can easily find out the next by adding the next number and deducting the head number.</p>
-<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMaxAverage</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> maxS = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; k; i++)&#123;</div><div class="line">            maxS+=nums[i];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> current = maxS;</div><div class="line">        <span class="keyword">int</span> head = <span class="number">0</span>, tail = k-<span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span>(tail &lt; nums.length-<span class="number">1</span>)&#123;</div><div class="line">            current = current+nums[tail+<span class="number">1</span>]-nums[head];</div><div class="line">            maxS = Math.max(maxS, current);</div><div class="line">            head++;</div><div class="line">            tail++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">double</span>)maxS/k;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Since only scan once, the time complexity is o(n).</p>
-<p><strong>Space:</strong> Constant extra space is used, thus space complexity is O(1).</p>
+<pre>Input:
+
+        1
+       / \
+      2   3
+     /   / \
+    4   5   6
+       /
+      7
+
+Output:
+7
+</pre>
+
+<blockquote>
+<p><strong>Note:</strong> You may assume the tree (i.e., the given root node) is not <strong>NULL</strong>.</p>
+</blockquote>
+<h2 id="Solution-1-Level-Order"><a href="#Solution-1-Level-Order" class="headerlink" title="Solution 1 Level Order"></a>Solution 1 Level Order</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        List&lt;TreeNode&gt; q = <span class="keyword">new</span> ArrayList&lt;TreeNode&gt;();</div><div class="line">        List&lt;Integer&gt; temp = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        TreeNode p;</div><div class="line">        <span class="keyword">int</span> len;</div><div class="line">        </div><div class="line">        q.add(root);</div><div class="line">        <span class="keyword">while</span>(q.size()&gt;<span class="number">0</span>)&#123;</div><div class="line">            len = q.size();</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</div><div class="line">                p = q.remove(<span class="number">0</span>);</div><div class="line">                <span class="keyword">if</span>(p.left != <span class="keyword">null</span>)</div><div class="line">                    q.add(p.left);</div><div class="line">                <span class="keyword">if</span>(p.right != <span class="keyword">null</span>)</div><div class="line">                    q.add(p.right);</div><div class="line">                temp.add(p.val);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(q.size()&gt;<span class="number">0</span>)</div><div class="line">                temp.clear();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> temp.get(<span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Every node is visited once, so the time complexity is O(n).</p>
+<p><strong>Space:</strong> One Stack is used to store at most half of the elements, thus, the space complexity is also O(n).</p>
 
       
     </div>
@@ -437,7 +446,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Array/" rel="tag"># Array</a>
+            <a href="/tags/Tree/" rel="tag"># Tree</a>
+          
+            <a href="/tags/DFS/" rel="tag"># DFS</a>
+          
+            <a href="/tags/BFS/" rel="tag"># BFS</a>
           
         </div>
       
@@ -450,8 +463,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/22/628-Maximum-Product-of-Three-Numbers/" rel="next" title="628 Maximum Product of Three Numbers">
-                <i class="fa fa-chevron-left"></i> 628 Maximum Product of Three Numbers
+              <a href="/2017/08/25/563-Binary-Tree-Tilt/" rel="next" title="563 Binary Tree Tilt">
+                <i class="fa fa-chevron-left"></i> 563 Binary Tree Tilt
               </a>
             
           </div>
@@ -459,10 +472,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/23/661-Image-Smoother/" rel="prev" title="661 Image Smoother">
-                661 Image Smoother <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -598,7 +607,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Cumulative-Array"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Cumulative Array</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2-Window-Scan"><span class="nav-number">1.2.</span> <span class="nav-text">Solution 2 Window Scan</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Level-Order"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Level Order</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
