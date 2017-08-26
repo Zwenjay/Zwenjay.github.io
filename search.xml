@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[283 Move Zeros]]></title>
+    <url>%2F2017%2F08%2F26%2F283-Move-Zeros%2F</url>
+    <content type="text"><![CDATA[Question Given an array nums, write a function to move all 0’s to the end of it while maintaining the relative order of the non-zero elements. For example, given nums = [0, 1, 0, 3, 12], after calling your function, nums should be [1, 3, 12, 0, 0] Note: You must do this in-place without making a copy of the array. Minimize the total number of operations. Solution 1 Two PointersOne for first zero position, one for curser. Code1234567891011121314151617181920212223242526class Solution &#123; public void moveZeroes(int[] nums) &#123; int zeroH = -1, cur = 0; for(cur =0; cur &lt; nums.length; cur++)&#123; if(nums[cur] == 0)&#123; if(zeroH == -1) zeroH = cur; &#125;else&#123; if(zeroH &gt;= 0)&#123; swap(nums, zeroH, cur); if(zeroH &lt; nums.length-1 &amp;&amp; nums[zeroH+1] == 0) zeroH++; else zeroH = cur; &#125; &#125; &#125; &#125; private void swap(int[] nums, int i, int j)&#123; int temp = nums[i]; nums[i] = nums[j]; nums[j] = temp; &#125;&#125; T&amp;S AnalysisTime: Only scan once, so it’s O(n). But in this problem, swap operation’s count is important. The operation is O(nonzeros) in worst case. Space: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Two Pointers</tag>
+        <tag>Array</tag>
+        <tag>Facebook</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[617 Merge Two Binary Trees]]></title>
     <url>%2F2017%2F08%2F25%2F617-Merge-Two-Binary-Trees%2F</url>
     <content type="text"><![CDATA[Question Given two binary trees and imagine that when you put one of them to cover the other, some nodes of the two trees are overlapped while the others are not. You need to merge them into a new binary tree. The merge rule is that if two nodes overlap, then sum node values up as the new value of the merged node. Otherwise, the NOT null node will be used as the node of new tree. Example 1: Input: Tree 1 Tree 2 1 2 / \ / \ 3 2 1 3 / \ \ 5 4 7 Output: Merged tree: 3 / \ 4 5 / \ \ 5 4 7 Note: The merging process must start from the root nodes of both trees. Solution 1 Recursive BuildingFirst, it is easy to know how to merge two small trees, so divide the question into small pieces. Everytime, merge one node and then, merge its two children. Note: To makeup unexisting nodes, in order to follow the recirsion pattern, we set null still be null in the next recursion. Code123456789101112class Solution &#123; public TreeNode mergeTrees(TreeNode t1, TreeNode t2) &#123; TreeNode t; if(t1 == null &amp;&amp; t2 ==null) return null; t = new TreeNode((t1 == null?0:t1.val)+(t2 == null? 0: t2.val)); t.left = mergeTrees(t1==null?null:t1.left,t2==null?null:t2.left); t.right = mergeTrees(t1==null?null:t1.right,t2==null?null:t2.right); return t; &#125;&#125; T&amp;S AnalysisTime: O(n) Space: O(n)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
       <tags>
         <tag>Tree</tag>
       </tags>
