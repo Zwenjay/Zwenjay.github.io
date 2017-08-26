@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Facebook,String,Math," />
 
 
 
@@ -94,17 +94,18 @@
 
 
 
-<meta name="description" content="I like codding, coding makes me happy.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="category">
-<meta property="og:url" content="http://wenjiezhang.com/categories/index.html">
+<meta name="description" content="Question Given two binary strings, return their sum (also a binary string). For example,a = “11”b = “1”Return “100”.  Solution 1 From tail to headCode12345678910111213141516171819202122232425262728293">
+<meta name="keywords" content="Facebook,String,Math">
+<meta property="og:type" content="article">
+<meta property="og:title" content="67 Add Binary">
+<meta property="og:url" content="http://wenjiezhang.com/2017/08/26/67-Add-Binary/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="I like codding, coding makes me happy.">
+<meta property="og:description" content="Question Given two binary strings, return their sum (also a binary string). For example,a = “11”b = “1”Return “100”.  Solution 1 From tail to headCode12345678910111213141516171819202122232425262728293">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-23T04:12:20.567Z">
+<meta property="og:updated_time" content="2017-08-26T18:11:43.275Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="category">
-<meta name="twitter:description" content="I like codding, coding makes me happy.">
+<meta name="twitter:title" content="67 Add Binary">
+<meta name="twitter:description" content="Question Given two binary strings, return their sum (also a binary string). For example,a = “11”b = “1”Return “100”.  Solution 1 From tail to headCode12345678910111213141516171819202122232425262728293">
 
 
 
@@ -134,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/categories/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/08/26/67-Add-Binary/"/>
 
 
 
 
 
-  <title>category | Coding Zone</title>
+  <title>67 Add Binary | Coding Zone</title>
   
 
 
@@ -298,40 +299,185 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/26/67-Add-Binary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">category</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="category-all-page">
-            <div class="category-all-title">
-                2 categories in total
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li></ul>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">67 Add Binary</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T11:07:12-07:00">
+                2017-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>times
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/add-binary/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given two binary strings, return their sum (also a binary string).</p>
+<p>For example,<br>a = “11”<br>b = “1”<br>Return “100”.</p>
+</blockquote>
+<h2 id="Solution-1-From-tail-to-head"><a href="#Solution-1-From-tail-to-head" class="headerlink" title="Solution 1 From tail to head"></a>Solution 1 From tail to head</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">addBinary</span><span class="params">(String a, String b)</span> </span>&#123;</div><div class="line">        String res = <span class="string">""</span>, tempS;</div><div class="line">        <span class="keyword">int</span> i = a.length()-<span class="number">1</span>, j = b.length()-<span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> carry = <span class="number">0</span>, temp;</div><div class="line">        <span class="keyword">while</span>(i &gt;=<span class="number">0</span> &amp;&amp; j&gt;=<span class="number">0</span>)&#123;</div><div class="line">            temp = a.charAt(i)-<span class="string">'0'</span>+b.charAt(j)-<span class="string">'0'</span>+carry; </div><div class="line">            <span class="keyword">switch</span>(temp)&#123;</div><div class="line">                <span class="keyword">case</span> <span class="number">0</span>:</div><div class="line">                    res = <span class="string">"0"</span> + res;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">                    res = <span class="string">"1"</span> + res;</div><div class="line">                    carry =<span class="number">0</span>;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">                    res = <span class="string">"0"</span> + res;</div><div class="line">                    carry =<span class="number">1</span>;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> <span class="number">3</span>:</div><div class="line">                    res = <span class="string">"1"</span> + res;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            j--;</div><div class="line">            i--;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(i == -<span class="number">1</span>)</div><div class="line">            tempS = b.substring(<span class="number">0</span>, j+<span class="number">1</span>);</div><div class="line">        <span class="keyword">else</span></div><div class="line">            tempS = a.substring(<span class="number">0</span>, i+<span class="number">1</span>);</div><div class="line">        <span class="keyword">int</span> k = tempS.length()-<span class="number">1</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(k&gt;=<span class="number">0</span> &amp;&amp; carry==<span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(tempS.charAt(k) == <span class="string">'1'</span>)</div><div class="line">                res = <span class="string">"0"</span>+res;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                res = <span class="string">"1"</span> +res;</div><div class="line">                carry =<span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">            k--;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(carry ==<span class="number">0</span> )</div><div class="line">            <span class="keyword">return</span> tempS.substring(<span class="number">0</span>, k+<span class="number">1</span>)+res;</div><div class="line">        <span class="keyword">else</span></div><div class="line">            <span class="keyword">return</span> <span class="string">"1"</span> + res;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n)</p>
+<p><strong>Space:</strong> O(1)</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Facebook/" rel="tag"># Facebook</a>
+          
+            <a href="/tags/String/" rel="tag"># String</a>
+          
+            <a href="/tags/Math/" rel="tag"># Math</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/26/20-Valid-Parentheses/" rel="next" title="20 Valid Parentheses">
+                <i class="fa fa-chevron-left"></i> 20 Valid Parentheses
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/26/401-Binary-Watch/" rel="prev" title="401 Binary Watch">
+                401 Binary Watch <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -366,8 +512,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg"
@@ -429,6 +584,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-From-tail-to-head"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 From tail to head</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -560,10 +731,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
