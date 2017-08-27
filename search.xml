@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[15 3Sum]]></title>
+    <url>%2F2017%2F08%2F27%2F15-3Sum%2F</url>
+    <content type="text"><![CDATA[Question Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero. Note: The solution set must not contain duplicate triplets. For example, given array S = [-1, 0, 1, 2, -1, -4], A solution set is: [ [-1, 0, 1], [-1, -1, 2] ] Solution 1 Two PointersTo make this “three pointers problem” into a two pointers problem, we have to fix one pointer. when it is fixed it turned in to the 2Sum problem. 1234567891011121314151617181920212223242526272829class Solution &#123; public List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) &#123; List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;List&lt;Integer&gt;&gt;(); int target, head, tail; Arrays.sort(nums); for(int i = 0; i &lt; nums.length - 2; i++)&#123; if(i &gt; 0 &amp;&amp; nums[i] == nums[i-1]) continue; target = 0-nums[i]; head = i+1; tail = nums.length -1; while(head &lt; tail)&#123; if(nums[head] + nums[tail] == target)&#123; res.add(Arrays.asList(nums[i], nums[head], nums[tail])); head++; tail--; while(head &lt; tail &amp;&amp; nums[head-1] == nums[head]) head++; while(tail &gt; head &amp;&amp; nums[tail+1]==nums[tail]) tail--; &#125;else if(nums[head] + nums[tail] &lt; target) head++; else tail--; &#125; &#125; return res; &#125;&#125;]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Array</tag>
+        <tag>Two Pointers</tag>
+        <tag>Facebook</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[91 Decode Ways]]></title>
     <url>%2F2017%2F08%2F27%2F91-Decode-Ways%2F</url>
     <content type="text"><![CDATA[Question A message containing letters from A-Z is being encoded to numbers using the following mapping: 'A' -&gt; 1 'B' -&gt; 2 ... 'Z' -&gt; 26 Given an encoded message containing digits, determine the total number of ways to decode it. For example, Given encoded message “12”, it could be decoded as “AB” (1 2) or “L” (12). The number of ways decoding “12” is 2. Solution 1 Dynamic ProgrammingThis problem could be done step by step. Code123456789101112131415161718192021222324252627282930313233343536class Solution &#123; public int numDecodings(String s) &#123; //Special cases and initialization if(s.length() == 0 || s.charAt(0) == '0') return 0; if(s.length() == 1) return 1; int count1 = 1, count2 =1, temp; /* Each step could be adding the former two steps answer, if 2 digits case is larger than 26, than only same as the former one step */ for(int i = 1; i &lt; s.length(); i++)&#123; // 0 should be carefully treated if(s.charAt(i) == '0')&#123; if(s.charAt(i-1)-'0'&gt;2) return 0; else&#123; count1 = count2; count2 = 0; &#125; &#125;else if(s.charAt(i-1)=='1' || (s.charAt(i-1) == '2' &amp;&amp; s.charAt(i)-'0' &lt;= '6'-'0'))&#123; temp = count1; count1 = count1 + count2; count2 = temp; &#125;else&#123; count2 = count1; &#125; &#125; return count1; &#125;&#125; T&amp;S AnalysisTime: Only one scan, thus itis O(n) time. Space: Constant extra space used, space complexity: O(1)]]></content>
@@ -33,8 +46,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Backtracking</tag>
         <tag>Facebook</tag>
+        <tag>Backtracking</tag>
       </tags>
   </entry>
   <entry>
@@ -104,9 +117,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Array</tag>
         <tag>Two Pointers</tag>
         <tag>Facebook</tag>
-        <tag>Array</tag>
       </tags>
   </entry>
   <entry>
