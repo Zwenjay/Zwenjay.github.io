@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[666 Path Sum IV]]></title>
+    <url>%2F2017%2F08%2F26%2F666-Path-Sum-IV%2F</url>
+    <content type="text"><![CDATA[Question If the depth of a tree is smaller than 5, then this tree can be represented by a list of three-digits integers. For each integer in this list: The hundreds digit represents the depth D of this node, 1 &lt;= D &lt;= 4. The tens digit represents the position P of this node in the level it belongs to, 1 &lt;= P &lt;= 8. The position is the same as that in a full binary tree. The units digit represents the value V of this node, 0 &lt;= V &lt;= 9.Given a list of ascending three-digits integers representing a binary with the depth smaller than 5. You need to return the sum of all paths from the root towards the leaves. Given a list of ascending three-digits integers representing a binary with the depth smaller than 5. You need to return the sum of all paths from the root towards the leaves. Example1: Input: [113, 215, 221] Output: 12 Explanation: The tree that the list represents is: 3 / \ 5 1 The path sum is (3 + 5) + (3 + 1) = 12. Examlpe2: Input: [113, 221] Output: 4 Explanation: The tree that the list represents is: 3 \ 1 The path sum is (3 + 1) = 4. Solution 1 Add dumpy to nullCode:12345678910111213141516171819202122232425262728293031323334353637383940414243class Solution &#123; public int pathSum(int[] nums) &#123; int sum = 0, p; List&lt;Integer&gt; compTree = new ArrayList&lt;Integer&gt;(); int level = 0; for(int x: nums) level=Math.max(level, getDigit(x, 3)); for(int i = 1; i &lt;= level; i++)&#123; for(int j = 1; j &lt;= 1&lt;&lt;(i-1); j++)&#123; compTree.add(-1*(i*100+j*10)); &#125; &#125; for(int x : nums)&#123; int index = (1&lt;&lt;(getDigit(x,3)-1))+getDigit(x,2)-2; compTree.set(index, compTree.get(index)*(-1)+getDigit(x, 1)); &#125; for(int i = (1&lt;&lt;(level))-2; i&gt;=0; i--)&#123; p = i; if (compTree.get(p) &lt; 0) continue; if(2*p+1 &lt; (1&lt;&lt;(level))-2 &amp;&amp; (compTree.get(2*p+1) &gt; 0 || compTree.get(2*p+2) &gt; 0)) continue; while(p&gt;=0)&#123; System.out.println(p); sum+=getDigit(compTree.get(p), 1); p=(p+1)/2-1; &#125; &#125; return sum; &#125; private int getDigit(int n, int i)&#123; if(i == 1) return n%10; if(i == 2) return (n/10)%10; if(i == 3) return n/100; return 0; &#125;&#125; T&amp;S AnalysisTime: Only scan constant times, time complexity: O(n) Space: A list is used, space complexity:O(n)]]></content>
+      <tags>
+        <tag>Tree</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[665 Non-decreasing Array]]></title>
+    <url>%2F2017%2F08%2F26%2F665-Non-decreasing-Array%2F</url>
+    <content type="text"><![CDATA[Question Given an array with n integers, your task is to check if it could become non-decreasing by modifying at most 1 element. We define an array is non-decreasing if array[i] &lt;= array[i + 1] holds for every i (1 &lt;= i &lt; n). Example 1:Input: [4,2,3]Output: TrueExplanation: You could modify the first 4 to 1 to get a non-decreasing array. Example 2:Input: [4,2,1]Output: FalseExplanation: You can’t get a non-decreasing array by modify at most one element. Note:The n belongs to [1, 10,000]. Solution 1 Online SolutionCode:1234567891011121314151617181920class Solution &#123; public boolean checkPossibility(int[] nums) &#123; int i = 0; boolean once = false; for(i = 0; i &lt; nums.length-1; i++)&#123; if(nums[i] &gt; nums[i+1])&#123; if(once) return false; once = true; if(i == 0) continue; if(nums[i+1] &gt;= nums[i-1]) continue; if(i+2 &lt; nums.length &amp;&amp; nums[i] &gt;= nums[i+2]) return false; &#125; &#125; return true; &#125;&#125; T&amp;S AnalysisTime: Only scan once, time complexity: O(n) Space: Constant extra space is used, space complexity:O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[401 Binary Watch]]></title>
     <url>%2F2017%2F08%2F26%2F401-Binary-Watch%2F</url>
     <content type="text"><![CDATA[Question A binary watch has 4 LEDs on the top which represent the hours (0-11), and the 6 LEDs on the bottom represent the minutes (0-59).Each LED represents a zero or one, with the least significant bit on the right.For example, the above binary watch reads “3:25”.Given a non-negative integer n which represents the number of LEDs that are currently on, return all possible times the watch could represent.Example:Input: n = 1Return: [“1:00”, “2:00”, “4:00”, “8:00”, “0:01”, “0:02”, “0:04”, “0:08”, “0:16”, “0:32”]Note:The order of output does not matter.The hour must not contain a leading zero, for example “01:00” is not valid, it should be “1:00”.The minute must be consist of two digits and may contain a leading zero, for example “10:2” is not valid, it should be “10:02”. Solution 1 BacktrackingUse backtracking technology. Regard hour and minute as numbers, find out which numbers could be on the hours an minutes. Build two array representing for each point. Backtracking: Find out number of lights represent for hours and minutes accordingly, for example 6 lights could be from 0-6 to 4-2, we call the pair hour-minute-pair; For each hour-minute-pair, first for hour and then for minutes seprately, each has a initial 0 varible sum: According to array order, add one number to sum, then count minus 1. repet a. until count=0 ,which means we’ve finished one turn selection, put the sum to list, and continue next turn selection. Translate numbers to String Code12345678910111213141516171819202122232425262728293031323334353637class Solution &#123; public List&lt;String&gt; readBinaryWatch(int num) &#123; List&lt;String&gt; ans = new ArrayList&lt;String&gt;(); int num1[] = new int[]&#123;8,4,2,1&#125;; int num2[] = new int[]&#123;32,16,8,4,2,1&#125;; for(int i = 0; i &lt;= Math.min(4, num); i++)&#123; List&lt;Integer&gt; l1 = getDigit(num1, i); List&lt;Integer&gt; l2 = getDigit(num2, num-i); for(int h: l1)&#123; if(h &gt;= 12) continue; for(int m: l2)&#123; if(m &gt;= 60) continue; ans.add(h + ":" + ((m &gt;= 10)? "":"0") + m); &#125; &#125; &#125; return ans; &#125; private List&lt;Integer&gt; getDigit( int[] nums, int count)&#123; List&lt;Integer&gt; l = new ArrayList&lt;Integer&gt;(); getDigitHelper(l, nums, count, 0, 0); return l; &#125; private void getDigitHelper(List&lt;Integer&gt; l, int[] nums, int count, int pos, int sum)&#123; if(count == 0)&#123; l.add(sum); return; &#125; for(int i = pos; i &lt; nums.length; i++)&#123; getDigitHelper(l, nums, count-1, i+1, sum+nums[i]); &#125; &#125;&#125; T&amp;S AnalysisTime: This question is all limited, thus time complex is O(1) Space: O(1)]]></content>
@@ -20,8 +39,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>String</tag>
+        <tag>Facebook</tag>
         <tag>Math</tag>
       </tags>
   </entry>
@@ -33,8 +52,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
         <tag>Stack</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>

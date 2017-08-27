@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Tree," />
 
 
 
@@ -94,16 +94,18 @@
 
 
 
-<meta name="description" content="I like codding, coding makes me happy.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Coding Zone">
-<meta property="og:url" content="http://wenjiezhang.com/tags/Greedy/index.html">
+<meta name="description" content="Question If the depth of a tree is smaller than 5, then this tree can be represented by a list of three-digits integers. For each integer in this list:  The hundreds digit represents the depth D of th">
+<meta name="keywords" content="Tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="666 Path Sum IV">
+<meta property="og:url" content="http://wenjiezhang.com/2017/08/26/666-Path-Sum-IV/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="I like codding, coding makes me happy.">
+<meta property="og:description" content="Question If the depth of a tree is smaller than 5, then this tree can be represented by a list of three-digits integers. For each integer in this list:  The hundreds digit represents the depth D of th">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-08-27T06:59:46.574Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Coding Zone">
-<meta name="twitter:description" content="I like codding, coding makes me happy.">
+<meta name="twitter:title" content="666 Path Sum IV">
+<meta name="twitter:description" content="Question If the depth of a tree is smaller than 5, then this tree can be represented by a list of three-digits integers. For each integer in this list:  The hundreds digit represents the depth D of th">
 
 
 
@@ -133,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/tags/Greedy/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/08/26/666-Path-Sum-IV/"/>
 
 
 
 
 
-  <title>Tag: Greedy | Coding Zone</title>
+  <title>666 Path Sum IV | Coding Zone</title>
   
 
 
@@ -177,7 +179,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -295,54 +297,192 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Greedy<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/26/666-Path-Sum-IV/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2017/08/22/621-Task-Scheduler/" itemprop="url">
-              
-                <span itemprop="name">621 Task Scheduler</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">666 Path Sum IV</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-22T14:20:29-07:00"
-              content="2017-08-22" >
-          08-22
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T22:05:44-07:00">
+                2017-08-26
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>times
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/contest/leetcode-weekly-contest-47/problems/path-sum-iv/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>If the depth of a tree is smaller than 5, then this tree can be represented by a list of three-digits integers.</p>
+<p>For each integer in this list:</p>
+<ol>
+<li><p>The hundreds digit represents the depth D of this node, 1 &lt;= D &lt;= 4.</p>
+</li>
+<li><p>The tens digit represents the position P of this node in the level it belongs to, 1 &lt;= P &lt;= 8. The position is the same as that in a full binary tree.</p>
+</li>
+<li><p>The units digit represents the value V of this node, 0 &lt;= V &lt;= 9.<br>Given a list of ascending three-digits integers representing a binary with the depth smaller than 5. You need to return the sum of all paths from the root towards the leaves.</p>
+</li>
+</ol>
+<p>Given a list of ascending three-digits integers representing a binary with the depth smaller than 5. You need to return the sum of all paths from the root towards the leaves.</p>
+<p><strong>Example1:</strong></p>
+<pre><b>Input:</b> [113, 215, 221]
+<b>Output:</b> 12
+<b>Explanation:</b> 
+The tree that the list represents is:
+    3
+   / \
+  5   1
+
+The path sum is (3 + 5) + (3 + 1) = 12.
+</pre>
+
+<p><strong>Examlpe2:</strong></p>
+<pre><b>Input:</b> [113, 221]
+<b>Output:</b> 4
+<b>Explanation:</b> 
+The tree that the list represents is: 
+    3
+     \
+      1
+
+The path sum is (3 + 1) = 4.
+</pre>
+
+</blockquote>
+<p><br><br><br></p>
+<h2 id="Solution-1-Add-dumpy-to-null"><a href="#Solution-1-Add-dumpy-to-null" class="headerlink" title="Solution 1 Add dumpy to null"></a>Solution 1 Add dumpy to null</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pathSum</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>, p;</div><div class="line">        List&lt;Integer&gt; compTree = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        <span class="keyword">int</span> level = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x: nums)</div><div class="line">            level=Math.max(level, getDigit(x, <span class="number">3</span>));</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= level; i++)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">1</span>&lt;&lt;(i-<span class="number">1</span>); j++)&#123;</div><div class="line">                compTree.add(-<span class="number">1</span>*(i*<span class="number">100</span>+j*<span class="number">10</span>));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : nums)&#123;</div><div class="line">            <span class="keyword">int</span> index = (<span class="number">1</span>&lt;&lt;(getDigit(x,<span class="number">3</span>)-<span class="number">1</span>))+getDigit(x,<span class="number">2</span>)-<span class="number">2</span>;</div><div class="line">            compTree.set(index, compTree.get(index)*(-<span class="number">1</span>)+getDigit(x, <span class="number">1</span>));</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = (<span class="number">1</span>&lt;&lt;(level))-<span class="number">2</span>; i&gt;=<span class="number">0</span>; i--)&#123;</div><div class="line">            p = i;</div><div class="line">            <span class="keyword">if</span> (compTree.get(p) &lt; <span class="number">0</span>)</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            <span class="keyword">if</span>(<span class="number">2</span>*p+<span class="number">1</span> &lt; (<span class="number">1</span>&lt;&lt;(level))-<span class="number">2</span> &amp;&amp; (compTree.get(<span class="number">2</span>*p+<span class="number">1</span>) &gt; <span class="number">0</span> || compTree.get(<span class="number">2</span>*p+<span class="number">2</span>) &gt; <span class="number">0</span>))</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            <span class="keyword">while</span>(p&gt;=<span class="number">0</span>)&#123;</div><div class="line">                System.out.println(p);</div><div class="line">                sum+=getDigit(compTree.get(p), <span class="number">1</span>);</div><div class="line">                p=(p+<span class="number">1</span>)/<span class="number">2</span>-<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> sum;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getDigit</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> i)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(i == <span class="number">1</span>)</div><div class="line">            <span class="keyword">return</span> n%<span class="number">10</span>;</div><div class="line">        <span class="keyword">if</span>(i == <span class="number">2</span>)</div><div class="line">            <span class="keyword">return</span> (n/<span class="number">10</span>)%<span class="number">10</span>;</div><div class="line">        <span class="keyword">if</span>(i == <span class="number">3</span>)</div><div class="line">            <span class="keyword">return</span> n/<span class="number">100</span>;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Only scan constant times, time complexity: O(n)</p>
+<p><strong>Space:</strong> A list is used, space complexity:O(n)</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Tree/" rel="tag"># Tree</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/26/665-Non-decreasing-Array/" rel="next" title="665 Non-decreasing Array">
+                <i class="fa fa-chevron-left"></i> 665 Non-decreasing Array
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -350,6 +490,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDQwMC82OTUz"></div>
+    
+  </div>
+
 
         </div>
         
@@ -370,8 +516,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg"
@@ -433,6 +588,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Add-dumpy-to-null"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Add dumpy to null</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -564,10 +735,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
@@ -596,6 +767,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
