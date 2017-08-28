@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[200 Number of Islands]]></title>
+    <url>%2F2017%2F08%2F27%2F200-Number-of-Islands%2F</url>
+    <content type="text"><![CDATA[Question Given a 2d grid map of ‘1’s (land) and ‘0’s (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water. Example 1: 11110110101100000000 Answer: 1 Example 1: 11000110000010000011 Answer: 3 Solution 1 Union FindUtlize Union Find Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475class Solution &#123; public int numIslands(char[][] grid) &#123; int row = grid.length; if(row == 0) return 0; int col = grid[0].length; int count = 0; Point[][] map = new Point[row][col]; // initialize the map, in which the first means its size if negative. for(int i = 0; i &lt; row; i++)&#123; for(int j = 0; j &lt; col; j++)&#123; map[i][j] = new Point(-1, -1); &#125; &#125; for(int i = 0; i &lt; row; i++)&#123; for(int j = 0; j &lt; col; j++)&#123; if(grid[i][j] == '1')&#123; if(i &gt; 0 &amp;&amp; grid[i-1][j] == '1')&#123; combine(map, i, j, i-1, j); &#125; if(i &lt; row-1 &amp;&amp; grid[i+1][j] == '1')&#123; combine(map, i, j, i+1, j); &#125; if(j &gt; 0 &amp;&amp; grid[i][j-1] == '1')&#123; combine(map, i, j, i, j-1); &#125; if(j &lt; col-1 &amp;&amp; grid[i][j+1] == '1')&#123; combine(map, i, j, i, j+1); &#125; &#125; &#125; &#125; for(int i = 0; i &lt; row; i++)&#123; for(int j = 0; j &lt; col; j++)&#123; if(map[i][j].x&lt; 0 &amp;&amp; grid[i][j] == '1') count++; &#125; &#125; return count; &#125; private void combine(Point[][] map, int x1, int y1, int x2, int y2)&#123; int tx; while(map[x1][y1].x &gt;= 0)&#123; System.out.println(x1+"---"+y1); tx = x1; x1 = map[x1][y1].x; y1 = map[tx][y1].y; &#125; while(map[x2][y2].x &gt;= 0)&#123; tx = x2; x2 = map[x2][y2].x; y2 = map[tx][y2].y; &#125; if(x1==x2 &amp;&amp; y1==y2) return; if(map[x1][y1].x &gt; map[x2][y2].x)&#123; map[x2][y2].x += map[x1][y1].x; map[x1][y1].x = x2; map[x1][y1].y = y2; &#125;else&#123; map[x1][y1].x += map[x2][y2].x; map[x2][y2].x = x1; map[x2][y2].y = y1; &#125; &#125;&#125; T&amp;S AnalysisTime: I sanned the grid and map for constant, so time complexity is O(row*col). Space: O(row*col), since I used the map. Solution 2 DFSOnce meet ‘1, mark it and its connected ‘1’ all to ‘0’, and count + 1. Code12345678910111213141516171819202122232425262728class Solution &#123; public int numIslands(char[][] grid) &#123; int row = grid.length, count = 0; if(row == 0) return 0; int col = grid[0].length; for(int i = 0; i &lt; row; i++)&#123; for(int j = 0; j &lt; col; j++)&#123; if(grid[i][j] == '1')&#123; DFS(grid, i, j); count++; &#125; &#125; &#125; return count; &#125; private void DFS(char[][] grid, int i, int j)&#123; if(i &gt;= grid.length || i&lt; 0 || j &lt; 0 || j &gt;= grid[0].length || grid[i][j] == '0') return; grid[i][j] = '0'; DFS(grid, i-1, j); DFS(grid, i+1, j); DFS(grid, i, j-1); DFS(grid, i, j+1); return; &#125;&#125; T&amp;S AnalysisTime: I sanned the grid and map for constant, so time complexity is O(row*col). Space: O(row*col), for the worst case of recursion.]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Facebook</tag>
+        <tag>DFS</tag>
+        <tag>BFS</tag>
+        <tag>Union Find</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[15 3Sum]]></title>
     <url>%2F2017%2F08%2F27%2F15-3Sum%2F</url>
     <content type="text"><![CDATA[Question Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero. Note: The solution set must not contain duplicate triplets. For example, given array S = [-1, 0, 1, 2, -1, -4], A solution set is: [ [-1, 0, 1], [-1, -1, 2] ] Solution 1 Two PointersTo make this “three pointers problem” into a two pointers problem, we have to fix one pointer. when it is fixed it turned in to the 2Sum problem. 1234567891011121314151617181920212223242526272829class Solution &#123; public List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) &#123; List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;List&lt;Integer&gt;&gt;(); int target, head, tail; Arrays.sort(nums); for(int i = 0; i &lt; nums.length - 2; i++)&#123; if(i &gt; 0 &amp;&amp; nums[i] == nums[i-1]) continue; target = 0-nums[i]; head = i+1; tail = nums.length -1; while(head &lt; tail)&#123; if(nums[head] + nums[tail] == target)&#123; res.add(Arrays.asList(nums[i], nums[head], nums[tail])); head++; tail--; while(head &lt; tail &amp;&amp; nums[head-1] == nums[head]) head++; while(tail &gt; head &amp;&amp; nums[tail+1]==nums[tail]) tail--; &#125;else if(nums[head] + nums[tail] &lt; target) head++; else tail--; &#125; &#125; return res; &#125;&#125;]]></content>
@@ -8,8 +22,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Array</tag>
         <tag>Two Pointers</tag>
+        <tag>Array</tag>
         <tag>Facebook</tag>
       </tags>
   </entry>
@@ -117,8 +131,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Array</tag>
         <tag>Two Pointers</tag>
+        <tag>Array</tag>
         <tag>Facebook</tag>
       </tags>
   </entry>
@@ -212,7 +226,7 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Link List</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
   <entry>
