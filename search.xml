@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[211 Add and Search Word-Data structure design]]></title>
+    <url>%2F2017%2F08%2F28%2F211-Add-and-Search-Word-Data-structure-design%2F</url>
+    <content type="text"><![CDATA[Question Design a data structure that supports the following two operations: void addWord(word) bool search(word) search(word) can search a literal word or a regular expression string containing only letters a-z or .. A . means it can represent any one letter. For example: addWord("bad") addWord("dad") addWord("mad") search("pad") -&gt; false search("bad") -&gt; true search(".ad") -&gt; true search("b..") -&gt; true Note:You may assume that all words are consist of lowercase letters a-z. Solution 1 Build a Tree StructureBuild a structure, contains a array of that structure of 26 size and an element to recode a String Code:12345678910111213141516171819202122232425262728293031323334353637383940public class WordDictionary &#123; public class TrieNode &#123; public TrieNode[] children = new TrieNode[26]; public String item = ""; &#125; private TrieNode root = new TrieNode(); public void addWord(String word) &#123; TrieNode node = root; for (char c : word.toCharArray()) &#123; if (node.children[c - 'a'] == null) &#123; node.children[c - 'a'] = new TrieNode(); &#125; node = node.children[c - 'a']; &#125; node.item = word; &#125; public boolean search(String word) &#123; return match(word.toCharArray(), 0, root); &#125; private boolean match(char[] chs, int k, TrieNode node) &#123; if (k == chs.length) return !node.item.equals(""); if (chs[k] != '.') &#123; return node.children[chs[k] - 'a'] != null &amp;&amp; match(chs, k + 1, node.children[chs[k] - 'a']); &#125; else &#123; for (int i = 0; i &lt; node.children.length; i++) &#123; if (node.children[i] != null) &#123; if (match(chs, k + 1, node.children[i])) &#123; return true; &#125; &#125; &#125; &#125; return false; &#125;&#125; T&amp;S AnalysisTime: Add: Take at most O(lenOf(word)) time Search: Take O(sizeOf(set)*lenOf(word)) time Space: Take O(numberOf(words) * lenOf(word))]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Facebook</tag>
+        <tag>Backtracking</tag>
+        <tag>Tire</tag>
+        <tag>Design</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[257 Binary Tree Paths]]></title>
     <url>%2F2017%2F08%2F28%2F257-Binary-Tree-Paths%2F</url>
     <content type="text"><![CDATA[Question Given a binary tree, return all root-to-leaf paths. For example, given the following binary tree: 1 / \ 2 3 \ 5 All root-to-leaf paths are: ["1-&gt;2-&gt;5", "1-&gt;3"] Solution 1 DFSIt is easy preorder traversal. 1234567891011121314151617181920212223class Solution &#123; public List&lt;String&gt; binaryTreePaths(TreeNode root) &#123; List&lt;String&gt; res = new ArrayList&lt;String&gt;(); if(root == null) return res; fillIn(root, "", res); return res; &#125; private void fillIn(TreeNode root, String s, List&lt;String&gt; res)&#123; if(root == null ) return; if(root.left == null &amp;&amp; root.right == null)&#123; s=s+"-&gt;"+root.val; res.add(s.substring(2, s.length())); return; &#125; s=s+"-&gt;"+root.val; fillIn(root.left, s, res); fillIn(root.right, s, res); &#125;&#125; T&amp;S AnalysisTime: O(NlonN), N times, every time go at most logN deepth. Space: O(logN) for recursion’s depth is logN, and every time it cost constant extra space.]]></content>
