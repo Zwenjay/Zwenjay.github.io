@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[257 Binary Tree Paths]]></title>
+    <url>%2F2017%2F08%2F28%2F257-Binary-Tree-Paths%2F</url>
+    <content type="text"><![CDATA[Question Given a binary tree, return all root-to-leaf paths. For example, given the following binary tree: 1 / \ 2 3 \ 5 All root-to-leaf paths are: ["1-&gt;2-&gt;5", "1-&gt;3"] Solution 1 DFSIt is easy preorder traversal. 1234567891011121314151617181920212223class Solution &#123; public List&lt;String&gt; binaryTreePaths(TreeNode root) &#123; List&lt;String&gt; res = new ArrayList&lt;String&gt;(); if(root == null) return res; fillIn(root, "", res); return res; &#125; private void fillIn(TreeNode root, String s, List&lt;String&gt; res)&#123; if(root == null ) return; if(root.left == null &amp;&amp; root.right == null)&#123; s=s+"-&gt;"+root.val; res.add(s.substring(2, s.length())); return; &#125; s=s+"-&gt;"+root.val; fillIn(root.left, s, res); fillIn(root.right, s, res); &#125;&#125; T&amp;S AnalysisTime: O(NlonN), N times, every time go at most logN deepth. Space: O(logN) for recursion’s depth is logN, and every time it cost constant extra space.]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Tree</tag>
+        <tag>Facebook</tag>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[200 Number of Islands]]></title>
     <url>%2F2017%2F08%2F27%2F200-Number-of-Islands%2F</url>
     <content type="text"><![CDATA[Question Given a 2d grid map of ‘1’s (land) and ‘0’s (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water. Example 1: 11110110101100000000 Answer: 1 Example 1: 11000110000010000011 Answer: 3 Solution 1 Union FindUtlize Union Find Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475class Solution &#123; public int numIslands(char[][] grid) &#123; int row = grid.length; if(row == 0) return 0; int col = grid[0].length; int count = 0; Point[][] map = new Point[row][col]; // initialize the map, in which the first means its size if negative. for(int i = 0; i &lt; row; i++)&#123; for(int j = 0; j &lt; col; j++)&#123; map[i][j] = new Point(-1, -1); &#125; &#125; for(int i = 0; i &lt; row; i++)&#123; for(int j = 0; j &lt; col; j++)&#123; if(grid[i][j] == '1')&#123; if(i &gt; 0 &amp;&amp; grid[i-1][j] == '1')&#123; combine(map, i, j, i-1, j); &#125; if(i &lt; row-1 &amp;&amp; grid[i+1][j] == '1')&#123; combine(map, i, j, i+1, j); &#125; if(j &gt; 0 &amp;&amp; grid[i][j-1] == '1')&#123; combine(map, i, j, i, j-1); &#125; if(j &lt; col-1 &amp;&amp; grid[i][j+1] == '1')&#123; combine(map, i, j, i, j+1); &#125; &#125; &#125; &#125; for(int i = 0; i &lt; row; i++)&#123; for(int j = 0; j &lt; col; j++)&#123; if(map[i][j].x&lt; 0 &amp;&amp; grid[i][j] == '1') count++; &#125; &#125; return count; &#125; private void combine(Point[][] map, int x1, int y1, int x2, int y2)&#123; int tx; while(map[x1][y1].x &gt;= 0)&#123; System.out.println(x1+"---"+y1); tx = x1; x1 = map[x1][y1].x; y1 = map[tx][y1].y; &#125; while(map[x2][y2].x &gt;= 0)&#123; tx = x2; x2 = map[x2][y2].x; y2 = map[tx][y2].y; &#125; if(x1==x2 &amp;&amp; y1==y2) return; if(map[x1][y1].x &gt; map[x2][y2].x)&#123; map[x2][y2].x += map[x1][y1].x; map[x1][y1].x = x2; map[x1][y1].y = y2; &#125;else&#123; map[x1][y1].x += map[x2][y2].x; map[x2][y2].x = x1; map[x2][y2].y = y1; &#125; &#125;&#125; T&amp;S AnalysisTime: I sanned the grid and map for constant, so time complexity is O(row*col). Space: O(row*col), since I used the map. Solution 2 DFSOnce meet ‘1, mark it and its connected ‘1’ all to ‘0’, and count + 1. Code12345678910111213141516171819202122232425262728class Solution &#123; public int numIslands(char[][] grid) &#123; int row = grid.length, count = 0; if(row == 0) return 0; int col = grid[0].length; for(int i = 0; i &lt; row; i++)&#123; for(int j = 0; j &lt; col; j++)&#123; if(grid[i][j] == '1')&#123; DFS(grid, i, j); count++; &#125; &#125; &#125; return count; &#125; private void DFS(char[][] grid, int i, int j)&#123; if(i &gt;= grid.length || i&lt; 0 || j &lt; 0 || j &gt;= grid[0].length || grid[i][j] == '0') return; grid[i][j] = '0'; DFS(grid, i-1, j); DFS(grid, i+1, j); DFS(grid, i, j-1); DFS(grid, i, j+1); return; &#125;&#125; T&amp;S AnalysisTime: I sanned the grid and map for constant, so time complexity is O(row*col). Space: O(row*col), for the worst case of recursion.]]></content>
@@ -22,8 +35,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Two Pointers</tag>
         <tag>Array</tag>
+        <tag>Two Pointers</tag>
         <tag>Facebook</tag>
       </tags>
   </entry>
@@ -131,8 +144,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Two Pointers</tag>
         <tag>Array</tag>
+        <tag>Two Pointers</tag>
         <tag>Facebook</tag>
       </tags>
   </entry>
