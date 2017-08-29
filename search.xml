@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[173 Binary Search Tree Iterator]]></title>
+    <url>%2F2017%2F08%2F29%2F173-Binary-Search-Tree-Iterator%2F</url>
+    <content type="text"><![CDATA[Question Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST. Calling next() will return the next smallest number in the BST. Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree. Solution 1 Use StackThis is a easy binary tree inorder traversal with stack Code12345678910111213141516171819202122232425262728293031323334public class BSTIterator &#123; Stack &lt;TreeNode&gt; s = new Stack&lt;TreeNode&gt;(); public BSTIterator(TreeNode root) &#123; TreeNode cur = root; while(cur != null)&#123; s.push(cur); cur = cur.left; &#125; &#125; /** @return whether we have a next smallest number */ public boolean hasNext() &#123; return s.size()!=0; &#125; /** @return the next smallest number */ public int next() &#123; TreeNode cur = new TreeNode(0); if(this.hasNext())&#123; cur = s.pop(); if(cur.right != null)&#123; TreeNode p = cur.right; while(p!= null)&#123; s.push(p); p = p.left; &#125; &#125; &#125; return cur.val; &#125;&#125; T&amp;S AnalysisTime: Initialize: O(h) hasNext(): O(1) next(): O(h) Space:: O(h)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Tree</tag>
+        <tag>Facebook</tag>
+        <tag>Stack</tag>
+        <tag>Design</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[121 Best Time to Buy and Sell Stock]]></title>
     <url>%2F2017%2F08%2F29%2F121-Best-Time-to-Buy-and-Sell-Stock%2F</url>
     <content type="text"><![CDATA[Question Say you have an array for which the ith element is the price of a given stock on day i. If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit. Example 1: Input: [7, 1, 5, 3, 6, 4] Output: 5 max. difference = 6-1 = 5 (not 7-1 = 6, as selling price needs to be larger than buying price) Example 2: Input: [7, 6, 4, 3, 1] Output: 0 In this case, no transaction is done, i.e. max profit = 0. Solution 1 Find the LowestDynamic programming requiring recording former information. In this problem, the information is the lowest before current day. Code1234567891011class Solution &#123; public int maxProfit(int[] prices) &#123; int lo = 0, profit = 0, i = 0; for(i = 0; i &lt; prices.length; i++)&#123; lo = prices[i] &gt; prices[lo]?lo:i; profit = Math.max(prices[i] - prices[lo], profit); &#125; return profit; &#125;&#125; T&amp;S AnalysisTime: O(n). Space: O(1).]]></content>
@@ -9,8 +23,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -23,8 +37,8 @@
       <tags>
         <tag>Facebook</tag>
         <tag>Backtracking</tag>
-        <tag>Tire</tag>
         <tag>Design</tag>
+        <tag>Tire</tag>
       </tags>
   </entry>
   <entry>
@@ -35,8 +49,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Tree</tag>
+        <tag>Facebook</tag>
         <tag>DFS</tag>
       </tags>
   </entry>
@@ -63,8 +77,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Two Pointers</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -75,9 +89,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
         <tag>String</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -172,8 +186,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Two Pointers</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -368,8 +382,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Linked List</tag>
         <tag>Hash Table</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
   <entry>
