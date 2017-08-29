@@ -311,6 +311,313 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/29/1-Two-Sum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/29/1-Two-Sum/" itemprop="url">1 Two Sum</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-29T15:10:11-07:00">
+                2017-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/two-sum/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
+<p>You may assume that each input would have <strong><em>exactly</em></strong> one solution, and you may not use the same element twice.</p>
+</blockquote>
+<h2 id="Solution-1-Use-HashMap"><a href="#Solution-1-Use-HashMap" class="headerlink" title="Solution 1 Use HashMap"></a>Solution 1 Use HashMap</h2><p>Becareful of replacing keys in Hash map</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</div><div class="line">        HashMap&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;Integer, Integer&gt;();</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt; nums.length; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(map.containsKey(target - nums[i]))&#123;</div><div class="line">                <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</div><div class="line">                res[<span class="number">0</span>] = map.get(target - nums[i]);</div><div class="line">                res[<span class="number">1</span>] = i;</div><div class="line">                <span class="keyword">return</span> res;</div><div class="line">            &#125;</div><div class="line">            map.put(nums[i], i);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> O(n)</p>
+<p><strong>Space:</strong>: O(n)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/29/341-Flatten-Nested-List-Iterator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/29/341-Flatten-Nested-List-Iterator/" itemprop="url">341 Flatten Nested List Iterator</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-29T14:39:19-07:00">
+                2017-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/flatten-nested-list-iterator/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a nested list of integers, implement an iterator to flatten it.</p>
+<p>Each element is either an integer, or a list – whose elements may also be integers or other lists.</p>
+<p><strong>Example 1</strong>:<br>Given the list [[1,1],2,[1,1]],</p>
+<p>By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,1,2,1,1].</p>
+<p><strong>Example 2</strong>:<br>Given the list [1,[4,[6]]],</p>
+<p>By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,4,6].</p>
+</blockquote>
+<h2 id="Solution-1-Use-Stack"><a href="#Solution-1-Use-Stack" class="headerlink" title="Solution 1 Use Stack"></a>Solution 1 Use Stack</h2><p>Use stack to store data, reverse the order.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NestedIterator</span> <span class="keyword">implements</span> <span class="title">Iterator</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</div><div class="line">    </div><div class="line">    Stack&lt;NestedInteger&gt; s = <span class="keyword">new</span> Stack&lt;NestedInteger&gt;();</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NestedIterator</span><span class="params">(List&lt;NestedInteger&gt; nestedList)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = nestedList.size() -<span class="number">1</span> ; i &gt;= <span class="number">0</span> ; i--)&#123;</div><div class="line">            s.push(nestedList.get(i));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">next</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> s.pop().getInteger();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">while</span>(s.size()&gt;<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(s.peek().isInteger())&#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">            NestedInteger cur = s.pop();</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = cur.getList().size()-<span class="number">1</span>; i&gt;=<span class="number">0</span>; i--)&#123;</div><div class="line">                s.push(cur.getList().get(i));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong></p>
+<ol>
+<li>Initialize: O(n)</li>
+<li>hasNext(): O(1)</li>
+<li>next(): O(n)</li>
+</ol>
+<p><strong>Space:</strong>: O(n)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/29/173-Binary-Search-Tree-Iterator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1567,338 +1874,6 @@ A solution set is:
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/27/17-Letter-Combinations-of-a-Phone-Number/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/27/17-Letter-Combinations-of-a-Phone-Number/" itemprop="url">17 Letter Combinations of a Phone Number</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-27T10:07:11-07:00">
-                2017-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<div class="question-description"><br>        <p></p><p>Given a digit string, return all possible letter combinations that the number could represent.<br></p><br><br><p><br>A mapping of digit to letters (just like on the telephone buttons) is given below.</p><br><p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Telephone-keypad2.svg/200px-Telephone-keypad2.svg.png"></p><br><br><pre><b>Input:</b>Digit string “23”<br><b>Output:</b> [“ad”, “ae”, “af”, “bd”, “be”, “bf”, “cd”, “ce”, “cf”].<br></pre><br><br><p><br><b>Note:</b><br><br>Although the above answer is in lexicographical order, your answer could be in any order you want.<br></p><p></p><br>      </div>
-
-</blockquote>
-<p><br><br></p>
-<h2 id="Solution-1-Backtracking"><a href="#Solution-1-Backtracking" class="headerlink" title="Solution 1 Backtracking"></a>Solution 1 Backtracking</h2><p>Use Backtracking method, add an out word letter by letter</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;    </div><div class="line">    <span class="comment">// Build a Hash Map for the convenience of searching.</span></div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">letterCombinations</span><span class="params">(String digits)</span> </span>&#123;</div><div class="line">            HashMap&lt;Character, String&gt; map = <span class="keyword">new</span> HashMap&lt;Character, String&gt;()&#123;</div><div class="line">            &#123;</div><div class="line">                put(<span class="string">'2'</span>, <span class="string">"abc"</span>);</div><div class="line">                put(<span class="string">'3'</span>, <span class="string">"def"</span>);</div><div class="line">                put(<span class="string">'4'</span>, <span class="string">"ghi"</span>);</div><div class="line">                put(<span class="string">'5'</span>, <span class="string">"jkl"</span>);</div><div class="line">                put(<span class="string">'6'</span>, <span class="string">"mno"</span>);</div><div class="line">                put(<span class="string">'7'</span>, <span class="string">"pqrs"</span>);</div><div class="line">                put(<span class="string">'8'</span>, <span class="string">"tuv"</span>);</div><div class="line">                put(<span class="string">'9'</span>, <span class="string">"wxyz"</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        List&lt;String&gt; res = <span class="keyword">new</span> ArrayList&lt;String&gt;();</div><div class="line"></div><div class="line">        <span class="comment">//Special case </span></div><div class="line">        <span class="keyword">if</span>(digits.length() == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> res;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        combine(digits, res, <span class="number">0</span>, <span class="string">""</span>, map);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">combine</span><span class="params">(String input, List&lt;String&gt; res, <span class="keyword">int</span> pos, String word, HashMap&lt;Character, String&gt; map)</span></span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">//Regard the word length as return condition</span></div><div class="line">        <span class="keyword">if</span>(word.length() == input.length())&#123;</div><div class="line">            res.add(word);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">/*</span></div><div class="line"><span class="comment">            1. Choose an input number</span></div><div class="line"><span class="comment">            2. Find its corresponding string</span></div><div class="line"><span class="comment">            3. Add one letter every time and right after that, go to next turn(next input number)</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">        */</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = pos; i &lt; input.length(); i++)&#123;</div><div class="line">            <span class="keyword">char</span> ch = input.charAt(i);</div><div class="line">            String s = map.get(ch);</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j =<span class="number">0</span>; j &lt; s.length(); j++)</div><div class="line">                combine(input, res, i+<span class="number">1</span>, word+s.charAt(j), map);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Each number corresponds to 3 or 4 letters, and time comsuming is multiplied, thus time complexity is O(exp(N)).</p>
-<p><strong>Space:</strong> Space is also multiplied for recursion, thus O(exp(N)).</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/26/666-Path-Sum-IV/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/26/666-Path-Sum-IV/" itemprop="url">666 Path Sum IV</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T22:05:44-07:00">
-                2017-08-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/contest/leetcode-weekly-contest-47/problems/path-sum-iv/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>If the depth of a tree is smaller than 5, then this tree can be represented by a list of three-digits integers.</p>
-<p>For each integer in this list:</p>
-<ol>
-<li><p>The hundreds digit represents the depth D of this node, 1 &lt;= D &lt;= 4.</p>
-</li>
-<li><p>The tens digit represents the position P of this node in the level it belongs to, 1 &lt;= P &lt;= 8. The position is the same as that in a full binary tree.</p>
-</li>
-<li><p>The units digit represents the value V of this node, 0 &lt;= V &lt;= 9.<br>Given a list of ascending three-digits integers representing a binary with the depth smaller than 5. You need to return the sum of all paths from the root towards the leaves.</p>
-</li>
-</ol>
-<p>Given a list of ascending three-digits integers representing a binary with the depth smaller than 5. You need to return the sum of all paths from the root towards the leaves.</p>
-<p><strong>Example1:</strong></p>
-<pre><b>Input:</b> [113, 215, 221]
-<b>Output:</b> 12
-<b>Explanation:</b> 
-The tree that the list represents is:
-    3
-   / \
-  5   1
-
-The path sum is (3 + 5) + (3 + 1) = 12.
-</pre>
-
-<p><strong>Examlpe2:</strong></p>
-<pre><b>Input:</b> [113, 221]
-<b>Output:</b> 4
-<b>Explanation:</b> 
-The tree that the list represents is: 
-    3
-     \
-      1
-
-The path sum is (3 + 1) = 4.
-</pre>
-
-</blockquote>
-<p><br><br><br></p>
-<h2 id="Solution-1-Add-dumpy-to-null"><a href="#Solution-1-Add-dumpy-to-null" class="headerlink" title="Solution 1 Add dumpy to null"></a>Solution 1 Add dumpy to null</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pathSum</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>, p;</div><div class="line">        List&lt;Integer&gt; compTree = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        <span class="keyword">int</span> level = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x: nums)</div><div class="line">            level=Math.max(level, getDigit(x, <span class="number">3</span>));</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= level; i++)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">1</span>&lt;&lt;(i-<span class="number">1</span>); j++)&#123;</div><div class="line">                compTree.add(-<span class="number">1</span>*(i*<span class="number">100</span>+j*<span class="number">10</span>));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : nums)&#123;</div><div class="line">            <span class="keyword">int</span> index = (<span class="number">1</span>&lt;&lt;(getDigit(x,<span class="number">3</span>)-<span class="number">1</span>))+getDigit(x,<span class="number">2</span>)-<span class="number">2</span>;</div><div class="line">            compTree.set(index, compTree.get(index)*(-<span class="number">1</span>)+getDigit(x, <span class="number">1</span>));</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = (<span class="number">1</span>&lt;&lt;(level))-<span class="number">2</span>; i&gt;=<span class="number">0</span>; i--)&#123;</div><div class="line">            p = i;</div><div class="line">            <span class="keyword">if</span> (compTree.get(p) &lt; <span class="number">0</span>)</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            <span class="keyword">if</span>(<span class="number">2</span>*p+<span class="number">1</span> &lt; (<span class="number">1</span>&lt;&lt;(level))-<span class="number">2</span> &amp;&amp; (compTree.get(<span class="number">2</span>*p+<span class="number">1</span>) &gt; <span class="number">0</span> || compTree.get(<span class="number">2</span>*p+<span class="number">2</span>) &gt; <span class="number">0</span>))</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            <span class="keyword">while</span>(p&gt;=<span class="number">0</span>)&#123;</div><div class="line">                System.out.println(p);</div><div class="line">                sum+=getDigit(compTree.get(p), <span class="number">1</span>);</div><div class="line">                p=(p+<span class="number">1</span>)/<span class="number">2</span>-<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> sum;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getDigit</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> i)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(i == <span class="number">1</span>)</div><div class="line">            <span class="keyword">return</span> n%<span class="number">10</span>;</div><div class="line">        <span class="keyword">if</span>(i == <span class="number">2</span>)</div><div class="line">            <span class="keyword">return</span> (n/<span class="number">10</span>)%<span class="number">10</span>;</div><div class="line">        <span class="keyword">if</span>(i == <span class="number">3</span>)</div><div class="line">            <span class="keyword">return</span> n/<span class="number">100</span>;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Only scan constant times, time complexity: O(n)</p>
-<p><strong>Space:</strong> A list is used, space complexity:O(n)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1949,7 +1924,7 @@ The path sum is (3 + 1) = 4.
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

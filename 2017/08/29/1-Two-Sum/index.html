@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Tree,Morris Order," />
+  <meta name="keywords" content="Array,Facebook,Hash Table," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Question Given a binary tree, return the inorder traversal of its nodes’ values. For example: Given binary tree [1,null,2,3], Note: Recursive solution is trivial, could you do it iteratively?  Solutio">
-<meta name="keywords" content="Tree,Morris Order">
+<meta name="description" content="Question Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not use t">
+<meta name="keywords" content="Array,Facebook,Hash Table">
 <meta property="og:type" content="article">
-<meta property="og:title" content="94 Binary Tree Inorder Traversal">
-<meta property="og:url" content="http://wenjiezhang.com/2017/08/24/94-Binary-Tree-Inorder-Traversal/index.html">
+<meta property="og:title" content="1 Two Sum">
+<meta property="og:url" content="http://wenjiezhang.com/2017/08/29/1-Two-Sum/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="Question Given a binary tree, return the inorder traversal of its nodes’ values. For example: Given binary tree [1,null,2,3], Note: Recursive solution is trivial, could you do it iteratively?  Solutio">
+<meta property="og:description" content="Question Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not use t">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-25T06:02:01.688Z">
+<meta property="og:updated_time" content="2017-08-29T22:13:57.058Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="94 Binary Tree Inorder Traversal">
-<meta name="twitter:description" content="Question Given a binary tree, return the inorder traversal of its nodes’ values. For example: Given binary tree [1,null,2,3], Note: Recursive solution is trivial, could you do it iteratively?  Solutio">
+<meta name="twitter:title" content="1 Two Sum">
+<meta name="twitter:description" content="Question Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not use t">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/2017/08/24/94-Binary-Tree-Inorder-Traversal/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/08/29/1-Two-Sum/"/>
 
 
 
 
 
-  <title>94 Binary Tree Inorder Traversal | Coding Zone</title>
+  <title>1 Two Sum | Coding Zone</title>
   
 
 
@@ -311,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/94-Binary-Tree-Inorder-Traversal/">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/29/1-Two-Sum/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wenjie Zhang">
@@ -328,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">94 Binary Tree Inorder Traversal</h1>
+          <h1 class="post-title" itemprop="name headline">1 Two Sum</h1>
         
 
         <div class="post-meta">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T22:30:10-07:00">
-                2017-08-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-29T15:10:11-07:00">
+                2017-08-29
               </time>
             
 
@@ -405,29 +405,14 @@
       
 
       
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/binary-tree-inorder-traversal/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given a binary tree, return the inorder traversal of its nodes’ values.</p>
-<p>For example:</p>
-<p>Given binary tree [1,null,2,3],</p>
-<p><strong>Note:</strong> Recursive solution is trivial, could you do it iteratively?</p>
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/two-sum/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
+<p>You may assume that each input would have <strong><em>exactly</em></strong> one solution, and you may not use the same element twice.</p>
 </blockquote>
-<h2 id="Solution-1-Morris-Order-Traverse"><a href="#Solution-1-Morris-Order-Traverse" class="headerlink" title="Solution 1 Morris Order Traverse"></a>Solution 1 Morris Order Traverse</h2><p>As I see this problem, I thought I need a <em>Stack</em> or <em>Queue</em> or something like that. But I was wrong. After I knew this solution, I was so surprised that I decided to consider this method of traversing every time I meet <em>Tree</em> problem. </p>
-<p>Let me explain, to make inorder with using only constant space and linear time, we need only follow these principles:</p>
-<ul>
-<li><p>When <em>left child</em> is null, visit the <em>current node</em> and set current node as itd <em>right child</em>.</p>
-</li>
-<li><p>Other wise, find the <em>pre-node</em> of <em>current node</em>:</p>
-<ul>
-<li>if the <em>pre-node</em>‘s <em>right child</em> is null, then set its <em>right child</em> as current node and set current child as its <em>left child</em></li>
-<li>otherwise, the <em>pre-node</em>‘s <em>right child</em> must be <em>current node</em>, visit <em>current node</em> and set <em>pre-node</em>‘s _right child as null to reset the original tree. Then set <em>current node</em> as its <em>right child</em>.</li>
-</ul>
-</li>
-</ul>
-<p><strong>Q:</strong> How to find ones <em>pre-node</em>?</p>
-<p><strong>A:</strong> In its left <em>subtree</em>, find the mose right node.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        List&lt;Integer&gt; ans = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        morrisOrder(ans, root);</div><div class="line">        <span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">morrisOrder</span><span class="params">(List&lt;Integer&gt; li, TreeNode t)</span></span>&#123;</div><div class="line">        TreeNode p;</div><div class="line">        <span class="keyword">while</span>(t != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(t.left == <span class="keyword">null</span>)&#123;</div><div class="line">                li.add(t.val);</div><div class="line">                t=t.right;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                p = t.left;</div><div class="line">                <span class="keyword">while</span>(p.right != t &amp;&amp; p.right != <span class="keyword">null</span>)</div><div class="line">                    p = p.right;</div><div class="line">                <span class="keyword">if</span>(p.right == <span class="keyword">null</span>)&#123;</div><div class="line">                    p.right = t;</div><div class="line">                    t = t.left;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    p.right = <span class="keyword">null</span>;</div><div class="line">                    li.add(t.val);</div><div class="line">                    t = t.right;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> As analysed, every node would be visted at most twice, thus time complexity is O(n);</p>
-<p><strong>Space:</strong> This is where it’s excellent, we did not use any other space that is proportion to node numbers, nor do we used recursion, thus extra space complexity is O(1);</p>
+<h2 id="Solution-1-Use-HashMap"><a href="#Solution-1-Use-HashMap" class="headerlink" title="Solution 1 Use HashMap"></a>Solution 1 Use HashMap</h2><p>Becareful of replacing keys in Hash map</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</div><div class="line">        HashMap&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;Integer, Integer&gt;();</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt; nums.length; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(map.containsKey(target - nums[i]))&#123;</div><div class="line">                <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</div><div class="line">                res[<span class="number">0</span>] = map.get(target - nums[i]);</div><div class="line">                res[<span class="number">1</span>] = i;</div><div class="line">                <span class="keyword">return</span> res;</div><div class="line">            &#125;</div><div class="line">            map.put(nums[i], i);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> O(n)</p>
+<p><strong>Space:</strong>: O(n)</p>
 
       
     </div>
@@ -445,9 +430,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Tree/" rel="tag"># Tree</a>
+            <a href="/tags/Array/" rel="tag"># Array</a>
           
-            <a href="/tags/Morris-Order/" rel="tag"># Morris Order</a>
+            <a href="/tags/Facebook/" rel="tag"># Facebook</a>
+          
+            <a href="/tags/Hash-Table/" rel="tag"># Hash Table</a>
           
         </div>
       
@@ -460,8 +447,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/24/455-Add-Two-Numbers-II/" rel="next" title="455 Add Two Numbers II">
-                <i class="fa fa-chevron-left"></i> 455 Add Two Numbers II
+              <a href="/2017/08/29/341-Flatten-Nested-List-Iterator/" rel="next" title="341 Flatten Nested List Iterator">
+                <i class="fa fa-chevron-left"></i> 341 Flatten Nested List Iterator
               </a>
             
           </div>
@@ -469,10 +456,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/24/144-Binary-Tree-Preorder-Traversal/" rel="prev" title="144 Binary Tree Preorder Traversal">
-                144 Binary Tree Preorder Traversal <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -608,7 +591,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Morris-Order-Traverse"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Morris Order Traverse</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Use-HashMap"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Use HashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

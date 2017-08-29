@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[1 Two Sum]]></title>
+    <url>%2F2017%2F08%2F29%2F1-Two-Sum%2F</url>
+    <content type="text"><![CDATA[Question Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not use the same element twice. Solution 1 Use HashMapBecareful of replacing keys in Hash map Code123456789101112131415class Solution &#123; public int[] twoSum(int[] nums, int target) &#123; HashMap&lt;Integer, Integer&gt; map = new HashMap&lt;Integer, Integer&gt;(); for(int i =0; i &lt; nums.length; i++)&#123; if(map.containsKey(target - nums[i]))&#123; int[] res = new int[2]; res[0] = map.get(target - nums[i]); res[1] = i; return res; &#125; map.put(nums[i], i); &#125; return new int[2]; &#125;&#125; T&amp;S AnalysisTime: O(n) Space:: O(n)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Array</tag>
+        <tag>Facebook</tag>
+        <tag>Hash Table</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[341 Flatten Nested List Iterator]]></title>
+    <url>%2F2017%2F08%2F29%2F341-Flatten-Nested-List-Iterator%2F</url>
+    <content type="text"><![CDATA[Question Given a nested list of integers, implement an iterator to flatten it. Each element is either an integer, or a list – whose elements may also be integers or other lists. Example 1:Given the list [[1,1],2,[1,1]], By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,1,2,1,1]. Example 2:Given the list [1,[4,[6]]], By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,4,6]. Solution 1 Use StackUse stack to store data, reverse the order. 1234567891011121314151617181920212223242526272829public class NestedIterator implements Iterator&lt;Integer&gt; &#123; Stack&lt;NestedInteger&gt; s = new Stack&lt;NestedInteger&gt;(); public NestedIterator(List&lt;NestedInteger&gt; nestedList) &#123; for(int i = nestedList.size() -1 ; i &gt;= 0 ; i--)&#123; s.push(nestedList.get(i)); &#125; &#125; @Override public Integer next() &#123; return s.pop().getInteger(); &#125; @Override public boolean hasNext() &#123; while(s.size()&gt;0)&#123; if(s.peek().isInteger())&#123; return true; &#125; NestedInteger cur = s.pop(); for(int i = cur.getList().size()-1; i&gt;=0; i--)&#123; s.push(cur.getList().get(i)); &#125; &#125; return false; &#125;&#125; T&amp;S AnalysisTime: Initialize: O(n) hasNext(): O(1) next(): O(n) Space:: O(n)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Facebook</tag>
+        <tag>Stack</tag>
+        <tag>Design</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[173 Binary Search Tree Iterator]]></title>
     <url>%2F2017%2F08%2F29%2F173-Binary-Search-Tree-Iterator%2F</url>
     <content type="text"><![CDATA[Question Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST. Calling next() will return the next smallest number in the BST. Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree. Solution 1 Use StackThis is a easy binary tree inorder traversal with stack Code12345678910111213141516171819202122232425262728293031323334public class BSTIterator &#123; Stack &lt;TreeNode&gt; s = new Stack&lt;TreeNode&gt;(); public BSTIterator(TreeNode root) &#123; TreeNode cur = root; while(cur != null)&#123; s.push(cur); cur = cur.left; &#125; &#125; /** @return whether we have a next smallest number */ public boolean hasNext() &#123; return s.size()!=0; &#125; /** @return the next smallest number */ public int next() &#123; TreeNode cur = new TreeNode(0); if(this.hasNext())&#123; cur = s.pop(); if(cur.right != null)&#123; TreeNode p = cur.right; while(p!= null)&#123; s.push(p); p = p.left; &#125; &#125; &#125; return cur.val; &#125;&#125; T&amp;S AnalysisTime: Initialize: O(h) hasNext(): O(1) next(): O(h) Space:: O(h)]]></content>
@@ -8,8 +34,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Tree</tag>
         <tag>Facebook</tag>
+        <tag>Tree</tag>
         <tag>Stack</tag>
         <tag>Design</tag>
       </tags>
@@ -23,8 +49,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -49,8 +75,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Tree</tag>
         <tag>Facebook</tag>
+        <tag>Tree</tag>
         <tag>DFS</tag>
       </tags>
   </entry>
@@ -77,8 +103,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Two Pointers</tag>
         <tag>Facebook</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -89,9 +115,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
         <tag>String</tag>
-        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -186,8 +212,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Two Pointers</tag>
         <tag>Facebook</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
