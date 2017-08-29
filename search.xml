@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[75 Sort Colors]]></title>
+    <url>%2F2017%2F08%2F29%2F75-Sort-Colors%2F</url>
+    <content type="text"><![CDATA[Question Given an array with n objects colored red, white or blue, sort them so that objects of the same color are adjacent, with the colors in the order red, white and blue. Here, we will use the integers 0, 1, and 2 to represent the color red, white, and blue respectively. Note: You are not suppose to use the library’s sort function for this problem. Solution 1 Adjust 3 timesOnly 3 values, so this method could work. Adjust 1-2, 0-2 and 0-1 positions. Code123456789101112131415161718192021222324252627282930313233class Solution &#123; public void sortColors(int[] nums) &#123; adjust(nums, 0, 2); adjust(nums, 0, 1); adjust(nums, 1, 2); &#125; private void adjust(int[] nums, int a, int b)&#123; int i = 0, j = nums.length-1; while( i &lt; j )&#123; if(nums[i] == b &amp;&amp; nums[j] == a)&#123; swap(nums, i, j); i++; j--; if(i&gt;=j) break; &#125; if(nums[i] != b) i++; if(nums[j] !=a) j--; &#125; &#125; private void swap(int[] nums, int i, int j)&#123; int temp = nums[i]; nums[i] = nums[j]; nums[j] = temp; &#125;&#125; T&amp;S AnalysisTime: O(n) Space:: O(1) Solution 2 sweep 0 and 2This idea is to sweep 0 to left and 2 to right. Code12345678910class Solution &#123;public: void sortColors(int A[], int n) &#123; int second=n-1, zero=0; for (int i=0; i&lt;=second; i++) &#123; while (A[i]==2 &amp;&amp; i&lt;second) swap(A[i], A[second--]); while (A[i]==0 &amp;&amp; i&gt;zero) swap(A[i], A[zero++]); &#125; &#125;&#125;; T&amp;S AnalysisTime: O(n), but it scan at most twice. Space:: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Array</tag>
+        <tag>Facebook</tag>
+        <tag>Sort</tag>
+        <tag>Two Pointers</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[139 Word Break]]></title>
+    <url>%2F2017%2F08%2F29%2F139-Word-Break%2F</url>
+    <content type="text"><![CDATA[Question Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words. You may assume the dictionary does not contain duplicate words. For example, givens = “leetcode”,dict = [“leet”, “code”]. Return true because “leetcode” can be segmented as “leet code”. Solution 1 Dynamic ProgrammingCreate an array to record if the former n-th letters could be represented, if yes, find according remains. Codeclass Solution { public boolean wordBreak(String s, List&lt;String&gt; wordDict) { boolean[] judge = new boolean[s.length()+1]; judge[0] = true; for(int i = 1; i &lt;= s.length(); i++){ for(int j =0; j &lt; i; j++) if(judge[j] &amp;&amp; wordDict.contains(s.substring(j, i))) judge[i] = true; } return judge[s.length()]; } } T&amp;S AnalysisTime: It is actually O(n^2 * len(dic)) Space:: O(n)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[1 Two Sum]]></title>
     <url>%2F2017%2F08%2F29%2F1-Two-Sum%2F</url>
     <content type="text"><![CDATA[Question Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not use the same element twice. Solution 1 Use HashMapBecareful of replacing keys in Hash map Code123456789101112131415class Solution &#123; public int[] twoSum(int[] nums, int target) &#123; HashMap&lt;Integer, Integer&gt; map = new HashMap&lt;Integer, Integer&gt;(); for(int i =0; i &lt; nums.length; i++)&#123; if(map.containsKey(target - nums[i]))&#123; int[] res = new int[2]; res[0] = map.get(target - nums[i]); res[1] = i; return res; &#125; map.put(nums[i], i); &#125; return new int[2]; &#125;&#125; T&amp;S AnalysisTime: O(n) Space:: O(n)]]></content>
@@ -9,8 +35,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Hash Table</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -49,8 +75,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -115,8 +141,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
         <tag>String</tag>
       </tags>
   </entry>
