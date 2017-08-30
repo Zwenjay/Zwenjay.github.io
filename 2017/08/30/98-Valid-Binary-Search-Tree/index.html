@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="Coding Zone">
 <meta property="og:description" content="Question Given a binary tree, determine if it is a valid binary search tree (BST). Assume a BST is defined as follows:  The left subtree of a node contains only nodes with keys less than the node’s ke">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-30T22:34:40.319Z">
+<meta property="og:updated_time" content="2017-08-30T23:39:34.481Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="98 Valid Binary Search Tree">
 <meta name="twitter:description" content="Question Given a binary tree, determine if it is a valid binary search tree (BST). Assume a BST is defined as follows:  The left subtree of a node contains only nodes with keys less than the node’s ke">
@@ -430,7 +430,7 @@
 </blockquote>
 <h2 id="Solution-1-Morris-Order-Traversal"><a href="#Solution-1-Morris-Order-Traversal" class="headerlink" title="Solution 1 Morris Order Traversal"></a>Solution 1 Morris Order Traversal</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValidBST</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        TreeNode cur = root, p;</div><div class="line">        <span class="keyword">boolean</span> first = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">int</span> val=<span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(cur.left == <span class="keyword">null</span>)&#123;</div><div class="line">                <span class="keyword">if</span>(first)&#123;</div><div class="line">                    val = cur.val;</div><div class="line">                    first = <span class="keyword">false</span>;</div><div class="line">                    cur = cur.right;</div><div class="line">                    <span class="keyword">continue</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(cur.val &lt;= val)</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                val = cur.val;</div><div class="line">                cur = cur.right;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                p = cur.left;</div><div class="line">                <span class="keyword">while</span>(p.right != <span class="keyword">null</span> &amp;&amp; p.right != cur)</div><div class="line">                    p = p.right;</div><div class="line">                <span class="keyword">if</span>(p.right == <span class="keyword">null</span>)&#123;</div><div class="line">                    p.right = cur;</div><div class="line">                    cur = cur.left;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    <span class="keyword">if</span>(first)&#123;</div><div class="line">                        val = cur.val;</div><div class="line">                        first = <span class="keyword">false</span>;</div><div class="line">                        p.right = <span class="keyword">null</span>;</div><div class="line">                        cur = cur.right;</div><div class="line">                        <span class="keyword">continue</span>;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">if</span>(cur.val &lt;= val)</div><div class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                    val = cur.val;</div><div class="line">                    p.right = <span class="keyword">null</span>;</div><div class="line">                    cur = cur.right;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> O(n)</p>
-<p><strong>Space:</strong>: O(1)</p>
+<p><strong>Space:</strong> O(1)</p>
 
       
     </div>
@@ -476,6 +476,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/30/236-Lowest-Common-Ancestor-of-a-Binary-Tree/" rel="prev" title="236 Lowest Common Ancestor of a Binary Tree">
+                236 Lowest Common Ancestor of a Binary Tree <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -554,7 +558,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

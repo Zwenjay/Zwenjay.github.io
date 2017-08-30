@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="String,Tree," />
+  <meta name="keywords" content="Facebook,Tree," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Question You need to construct a string consists of parenthesis and integers from a binary tree with the preorder traversing way. The null node needs to be represented by empty parenthesis pair “()”.">
-<meta name="keywords" content="String,Tree">
+<meta name="description" content="Question Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree. According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two">
+<meta name="keywords" content="Facebook,Tree">
 <meta property="og:type" content="article">
-<meta property="og:title" content="606 Construct String from Binary Tree">
-<meta property="og:url" content="http://wenjiezhang.com/2017/08/25/606-Construct-String-from-Binary-Tree/index.html">
+<meta property="og:title" content="236 Lowest Common Ancestor of a Binary Tree">
+<meta property="og:url" content="http://wenjiezhang.com/2017/08/30/236-Lowest-Common-Ancestor-of-a-Binary-Tree/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="Question You need to construct a string consists of parenthesis and integers from a binary tree with the preorder traversing way. The null node needs to be represented by empty parenthesis pair “()”.">
+<meta property="og:description" content="Question Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree. According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-26T05:58:42.558Z">
+<meta property="og:updated_time" content="2017-08-30T23:40:27.642Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="606 Construct String from Binary Tree">
-<meta name="twitter:description" content="Question You need to construct a string consists of parenthesis and integers from a binary tree with the preorder traversing way. The null node needs to be represented by empty parenthesis pair “()”.">
+<meta name="twitter:title" content="236 Lowest Common Ancestor of a Binary Tree">
+<meta name="twitter:description" content="Question Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree. According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/2017/08/25/606-Construct-String-from-Binary-Tree/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/08/30/236-Lowest-Common-Ancestor-of-a-Binary-Tree/"/>
 
 
 
 
 
-  <title>606 Construct String from Binary Tree | Coding Zone</title>
+  <title>236 Lowest Common Ancestor of a Binary Tree | Coding Zone</title>
   
 
 
@@ -311,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/25/606-Construct-String-from-Binary-Tree/">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/30/236-Lowest-Common-Ancestor-of-a-Binary-Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wenjie Zhang">
@@ -328,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">606 Construct String from Binary Tree</h1>
+          <h1 class="post-title" itemprop="name headline">236 Lowest Common Ancestor of a Binary Tree</h1>
         
 
         <div class="post-meta">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-25T16:06:39-07:00">
-                2017-08-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-30T16:33:01-07:00">
+                2017-08-30
               </time>
             
 
@@ -405,38 +405,23 @@
       
 
       
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/construct-string-from-binary-tree/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>You need to construct a string consists of parenthesis and integers from a binary tree with the preorder traversing way.</p>
-<p>The null node needs to be represented by empty parenthesis pair “()”. And you need to omit all the empty parenthesis pairs that don’t affect the one-to-one mapping relationship between the string and the original binary tree.</p>
-<p><strong>Example 1:</strong></p>
-<pre><b>Input:</b> Binary tree: [1,2,3,4]
-       1
-     /   \
-    2     3
-   /    
-  4     
-
-<b>Output:</b> "1(2(4))(3)"
-<br><b>Explanation:</b> Originallay it needs to be "1(2(4)())(3()())", <br>but you need to omit all the unnecessary empty parenthesis pairs. <br>And it will be "1(2(4))(3)".
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.</p>
+<p>According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes v and w as the lowest node in T that has both v and w as descendants (where we allow a node to be a descendant of itself).”</p>
+<pre>        _______3______
+       /              \
+    ___5__          ___1__
+   /      \        /      \
+   6      _2       0       8
+         /  \
+         7   4
 </pre>
 
-<p><strong>Example2:</strong></p>
-<pre><b>Input:</b> Binary tree: [1,2,3,null,4]
-       1
-     /   \
-    2     3
-     \  
-      4 
-
-<b>Output:</b> "1(2()(4))(3)"
-<br><b>Explanation:</b> Almost the same as the first example, <br>except we can't omit the first parenthesis pair to break the one-to-one mapping relationship between the input and the output.
-</pre>
-
+<p>For example, the lowest common ancestor (LCA) of nodes 5 and 1 is 3. Another example is LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.</p>
 </blockquote>
-<h2 id="Solution-1-Recursive-Solution"><a href="#Solution-1-Recursive-Solution" class="headerlink" title="Solution 1 Recursive Solution"></a>Solution 1 Recursive Solution</h2><p>Easy to understand.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">tree2str</span><span class="params">(TreeNode t)</span> </span>&#123;</div><div class="line">        String s=<span class="string">""</span>;</div><div class="line">        <span class="keyword">return</span> T2S(t);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">T2S</span><span class="params">(TreeNode t)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(t == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">        <span class="keyword">if</span>(t.left == <span class="keyword">null</span> &amp;&amp; t.right == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> t.val+<span class="string">""</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(t.left == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> t.val +<span class="string">"()"</span>+<span class="string">"("</span>+ T2S(t.right) +<span class="string">")"</span>;</div><div class="line">        <span class="keyword">else</span></div><div class="line">            <span class="keyword">if</span>(t.right == <span class="keyword">null</span>)</div><div class="line">                <span class="keyword">return</span> t.val + <span class="string">"("</span>+ T2S(t.left) +<span class="string">")"</span>;</div><div class="line">            <span class="keyword">else</span></div><div class="line">                <span class="keyword">return</span> t.val + <span class="string">"("</span>+ T2S(t.left) +<span class="string">")"</span>+<span class="string">"("</span>+ T2S(t.right) +<span class="string">")"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Solution-1-Recursion"><a href="#Solution-1-Recursion" class="headerlink" title="Solution 1 Recursion"></a>Solution 1 Recursion</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode root, TreeNode p, TreeNode q)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == p || root == q || root == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> root;</div><div class="line">        TreeNode left = lowestCommonAncestor(root.left, p, q);</div><div class="line">        TreeNode right = lowestCommonAncestor(root.right, p, q);</div><div class="line">        <span class="keyword">if</span>(left == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> right;</div><div class="line">        <span class="keyword">if</span>(right == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> left;</div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n)</p>
-<p><strong>Space:</strong> O(n)</p>
+<p><strong>Space:</strong> O(n) for recursion</p>
 
       
     </div>
@@ -454,7 +439,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/String/" rel="tag"># String</a>
+            <a href="/tags/Facebook/" rel="tag"># Facebook</a>
           
             <a href="/tags/Tree/" rel="tag"># Tree</a>
           
@@ -469,8 +454,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/25/572-Subtree-of-Another-Tree/" rel="next" title="572 Subtree of Another Tree">
-                <i class="fa fa-chevron-left"></i> 572 Subtree of Another Tree
+              <a href="/2017/08/30/98-Valid-Binary-Search-Tree/" rel="next" title="98 Valid Binary Search Tree">
+                <i class="fa fa-chevron-left"></i> 98 Valid Binary Search Tree
               </a>
             
           </div>
@@ -478,10 +463,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/25/617-Merge-Two-Binary-Trees/" rel="prev" title="617 Merge Two Binary Trees">
-                617 Merge Two Binary Trees <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -617,7 +598,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Recursive-Solution"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Recursive Solution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Recursion"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Recursion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

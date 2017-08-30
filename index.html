@@ -311,6 +311,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/30/236-Lowest-Common-Ancestor-of-a-Binary-Tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/30/236-Lowest-Common-Ancestor-of-a-Binary-Tree/" itemprop="url">236 Lowest Common Ancestor of a Binary Tree</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-30T16:33:01-07:00">
+                2017-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.</p>
+<p>According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes v and w as the lowest node in T that has both v and w as descendants (where we allow a node to be a descendant of itself).”</p>
+<pre>        _______3______
+       /              \
+    ___5__          ___1__
+   /      \        /      \
+   6      _2       0       8
+         /  \
+         7   4
+</pre>
+
+<p>For example, the lowest common ancestor (LCA) of nodes 5 and 1 is 3. Another example is LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.</p>
+</blockquote>
+<h2 id="Solution-1-Recursion"><a href="#Solution-1-Recursion" class="headerlink" title="Solution 1 Recursion"></a>Solution 1 Recursion</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode root, TreeNode p, TreeNode q)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == p || root == q || root == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> root;</div><div class="line">        TreeNode left = lowestCommonAncestor(root.left, p, q);</div><div class="line">        TreeNode right = lowestCommonAncestor(root.right, p, q);</div><div class="line">        <span class="keyword">if</span>(left == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> right;</div><div class="line">        <span class="keyword">if</span>(right == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> left;</div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n)</p>
+<p><strong>Space:</strong> O(n) for recursion</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/30/98-Valid-Binary-Search-Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -429,7 +587,7 @@
 </blockquote>
 <h2 id="Solution-1-Morris-Order-Traversal"><a href="#Solution-1-Morris-Order-Traversal" class="headerlink" title="Solution 1 Morris Order Traversal"></a>Solution 1 Morris Order Traversal</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValidBST</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        TreeNode cur = root, p;</div><div class="line">        <span class="keyword">boolean</span> first = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">int</span> val=<span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(cur.left == <span class="keyword">null</span>)&#123;</div><div class="line">                <span class="keyword">if</span>(first)&#123;</div><div class="line">                    val = cur.val;</div><div class="line">                    first = <span class="keyword">false</span>;</div><div class="line">                    cur = cur.right;</div><div class="line">                    <span class="keyword">continue</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(cur.val &lt;= val)</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                val = cur.val;</div><div class="line">                cur = cur.right;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                p = cur.left;</div><div class="line">                <span class="keyword">while</span>(p.right != <span class="keyword">null</span> &amp;&amp; p.right != cur)</div><div class="line">                    p = p.right;</div><div class="line">                <span class="keyword">if</span>(p.right == <span class="keyword">null</span>)&#123;</div><div class="line">                    p.right = cur;</div><div class="line">                    cur = cur.left;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    <span class="keyword">if</span>(first)&#123;</div><div class="line">                        val = cur.val;</div><div class="line">                        first = <span class="keyword">false</span>;</div><div class="line">                        p.right = <span class="keyword">null</span>;</div><div class="line">                        cur = cur.right;</div><div class="line">                        <span class="keyword">continue</span>;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">if</span>(cur.val &lt;= val)</div><div class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                    val = cur.val;</div><div class="line">                    p.right = <span class="keyword">null</span>;</div><div class="line">                    cur = cur.right;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> O(n)</p>
-<p><strong>Space:</strong>: O(1)</p>
+<p><strong>Space:</strong> O(1)</p>
 
           
         
@@ -1718,174 +1876,6 @@ In this case, no transaction is done, i.e. max profit = 0.
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/28/211-Add-and-Search-Word-Data-structure-design/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/28/211-Add-and-Search-Word-Data-structure-design/" itemprop="url">211 Add and Search Word-Data structure design</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-28T12:59:21-07:00">
-                2017-08-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/add-and-search-word-data-structure-design/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Design a data structure that supports the following two operations:</p>
-<pre>void addWord(word)
-bool search(word)
-</pre>
-
-<p>search(word) can search a literal word or a regular expression string containing only letters a-z or .. A . means it can represent any one letter.</p>
-<p>For example:</p>
-<pre>addWord("bad")
-addWord("dad")
-addWord("mad")
-search("pad") -&gt; false
-search("bad") -&gt; true
-search(".ad") -&gt; true
-search("b..") -&gt; true
-</pre>
-
-<p><strong>Note:</strong><br>You may assume that all words are consist of lowercase letters a-z.</p>
-</blockquote>
-<h2 id="Solution-1-Build-a-Tree-Structure"><a href="#Solution-1-Build-a-Tree-Structure" class="headerlink" title="Solution 1 Build a Tree Structure"></a>Solution 1 Build a Tree Structure</h2><p>Build a structure, contains a array of that structure of 26 size and an element to recode a <em>String</em></p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordDictionary</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span> </span>&#123;</div><div class="line">        <span class="keyword">public</span> TrieNode[] children = <span class="keyword">new</span> TrieNode[<span class="number">26</span>];</div><div class="line">        <span class="keyword">public</span> String item = <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> TrieNode root = <span class="keyword">new</span> TrieNode();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addWord</span><span class="params">(String word)</span> </span>&#123;</div><div class="line">        TrieNode node = root;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c : word.toCharArray()) &#123;</div><div class="line">            <span class="keyword">if</span> (node.children[c - <span class="string">'a'</span>] == <span class="keyword">null</span>) &#123;</div><div class="line">                node.children[c - <span class="string">'a'</span>] = <span class="keyword">new</span> TrieNode();</div><div class="line">            &#125;</div><div class="line">            node = node.children[c - <span class="string">'a'</span>];</div><div class="line">        &#125;</div><div class="line">        node.item = word;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">search</span><span class="params">(String word)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> match(word.toCharArray(), <span class="number">0</span>, root);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">match</span><span class="params">(<span class="keyword">char</span>[] chs, <span class="keyword">int</span> k, TrieNode node)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (k == chs.length) <span class="keyword">return</span> !node.item.equals(<span class="string">""</span>);  </div><div class="line">        <span class="keyword">if</span> (chs[k] != <span class="string">'.'</span>) &#123;</div><div class="line">            <span class="keyword">return</span> node.children[chs[k] - <span class="string">'a'</span>] != <span class="keyword">null</span> &amp;&amp; match(chs, k + <span class="number">1</span>, node.children[chs[k] - <span class="string">'a'</span>]);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; node.children.length; i++) &#123;</div><div class="line">                <span class="keyword">if</span> (node.children[i] != <span class="keyword">null</span>) &#123;</div><div class="line">                    <span class="keyword">if</span> (match(chs, k + <span class="number">1</span>, node.children[i])) &#123;</div><div class="line">                        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong></p>
-<ol>
-<li>Add: Take at most O(lenOf(word)) time</li>
-<li>Search: Take O(sizeOf(set)*lenOf(word)) time</li>
-</ol>
-<p><strong>Space:</strong> Take O(numberOf(words) * lenOf(word))</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1936,7 +1926,7 @@ search("b..") -&gt; true
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
