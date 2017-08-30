@@ -311,6 +311,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/22/628-Maximum-Product-of-Three-Numbers/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/22/628-Maximum-Product-of-Three-Numbers/" itemprop="url">628 Maximum Product of Three Numbers</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-22T22:55:25-07:00">
+                2017-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/task-scheduler/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given an integer array, find three numbers whose product is maximum and output the maximum product.</p>
+<p><strong>Example:</strong></p>
+<p><strong>Input:</strong> [1,2,3]<br><strong>Output:</strong> 6</p>
+</blockquote>
+<h2 id="Solution-1-Sort"><a href="#Solution-1-Sort" class="headerlink" title="Solution 1 Sort"></a>Solution 1 Sort</h2><p>There are only 3 possible largest comnination, 2 smallest negative + 1 largest positive, or 3 largest positive, or 3 smallest negative. Thus, sorting first, then it is a very straightforward problem.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumProduct</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        Arrays.sort(nums);</div><div class="line">        <span class="keyword">int</span> l = nums.length;</div><div class="line">        <span class="keyword">int</span> a = nums[<span class="number">0</span>], b = nums[<span class="number">1</span>], c= nums[<span class="number">2</span>],</div><div class="line">            d = nums[l-<span class="number">1</span>], e = nums[l-<span class="number">2</span>], f = nums[l-<span class="number">3</span>];</div><div class="line">        <span class="keyword">return</span> Math.max(a*b*c, Math.max(a*b*d, d*e*f));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Since there is only one <strong>sort</strong> operation and some constant time operations, its time complexity is O(nlogn), where n represents the length of the array.</p>
+<p><strong>Space:</strong> Space complexity is obviously O(nlogn), since only <strong>sorting</strong> cost extra space.</p>
+<p><hr></p>
+<h5 id="P-S"><a href="#P-S" class="headerlink" title="P.S."></a>P.S.</h5><p>Since we only have to find those 5 numbers, we can at most scan the array one time to get them, in this way, we get an O(n) time and O(1) Extra Space solution.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/22/621-Task-Scheduler/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -650,7 +802,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
