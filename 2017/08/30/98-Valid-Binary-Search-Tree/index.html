@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="String,Tree," />
+  <meta name="keywords" content="Facebook,Tree,Morris Order,DFS," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Question You need to construct a string consists of parenthesis and integers from a binary tree with the preorder traversing way. The null node needs to be represented by empty parenthesis pair “()”.">
-<meta name="keywords" content="String,Tree">
+<meta name="description" content="Question Given a binary tree, determine if it is a valid binary search tree (BST). Assume a BST is defined as follows:  The left subtree of a node contains only nodes with keys less than the node’s ke">
+<meta name="keywords" content="Facebook,Tree,Morris Order,DFS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="606 Construct String from Binary Tree">
-<meta property="og:url" content="http://wenjiezhang.com/2017/08/25/606-Construct-String-from-Binary-Tree/index.html">
+<meta property="og:title" content="98 Valid Binary Search Tree">
+<meta property="og:url" content="http://wenjiezhang.com/2017/08/30/98-Valid-Binary-Search-Tree/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="Question You need to construct a string consists of parenthesis and integers from a binary tree with the preorder traversing way. The null node needs to be represented by empty parenthesis pair “()”.">
+<meta property="og:description" content="Question Given a binary tree, determine if it is a valid binary search tree (BST). Assume a BST is defined as follows:  The left subtree of a node contains only nodes with keys less than the node’s ke">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-26T05:58:42.558Z">
+<meta property="og:updated_time" content="2017-08-30T22:34:40.319Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="606 Construct String from Binary Tree">
-<meta name="twitter:description" content="Question You need to construct a string consists of parenthesis and integers from a binary tree with the preorder traversing way. The null node needs to be represented by empty parenthesis pair “()”.">
+<meta name="twitter:title" content="98 Valid Binary Search Tree">
+<meta name="twitter:description" content="Question Given a binary tree, determine if it is a valid binary search tree (BST). Assume a BST is defined as follows:  The left subtree of a node contains only nodes with keys less than the node’s ke">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/2017/08/25/606-Construct-String-from-Binary-Tree/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/08/30/98-Valid-Binary-Search-Tree/"/>
 
 
 
 
 
-  <title>606 Construct String from Binary Tree | Coding Zone</title>
+  <title>98 Valid Binary Search Tree | Coding Zone</title>
   
 
 
@@ -311,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/25/606-Construct-String-from-Binary-Tree/">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/30/98-Valid-Binary-Search-Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wenjie Zhang">
@@ -328,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">606 Construct String from Binary Tree</h1>
+          <h1 class="post-title" itemprop="name headline">98 Valid Binary Search Tree</h1>
         
 
         <div class="post-meta">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-25T16:06:39-07:00">
-                2017-08-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-30T15:05:08-07:00">
+                2017-08-30
               </time>
             
 
@@ -405,38 +405,32 @@
       
 
       
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/construct-string-from-binary-tree/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>You need to construct a string consists of parenthesis and integers from a binary tree with the preorder traversing way.</p>
-<p>The null node needs to be represented by empty parenthesis pair “()”. And you need to omit all the empty parenthesis pairs that don’t affect the one-to-one mapping relationship between the string and the original binary tree.</p>
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/validate-binary-search-tree/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a binary tree, determine if it is a valid binary search tree (BST).</p>
+<p>Assume a BST is defined as follows:</p>
+<ul>
+<li>The left subtree of a node contains only nodes with keys less than the node’s key.</li>
+<li>The right subtree of a node contains only nodes with keys greater than the node’s key.</li>
+<li>Both the left and right subtrees must also be binary search trees.</li>
+</ul>
 <p><strong>Example 1:</strong></p>
-<pre><b>Input:</b> Binary tree: [1,2,3,4]
-       1
-     /   \
-    2     3
-   /    
-  4     
-
-<b>Output:</b> "1(2(4))(3)"
-<br><b>Explanation:</b> Originallay it needs to be "1(2(4)())(3()())", <br>but you need to omit all the unnecessary empty parenthesis pairs. <br>And it will be "1(2(4))(3)".
+<pre>    2
+   / \
+  1   3
 </pre>
 
-<p><strong>Example2:</strong></p>
-<pre><b>Input:</b> Binary tree: [1,2,3,null,4]
-       1
-     /   \
-    2     3
-     \  
-      4 
-
-<b>Output:</b> "1(2()(4))(3)"
-<br><b>Explanation:</b> Almost the same as the first example, <br>except we can't omit the first parenthesis pair to break the one-to-one mapping relationship between the input and the output.
+<p>Binary tree [2,1,3], return true.</p>
+<p><strong>Example 2:</strong></p>
+<pre>    1
+   / \
+  2   3
 </pre>
 
+<p>Binary tree [1,2,3], return false.</p>
 </blockquote>
-<h2 id="Solution-1-Recursive-Solution"><a href="#Solution-1-Recursive-Solution" class="headerlink" title="Solution 1 Recursive Solution"></a>Solution 1 Recursive Solution</h2><p>Easy to understand.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">tree2str</span><span class="params">(TreeNode t)</span> </span>&#123;</div><div class="line">        String s=<span class="string">""</span>;</div><div class="line">        <span class="keyword">return</span> T2S(t);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">T2S</span><span class="params">(TreeNode t)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(t == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">        <span class="keyword">if</span>(t.left == <span class="keyword">null</span> &amp;&amp; t.right == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> t.val+<span class="string">""</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(t.left == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> t.val +<span class="string">"()"</span>+<span class="string">"("</span>+ T2S(t.right) +<span class="string">")"</span>;</div><div class="line">        <span class="keyword">else</span></div><div class="line">            <span class="keyword">if</span>(t.right == <span class="keyword">null</span>)</div><div class="line">                <span class="keyword">return</span> t.val + <span class="string">"("</span>+ T2S(t.left) +<span class="string">")"</span>;</div><div class="line">            <span class="keyword">else</span></div><div class="line">                <span class="keyword">return</span> t.val + <span class="string">"("</span>+ T2S(t.left) +<span class="string">")"</span>+<span class="string">"("</span>+ T2S(t.right) +<span class="string">")"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n)</p>
-<p><strong>Space:</strong> O(n)</p>
+<h2 id="Solution-1-Morris-Order-Traversal"><a href="#Solution-1-Morris-Order-Traversal" class="headerlink" title="Solution 1 Morris Order Traversal"></a>Solution 1 Morris Order Traversal</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValidBST</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        TreeNode cur = root, p;</div><div class="line">        <span class="keyword">boolean</span> first = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">int</span> val=<span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(cur.left == <span class="keyword">null</span>)&#123;</div><div class="line">                <span class="keyword">if</span>(first)&#123;</div><div class="line">                    val = cur.val;</div><div class="line">                    first = <span class="keyword">false</span>;</div><div class="line">                    cur = cur.right;</div><div class="line">                    <span class="keyword">continue</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(cur.val &lt;= val)</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                val = cur.val;</div><div class="line">                cur = cur.right;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                p = cur.left;</div><div class="line">                <span class="keyword">while</span>(p.right != <span class="keyword">null</span> &amp;&amp; p.right != cur)</div><div class="line">                    p = p.right;</div><div class="line">                <span class="keyword">if</span>(p.right == <span class="keyword">null</span>)&#123;</div><div class="line">                    p.right = cur;</div><div class="line">                    cur = cur.left;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    <span class="keyword">if</span>(first)&#123;</div><div class="line">                        val = cur.val;</div><div class="line">                        first = <span class="keyword">false</span>;</div><div class="line">                        p.right = <span class="keyword">null</span>;</div><div class="line">                        cur = cur.right;</div><div class="line">                        <span class="keyword">continue</span>;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">if</span>(cur.val &lt;= val)</div><div class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                    val = cur.val;</div><div class="line">                    p.right = <span class="keyword">null</span>;</div><div class="line">                    cur = cur.right;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> O(n)</p>
+<p><strong>Space:</strong>: O(1)</p>
 
       
     </div>
@@ -454,9 +448,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/String/" rel="tag"># String</a>
+            <a href="/tags/Facebook/" rel="tag"># Facebook</a>
           
             <a href="/tags/Tree/" rel="tag"># Tree</a>
+          
+            <a href="/tags/Morris-Order/" rel="tag"># Morris Order</a>
+          
+            <a href="/tags/DFS/" rel="tag"># DFS</a>
           
         </div>
       
@@ -469,8 +467,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/25/572-Subtree-of-Another-Tree/" rel="next" title="572 Subtree of Another Tree">
-                <i class="fa fa-chevron-left"></i> 572 Subtree of Another Tree
+              <a href="/2017/08/30/125-Valid-Palindrome/" rel="next" title="125 Valid Palindrome">
+                <i class="fa fa-chevron-left"></i> 125 Valid Palindrome
               </a>
             
           </div>
@@ -478,10 +476,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/25/617-Merge-Two-Binary-Trees/" rel="prev" title="617 Merge Two Binary Trees">
-                617 Merge Two Binary Trees <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -617,7 +611,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Recursive-Solution"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Recursive Solution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Morris-Order-Traversal"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Morris Order Traversal</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.1.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -311,6 +311,162 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/23/643-Maxium-Average-Subarray-I/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/23/643-Maxium-Average-Subarray-I/" itemprop="url">643 Maxium Average Subarray I</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-23T08:22:20-07:00">
+                2017-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/maximum-average-subarray-i/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given an array consisting of n integers, find the contiguous subarray of given length k that has the maximum average value. And you need to output the maximum average value.</p>
+<p><strong>example:</strong></p>
+<p><strong>Input:</strong> [1,12,-5,-6,50,3], k = 4</p>
+<p><strong>Output:</strong> 12.75</p>
+<p><strong>Explanation:</strong> Maximum average is (12-5-6+50)/4 = 51/4 = 12.75</p>
+</blockquote>
+<h2 id="Solution-1-Cumulative-Array"><a href="#Solution-1-Cumulative-Array" class="headerlink" title="Solution 1 Cumulative Array"></a>Solution 1 Cumulative Array</h2><p>Since it’s a contiguous array comparasion, we can first find the sum array, then deduce accordingly to easily find those sums.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMaxAverage</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++ )&#123;</div><div class="line">            nums[i]+=nums[i-<span class="number">1</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> max = nums[k-<span class="number">1</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length-k; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(nums[i+k] - nums[i] &gt; max)</div><div class="line">                max = nums[i+k] - nums[i];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">double</span>)max/k;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong>  Only O(n) because we scanned the array two times.</p>
+<p><strong>Space:</strong> O(1), if we use the orginal array to store the <strong>cumulative array</strong>.<br>Otherwise, it should be O(n).</p>
+<h2 id="Solution-2-Window-Scan"><a href="#Solution-2-Window-Scan" class="headerlink" title="Solution 2 Window Scan"></a>Solution 2 Window Scan</h2><p>If we know one continous sum, we can easily find out the next by adding the next number and deducting the head number.</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMaxAverage</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> maxS = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; k; i++)&#123;</div><div class="line">            maxS+=nums[i];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> current = maxS;</div><div class="line">        <span class="keyword">int</span> head = <span class="number">0</span>, tail = k-<span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span>(tail &lt; nums.length-<span class="number">1</span>)&#123;</div><div class="line">            current = current+nums[tail+<span class="number">1</span>]-nums[head];</div><div class="line">            maxS = Math.max(maxS, current);</div><div class="line">            head++;</div><div class="line">            tail++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">double</span>)maxS/k;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Since only scan once, the time complexity is o(n).</p>
+<p><strong>Space:</strong> Constant extra space is used, thus space complexity is O(1).</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/22/628-Maximum-Product-of-Three-Numbers/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -802,7 +958,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
