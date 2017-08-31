@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[133 Clone Graph]]></title>
+    <url>%2F2017%2F08%2F31%2F133-Clone-Graph%2F</url>
+    <content type="text"><![CDATA[Clone an undirected graph. Each node in the graph contains a label and a list of its neighbors. OJ’s undirected graph serialization:Nodes are labeled uniquely. We use # as a separator for each node, and , as a separator for node label and each neighbor of the node.As an example, consider the serialized graph {0,1,2#1,2#2,2}. The graph has a total of three nodes, and therefore contains three parts as separated by #. First node is labeled as 0. Connect node 0 to both nodes 1 and 2. Second node is labeled as 1. Connect node 1 to node 2. Third node is labeled as 2. Connect node 2 to node 2 (itself), thus forming a self-cycle. Visually, the graph looks like the following: 1 / \ / \ 0 --- 2 / \ \_/ Solution 1 BFSUse BFS, one set to stroe those are already visited, and one map to map the relation between original node to current node. Code123456789101112131415161718192021222324252627282930313233343536373839public class Solution &#123; public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) &#123; List&lt;UndirectedGraphNode&gt; q = new ArrayList&lt;UndirectedGraphNode&gt;(); HashMap&lt;UndirectedGraphNode, UndirectedGraphNode&gt; map = new HashMap&lt;UndirectedGraphNode, UndirectedGraphNode&gt;(); Set&lt;Integer&gt; visited = new HashSet&lt;Integer&gt;(); UndirectedGraphNode res, cur; if(node == null) return null; q.add(node); res = new UndirectedGraphNode(node.label); cur = res; q.add(cur); while(q.size()&gt;0)&#123; UndirectedGraphNode x = q.remove(0); cur = q.remove(0); if(visited.contains(x.label)) continue; List&lt;UndirectedGraphNode&gt; nei = x.neighbors; map.put(x, cur); visited.add(x.label); for(int i =0; i &lt; nei.size(); i++)&#123; if(!map.containsKey(nei.get(i)))&#123; UndirectedGraphNode tempNode = new UndirectedGraphNode((nei.get(i).label)); cur.neighbors.add(tempNode); map.put(nei.get(i), tempNode); &#125;else&#123; cur.neighbors.add(map.get(nei.get(i))); &#125; if(!visited.contains(nei.get(i).label))&#123; System.out.println(1); q.add(nei.get(i)); q.add(cur.neighbors.get(i)); &#125; &#125; &#125; return res; &#125;&#125; T&amp;S AnalysisTime: O(node+edge) Space: O(n) for queue, set and map. Solution 2 DFSCode123456789101112131415161718192021public class Solution &#123; HashMap&lt;Integer, UndirectedGraphNode&gt; map = new HashMap&lt;Integer, UndirectedGraphNode&gt;(); public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) &#123; return clone(node); &#125; private UndirectedGraphNode clone(UndirectedGraphNode node)&#123; if(node == null) return null; if(map.containsKey(node.label))&#123; return map.get(node.label); &#125; UndirectedGraphNode cp = new UndirectedGraphNode(node.label); map.put(cp.label, cp); for(UndirectedGraphNode n : node.neighbors)&#123; cp.neighbors.add(clone(n)); &#125; return cp; &#125;&#125; T&amp;S AnalysisTime: O(node+edge) Space: O(node+edge) for recursion.]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Facebook</tag>
+        <tag>DFS</tag>
+        <tag>BFS</tag>
+        <tag>Graph</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[236 Lowest Common Ancestor of a Binary Tree]]></title>
     <url>%2F2017%2F08%2F30%2F236-Lowest-Common-Ancestor-of-a-Binary-Tree%2F</url>
     <content type="text"><![CDATA[Question Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree. According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes v and w as the lowest node in T that has both v and w as descendants (where we allow a node to be a descendant of itself).” _______3______ / \ ___5__ ___1__ / \ / \ 6 _2 0 8 / \ 7 4 For example, the lowest common ancestor (LCA) of nodes 5 and 1 is 3. Another example is LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition. Solution 1 RecursionCode1234567891011121314class Solution &#123; public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) &#123; if(root == p || root == q || root == null) return root; TreeNode left = lowestCommonAncestor(root.left, p, q); TreeNode right = lowestCommonAncestor(root.right, p, q); if(left == null) return right; if(right == null) return left; return root; &#125;&#125; T&amp;S AnalysisTime: O(n) Space: O(n) for recursion]]></content>
@@ -21,9 +35,9 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
+        <tag>DFS</tag>
         <tag>Tree</tag>
         <tag>Morris Order</tag>
-        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -75,8 +89,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -88,8 +102,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Hash Table</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -128,8 +142,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -141,8 +155,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Design</tag>
         <tag>Backtracking</tag>
+        <tag>Design</tag>
         <tag>Tire</tag>
       </tags>
   </entry>
@@ -155,8 +169,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Tree</tag>
         <tag>DFS</tag>
+        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -194,8 +208,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
         <tag>String</tag>
       </tags>
   </entry>
@@ -337,9 +351,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Tree</tag>
         <tag>DFS</tag>
         <tag>BFS</tag>
+        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
