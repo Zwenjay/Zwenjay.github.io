@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[51 Spiral Matrix]]></title>
+    <url>%2F2017%2F08%2F31%2F51-Spiral-Matrix%2F</url>
+    <content type="text"><![CDATA[Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order. For example,Given the following matrix: [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ] You should return [1,2,3,6,9,8,7,4,5]. Solution 1 Just go as it said###Code 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758class Solution &#123; public List&lt;Integer&gt; spiralOrder(int[][] matrix) &#123; int i = 0, j = 0; int top = 0, bottom = matrix.length-1; if(bottom &lt; 0) return new ArrayList&lt;Integer&gt;(); int left = 0, right = matrix[0].length-1; List&lt;Integer&gt; res = new ArrayList&lt;Integer&gt;(); while(true)&#123; if(i == top)&#123; while(j &lt;= right)&#123; res.add(matrix[i][j]); j++; &#125; j--; i++; top++; if(top &gt; bottom) return res; &#125; if(j == right )&#123; while(i &lt;= bottom)&#123; res.add(matrix[i][j]); i++; &#125; i--; j--; right--; if(right&lt;left) return res; &#125; if(i == bottom)&#123; while(j &gt;= left)&#123; res.add(matrix[i][j]); j --; &#125; j++; i--; bottom--; if(bottom &lt; top) return res; &#125; if(j == left)&#123; while(i &gt;= top)&#123; res.add(matrix[i][j]); i --; &#125; i++; j++; left++; if(left &gt; right) return res; &#125; &#125; &#125;&#125; T&amp;S AnalysisTime: O(N) Space: O(1).]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Array Facebook</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[133 Clone Graph]]></title>
     <url>%2F2017%2F08%2F31%2F133-Clone-Graph%2F</url>
     <content type="text"><![CDATA[Clone an undirected graph. Each node in the graph contains a label and a list of its neighbors. OJ’s undirected graph serialization:Nodes are labeled uniquely. We use # as a separator for each node, and , as a separator for node label and each neighbor of the node.As an example, consider the serialized graph {0,1,2#1,2#2,2}. The graph has a total of three nodes, and therefore contains three parts as separated by #. First node is labeled as 0. Connect node 0 to both nodes 1 and 2. Second node is labeled as 1. Connect node 1 to node 2. Third node is labeled as 2. Connect node 2 to node 2 (itself), thus forming a self-cycle. Visually, the graph looks like the following: 1 / \ / \ 0 --- 2 / \ \_/ Solution 1 BFSUse BFS, one set to stroe those are already visited, and one map to map the relation between original node to current node. Code123456789101112131415161718192021222324252627282930313233343536373839public class Solution &#123; public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) &#123; List&lt;UndirectedGraphNode&gt; q = new ArrayList&lt;UndirectedGraphNode&gt;(); HashMap&lt;UndirectedGraphNode, UndirectedGraphNode&gt; map = new HashMap&lt;UndirectedGraphNode, UndirectedGraphNode&gt;(); Set&lt;Integer&gt; visited = new HashSet&lt;Integer&gt;(); UndirectedGraphNode res, cur; if(node == null) return null; q.add(node); res = new UndirectedGraphNode(node.label); cur = res; q.add(cur); while(q.size()&gt;0)&#123; UndirectedGraphNode x = q.remove(0); cur = q.remove(0); if(visited.contains(x.label)) continue; List&lt;UndirectedGraphNode&gt; nei = x.neighbors; map.put(x, cur); visited.add(x.label); for(int i =0; i &lt; nei.size(); i++)&#123; if(!map.containsKey(nei.get(i)))&#123; UndirectedGraphNode tempNode = new UndirectedGraphNode((nei.get(i).label)); cur.neighbors.add(tempNode); map.put(nei.get(i), tempNode); &#125;else&#123; cur.neighbors.add(map.get(nei.get(i))); &#125; if(!visited.contains(nei.get(i).label))&#123; System.out.println(1); q.add(nei.get(i)); q.add(cur.neighbors.get(i)); &#125; &#125; &#125; return res; &#125;&#125; T&amp;S AnalysisTime: O(node+edge) Space: O(n) for queue, set and map. Solution 2 DFSCode123456789101112131415161718192021public class Solution &#123; HashMap&lt;Integer, UndirectedGraphNode&gt; map = new HashMap&lt;Integer, UndirectedGraphNode&gt;(); public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) &#123; return clone(node); &#125; private UndirectedGraphNode clone(UndirectedGraphNode node)&#123; if(node == null) return null; if(map.containsKey(node.label))&#123; return map.get(node.label); &#125; UndirectedGraphNode cp = new UndirectedGraphNode(node.label); map.put(cp.label, cp); for(UndirectedGraphNode n : node.neighbors)&#123; cp.neighbors.add(clone(n)); &#125; return cp; &#125;&#125; T&amp;S AnalysisTime: O(node+edge) Space: O(node+edge) for recursion.]]></content>
@@ -209,8 +220,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Dynamic Programming</tag>
         <tag>String</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
