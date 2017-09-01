@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[231 Power of Two]]></title>
+    <url>%2F2017%2F09%2F01%2F231-Power-of-Two%2F</url>
+    <content type="text"><![CDATA[Question Given an integer, write a function to determine if it is a power of two. Solution 1 Mathnormal solution. 123456789101112&gt;class Solution &#123; public boolean isPowerOfTwo(int n) &#123; if(n &lt;= 0) return false; while(n &gt; 1)&#123; if(n % 2 == 1) return false; n = n &gt;&gt; 1; &#125; return true; &#125;&#125; T&amp;S AnalysisTime: O(n)__Space: O(1) Solution 2 Bit manipulateBit manipulate solution, very fast. Code1234567class Solution &#123; public boolean isPowerOfTwo(int n) &#123; if(n &lt;= 0) return false; return (n &amp; (n-1))==0 ; &#125;&#125; T&amp;S AnalysisTime: O(1) Space: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Facebook</tag>
+        <tag>Math</tag>
+        <tag>Bit Manipulate</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[382 Linked List Random Node]]></title>
+    <url>%2F2017%2F08%2F31%2F382-Linked-List-Random-Node%2F</url>
+    <content type="text"><![CDATA[Question Given a singly linked list, return a random node’s value from the linked list. Each node must have the same probability of being chosen. Follow up: What if the linked list is extremely large and its length is unknown to you? Could you solve this efficiently without using extra space? Example: // Init a singly linked list [1,2,3].ListNode head = new ListNode(1);head.next = new ListNode(2);head.next.next = new ListNode(3);Solution solution = new Solution(head); // getRandom() should return either 1, 2, or 3 randomly. Each element should have equal probability of returning.solution.getRandom(); Solution 1 Use Reservoir SamplingRandomly choose the k-th number as 1/k. Code:123456789101112131415161718192021222324class Solution &#123; /** @param head The linked list's head. Note that the head is guaranteed to be not null, so it contains at least one node. */ ListNode head; public Solution(ListNode head) &#123; this.head = head; &#125; /** Returns a random node's value. */ public int getRandom() &#123; ListNode cur = head; int res = head.val, i=2; cur = cur.next; while(cur != null)&#123; if(Math.random() &lt;= 1.0/i) res = cur.val; i++; cur = cur.next; &#125; return res; &#125;&#125; T&amp;S AnalysisTime: O(n) Space: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Facebook</tag>
+        <tag>Reservoir Sampling</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[51 Spiral Matrix]]></title>
     <url>%2F2017%2F08%2F31%2F51-Spiral-Matrix%2F</url>
     <content type="text"><![CDATA[Question Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order. For example,Given the following matrix: [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ] You should return [1,2,3,6,9,8,7,4,5]. Solution 1 Just go as it said###Code 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758class Solution &#123; public List&lt;Integer&gt; spiralOrder(int[][] matrix) &#123; int i = 0, j = 0; int top = 0, bottom = matrix.length-1; if(bottom &lt; 0) return new ArrayList&lt;Integer&gt;(); int left = 0, right = matrix[0].length-1; List&lt;Integer&gt; res = new ArrayList&lt;Integer&gt;(); while(true)&#123; if(i == top)&#123; while(j &lt;= right)&#123; res.add(matrix[i][j]); j++; &#125; j--; i++; top++; if(top &gt; bottom) return res; &#125; if(j == right )&#123; while(i &lt;= bottom)&#123; res.add(matrix[i][j]); i++; &#125; i--; j--; right--; if(right&lt;left) return res; &#125; if(i == bottom)&#123; while(j &gt;= left)&#123; res.add(matrix[i][j]); j --; &#125; j++; i--; bottom--; if(bottom &lt; top) return res; &#125; if(j == left)&#123; while(i &gt;= top)&#123; res.add(matrix[i][j]); i --; &#125; i++; j++; left++; if(left &gt; right) return res; &#125; &#125; &#125;&#125; T&amp;S AnalysisTime: O(N) Space: O(1).]]></content>
@@ -100,8 +125,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -113,8 +138,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Hash Table</tag>
         <tag>Facebook</tag>
+        <tag>Hash Table</tag>
       </tags>
   </entry>
   <entry>
@@ -153,8 +178,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -219,8 +244,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
         <tag>String</tag>
       </tags>
   </entry>

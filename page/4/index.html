@@ -311,6 +311,349 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/25/513-Find-Bottom-Left-Tree-Value/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/25/513-Find-Bottom-Left-Tree-Value/" itemprop="url">513 Find Bottom Left Tree Value</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-25T10:15:05-07:00">
+                2017-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/find-bottom-left-tree-value/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a binary tree, find the leftmost value in the last row of the tree.</p>
+<p><strong>Example1:</strong></p>
+</blockquote>
+<pre>Input:
+
+        1
+       / \
+      2   3
+     /   / \
+    4   5   6
+       /
+      7
+
+Output:
+7
+</pre>
+
+<blockquote>
+<p><strong>Note:</strong> You may assume the tree (i.e., the given root node) is not <strong>NULL</strong>.</p>
+</blockquote>
+<h2 id="Solution-1-BFS-Levelorder"><a href="#Solution-1-BFS-Levelorder" class="headerlink" title="Solution 1 BFS-Levelorder"></a>Solution 1 BFS-Levelorder</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        List&lt;TreeNode&gt; q = <span class="keyword">new</span> ArrayList&lt;TreeNode&gt;();</div><div class="line">        List&lt;Integer&gt; temp = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        TreeNode p;</div><div class="line">        <span class="keyword">int</span> len;</div><div class="line">        </div><div class="line">        q.add(root);</div><div class="line">        <span class="keyword">while</span>(q.size()&gt;<span class="number">0</span>)&#123;</div><div class="line">            len = q.size();</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</div><div class="line">                p = q.remove(<span class="number">0</span>);</div><div class="line">                <span class="keyword">if</span>(p.left != <span class="keyword">null</span>)</div><div class="line">                    q.add(p.left);</div><div class="line">                <span class="keyword">if</span>(p.right != <span class="keyword">null</span>)</div><div class="line">                    q.add(p.right);</div><div class="line">                temp.add(p.val);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(q.size()&gt;<span class="number">0</span>)</div><div class="line">                temp.clear();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> temp.get(<span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Every node is visited once, so the time complexity is O(n).</p>
+<p><strong>Space:</strong> One Stack is used to store at most half of the elements, thus, the space complexity is also O(n).</p>
+<p><br><br><br></p>
+<h2 id="Solution-2-DFS-Solution-Preorder"><a href="#Solution-2-DFS-Solution-Preorder" class="headerlink" title="Solution 2 DFS Solution-Preorder"></a>Solution 2 DFS Solution-Preorder</h2><p>This method does not requires stack or queue, first go as left as it can, record its <strong>maxLevel</strong>. Than go right step by step, once the level is more than <strong>maxLevel</strong> turn the <strong>res</strong> to that value.</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxLevel = -<span class="number">1</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        dfs(root, <span class="number">0</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode root, <span class="keyword">int</span> level)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        dfs(root.left, level+<span class="number">1</span>);</div><div class="line">        <span class="keyword">if</span>(level &gt; maxLevel)&#123;</div><div class="line">            maxLevel = level;</div><div class="line">            res = root.val;</div><div class="line">        &#125;</div><div class="line">        dfs(root.right, level+<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Every node is visited once, so the time complexity is O(n).</p>
+<p><strong>Space:</strong> Though it does not use apparent extra data structure, it uses recursions in the <strong>dfs</strong> function, thus its space complexity is also O(n)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/25/563-Binary-Tree-Tilt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/25/563-Binary-Tree-Tilt/" itemprop="url">563 Binary Tree Tilt</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-25T08:19:36-07:00">
+                2017-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/binary-tree-tilt/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a binary tree, return the tilt of the <strong>whole tree</strong>.</p>
+<p>The tilt of a <strong>tree node</strong> is defined as the <strong>absolute difference</strong> between the sum of all left subtree node values and the sum of all right subtree node values. Null node has tilt 0.</p>
+<p>The tilt of the <strong>whole tree</strong> is defined as the sum of all nodes’ tilt.</p>
+<p><strong>Example:</strong></p>
+<pre><b>Input:</b> 
+         1
+       /   \
+      2     3
+<b>Output:</b> 1
+<b>Explanation:</b> 
+Tilt of node 2 : 0
+Tilt of node 3 : 0
+Tilt of node 1 : |2-3| = 1
+Tilt of binary tree : 0 + 0 + 1 = 1
+</pre>
+
+<p><strong>Note:</strong></p>
+<ol>
+<li>The sum of node values in any subtree won’t exceed the range of 32-bit integer.</li>
+<li>All the tilt values won’t exceed the range of 32-bit integer.</li>
+</ol>
+</blockquote>
+<h2 id="Solution-1-Brute-Force-–-Recusion-in-Recusion"><a href="#Solution-1-Brute-Force-–-Recusion-in-Recusion" class="headerlink" title="Solution 1 Brute Force – Recusion in Recusion"></a>Solution 1 Brute Force – Recusion in Recusion</h2><p>It is the easiest way for a coder to come up with a recusion solution, but I have to addmit that it is hard for the computer. So, mostly, I’d rather think much longer to come up with a iterative way. This time, however, I can’t find one, and even put a recusion into a recusion. Though the solution is accepted, I am still not satisfied.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findTilt</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span>  getTilt(root);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getTilt</span><span class="params">(TreeNode t)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">if</span>(t == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        sum += Math.abs(getSum(t.left)-getSum(t.right));</div><div class="line">        <span class="keyword">return</span> sum + getTilt(t.left) + getTilt(t.right);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getSum</span><span class="params">(TreeNode t)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">if</span>(t == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        <span class="keyword">return</span> sum + getSum(t.left)+getSum(t.right)+t.val;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> As I calculated, the <strong>getSum()</strong> function has time complexity of O(n), and <strong>getTilt()</strong>‘s is O(nlogn).</p>
+<p><strong>Space:</strong> As calculated, both functions’ space complexities are O(n).</p>
+<p><br><br><br></p>
+<h2 id="Solution-2-Use-Global-Varible"><a href="#Solution-2-Use-Global-Varible" class="headerlink" title="Solution 2 Use Global Varible"></a>Solution 2 Use Global Varible</h2><p>As I see the <em>leetcode’s</em> official solution, there is only a method with a class-global varible, I thought it was not allowed.</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> tilt=<span class="number">0</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findTilt</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        traverse(root);</div><div class="line">        <span class="keyword">return</span> tilt;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">traverse</span><span class="params">(TreeNode root)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span> )</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> left=traverse(root.left);</div><div class="line">        <span class="keyword">int</span> right=traverse(root.right);</div><div class="line">        tilt+=Math.abs(left-right);</div><div class="line">        <span class="keyword">return</span> left+right+root.val;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> In this case, the time complexity is O(n).</p>
+<p><strong>Space:</strong> As calculated the space complexity is also O(n).</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/144-Binary-Tree-Preorder-Traversal/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1536,320 +1879,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/160-Intersection-of-Two-Linked-Lists/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/24/160-Intersection-of-Two-Linked-Lists/" itemprop="url">160 Intersection of Two Linked Lists</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T13:41:54-07:00">
-                2017-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/intersection-of-two-linked-lists/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Write a program to find the node at which the intersection of two singly linked lists begins.</p>
-<p>For example, the following two linked lists:</p>
-<pre>
-
-   A:          a1 → a2
-                       ↘
-                         c1 → c2 → c3
-                       ↗            
-    B:     b1 → b2 → b3
-</pre>
-
-<p>begin to intersect at node c1.</p>
-<p><strong>Notes:</strong></p>
-<ul>
-<li>If the two linked lists have no intersection at all, return null.</li>
-<li>The linked lists must retain their original structure after the function returns.</li>
-<li>Your code should preferably run in O(n) time and use only O(1) memory.</li>
-</ul>
-</blockquote>
-<h2 id="Solution-1-Fast-and-Slow-Pointers"><a href="#Solution-1-Fast-and-Slow-Pointers" class="headerlink" title="Solution 1 Fast and Slow Pointers"></a>Solution 1 Fast and Slow Pointers</h2><p>Since we could change the structure in the process, we can make it a circle and usc <strong>fast and slow pointers</strong> to solve the problem. </p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</div><div class="line">        ListNode fast = headB, slow = headB, p = headA;</div><div class="line">        <span class="keyword">if</span>(headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">while</span>(p.next != <span class="keyword">null</span>)</div><div class="line">            p=p.next;</div><div class="line">        p.next = headA;</div><div class="line">        slow = slow.next;</div><div class="line">        <span class="keyword">if</span>(slow == <span class="keyword">null</span>)&#123;</div><div class="line">            p.next = <span class="keyword">null</span>;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        fast = slow.next;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span> &amp;&amp; fast != slow)&#123;</div><div class="line">            fast = fast.next.next;</div><div class="line">            slow = slow.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(fast == <span class="keyword">null</span> || fast.next == <span class="keyword">null</span>)&#123;</div><div class="line">            p.next =<span class="keyword">null</span>;   </div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        slow =headB;</div><div class="line">        <span class="keyword">while</span>(fast != slow)&#123;</div><div class="line">            fast = fast.next;</div><div class="line">            slow =slow.next;</div><div class="line">        &#125;</div><div class="line">        p.next = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">return</span> fast;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> It only envolve sanning the circle constant times, thus time complexity is O(n).</p>
-<p><strong>Space:</strong> Constant extra Space is used, thus, O(1).</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/148-Sort-List/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/24/148-Sort-List/" itemprop="url">148 Sort List</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T13:12:52-07:00">
-                2017-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/sort-list/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Sort a linked list in O(n log n) time using constant space complexity.</p>
-</blockquote>
-<h2 id="Solution-1-Bottom-to-Top"><a href="#Solution-1-Bottom-to-Top" class="headerlink" title="Solution 1 Bottom to Top"></a>Solution 1 Bottom to Top</h2><p>Since we could only use O(1) extra space, recursive method will not be acceptable. Thus, there is a <strong>Bottom-to-Top</strong> solution.</p>
-<p>Its idea is same as <strong>merge sort</strong>, just it’s not recursive, it is not easy to explain in detail, but the code is below. We need to be careful of boundary problems.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">sortList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> length = <span class="number">0</span>;</div><div class="line">        ListNode left, right, tail, cur;</div><div class="line">        ListNode dumy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">        dumy.next = head;</div><div class="line">        cur = dumy.next;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            length++;</div><div class="line">            cur = cur.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> step = <span class="number">1</span>; step &lt; length; step&lt;&lt;=<span class="number">1</span>)&#123;</div><div class="line">            cur = dumy.next;</div><div class="line">            tail = dumy;</div><div class="line">            <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">                left = cur;</div><div class="line">                right = seperate(left, step);</div><div class="line">                cur = seperate(right, step);</div><div class="line">                tail = merge(left, right, tail);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dumy.next;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="comment">// seperate the list from the "step" point</span></div><div class="line">    <span class="function"><span class="keyword">private</span> ListNode <span class="title">seperate</span><span class="params">(ListNode head, <span class="keyword">int</span> step)</span></span>&#123;</div><div class="line">        ListNode p;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; head != <span class="keyword">null</span> &amp;&amp; i &lt; step; i++)</div><div class="line">            head = head.next;</div><div class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        p = head.next;</div><div class="line">        head.next = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">return</span> p;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="comment">// merge two list, add to the "head" and return its tail</span></div><div class="line">    <span class="function"><span class="keyword">private</span> ListNode <span class="title">merge</span><span class="params">(ListNode l1, ListNode l2, ListNode head)</span></span>&#123;</div><div class="line">        ListNode p = head;</div><div class="line">        <span class="keyword">while</span>( l1 != <span class="keyword">null</span> &amp;&amp; l2 != <span class="keyword">null</span> )&#123;</div><div class="line">            <span class="keyword">if</span>(l1.val &lt;= l2.val)&#123;</div><div class="line">                p.next = l1;</div><div class="line">                l1 = l1.next;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                p.next = l2;</div><div class="line">                l2 = l2.next;</div><div class="line">            &#125;</div><div class="line">            p = p.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(l1 == <span class="keyword">null</span>)&#123;</div><div class="line">            p.next = l2;</div><div class="line">            <span class="keyword">while</span>(l2.next != <span class="keyword">null</span>)</div><div class="line">                l2 = l2.next;</div><div class="line">            <span class="keyword">return</span> l2;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            p.next = l1;</div><div class="line">            <span class="keyword">while</span>(l1.next != <span class="keyword">null</span>)</div><div class="line">                l1 = l1.next;</div><div class="line">            <span class="keyword">return</span> l1;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Obviously, as the problem required, it’s O(nlogn).</p>
-<p><strong>Space:</strong> It’s O(1) for not using recursion.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1900,7 +1929,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">49</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1922,7 +1951,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
