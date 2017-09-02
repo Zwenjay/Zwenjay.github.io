@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[39 Combination Sum]]></title>
+    <url>%2F2017%2F09%2F02%2F39-Combination-Sum%2F</url>
+    <content type="text"><![CDATA[Question Given a set of candidate numbers (C) (without duplicates) and a target number (T), find all unique combinations in C where the candidate numbers sums to T. The same repeated number may be chosen from C unlimited number of times. Note: All numbers (including target) will be positive integers. The solution set must not contain duplicate combinations. For example, given candidate set [2, 3, 6, 7] and target 7,A solution set is: [ [7], [2, 2, 3] ] Solution 1 BacktrackingJust normal backtracking method. One thing: since it could use same numbers more than one times, the position in next backtracking should be i rather than i+1 Code123456789101112131415161718192021class Solution &#123; public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) &#123; List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;List&lt;Integer&gt;&gt;(); backtracking(res, target, new ArrayList&lt;Integer&gt;(), candidates, 0); return res; &#125; private void backtracking(List&lt;List&lt;Integer&gt;&gt; res, int target, List&lt;Integer&gt; temp, int[] candidates, int pos)&#123; if(target == 0)&#123; res.add(new ArrayList&lt;Integer&gt;(temp)); return; &#125; if(target &lt; 0) return; for(int i = pos; i &lt; candidates.length; i++)&#123; temp.add(candidates[i]); backtracking(res, target - candidates[i], temp, candidates, i); temp.remove(temp.size()-1); &#125; &#125;&#125; T&amp;S AnalysisTime: Hard to calculate, related to the size of nums, those numbers in set and the target number. Space:: Same as above, because of use of recursion.]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Array</tag>
+        <tag>Facebook</tag>
+        <tag>Backtracking</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[22 Generate Parentheses]]></title>
     <url>%2F2017%2F09%2F01%2F22-Generate-Parentheses%2F</url>
     <content type="text"><![CDATA[Question Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses. For example, given n = 3, a solution set is: [ "((()))", "(()())", "(())()", "()(())", "()()()" ] Solution 1 Backtracking12345678910111213141516171819class Solution &#123; public List&lt;String&gt; generateParenthesis(int n) &#123; List&lt;String&gt; res = new ArrayList&lt;String&gt;(); backtracking(n, res, "", 0, 0); return res; &#125; private void backtracking(int n, List&lt;String&gt; res, String s, int left, int right)&#123; if(right == n)&#123; res.add(s); return; &#125; if(left &lt; n)&#123; backtracking(n, res, s + "(", left+1 , right); &#125; if(right &lt; left) backtracking(n, res, s + ")", left, right +1); &#125;&#125;]]></content>
