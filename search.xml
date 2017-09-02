@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[202 Happy Number]]></title>
+    <url>%2F2017%2F09%2F02%2F202-Happy-Number%2F</url>
+    <content type="text"><![CDATA[Write an algorithm to determine if a number is “happy”. A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers. Example: 19 is a happy number 12 + 92 = 82 82 + 22 = 68 62 + 82 = 100 12 + 02 + 02 = 1 Solution 1 Math SolutionIt’s just too tricky. Every number will be less than 6 sometiome Every number became 2-6 are not happy. Code123456789101112131415161718class Solution &#123; public boolean isHappy(int n) &#123; while(n &gt; 6)&#123; n = generateHappy(n); &#125; return n == 1; &#125; private int generateHappy(int n)&#123; int sum = 0; while( n&gt;0 )&#123; sum += (n%10) * (n%10); n/=10; &#125; return sum; &#125;&#125; T&amp;S AnalysisTime: O(n) Space:: O(1) Solution 2 Two Pointersset fast and slow Code1234567891011121314151617181920212223class Solution &#123; public boolean isHappy(int n) &#123; int slow = generateHappy(n); int fast = generateHappy(n); fast = generateHappy(fast); while(fast != slow)&#123; slow = generateHappy(slow); fast = generateHappy(fast); fast = generateHappy(fast); &#125; return slow == 1; &#125; private int generateHappy(int n)&#123; int sum = 0; while( n&gt;0 )&#123; sum += (n%10) * (n%10); n/=10; &#125; return sum; &#125;&#125; T&amp;S AnalysisTime: O(n) Space:: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Facebook</tag>
+        <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[24 Swap Nodes in Pairs]]></title>
+    <url>%2F2017%2F09%2F02%2F24-Swap-Nodes-in-Pairs%2F</url>
+    <content type="text"><![CDATA[Question Given a linked list, swap every two adjacent nodes and return its head. For example,Given 1-&gt;2-&gt;3-&gt;4, you should return the list as 2-&gt;1-&gt;4-&gt;3. Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed. Solution 1 Swap Nodes12345678910111213141516class Solution &#123; public ListNode swapPairs(ListNode head) &#123; ListNode dumpy = new ListNode(0), temp, cur; dumpy.next = head; cur = dumpy; while(cur != null &amp;&amp; cur.next != null &amp;&amp; cur.next.next != null)&#123; temp = cur.next; cur.next = temp.next; temp.next = cur.next.next; cur.next.next = temp; cur = temp; &#125; return dumpy.next; &#125;&#125; T&amp;S AnalysisTime: O(n) Space:: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Facebook</tag>
+        <tag>Linked List</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[39 Combination Sum]]></title>
     <url>%2F2017%2F09%2F02%2F39-Combination-Sum%2F</url>
     <content type="text"><![CDATA[Question Given a set of candidate numbers (C) (without duplicates) and a target number (T), find all unique combinations in C where the candidate numbers sums to T. The same repeated number may be chosen from C unlimited number of times. Note: All numbers (including target) will be positive integers. The solution set must not contain duplicate combinations. For example, given candidate set [2, 3, 6, 7] and target 7,A solution set is: [ [7], [2, 2, 3] ] Solution 1 BacktrackingJust normal backtracking method. One thing: since it could use same numbers more than one times, the position in next backtracking should be i rather than i+1 Code123456789101112131415161718192021class Solution &#123; public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) &#123; List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;List&lt;Integer&gt;&gt;(); backtracking(res, target, new ArrayList&lt;Integer&gt;(), candidates, 0); return res; &#125; private void backtracking(List&lt;List&lt;Integer&gt;&gt; res, int target, List&lt;Integer&gt; temp, int[] candidates, int pos)&#123; if(target == 0)&#123; res.add(new ArrayList&lt;Integer&gt;(temp)); return; &#125; if(target &lt; 0) return; for(int i = pos; i &lt; candidates.length; i++)&#123; temp.add(candidates[i]); backtracking(res, target - candidates[i], temp, candidates, i); temp.remove(temp.size()-1); &#125; &#125;&#125; T&amp;S AnalysisTime: Hard to calculate, related to the size of nums, those numbers in set and the target number. Space:: Same as above, because of use of recursion.]]></content>
@@ -508,8 +532,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Two Pointers</tag>
         <tag>Linked List</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -542,8 +566,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Two Pointers</tag>
         <tag>Linked List</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
