@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[402 Remove K Digits]]></title>
+    <url>%2F2017%2F09%2F01%2F402-Remove-K-Digits%2F</url>
+    <content type="text"><![CDATA[Question Given a non-negative integer num represented as a string, remove k digits from the number so that the new number is the smallest possible. Example 1: Input: num = "1432219", k = 3 Output: "1219" Explanation: Remove the three digits 4, 3, and 2 to form the new number 1219 which is the smallest. Example 2: Input: num = "10200", k = 1 Output: "200" Explanation: Remove the leading 1 and the number is 200. Note that the output must not contain leading zeroes. Example 3: Input: num = "10", k = 2 Output: "0" Explanation: Remove all the digits from the number and it is left with nothing which is 0. Solution 1 Delete Larger OneIf current num is smaller than its former, delete the former and continue comparing until k = 0 or i = 0. Code123456789101112131415161718192021222324class Solution &#123; public String removeKdigits(String num, int k) &#123; int l = num.length(); int i = 1; while(i &lt; l)&#123; while( i &gt;= 1 &amp;&amp;l&gt;1 &amp;&amp; num.charAt(i) &lt; num.charAt(i-1) &amp;&amp; k&gt;0)&#123; num = num.substring(0, i-1) + num.substring(i, l); l--; k--; i--; &#125; if(k == 0 || l==1) break; i++; &#125; i = 0; while(i &lt; l &amp;&amp; num.charAt(i) == '0') i++; if(i &gt;= l-k) return "0"; return num.substring(i, l-k); &#125;&#125; T&amp;S AnalysisTime: O(N), it seems like o(N^2), but in fact num will get shorter. And every node are visited constant times. Space: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Facebook</tag>
+        <tag>Stack</tag>
+        <tag>Greedy</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[231 Power of Two]]></title>
     <url>%2F2017%2F09%2F01%2F231-Power-of-Two%2F</url>
     <content type="text"><![CDATA[Question Given an integer, write a function to determine if it is a power of two. Solution 1 Mathnormal solution. 123456789101112&gt;class Solution &#123; public boolean isPowerOfTwo(int n) &#123; if(n &lt;= 0) return false; while(n &gt; 1)&#123; if(n % 2 == 1) return false; n = n &gt;&gt; 1; &#125; return true; &#125;&#125; T&amp;S AnalysisTime: O(n)__Space: O(1) Solution 2 Bit manipulateBit manipulate solution, very fast. Code1234567class Solution &#123; public boolean isPowerOfTwo(int n) &#123; if(n &lt;= 0) return false; return (n &amp; (n-1))==0 ; &#125;&#125; T&amp;S AnalysisTime: O(1) Space: O(1)]]></content>
@@ -100,7 +113,7 @@
         <tag>Array</tag>
         <tag>Facebook</tag>
         <tag>Backtracking</tag>
-        <tag>Bit Manipulation</tag>
+        <tag>Bit Manipulate</tag>
       </tags>
   </entry>
   <entry>
@@ -125,8 +138,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -138,8 +151,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Hash Table</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -178,8 +191,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -244,8 +257,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
         <tag>String</tag>
       </tags>
   </entry>
@@ -585,8 +598,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Queue</tag>
         <tag>Greedy</tag>
+        <tag>Queue</tag>
       </tags>
   </entry>
   <entry>
