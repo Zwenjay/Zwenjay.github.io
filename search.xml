@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[242 Valid Anagram]]></title>
+    <url>%2F2017%2F09%2F02%2F242-Valid-Anagram%2F</url>
+    <content type="text"><![CDATA[Question Given two strings s and t, write a function to determine if t is an anagram of s. For example,s = “anagram”, t = “nagaram”, return true.s = “rat”, t = “car”, return false. Note: You may assume the string contains only lowercase alphabets. Solution 1 Alphabet ArraySince there are only 26 alphabet, we could build an alphabet array and store times eacht alphabet appears. Code1234567891011121314class Solution &#123; public boolean isAnagram(String s, String t) &#123; int[] alphbet = new int[26]; for(char ch : s.toCharArray()) alphbet[ch-'a']++; for(char ch : t.toCharArray()) alphbet[ch-'a']--; for(int x : alphbet) if(x != 0) return false; return true; &#125;&#125; T&amp;S AnalysisTime: O(n) Space:: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Hash Table</tag>
+        <tag>Sort</tag>
+        <tag>Faceboook</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[202 Happy Number]]></title>
     <url>%2F2017%2F09%2F02%2F202-Happy-Number%2F</url>
     <content type="text"><![CDATA[Question Write an algorithm to determine if a number is “happy”. A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers. Example: 19 is a happy number 12 + 92 = 82 82 + 22 = 68 62 + 82 = 100 12 + 02 + 02 = 1 Solution 1 Math SolutionIt’s just too tricky. Every number will be less than 6 sometiome Every number became 2-6 are not happy. Code123456789101112131415161718class Solution &#123; public boolean isHappy(int n) &#123; while(n &gt; 6)&#123; n = generateHappy(n); &#125; return n == 1; &#125; private int generateHappy(int n)&#123; int sum = 0; while( n&gt;0 )&#123; sum += (n%10) * (n%10); n/=10; &#125; return sum; &#125;&#125; T&amp;S AnalysisTime: O(n) Space:: O(1) Solution 2 Two Pointersset fast and slow Code1234567891011121314151617181920212223class Solution &#123; public boolean isHappy(int n) &#123; int slow = generateHappy(n); int fast = generateHappy(n); fast = generateHappy(fast); while(fast != slow)&#123; slow = generateHappy(slow); fast = generateHappy(fast); fast = generateHappy(fast); &#125; return slow == 1; &#125; private int generateHappy(int n)&#123; int sum = 0; while( n&gt;0 )&#123; sum += (n%10) * (n%10); n/=10; &#125; return sum; &#125;&#125; T&amp;S AnalysisTime: O(n) Space:: O(1)]]></content>
@@ -189,8 +202,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -202,8 +215,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Hash Table</tag>
         <tag>Facebook</tag>
+        <tag>Hash Table</tag>
       </tags>
   </entry>
   <entry>
@@ -242,8 +255,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -308,9 +321,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
         <tag>String</tag>
-        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>

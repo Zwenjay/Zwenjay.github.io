@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Array,Facebook,Backtracking," />
+  <meta name="keywords" content="Hash Table,Sort,Faceboook," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Question Given a set of candidate numbers (C) (without duplicates) and a target number (T), find all unique combinations in C where the candidate numbers sums to T. The same repeated number may be cho">
-<meta name="keywords" content="Array,Facebook,Backtracking">
+<meta name="description" content="Question Given two strings s and t, write a function to determine if t is an anagram of s. For example,s = “anagram”, t = “nagaram”, return true.s = “rat”, t = “car”, return false. Note: You may assum">
+<meta name="keywords" content="Hash Table,Sort,Faceboook">
 <meta property="og:type" content="article">
-<meta property="og:title" content="39 Combination Sum">
-<meta property="og:url" content="http://wenjiezhang.com/2017/09/02/39-Combination-Sum/index.html">
+<meta property="og:title" content="242 Valid Anagram">
+<meta property="og:url" content="http://wenjiezhang.com/2017/09/02/242-Valid-Anagram/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="Question Given a set of candidate numbers (C) (without duplicates) and a target number (T), find all unique combinations in C where the candidate numbers sums to T. The same repeated number may be cho">
+<meta property="og:description" content="Question Given two strings s and t, write a function to determine if t is an anagram of s. For example,s = “anagram”, t = “nagaram”, return true.s = “rat”, t = “car”, return false. Note: You may assum">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-09-02T16:15:43.621Z">
+<meta property="og:updated_time" content="2017-09-02T19:24:20.056Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="39 Combination Sum">
-<meta name="twitter:description" content="Question Given a set of candidate numbers (C) (without duplicates) and a target number (T), find all unique combinations in C where the candidate numbers sums to T. The same repeated number may be cho">
+<meta name="twitter:title" content="242 Valid Anagram">
+<meta name="twitter:description" content="Question Given two strings s and t, write a function to determine if t is an anagram of s. For example,s = “anagram”, t = “nagaram”, return true.s = “rat”, t = “car”, return false. Note: You may assum">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/2017/09/02/39-Combination-Sum/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/09/02/242-Valid-Anagram/"/>
 
 
 
 
 
-  <title>39 Combination Sum | Coding Zone</title>
+  <title>242 Valid Anagram | Coding Zone</title>
   
 
 
@@ -311,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/02/39-Combination-Sum/">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/02/242-Valid-Anagram/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wenjie Zhang">
@@ -328,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">39 Combination Sum</h1>
+          <h1 class="post-title" itemprop="name headline">242 Valid Anagram</h1>
         
 
         <div class="post-meta">
@@ -340,7 +340,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-02T09:05:52-07:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-02T12:18:23-07:00">
                 2017-09-02
               </time>
             
@@ -405,28 +405,16 @@
       
 
       
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/combination-sum/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given a set of candidate numbers (C) (without duplicates) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.</p>
-<p>The same repeated number may be chosen from C unlimited number of times.</p>
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/valid-anagram/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given two strings s and t, write a function to determine if t is an anagram of s.</p>
+<p>For example,<br>s = “anagram”, t = “nagaram”, return true.<br>s = “rat”, t = “car”, return false.</p>
 <p><strong>Note:</strong></p>
-<ul>
-<li><p>All numbers (including target) will be positive integers.</p>
-</li>
-<li><p>The solution set must not contain duplicate combinations.</p>
-</li>
-</ul>
-<p>For example, given candidate set [2, 3, 6, 7] and target 7,<br>A solution set is: </p>
-<pre>[
-  [7],
-  [2, 2, 3]
-]
-</pre>
-
+<p>You may assume the string contains only lowercase alphabets.</p>
 </blockquote>
-<h2 id="Solution-1-Backtracking"><a href="#Solution-1-Backtracking" class="headerlink" title="Solution 1 Backtracking"></a>Solution 1 Backtracking</h2><p>Just normal backtracking method. One thing: since it could use same numbers more than one times, the position in next backtracking should be <em>i</em> rather than <em>i+1</em></p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; combinationSum(<span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target) &#123;</div><div class="line">        List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;List&lt;Integer&gt;&gt;();</div><div class="line">        backtracking(res, target, <span class="keyword">new</span> ArrayList&lt;Integer&gt;(), candidates, <span class="number">0</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">backtracking</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; res, <span class="keyword">int</span> target, List&lt;Integer&gt; temp, <span class="keyword">int</span>[] candidates, <span class="keyword">int</span> pos)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(target == <span class="number">0</span>)&#123;</div><div class="line">            res.add(<span class="keyword">new</span> ArrayList&lt;Integer&gt;(temp));</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(target &lt; <span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = pos; i &lt; candidates.length; i++)&#123;</div><div class="line">            temp.add(candidates[i]);</div><div class="line">            backtracking(res, target - candidates[i], temp, candidates, i);</div><div class="line">            temp.remove(temp.size()-<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> Hard to calculate, related to the size of nums, those numbers in set and the target number. </p>
-<p><strong>Space:</strong>: Same as above, because of use of recursion.</p>
+<h2 id="Solution-1-Alphabet-Array"><a href="#Solution-1-Alphabet-Array" class="headerlink" title="Solution 1 Alphabet Array"></a>Solution 1 Alphabet Array</h2><p>Since there are only 26 alphabet, we could build an alphabet array and store times eacht alphabet appears.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAnagram</span><span class="params">(String s, String t)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span>[] alphbet = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> ch : s.toCharArray())</div><div class="line">            alphbet[ch-<span class="string">'a'</span>]++;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> ch : t.toCharArray())</div><div class="line">            alphbet[ch-<span class="string">'a'</span>]--;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : alphbet)</div><div class="line">            <span class="keyword">if</span>(x != <span class="number">0</span>)</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> O(n)</p>
+<p><strong>Space:</strong>: O(1)</p>
 
       
     </div>
@@ -444,11 +432,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Array/" rel="tag"># Array</a>
+            <a href="/tags/Hash-Table/" rel="tag"># Hash Table</a>
           
-            <a href="/tags/Facebook/" rel="tag"># Facebook</a>
+            <a href="/tags/Sort/" rel="tag"># Sort</a>
           
-            <a href="/tags/Backtracking/" rel="tag"># Backtracking</a>
+            <a href="/tags/Faceboook/" rel="tag"># Faceboook</a>
           
         </div>
       
@@ -461,8 +449,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/01/22-Generate-Parentheses/" rel="next" title="22 Generate Parentheses">
-                <i class="fa fa-chevron-left"></i> 22 Generate Parentheses
+              <a href="/2017/09/02/202-Happy-Number/" rel="next" title="202 Happy Number">
+                <i class="fa fa-chevron-left"></i> 202 Happy Number
               </a>
             
           </div>
@@ -470,10 +458,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/02/24-Swap-Nodes-in-Pairs/" rel="prev" title="24 Swap Nodes in Pairs">
-                24 Swap Nodes in Pairs <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -609,7 +593,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Backtracking"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Backtracking</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Alphabet-Array"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Alphabet Array</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
