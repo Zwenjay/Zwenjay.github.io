@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[22 Generate Parentheses]]></title>
+    <url>%2F2017%2F09%2F01%2F22-Generate-Parentheses%2F</url>
+    <content type="text"><![CDATA[Question Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses. For example, given n = 3, a solution set is: [ "((()))", "(()())", "(())()", "()(())", "()()()" ] Solution 1 Backtracking12345678910111213141516171819class Solution &#123; public List&lt;String&gt; generateParenthesis(int n) &#123; List&lt;String&gt; res = new ArrayList&lt;String&gt;(); backtracking(n, res, "", 0, 0); return res; &#125; private void backtracking(int n, List&lt;String&gt; res, String s, int left, int right)&#123; if(right == n)&#123; res.add(s); return; &#125; if(left &lt; n)&#123; backtracking(n, res, s + "(", left+1 , right); &#125; if(right &lt; left) backtracking(n, res, s + ")", left, right +1); &#125;&#125;]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Facebook</tag>
+        <tag>String</tag>
+        <tag>Backtracking</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[402 Remove K Digits]]></title>
     <url>%2F2017%2F09%2F01%2F402-Remove-K-Digits%2F</url>
     <content type="text"><![CDATA[Question Given a non-negative integer num represented as a string, remove k digits from the number so that the new number is the smallest possible. Example 1: Input: num = "1432219", k = 3 Output: "1219" Explanation: Remove the three digits 4, 3, and 2 to form the new number 1219 which is the smallest. Example 2: Input: num = "10200", k = 1 Output: "200" Explanation: Remove the leading 1 and the number is 200. Note that the output must not contain leading zeroes. Example 3: Input: num = "10", k = 2 Output: "0" Explanation: Remove all the digits from the number and it is left with nothing which is 0. Solution 1 Delete Larger OneIf current num is smaller than its former, delete the former and continue comparing until k = 0 or i = 0. Code123456789101112131415161718192021222324class Solution &#123; public String removeKdigits(String num, int k) &#123; int l = num.length(); int i = 1; while(i &lt; l)&#123; while( i &gt;= 1 &amp;&amp;l&gt;1 &amp;&amp; num.charAt(i) &lt; num.charAt(i-1) &amp;&amp; k&gt;0)&#123; num = num.substring(0, i-1) + num.substring(i, l); l--; k--; i--; &#125; if(k == 0 || l==1) break; i++; &#125; i = 0; while(i &lt; l &amp;&amp; num.charAt(i) == '0') i++; if(i &gt;= l-k) return "0"; return num.substring(i, l-k); &#125;&#125; T&amp;S AnalysisTime: O(N), it seems like o(N^2), but in fact num will get shorter. And every node are visited constant times. Space: O(1)]]></content>
@@ -139,8 +152,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -152,8 +165,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Hash Table</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -192,8 +205,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -258,8 +271,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
         <tag>String</tag>
       </tags>
   </entry>
