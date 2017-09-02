@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[202 Happy Number]]></title>
     <url>%2F2017%2F09%2F02%2F202-Happy-Number%2F</url>
-    <content type="text"><![CDATA[Write an algorithm to determine if a number is “happy”. A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers. Example: 19 is a happy number 12 + 92 = 82 82 + 22 = 68 62 + 82 = 100 12 + 02 + 02 = 1 Solution 1 Math SolutionIt’s just too tricky. Every number will be less than 6 sometiome Every number became 2-6 are not happy. Code123456789101112131415161718class Solution &#123; public boolean isHappy(int n) &#123; while(n &gt; 6)&#123; n = generateHappy(n); &#125; return n == 1; &#125; private int generateHappy(int n)&#123; int sum = 0; while( n&gt;0 )&#123; sum += (n%10) * (n%10); n/=10; &#125; return sum; &#125;&#125; T&amp;S AnalysisTime: O(n) Space:: O(1) Solution 2 Two Pointersset fast and slow Code1234567891011121314151617181920212223class Solution &#123; public boolean isHappy(int n) &#123; int slow = generateHappy(n); int fast = generateHappy(n); fast = generateHappy(fast); while(fast != slow)&#123; slow = generateHappy(slow); fast = generateHappy(fast); fast = generateHappy(fast); &#125; return slow == 1; &#125; private int generateHappy(int n)&#123; int sum = 0; while( n&gt;0 )&#123; sum += (n%10) * (n%10); n/=10; &#125; return sum; &#125;&#125; T&amp;S AnalysisTime: O(n) Space:: O(1)]]></content>
+    <content type="text"><![CDATA[Question Write an algorithm to determine if a number is “happy”. A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers. Example: 19 is a happy number 12 + 92 = 82 82 + 22 = 68 62 + 82 = 100 12 + 02 + 02 = 1 Solution 1 Math SolutionIt’s just too tricky. Every number will be less than 6 sometiome Every number became 2-6 are not happy. Code123456789101112131415161718class Solution &#123; public boolean isHappy(int n) &#123; while(n &gt; 6)&#123; n = generateHappy(n); &#125; return n == 1; &#125; private int generateHappy(int n)&#123; int sum = 0; while( n&gt;0 )&#123; sum += (n%10) * (n%10); n/=10; &#125; return sum; &#125;&#125; T&amp;S AnalysisTime: O(n) Space:: O(1) Solution 2 Two Pointersset fast and slow Code1234567891011121314151617181920212223class Solution &#123; public boolean isHappy(int n) &#123; int slow = generateHappy(n); int fast = generateHappy(n); fast = generateHappy(fast); while(fast != slow)&#123; slow = generateHappy(slow); fast = generateHappy(fast); fast = generateHappy(fast); &#125; return slow == 1; &#125; private int generateHappy(int n)&#123; int sum = 0; while( n&gt;0 )&#123; sum += (n%10) * (n%10); n/=10; &#125; return sum; &#125;&#125; T&amp;S AnalysisTime: O(n) Space:: O(1)]]></content>
       <categories>
         <category>Algorithm</category>
       </categories>
@@ -309,8 +309,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Dynamic Programming</tag>
         <tag>String</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -532,8 +532,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Linked List</tag>
         <tag>Two Pointers</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
   <entry>
@@ -566,8 +566,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Linked List</tag>
         <tag>Two Pointers</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
   <entry>
