@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Facebook,Array,Backtracking,Bloomberg,Microsoft," />
+  <meta name="keywords" content="Array,Facebook,Backtracking,Bloomberg,Microsoft," />
 
 
 
@@ -95,14 +95,14 @@
 
 
 <meta name="description" content="Question Given a 2D board and a word, find if the word exists in the grid. The word can be constructed from letters of sequentially adjacent cell, where “adjacent” cells are those horizontally or vert">
-<meta name="keywords" content="Facebook,Array,Backtracking,Bloomberg,Microsoft">
+<meta name="keywords" content="Array,Facebook,Backtracking,Bloomberg,Microsoft">
 <meta property="og:type" content="article">
 <meta property="og:title" content="79 Word Search">
 <meta property="og:url" content="http://wenjiezhang.com/2017/09/03/79-Word-Search/index.html">
 <meta property="og:site_name" content="Coding Zone">
 <meta property="og:description" content="Question Given a 2D board and a word, find if the word exists in the grid. The word can be constructed from letters of sequentially adjacent cell, where “adjacent” cells are those horizontally or vert">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-09-03T23:49:58.576Z">
+<meta property="og:updated_time" content="2017-09-05T05:01:20.248Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="79 Word Search">
 <meta name="twitter:description" content="Question Given a 2D board and a word, find if the word exists in the grid. The word can be constructed from letters of sequentially adjacent cell, where “adjacent” cells are those horizontally or vert">
@@ -424,7 +424,7 @@
 <h2 id="Solution-Backtracking"><a href="#Solution-Backtracking" class="headerlink" title="Solution Backtracking"></a>Solution Backtracking</h2><p>Same letter are not allowed to use more than once, so we have to come up a method to record who has been used. In this solution, since char is 8-byte, so we use <strong><em>ch^=256</em></strong> to make it inverse or recover.</p>
 <h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">exist</span><span class="params">(<span class="keyword">char</span>[][] board, String word)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(board.length == <span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt; board.length ; i++)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; board[<span class="number">0</span>].length; j++)&#123;</div><div class="line">                <span class="keyword">if</span>(backtracking(board, word, <span class="number">0</span>, i, j))</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">backtracking</span><span class="params">(<span class="keyword">char</span>[][] board, String word, <span class="keyword">int</span> posw, <span class="keyword">int</span> posx, <span class="keyword">int</span> posy)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(posw == word.length())</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">if</span>(posx &lt; <span class="number">0</span> || posx &gt;= board.length || posy &lt; <span class="number">0</span> || posy &gt;= board[<span class="number">0</span>].length || board[posx][posy] != word.charAt(posw))</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        board[posx][posy] ^= <span class="number">256</span>;</div><div class="line">        <span class="keyword">boolean</span> res = backtracking(board, word, posw+<span class="number">1</span>, posx, posy+<span class="number">1</span>) || backtracking(board, word, posw+<span class="number">1</span>, posx, posy-<span class="number">1</span>) || backtracking(board, word, posw+<span class="number">1</span>, posx+<span class="number">1</span>, posy) || backtracking(board, word, posw+<span class="number">1</span>, posx-<span class="number">1</span>, posy);</div><div class="line">        board[posx][posy] ^=<span class="number">256</span>;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> O(col^2 * row^2) or exp(wordlen)</p>
-<p><strong>Space:</strong>: O()</p>
+<p><strong>Space:</strong> O()</p>
 
       
     </div>
@@ -442,9 +442,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Facebook/" rel="tag"># Facebook</a>
-          
             <a href="/tags/Array/" rel="tag"># Array</a>
+          
+            <a href="/tags/Facebook/" rel="tag"># Facebook</a>
           
             <a href="/tags/Backtracking/" rel="tag"># Backtracking</a>
           
@@ -472,6 +472,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/04/38-Count-and-Say/" rel="prev" title="38 Count and Say">
+                38 Count and Say <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -550,7 +554,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-count">60</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

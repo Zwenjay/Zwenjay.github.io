@@ -311,6 +311,192 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/25/572-Subtree-of-Another-Tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/25/572-Subtree-of-Another-Tree/" itemprop="url">572 Subtree of Another Tree</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-25T14:25:40-07:00">
+                2017-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/find-bottom-left-tree-value/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given two non-empty binary trees s and t, check whether tree t has exactly the same structure and node values with a subtree of s. A subtree of s is a tree consists of a node in s and all of this node’s descendants. The tree s could also be considered as a subtree of itself.</p>
+<p>Example 1:</p>
+<p>Given tree s:</p>
+<pre>     3
+    / \
+   4   5
+  / \
+ 1   2
+</pre>
+
+<p>Given tree t:</p>
+<pre>   4 
+  / \
+ 1   2
+</pre>
+
+<p>Return <strong>true</strong>, because t has the same structure and node values with a subtree of s.</p>
+<p><strong>Example2:</strong><br>Given tree s:</p>
+<pre>     3
+    / \
+   4   5
+  / \
+ 1   2
+    /
+   0
+</pre>
+
+
+<p>Given tree t:</p>
+<pre>   4
+  / \
+ 1   2
+</pre>
+
+<p>Return <strong>false</strong>.</p>
+</blockquote>
+<h2 id="Solution-1-Recursive-Find-and-Recursive-Compare"><a href="#Solution-1-Recursive-Find-and-Recursive-Compare" class="headerlink" title="Solution 1 Recursive Find and Recursive Compare"></a>Solution 1 Recursive Find and Recursive Compare</h2><p>Since this problem is signed as <em>Easy</em>, I did not think much and use normal solutions.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSubtree</span><span class="params">(TreeNode s, TreeNode t)</span> </span>&#123;</div><div class="line">        List&lt;TreeNode&gt; store = <span class="keyword">new</span> ArrayList&lt;TreeNode&gt;();</div><div class="line">        findSameRoot(s, t.val, store);</div><div class="line">        <span class="keyword">for</span>(TreeNode x: store)&#123;</div><div class="line">            <span class="keyword">if</span>(sameTree(x, t))</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">sameTree</span><span class="params">(TreeNode x, TreeNode t)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(x == <span class="keyword">null</span> &amp;&amp; t == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">if</span>((x == <span class="keyword">null</span> &amp;&amp; t !=<span class="keyword">null</span>) || (x != <span class="keyword">null</span> &amp;&amp; t == <span class="keyword">null</span>))</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">return</span> (x.val == t.val) &amp;&amp; (sameTree(x.left, t.left)) &amp;&amp; (sameTree(x.right, t.right));</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">findSameRoot</span><span class="params">(TreeNode s, <span class="keyword">int</span> v, List&lt;TreeNode&gt; store)</span></span>&#123;</div><div class="line">            <span class="keyword">if</span>(s == <span class="keyword">null</span>)</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            <span class="keyword">if</span>(s.val == v)</div><div class="line">                store.add(s);</div><div class="line">            findSameRoot(s.left, v, store);</div><div class="line">            findSameRoot(s.right, v, store); </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Time complexity is large, it is O( n(s)*n(t) ) in the worst case, but I think in most case, there is not much same root,  maybe one or two, so generally it is O(n(s)+n(t)).</p>
+<p><strong>Space:</strong> Recursion is used, thus as calculated it should be O(n(s)).</p>
+<p><br><br><br></p>
+<h2 id="Solution-2-MorrisInorder"><a href="#Solution-2-MorrisInorder" class="headerlink" title="Solution 2 MorrisInorder"></a>Solution 2 MorrisInorder</h2><p>This is a beautiful solution to test morrisInorder.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSubtree</span><span class="params">(TreeNode s, TreeNode t)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> morrisInorder(s).contains(morrisInorder(t));</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">morrisInorder</span><span class="params">(TreeNode t)</span></span>&#123;</div><div class="line">        String str = <span class="string">""</span>;</div><div class="line">        TreeNode cur = t, temp;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(cur.left == <span class="keyword">null</span>)&#123;</div><div class="line">                str+=<span class="string">"l"</span>;</div><div class="line">                str+=cur.val;</div><div class="line">                cur = cur.right;</div><div class="line">                <span class="keyword">if</span>(cur == <span class="keyword">null</span>)&#123;</div><div class="line">                    System.out.println(str+<span class="string">"r"</span>);</div><div class="line">                    <span class="keyword">return</span> str+<span class="string">"r"</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                temp=cur.left;</div><div class="line">                <span class="keyword">while</span>(temp.right != <span class="keyword">null</span> &amp;&amp; temp.right !=cur)</div><div class="line">                    temp = temp.right;</div><div class="line">                <span class="keyword">if</span>(temp.right == <span class="keyword">null</span>)&#123;</div><div class="line">                    temp.right = cur;</div><div class="line">                    cur = cur.left;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    str+=<span class="string">"r"</span>;</div><div class="line">                    str+=cur.val;</div><div class="line">                    temp.right = <span class="keyword">null</span>;</div><div class="line">                    cur = cur.right;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        System.out.println(str+<span class="string">"r"</span>);</div><div class="line">        <span class="keyword">return</span> str+<span class="string">"r"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n)<br><strong>Space:</strong> O(n)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/25/513-Find-Bottom-Left-Tree-Value/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1728,157 +1914,6 @@ Tilt of binary tree : 0 + 0 + 1 = 1
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/203-Removed-Linked-List-Elements/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/24/203-Removed-Linked-List-Elements/" itemprop="url">203 Removed Linked List Elements</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T14:04:58-07:00">
-                2017-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/remove-linked-list-elements/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Remove all elements from a linked list of integers that have value <strong><em>val</em></strong>.</p>
-<p><strong>Example</strong></p>
-<p><strong><em>Given:</em></strong> 1 –&gt; 2 –&gt; 6 –&gt; 3 –&gt; 4 –&gt; 5 –&gt; 6, val = 6</p>
-<p><strong><em>Return:</em></strong> 1 –&gt; 2 –&gt; 3 –&gt; 4 –&gt; 5</p>
-</blockquote>
-<h2 id="Solution-1-Easy-Problem-Easy-Solution"><a href="#Solution-1-Easy-Problem-Easy-Solution" class="headerlink" title="Solution 1 Easy Problem, Easy Solution"></a>Solution 1 Easy Problem, Easy Solution</h2><p>No explanation.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeElements</span><span class="params">(ListNode head, <span class="keyword">int</span> val)</span> </span>&#123;</div><div class="line">        ListNode dumpy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">        dumpy.next = head;</div><div class="line">        ListNode p = dumpy;</div><div class="line">        ListNode q;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(p != <span class="keyword">null</span> &amp;&amp; p.next != <span class="keyword">null</span>)&#123;</div><div class="line">            q = p;</div><div class="line">            <span class="keyword">while</span>(p.next!=<span class="keyword">null</span> &amp;&amp; p.next.val == val)</div><div class="line">                p=p.next;</div><div class="line">            q.next=p.next;</div><div class="line">            p=p.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> dumpy.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Obviously, O(n).</p>
-<p><strong>Space:</strong> Obviously, O(1).</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1929,7 +1964,7 @@ Tilt of binary tree : 0 + 0 + 1 = 1
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-count">60</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

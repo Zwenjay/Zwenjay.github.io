@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[79 Word Search]]></title>
-    <url>%2F2017%2F09%2F03%2F79-Word-Search%2F</url>
-    <content type="text"><![CDATA[Question Given a 2D board and a word, find if the word exists in the grid. The word can be constructed from letters of sequentially adjacent cell, where “adjacent” cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once. For example, Given board = [ ['A','B','C','E'], ['S','F','C','S'], ['A','D','E','E'] ] word = “ABCCED”, -&gt; returns true, word = “SEE”, -&gt; returns true, word = “ABCB”, -&gt; returns false. Solution BacktrackingSame letter are not allowed to use more than once, so we have to come up a method to record who has been used. In this solution, since char is 8-byte, so we use ch^=256 to make it inverse or recover. Code1234567891011121314151617181920212223242526class Solution &#123; public boolean exist(char[][] board, String word) &#123; if(board.length == 0) return false; for(int i =0; i &lt; board.length ; i++)&#123; for(int j = 0; j &lt; board[0].length; j++)&#123; if(backtracking(board, word, 0, i, j)) return true; &#125; &#125; return false; &#125; boolean backtracking(char[][] board, String word, int posw, int posx, int posy)&#123; if(posw == word.length()) return true; if(posx &lt; 0 || posx &gt;= board.length || posy &lt; 0 || posy &gt;= board[0].length || board[posx][posy] != word.charAt(posw)) return false; board[posx][posy] ^= 256; boolean res = backtracking(board, word, posw+1, posx, posy+1) || backtracking(board, word, posw+1, posx, posy-1) || backtracking(board, word, posw+1, posx+1, posy) || backtracking(board, word, posw+1, posx-1, posy); board[posx][posy] ^=256; return res; &#125; &#125; T&amp;S AnalysisTime: O(col^2 * row^2) or exp(wordlen) Space:: O()]]></content>
+    <title><![CDATA[38 Count and Say]]></title>
+    <url>%2F2017%2F09%2F04%2F38-Count-and-Say%2F</url>
+    <content type="text"><![CDATA[Question The count-and-say sequence is the sequence of integers with the first five terms as following: 1. 1 2. 11 3. 21 4. 1211 5. 111221 1 is read off as “one 1” or 11.11 is read off as “two 1s” or 21.21 is read off as “one 2, then one 1” or 1211.Given an integer n, generate the nth term of the count-and-say sequence. Note: Each term of the sequence of integers will be represented as a string. Example 1: Input: 1 Output: "1" Example 2: Input: 4 Output: "1211" Solution 1 RecursionCode1234567891011121314151617181920212223class Solution &#123; public String countAndSay(int n) &#123; if(n == 0) return ""; if(n == 1) return "1"; String lastStr = countAndSay(n-1), thisStr = ""; int i = 0, count = 0; char temp; while(i &lt; lastStr.length())&#123; temp = lastStr.charAt(i); count = 0; while(i &lt; lastStr.length() &amp;&amp; lastStr.charAt(i) == temp)&#123; count++; i++; &#125; thisStr=thisStr + count + temp; &#125; return thisStr; &#125;&#125; T&amp;S AnalysisTime: O() Space: O()]]></content>
       <categories>
         <category>Algorithm</category>
       </categories>
       <tags>
         <tag>Facebook</tag>
+        <tag>String</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[79 Word Search]]></title>
+    <url>%2F2017%2F09%2F03%2F79-Word-Search%2F</url>
+    <content type="text"><![CDATA[Question Given a 2D board and a word, find if the word exists in the grid. The word can be constructed from letters of sequentially adjacent cell, where “adjacent” cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once. For example, Given board = [ ['A','B','C','E'], ['S','F','C','S'], ['A','D','E','E'] ] word = “ABCCED”, -&gt; returns true, word = “SEE”, -&gt; returns true, word = “ABCB”, -&gt; returns false. Solution BacktrackingSame letter are not allowed to use more than once, so we have to come up a method to record who has been used. In this solution, since char is 8-byte, so we use ch^=256 to make it inverse or recover. Code1234567891011121314151617181920212223242526class Solution &#123; public boolean exist(char[][] board, String word) &#123; if(board.length == 0) return false; for(int i =0; i &lt; board.length ; i++)&#123; for(int j = 0; j &lt; board[0].length; j++)&#123; if(backtracking(board, word, 0, i, j)) return true; &#125; &#125; return false; &#125; boolean backtracking(char[][] board, String word, int posw, int posx, int posy)&#123; if(posw == word.length()) return true; if(posx &lt; 0 || posx &gt;= board.length || posy &lt; 0 || posy &gt;= board[0].length || board[posx][posy] != word.charAt(posw)) return false; board[posx][posy] ^= 256; boolean res = backtracking(board, word, posw+1, posx, posy+1) || backtracking(board, word, posw+1, posx, posy-1) || backtracking(board, word, posw+1, posx+1, posy) || backtracking(board, word, posw+1, posx-1, posy); board[posx][posy] ^=256; return res; &#125; &#125; T&amp;S AnalysisTime: O(col^2 * row^2) or exp(wordlen) Space: O()]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
         <tag>Array</tag>
+        <tag>Facebook</tag>
         <tag>Backtracking</tag>
         <tag>Bloomberg</tag>
         <tag>Microsoft</tag>
@@ -23,8 +35,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
         <tag>Facebook</tag>
+        <tag>String</tag>
         <tag>Math</tag>
         <tag>Twitter</tag>
       </tags>
@@ -37,9 +49,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
-        <tag>Facebook</tag>
         <tag>Hash Table</tag>
+        <tag>Facebook</tag>
+        <tag>String</tag>
         <tag>Uber</tag>
         <tag>Amazon</tag>
         <tag>Bloomberg</tag>
@@ -104,8 +116,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Array</tag>
+        <tag>Facebook</tag>
         <tag>Backtracking</tag>
       </tags>
   </entry>
@@ -117,8 +129,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
         <tag>Facebook</tag>
+        <tag>String</tag>
         <tag>Backtracking</tag>
       </tags>
   </entry>
@@ -168,8 +180,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Array</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -220,9 +232,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Facebook</tag>
         <tag>Two Pointers</tag>
         <tag>String</tag>
-        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -233,8 +245,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Array</tag>
+        <tag>Facebook</tag>
         <tag>Backtracking</tag>
         <tag>Bit Manipulate</tag>
       </tags>
@@ -247,9 +259,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Two Pointers</tag>
-        <tag>Facebook</tag>
         <tag>Array</tag>
+        <tag>Facebook</tag>
+        <tag>Two Pointers</tag>
         <tag>Sort</tag>
       </tags>
   </entry>
@@ -273,9 +285,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Array</tag>
         <tag>Hash Table</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -313,8 +325,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Array</tag>
+        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
       </tags>
   </entry>
@@ -367,9 +379,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Two Pointers</tag>
-        <tag>Facebook</tag>
         <tag>Array</tag>
+        <tag>Facebook</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -380,8 +392,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
         <tag>Facebook</tag>
+        <tag>String</tag>
         <tag>Dynamic Programming</tag>
       </tags>
   </entry>
@@ -451,8 +463,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
         <tag>Facebook</tag>
+        <tag>String</tag>
         <tag>Math</tag>
       </tags>
   </entry>
@@ -476,9 +488,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Two Pointers</tag>
-        <tag>Facebook</tag>
         <tag>Array</tag>
+        <tag>Facebook</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>

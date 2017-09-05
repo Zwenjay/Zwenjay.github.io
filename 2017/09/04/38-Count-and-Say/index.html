@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Array,Facebook,Two Pointers,Sort," />
+  <meta name="keywords" content="Facebook,String," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Question Given an array with n objects colored red, white or blue, sort them so that objects of the same color are adjacent, with the colors in the order red, white and blue. Here, we will use the int">
-<meta name="keywords" content="Array,Facebook,Two Pointers,Sort">
+<meta name="description" content="Question The count-and-say sequence is the sequence of integers with the first five terms as following: 1.     1 2.     11 3.     21 4.     1211 5.     111221   1 is read off as “one 1” or 11.11 is re">
+<meta name="keywords" content="Facebook,String">
 <meta property="og:type" content="article">
-<meta property="og:title" content="75 Sort Colors">
-<meta property="og:url" content="http://wenjiezhang.com/2017/08/29/75-Sort-Colors/index.html">
+<meta property="og:title" content="38 Count and Say">
+<meta property="og:url" content="http://wenjiezhang.com/2017/09/04/38-Count-and-Say/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="Question Given an array with n objects colored red, white or blue, sort them so that objects of the same color are adjacent, with the colors in the order red, white and blue. Here, we will use the int">
+<meta property="og:description" content="Question The count-and-say sequence is the sequence of integers with the first five terms as following: 1.     1 2.     11 3.     21 4.     1211 5.     111221   1 is read off as “one 1” or 11.11 is re">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-29T23:37:00.873Z">
+<meta property="og:updated_time" content="2017-09-05T16:46:49.455Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="75 Sort Colors">
-<meta name="twitter:description" content="Question Given an array with n objects colored red, white or blue, sort them so that objects of the same color are adjacent, with the colors in the order red, white and blue. Here, we will use the int">
+<meta name="twitter:title" content="38 Count and Say">
+<meta name="twitter:description" content="Question The count-and-say sequence is the sequence of integers with the first five terms as following: 1.     1 2.     11 3.     21 4.     1211 5.     111221   1 is read off as “one 1” or 11.11 is re">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/2017/08/29/75-Sort-Colors/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/09/04/38-Count-and-Say/"/>
 
 
 
 
 
-  <title>75 Sort Colors | Coding Zone</title>
+  <title>38 Count and Say | Coding Zone</title>
   
 
 
@@ -311,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/29/75-Sort-Colors/">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/04/38-Count-and-Say/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wenjie Zhang">
@@ -328,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">75 Sort Colors</h1>
+          <h1 class="post-title" itemprop="name headline">38 Count and Say</h1>
         
 
         <div class="post-meta">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-29T16:30:08-07:00">
-                2017-08-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-04T20:34:54-07:00">
+                2017-09-04
               </time>
             
 
@@ -405,21 +405,31 @@
       
 
       
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/sort-colors/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given an array with n objects colored red, white or blue, sort them so that objects of the same color are adjacent, with the colors in the order red, white and blue.</p>
-<p>Here, we will use the integers 0, 1, and 2 to represent the color red, white, and blue respectively.</p>
-<p><strong>Note:</strong></p>
-<p>You are not suppose to use the library’s sort function for this problem.</p>
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/count-and-say/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>The count-and-say sequence is the sequence of integers with the first five terms as following:</p>
+<pre>1.     1
+2.     11
+3.     21
+4.     1211
+5.     111221
+</pre>
+
+<p>1 is read off as “one 1” or 11.<br>11 is read off as “two 1s” or 21.<br>21 is read off as “one 2, then one 1” or 1211.<br>Given an integer n, generate the nth term of the count-and-say sequence.</p>
+<p>Note: Each term of the sequence of integers will be represented as a string.</p>
+<p><strong>Example 1:</strong></p>
+<pre><b>Input:</b> 1
+<b>Output:</b> "1"
+</pre>
+
+<p><strong>Example 2:</strong></p>
+<pre><b>Input:</b> 4
+<b>Output:</b> "1211"
+</pre>
+
 </blockquote>
-<h2 id="Solution-1-Adjust-3-times"><a href="#Solution-1-Adjust-3-times" class="headerlink" title="Solution 1 Adjust 3 times"></a>Solution 1 Adjust 3 times</h2><p>Only 3 values, so this method could work. Adjust 1-2, 0-2 and 0-1 positions.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sortColors</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        adjust(nums, <span class="number">0</span>, <span class="number">2</span>);</div><div class="line">        adjust(nums, <span class="number">0</span>, <span class="number">1</span>);</div><div class="line">        adjust(nums, <span class="number">1</span>, <span class="number">2</span>);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">adjust</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">       <span class="keyword">int</span> i = <span class="number">0</span>, j = nums.length-<span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span>( i &lt; j )&#123;</div><div class="line">            </div><div class="line">            <span class="keyword">if</span>(nums[i] == b &amp;&amp; nums[j] == a)&#123;</div><div class="line">                swap(nums, i, j);</div><div class="line">                i++;</div><div class="line">                j--;</div><div class="line">                <span class="keyword">if</span>(i&gt;=j)</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(nums[i] != b)</div><div class="line">                i++;</div><div class="line">            <span class="keyword">if</span>(nums[j] !=a)</div><div class="line">                j--;</div><div class="line"></div><div class="line">        &#125;        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> temp = nums[i];</div><div class="line">        nums[i] = nums[j];</div><div class="line">        nums[j] = temp;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> O(n)</p>
-<p><strong>Space:</strong>: O(1)</p>
-<p><br><br><br><br><br></p>
-<h2 id="Solution-2-sweep-0-and-2"><a href="#Solution-2-sweep-0-and-2" class="headerlink" title="Solution 2 sweep 0 and 2"></a>Solution 2 sweep 0 and 2</h2><p>This idea is to sweep 0 to left and 2 to right.</p>
-<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sortColors</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> second=n-<span class="number">1</span>, zero=<span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;=second; i++) &#123;</div><div class="line">            <span class="keyword">while</span> (A[i]==<span class="number">2</span> &amp;&amp; i&lt;second) swap(A[i], A[second--]);</div><div class="line">            <span class="keyword">while</span> (A[i]==<span class="number">0</span> &amp;&amp; i&gt;zero) swap(A[i], A[zero++]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> O(n), but it scan at most twice.</p>
-<p><strong>Space:</strong>: O(1)</p>
+<h2 id="Solution-1-Recursion"><a href="#Solution-1-Recursion" class="headerlink" title="Solution 1 Recursion"></a>Solution 1 Recursion</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">countAndSay</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>)</div><div class="line">            <span class="keyword">return</span> <span class="string">"1"</span>;</div><div class="line">        String lastStr = countAndSay(n-<span class="number">1</span>), thisStr = <span class="string">""</span>;</div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, count = <span class="number">0</span>;</div><div class="line">        <span class="keyword">char</span> temp;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(i &lt; lastStr.length())&#123;</div><div class="line">            temp = lastStr.charAt(i);</div><div class="line">            count = <span class="number">0</span>;</div><div class="line">            <span class="keyword">while</span>(i &lt; lastStr.length() &amp;&amp; lastStr.charAt(i) == temp)&#123;</div><div class="line">                count++;</div><div class="line">                i++;</div><div class="line">            &#125;</div><div class="line">            thisStr=thisStr + count + temp;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> thisStr;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> O()</p>
+<p><strong>Space:</strong> O()</p>
 
       
     </div>
@@ -437,13 +447,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Array/" rel="tag"># Array</a>
-          
             <a href="/tags/Facebook/" rel="tag"># Facebook</a>
           
-            <a href="/tags/Two-Pointers/" rel="tag"># Two Pointers</a>
-          
-            <a href="/tags/Sort/" rel="tag"># Sort</a>
+            <a href="/tags/String/" rel="tag"># String</a>
           
         </div>
       
@@ -456,8 +462,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/29/139-Word-Break/" rel="next" title="139 Word Break">
-                <i class="fa fa-chevron-left"></i> 139 Word Break
+              <a href="/2017/09/03/79-Word-Search/" rel="next" title="79 Word Search">
+                <i class="fa fa-chevron-left"></i> 79 Word Search
               </a>
             
           </div>
@@ -465,10 +471,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/30/78-Subsets/" rel="prev" title="78 Subsets">
-                78 Subsets <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -604,7 +606,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Adjust-3-times"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Adjust 3 times</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2-sweep-0-and-2"><span class="nav-number">1.2.</span> <span class="nav-text">Solution 2 sweep 0 and 2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Recursion"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Recursion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
