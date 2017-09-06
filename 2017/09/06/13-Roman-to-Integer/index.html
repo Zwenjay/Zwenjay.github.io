@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Facebook,Tree," />
+  <meta name="keywords" content="Facebook,Math,String,Uber,Microsoft,Yahoo,Bloomberg," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Question Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree. According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two">
-<meta name="keywords" content="Facebook,Tree">
+<meta name="description" content="Question Given a roman numeral, convert it to an integer. Input is guaranteed to be within the range from 1 to 3999.  Solution 1 Straightforward Solution12345678910111213141516171819202122232425262728">
+<meta name="keywords" content="Facebook,Math,String,Uber,Microsoft,Yahoo,Bloomberg">
 <meta property="og:type" content="article">
-<meta property="og:title" content="236 Lowest Common Ancestor of a Binary Tree">
-<meta property="og:url" content="http://wenjiezhang.com/2017/08/30/236-Lowest-Common-Ancestor-of-a-Binary-Tree/index.html">
+<meta property="og:title" content="13 Roman to Integer">
+<meta property="og:url" content="http://wenjiezhang.com/2017/09/06/13-Roman-to-Integer/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="Question Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree. According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two">
+<meta property="og:description" content="Question Given a roman numeral, convert it to an integer. Input is guaranteed to be within the range from 1 to 3999.  Solution 1 Straightforward Solution12345678910111213141516171819202122232425262728">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-09-01T19:07:24.637Z">
+<meta property="og:updated_time" content="2017-09-06T18:04:05.653Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="236 Lowest Common Ancestor of a Binary Tree">
-<meta name="twitter:description" content="Question Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree. According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two">
+<meta name="twitter:title" content="13 Roman to Integer">
+<meta name="twitter:description" content="Question Given a roman numeral, convert it to an integer. Input is guaranteed to be within the range from 1 to 3999.  Solution 1 Straightforward Solution12345678910111213141516171819202122232425262728">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/2017/08/30/236-Lowest-Common-Ancestor-of-a-Binary-Tree/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/09/06/13-Roman-to-Integer/"/>
 
 
 
 
 
-  <title>236 Lowest Common Ancestor of a Binary Tree | Coding Zone</title>
+  <title>13 Roman to Integer | Coding Zone</title>
   
 
 
@@ -311,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/30/236-Lowest-Common-Ancestor-of-a-Binary-Tree/">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/06/13-Roman-to-Integer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wenjie Zhang">
@@ -328,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">236 Lowest Common Ancestor of a Binary Tree</h1>
+          <h1 class="post-title" itemprop="name headline">13 Roman to Integer</h1>
         
 
         <div class="post-meta">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-30T16:33:01-07:00">
-                2017-08-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-06T11:00:36-07:00">
+                2017-09-06
               </time>
             
 
@@ -405,23 +405,13 @@
       
 
       
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.</p>
-<p>According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes v and w as the lowest node in T that has both v and w as descendants (where we allow a node to be a descendant of itself).”</p>
-<pre>        _______3______
-       /              \
-    ___5__          ___1__
-   /      \        /      \
-   6      _2       0       8
-         /  \
-         7   4
-</pre>
-
-<p>For example, the lowest common ancestor (LCA) of nodes 5 and 1 is 3. Another example is LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.</p>
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/roman-to-integer/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a roman numeral, convert it to an integer.</p>
+<p>Input is guaranteed to be within the range from 1 to 3999.</p>
 </blockquote>
-<h2 id="Solution-1-Recursion"><a href="#Solution-1-Recursion" class="headerlink" title="Solution 1 Recursion"></a>Solution 1 Recursion</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode root, TreeNode p, TreeNode q)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == p || root == q || root == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> root;</div><div class="line">        TreeNode left = lowestCommonAncestor(root.left, p, q);</div><div class="line">        TreeNode right = lowestCommonAncestor(root.right, p, q);</div><div class="line">        <span class="keyword">if</span>(left == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> right;</div><div class="line">        <span class="keyword">if</span>(right == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> left;</div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n)</p>
-<p><strong>Space:</strong> O(n) for recursion.</p>
+<h2 id="Solution-1-Straightforward-Solution"><a href="#Solution-1-Straightforward-Solution" class="headerlink" title="Solution 1 Straightforward Solution"></a>Solution 1 Straightforward Solution</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">romanToInt</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++)&#123;</div><div class="line">            <span class="keyword">if</span>(s.charAt(i) == <span class="string">'M'</span>)</div><div class="line">                sum += <span class="number">1000</span>;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s.charAt(i) == <span class="string">'D'</span>)</div><div class="line">                sum += <span class="number">500</span>;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s.charAt(i) == <span class="string">'C'</span>)&#123;</div><div class="line">                <span class="keyword">if</span>(i &lt; s.length()-<span class="number">1</span> &amp;&amp; (s.charAt(i+<span class="number">1</span>) == <span class="string">'D'</span> || s.charAt(i+<span class="number">1</span>) == <span class="string">'M'</span>))</div><div class="line">                    sum -= <span class="number">100</span>;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    sum +=<span class="number">100</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s.charAt(i) == <span class="string">'L'</span>)</div><div class="line">                sum += <span class="number">50</span>;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s.charAt(i) == <span class="string">'X'</span>)&#123;</div><div class="line">                <span class="keyword">if</span>(i &lt; s.length()-<span class="number">1</span> &amp;&amp; (s.charAt(i+<span class="number">1</span>) == <span class="string">'C'</span> || s.charAt(i+<span class="number">1</span>) == <span class="string">'L'</span>))</div><div class="line">                    sum -= <span class="number">10</span>;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    sum += <span class="number">10</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s.charAt(i) == <span class="string">'V'</span>)</div><div class="line">                sum += <span class="number">5</span>;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                <span class="keyword">if</span>(i &lt; s.length()-<span class="number">1</span> &amp;&amp; (s.charAt(i+<span class="number">1</span>) == <span class="string">'X'</span> || s.charAt(i+<span class="number">1</span>) == <span class="string">'V'</span>))</div><div class="line">                    sum-=<span class="number">1</span>;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    sum+=<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> sum;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(N)</p>
+<p><strong>Space:</strong> O(1)</p>
 
       
     </div>
@@ -441,7 +431,17 @@
           
             <a href="/tags/Facebook/" rel="tag"># Facebook</a>
           
-            <a href="/tags/Tree/" rel="tag"># Tree</a>
+            <a href="/tags/Math/" rel="tag"># Math</a>
+          
+            <a href="/tags/String/" rel="tag"># String</a>
+          
+            <a href="/tags/Uber/" rel="tag"># Uber</a>
+          
+            <a href="/tags/Microsoft/" rel="tag"># Microsoft</a>
+          
+            <a href="/tags/Yahoo/" rel="tag"># Yahoo</a>
+          
+            <a href="/tags/Bloomberg/" rel="tag"># Bloomberg</a>
           
         </div>
       
@@ -454,8 +454,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/30/98-Valid-Binary-Search-Tree/" rel="next" title="98 Valid Binary Search Tree">
-                <i class="fa fa-chevron-left"></i> 98 Valid Binary Search Tree
+              <a href="/2017/09/06/215-Kth-Largest-Element-in-an-Array/" rel="next" title="215 Kth Largest Element in an Array">
+                <i class="fa fa-chevron-left"></i> 215 Kth Largest Element in an Array
               </a>
             
           </div>
@@ -464,8 +464,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/31/133-Clone-Graph/" rel="prev" title="133 Clone Graph">
-                133 Clone Graph <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/06/90-Subsets-II/" rel="prev" title="90 Subsets II">
+                90 Subsets II <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -602,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Recursion"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Recursion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Straightforward-Solution"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Straightforward Solution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.1.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -311,6 +311,323 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/94-Binary-Tree-Inorder-Traversal/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/24/94-Binary-Tree-Inorder-Traversal/" itemprop="url">94 Binary Tree Inorder Traversal</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T22:30:10-07:00">
+                2017-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/binary-tree-inorder-traversal/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a binary tree, return the inorder traversal of its nodes’ values.</p>
+<p>For example:</p>
+<p>Given binary tree [1,null,2,3],</p>
+<p><strong>Note:</strong> Recursive solution is trivial, could you do it iteratively?</p>
+</blockquote>
+<h2 id="Solution-1-Morris-Order-Traverse"><a href="#Solution-1-Morris-Order-Traverse" class="headerlink" title="Solution 1 Morris Order Traverse"></a>Solution 1 Morris Order Traverse</h2><p>As I see this problem, I thought I need a <em>Stack</em> or <em>Queue</em> or something like that. But I was wrong. After I knew this solution, I was so surprised that I decided to consider this method of traversing every time I meet <em>Tree</em> problem. </p>
+<p>Let me explain, to make inorder with using only constant space and linear time, we need only follow these principles:</p>
+<ul>
+<li><p>When <em>left child</em> is null, visit the <em>current node</em> and set current node as itd <em>right child</em>.</p>
+</li>
+<li><p>Other wise, find the <em>pre-node</em> of <em>current node</em>:</p>
+<ul>
+<li>if the <em>pre-node</em>‘s <em>right child</em> is null, then set its <em>right child</em> as current node and set current child as its <em>left child</em></li>
+<li>otherwise, the <em>pre-node</em>‘s <em>right child</em> must be <em>current node</em>, visit <em>current node</em> and set <em>pre-node</em>‘s _right child as null to reset the original tree. Then set <em>current node</em> as its <em>right child</em>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Q:</strong> How to find ones <em>pre-node</em>?</p>
+<p><strong>A:</strong> In its left <em>subtree</em>, find the mose right node.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        List&lt;Integer&gt; ans = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        morrisOrder(ans, root);</div><div class="line">        <span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">morrisOrder</span><span class="params">(List&lt;Integer&gt; li, TreeNode t)</span></span>&#123;</div><div class="line">        TreeNode p;</div><div class="line">        <span class="keyword">while</span>(t != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(t.left == <span class="keyword">null</span>)&#123;</div><div class="line">                li.add(t.val);</div><div class="line">                t=t.right;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                p = t.left;</div><div class="line">                <span class="keyword">while</span>(p.right != t &amp;&amp; p.right != <span class="keyword">null</span>)</div><div class="line">                    p = p.right;</div><div class="line">                <span class="keyword">if</span>(p.right == <span class="keyword">null</span>)&#123;</div><div class="line">                    p.right = t;</div><div class="line">                    t = t.left;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    p.right = <span class="keyword">null</span>;</div><div class="line">                    li.add(t.val);</div><div class="line">                    t = t.right;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> As analysed, every node would be visted at most twice, thus time complexity is O(n);</p>
+<p><strong>Space:</strong> This is where it’s excellent, we did not use any other space that is proportion to node numbers, nor do we used recursion, thus extra space complexity is O(1);</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/455-Add-Two-Numbers-II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/24/455-Add-Two-Numbers-II/" itemprop="url">455 Add Two Numbers II</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T16:32:54-07:00">
+                2017-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/add-two-numbers-ii/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
+<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+<p><strong>Follow up</strong>:</p>
+<p>What if you cannot modify the input lists? In other words, reversing the lists is not allowed.</p>
+<p><strong>Example:</strong></p>
+<p><strong>Input:</strong> (7 -&gt; 2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br><strong>Output:</strong> 7 -&gt; 8 -&gt; 0 -&gt; 7</p>
+</blockquote>
+<h2 id="Solution-1-Use-Stack"><a href="#Solution-1-Use-Stack" class="headerlink" title="Solution 1 Use Stack"></a>Solution 1 Use Stack</h2><p>Use Stack to save time, but lose space.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> len1 = <span class="number">0</span>, len2 = <span class="number">0</span>;</div><div class="line">        ListNode dumpy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">        ListNode cur1 = l1, cur2 = l2, cur = dumpy;</div><div class="line">        <span class="keyword">int</span> c = <span class="number">0</span>;</div><div class="line">        Stack&lt;ListNode&gt; s = <span class="keyword">new</span> Stack&lt;ListNode&gt;();</div><div class="line">            </div><div class="line">        <span class="keyword">while</span>(cur1 != <span class="keyword">null</span>)&#123;</div><div class="line">            len1++;</div><div class="line">            cur1 = cur1.next;    </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(cur2 != <span class="keyword">null</span>)&#123;</div><div class="line">            len2++;</div><div class="line">            cur2 = cur2.next;    </div><div class="line">        &#125;</div><div class="line">        cur1 = l1;</div><div class="line">        cur2 = l2;</div><div class="line">        </div><div class="line">        s.push(dumpy);</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(len1 &gt;= len2)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i&lt; len1-len2; i++)&#123;</div><div class="line">                cur.next = <span class="keyword">new</span> ListNode(cur1.val);</div><div class="line">                cur1 = cur1.next;</div><div class="line">                cur = cur.next;</div><div class="line">                s.push(cur);</div><div class="line">            &#125;</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i&lt; len2-len1; i++)&#123;</div><div class="line">                    cur.next = <span class="keyword">new</span> ListNode(cur2.val);</div><div class="line">                    cur2 = cur2.next;</div><div class="line">                    cur = cur.next;</div><div class="line">                    s.push(cur);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line"></div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(cur1 != <span class="keyword">null</span>)&#123;</div><div class="line">            cur.next = <span class="keyword">new</span> ListNode(cur1.val + cur2.val);</div><div class="line">            s.push(cur.next);</div><div class="line">            cur1 = cur1.next;</div><div class="line">            cur2 = cur2.next;</div><div class="line">            cur = cur.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(s.size()&gt;<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(s.peek().val+c&gt;=<span class="number">10</span>)&#123;</div><div class="line">                s.pop().val+=c-<span class="number">10</span>;</div><div class="line">                c=<span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                s.pop().val+=c;</div><div class="line">                c=<span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(dumpy.val == <span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> dumpy.next;</div><div class="line">        <span class="keyword">return</span> dumpy;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> I sanned the list and <em>Stack</em> for constant, so time complexity is O(n).</p>
+<p><strong>Space:</strong> Obviously, O(n), since I used the Stack.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/328-Odd-Even-Linked-List/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1517,352 +1834,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/23/138-Copy-List-with-Random-Pointer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/23/138-Copy-List-with-Random-Pointer/" itemprop="url">138 Copy List with Random Pointer</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-23T16:13:40-07:00">
-                2017-08-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/copy-list-with-random-pointer/description/" target="_blank" rel="external">Question</a></h1><p>A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.</p>
-<p>Return a deep copy of the list.</p>
-<h2 id="Solution-1-Hasp-Map"><a href="#Solution-1-Hasp-Map" class="headerlink" title="Solution 1 Hasp-Map"></a>Solution 1 Hasp-Map</h2><p>We have to copy the whole list and random pointers, thus we first copy the <em>next line</em>, meanwhile, push the <strong>original</strong> : <strong>new</strong>  to haspmap, for convenience of copying the <em>random</em> line.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list with a random pointer.</span></div><div class="line"><span class="comment"> * class RandomListNode &#123;</span></div><div class="line"><span class="comment"> *     int label;</span></div><div class="line"><span class="comment"> *     RandomListNode next, random;</span></div><div class="line"><span class="comment"> *     RandomListNode(int x) &#123; this.label = x; &#125;</span></div><div class="line"><span class="comment"> * &#125;;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> RandomListNode <span class="title">copyRandomList</span><span class="params">(RandomListNode head)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(head==<span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        HashMap&lt;RandomListNode, RandomListNode&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">        RandomListNode res = <span class="keyword">new</span> RandomListNode(<span class="number">0</span>);</div><div class="line">        RandomListNode p = res;</div><div class="line">        RandomListNode q = head;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(q != <span class="keyword">null</span>)&#123;</div><div class="line">            p.next = <span class="keyword">new</span> RandomListNode(q.label);</div><div class="line">            map.put(q, p.next);</div><div class="line">            q=q.next;</div><div class="line">            p=p.next;</div><div class="line">        &#125;</div><div class="line">        map.put(<span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line">        p=res.next;</div><div class="line">        q=head;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(q != <span class="keyword">null</span>)&#123;</div><div class="line">            p.random=map.get(q.random);</div><div class="line">            p=p.next;</div><div class="line">            q=q.next;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> res.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Hashing inserting and querying operation is so fast that it could be considered as O(1), in this case, since we scanned the linked list two times, time complexity should be O(n).</p>
-<p><strong>Space:</strong> Considering extra space, it is obvious O(n), to build the hash map.</p>
-<h2 id="Solution-2-Without-Hash"><a href="#Solution-2-Without-Hash" class="headerlink" title="Solution 2 Without Hash"></a>Solution 2 Without Hash</h2><p>This method is not accepted, because it has to change the original linked list’s <em>next</em> attribution, but it only cost O(1) Space!</p>
-<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> RandomListNode <span class="title">copyRandomList</span><span class="params">(RandomListNode head)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(head==<span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        </div><div class="line">        RandomListNode p = head;</div><div class="line">        RandomListNode res = <span class="keyword">new</span> RandomListNode(<span class="number">0</span>);</div><div class="line">        RandomListNode q = res;</div><div class="line">        RandomListNode temp;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(p != <span class="keyword">null</span>)&#123;</div><div class="line">            q.next = <span class="keyword">new</span> RandomListNode(p.label);</div><div class="line">            q.next.random = p.random;</div><div class="line">            temp = p;</div><div class="line">            p=p.next;</div><div class="line">            temp.next = q.next;</div><div class="line">            q=q.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        q = res.next;</div><div class="line">        <span class="keyword">while</span>(q != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(q.random != <span class="keyword">null</span>)</div><div class="line">                q.random = q.random.next;</div><div class="line">            q=q.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> res.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Same as above, O(n).</p>
-<p><strong>Space:</strong>Only Constant extra space used, so it’s O(1).</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/23/661-Image-Smoother/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/23/661-Image-Smoother/" itemprop="url">661 Image Smoother</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-23T10:55:17-07:00">
-                2017-08-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/image-smoother/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given a 2D integer matrix M representing the gray scale of an image, you need to design a smoother to make the gray scale of each cell becomes the average gray scale (rounding down) of all the 8 surrounding cells and itself. If a cell has less than 8 surrounding cells, then use as many as you can.</p>
-<p><strong>example:</strong></p>
-<p><strong>Input:</strong><br>[[1,1,1],<br> [1,0,1],<br> [1,1,1]]</p>
-<p><strong>Output:</strong><br>[[0, 0, 0],<br> [0, 0, 0],<br> [0, 0, 0]]</p>
-<p><strong>Explanation:</strong></p>
-<p>For the point (0,0), (0,2), (2,0), (2,2): floor(3/4) = floor(0.75) = 0</p>
-<p>For the point (0,1), (1,0), (1,2), (2,1): floor(5/6) = floor(0.83333333) = 0</p>
-<p>For the point (1,1): floor(8/9) = floor(0.88888889) = 0</p>
-</blockquote>
-<h2 id="Solution-1-Temp-Array-to-Save-Space"><a href="#Solution-1-Temp-Array-to-Save-Space" class="headerlink" title="Solution 1 Temp Array to Save Space"></a>Solution 1 Temp Array to Save Space</h2><p>As I see the problem, I know that time complexity will not be less than O(row * col). Thus, I try to find a way to save space, which shold have been O(row * col), too. </p>
-<p>In this solution, I used two temp arraies, <em>temp1</em> and <em>temp2</em>, see the code below.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><pre><code class="java">
-<span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{
-    <span class="keyword">public</span> <span class="keyword">int</span>[][] imageSmoother(<span class="keyword">int</span>[][] M) {
-        <span class="keyword">int</span> row = M.length, col = M[<span class="number">0</span>].length;
-        <span class="keyword">int</span>[] temp1 = <span class="keyword">new</span> <span class="keyword">int</span>[row];
-        <span class="keyword">int</span>[] temp2 = <span class="keyword">new</span> <span class="keyword">int</span>[row];
-
-        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++){
-            temp1[i] = findAve(M, i, <span class="number">0</span>);
-        }
-
-        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; col; j++){
-            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++)
-                temp2[i] = findAve(M, i, j);
-            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++){
-                M[i][j-<span class="number">1</span>]=temp1[i];
-                temp1[i] = temp2[i];
-            }
-        }
-        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++)
-            M[i][col-<span class="number">1</span>] = temp1[i];
-        <span class="keyword">return</span> M;
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findAve</span><span class="params">(<span class="keyword">int</span> [][] M, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>{
-        <span class="keyword">int</span> sum = <span class="number">0</span>, num = <span class="number">9</span>;
-        <span class="keyword">for</span>(<span class="keyword">int</span> a = i-<span class="number">1</span>; a &lt;= i+<span class="number">1</span>; a++){
-            <span class="keyword">for</span>(<span class="keyword">int</span> b = j-<span class="number">1</span>; b&lt;=j+<span class="number">1</span>; b++){
-                <span class="keyword">if</span>((a&lt;<span class="number">0</span> || a&gt; M.length-<span class="number">1</span>) || (b&lt;<span class="number">0</span> || b&gt;M[<span class="number">0</span>].length-<span class="number">1</span>)){
-                    num--;
-                }<span class="keyword">else</span>{
-                    sum+=M[a][b];
-                }
-            }
-        }
-        <span class="keyword">return</span> sum/num;
-    }
-
-}
-</code></pre>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> The time complexity should not be lesser, it’s O(row * col).</p>
-<p><strong>Space:</strong> Only constant extra space is used, except the two temp array, thus space complexity is O(row), whic could be turned to O(min(row, col)) by choosing the fewer one, but the code will be much longer.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1913,7 +1884,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">64</span>
+                <span class="site-state-item-count">66</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1935,7 +1906,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[90 Subsets II]]></title>
+    <url>%2F2017%2F09%2F06%2F90-Subsets-II%2F</url>
+    <content type="text"><![CDATA[Question Given a collection of integers that might contain duplicates, nums, return all possible subsets. Note: The solution set must not contain duplicate subsets. For example,If nums = [1,2,2], a solution is: [ [2], [1], [1,2,2], [2,2], [1,2], [] ] Solution 1 BacktrackingOne specific thing, we should avoid duplicity by sorting and ignore continous same numbers. Code123456789101112131415161718192021class Solution &#123; public List&lt;List&lt;Integer&gt;&gt; subsetsWithDup(int[] nums) &#123; Arrays.sort(nums); List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;(); backtracking(res, nums, 0, new ArrayList&lt;Integer&gt;()); return res; &#125; private void backtracking(List&lt;List&lt;Integer&gt;&gt; res, int[] nums, int pos, List&lt;Integer&gt; temp)&#123; res.add(new ArrayList&lt;Integer&gt;(temp)); int i = pos; while(i &lt; nums.length)&#123; temp.add(nums[i]); backtracking(res, nums, i+1, temp); temp.remove(temp.size()-1); i++; while(i &lt; nums.length &amp;&amp; nums[i] == nums[i-1]) i++; &#125; &#125;&#125; T&amp;S AnalysisTime: O(2^N) Space: O(logN)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Array</tag>
+        <tag>Facebook</tag>
+        <tag>Backtracking</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[13 Roman to Integer]]></title>
+    <url>%2F2017%2F09%2F06%2F13-Roman-to-Integer%2F</url>
+    <content type="text"><![CDATA[Question Given a roman numeral, convert it to an integer. Input is guaranteed to be within the range from 1 to 3999. Solution 1 Straightforward Solution1234567891011121314151617181920212223242526272829303132333435class Solution &#123; public int romanToInt(String s) &#123; int sum = 0; for(int i = 0; i &lt; s.length(); i++)&#123; if(s.charAt(i) == 'M') sum += 1000; else if(s.charAt(i) == 'D') sum += 500; else if(s.charAt(i) == 'C')&#123; if(i &lt; s.length()-1 &amp;&amp; (s.charAt(i+1) == 'D' || s.charAt(i+1) == 'M')) sum -= 100; else sum +=100; &#125; else if(s.charAt(i) == 'L') sum += 50; else if(s.charAt(i) == 'X')&#123; if(i &lt; s.length()-1 &amp;&amp; (s.charAt(i+1) == 'C' || s.charAt(i+1) == 'L')) sum -= 10; else sum += 10; &#125; else if(s.charAt(i) == 'V') sum += 5; else&#123; if(i &lt; s.length()-1 &amp;&amp; (s.charAt(i+1) == 'X' || s.charAt(i+1) == 'V')) sum-=1; else sum+=1; &#125; &#125; return sum; &#125;&#125; T&amp;S AnalysisTime: O(N) Space: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Facebook</tag>
+        <tag>Math</tag>
+        <tag>String</tag>
+        <tag>Uber</tag>
+        <tag>Microsoft</tag>
+        <tag>Yahoo</tag>
+        <tag>Bloomberg</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[215 Kth Largest Element in an Array]]></title>
     <url>%2F2017%2F09%2F06%2F215-Kth-Largest-Element-in-an-Array%2F</url>
     <content type="text"><![CDATA[Question Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element. For example,Given [3,2,1,5,6,4] and k = 2, return 5. Solution 1 Half Quick SortJust quick sort method, but every time only do the half that contains the kth largest one. Code12345678910111213141516171819202122232425262728293031323334353637class Solution &#123; public int findKthLargest(int[] nums, int k) &#123; quickFind(nums, 0, nums.length-1, nums.length - k); return nums[nums.length - k]; &#125; private void quickFind(int[] nums, int head, int tail, int k)&#123; if(head &gt;= tail) return; int pivot = tail; int i = head, j = tail-1; while(i &lt; j)&#123; while(nums[i] &lt;= nums[pivot] &amp;&amp; i &lt; j) i++; while(nums[j] &gt;= nums[pivot] &amp;&amp; i &lt; j) j--; swap(nums, i, j); &#125; if(nums[j] &gt;= nums[pivot])&#123; swap(nums, j, pivot); pivot = j; &#125; if(pivot == k) return; if(pivot &gt; k) quickFind(nums, head, pivot-1, k); else quickFind(nums, pivot+1, tail, k); &#125; private void swap(int[] nums, int i, int j)&#123; int temp = nums[i]; nums[i] = nums[j]; nums[j] = temp; &#125;&#125; T&amp;S AnalysisTime: O(N) Space: O(logN)]]></content>
@@ -9,12 +39,12 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
+        <tag>Bloomberg</tag>
+        <tag>Apple</tag>
         <tag>Heap</tag>
         <tag>Divide and Conquer</tag>
         <tag>Amazon</tag>
         <tag>Micorsoft</tag>
-        <tag>Apple</tag>
-        <tag>Bloomberg</tag>
         <tag>PocketGems</tag>
       </tags>
   </entry>
@@ -56,9 +86,9 @@
       <tags>
         <tag>Array</tag>
         <tag>Facebook</tag>
-        <tag>Apple</tag>
         <tag>LRU Cache</tag>
         <tag>Linkedin</tag>
+        <tag>Apple</tag>
         <tag>Micresoft</tag>
       </tags>
   </entry>
@@ -84,9 +114,9 @@
       <tags>
         <tag>Array</tag>
         <tag>Facebook</tag>
-        <tag>Backtracking</tag>
-        <tag>Bloomberg</tag>
         <tag>Microsoft</tag>
+        <tag>Bloomberg</tag>
+        <tag>Backtracking</tag>
       </tags>
   </entry>
   <entry>
@@ -98,8 +128,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Math</tag>
+        <tag>String</tag>
         <tag>Twitter</tag>
       </tags>
   </entry>
@@ -114,9 +144,9 @@
         <tag>Hash Table</tag>
         <tag>Facebook</tag>
         <tag>String</tag>
-        <tag>Amazon</tag>
-        <tag>Bloomberg</tag>
         <tag>Uber</tag>
+        <tag>Bloomberg</tag>
+        <tag>Amazon</tag>
         <tag>Yelp</tag>
       </tags>
   </entry>
@@ -128,9 +158,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>DFS</tag>
-        <tag>Tree</tag>
         <tag>Uber</tag>
+        <tag>Tree</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -281,9 +311,9 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>DFS</tag>
         <tag>Tree</tag>
         <tag>Morris Order</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -295,8 +325,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Two Pointers</tag>
         <tag>String</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -415,8 +445,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>DFS</tag>
         <tag>Tree</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -455,8 +485,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Dynamic Programming</tag>
         <tag>String</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -526,8 +556,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Math</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -597,9 +627,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Tree</tag>
         <tag>DFS</tag>
         <tag>BFS</tag>
-        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
