@@ -60,7 +60,7 @@
     <url>%2F2017%2F09%2F07%2F322-Coin-Change%2F</url>
     <content type="text"><![CDATA[Question You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1. Example 1: coins = [1, 2, 5], amount = 11return 3 (11 = 5 + 5 + 1) Example 2: coins = [2], amount = 3return -1. Note:You may assume that you have an infinite number of each kind of coin. Solution 1 Dynamic ProgrammingCode12345678910111213141516171819202122232425262728293031class Solution &#123; public int coinChange(int[] coins, int amount) &#123; int[] count = new int[amount+1]; return rec(count, coins, amount); &#125; private int rec(int[] count, int[] coins, int amount)&#123; if(amount &lt; 0) return -1; if(amount == 0) return 0; if(count[amount] != 0) return count[amount]; int mins = Integer.MAX_VALUE; for(int i = 0; i &lt; coins.length; i++)&#123; int res = rec(count, coins, amount - coins[i]); if(res &gt;= 0)&#123; mins = Math.min(mins, res + 1); &#125; &#125; if(mins == Integer.MAX_VALUE)&#123; count[amount] = -1; return -1; &#125; count[amount] = mins; return mins; &#125; &#125; T&amp;S AnalysisTime: O(Nset^amount) Space: O(amount)]]></content>
       <categories>
-        <category>Algorighm</category>
+        <category>Algorithm</category>
       </categories>
       <tags>
         <tag>Dynamic Programming</tag>
@@ -90,8 +90,8 @@
         <tag>Facebook</tag>
         <tag>Uber</tag>
         <tag>Bloomberg</tag>
-        <tag>String</tag>
         <tag>Math</tag>
+        <tag>String</tag>
         <tag>Microsoft</tag>
         <tag>Yahoo</tag>
       </tags>
@@ -194,8 +194,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Math</tag>
+        <tag>String</tag>
         <tag>Twitter</tag>
       </tags>
   </entry>
@@ -301,8 +301,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Greedy</tag>
         <tag>Stack</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -391,8 +391,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Two Pointers</tag>
         <tag>String</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -419,8 +419,8 @@
       <tags>
         <tag>Array</tag>
         <tag>Facebook</tag>
-        <tag>Two Pointers</tag>
         <tag>Sort</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -622,8 +622,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Math</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -774,8 +774,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Two Pointers</tag>
         <tag>Linked List</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -808,8 +808,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Two Pointers</tag>
         <tag>Linked List</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
