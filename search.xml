@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[122 Best Time to Buy and Sell Stock II]]></title>
+    <url>%2F2017%2F09%2F08%2F122-Best-Time-to-Buy-and-Sell-Stock-II%2F</url>
+    <content type="text"><![CDATA[Question Say you have an array for which the ith element is the price of a given stock on day i. Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times). However, you may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again). Solution 1 Dynamic ProgrammingFind the relationship between this day and the day before. Initialize: f(0) = 0, obviously. Yesterday must be sold or did nothing: If yesterday sold, that means there is a lower price before yesterday If today’s price is higher than yesterday’s, then, it should be sold today rather than yesterday, f(i) = f(i-1) + p[i] - p[i-1] If today’s price is lower than yesterday’a, then, today makes no profit, so f(i) = f(i-1) If yesterday did nothing, that means it is lower than the previous sold price, If today’s price is higher than yesterday’s, then we can make profit by the difference, f(i) = f(i-1) + p(i) - p(i-1) If today’s price is even lower than yesterday’s, then, we keep doing nothing, so f(i) = f(i-1) As above, we could make f(i) = max(f(i-1), f(i-1) + p(i) - p(i-1)) Code123456789101112class Solution &#123; public int maxProfit(int[] prices) &#123; if(prices.length &lt;= 1) return 0; int former = 0, later = 0; for(int i = 1; i &lt; prices.length; i++)&#123; later = Math.max(former, former + prices[i]-prices[i-1]); former = later; &#125; return later; &#125;&#125; T&amp;S AnalysisTime: O(N) Space: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Array</tag>
+        <tag>Dynamic Programming</tag>
+        <tag>Bloomberg</tag>
+        <tag>Greedy</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[121 Best Time to Buy and Sell Stock]]></title>
     <url>%2F2017%2F09%2F08%2F121-Best-Time-to-Buy-and-Sell-Stock-1%2F</url>
-    <content type="text"><![CDATA[Question Say you have an array for which the ith element is the price of a given stock on day i. If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit. Example1: Input: [7, 1, 5, 3, 6, 4]Output: 5 max. difference = 6-1 = 5 (not 7-1 = 6, as selling price needs to be larger than buying price) Example2: Input: [7, 6, 4, 3, 1]Output: 0 In this case, no transaction is done, i.e. max profit = 0. Solution 1 Dynamic ProgrammingJust record the smallest and keep finding the largest difference Code12345678910class Solution &#123; public int maxProfit(int[] prices) &#123; int lo = 0, profit = 0, i = 0; for(i = 0; i &lt; prices.length; i++)&#123; lo = prices[i] &gt; prices[lo]?lo:i; profit = Math.max(prices[i] - prices[lo], profit); &#125; return profit; &#125;&#125; T&amp;S AnalysisTime: O(N) Space: O(1) Solution 2 Kadane’s AlgorithmMore easy to deal with continous array problems Code1234567891011class Solution &#123; public int maxProfit(int[] prices) &#123; int curMax = 0, sofarMax = 0; for(int i = 1; i &lt; prices.length; i++)&#123; curMax = Math.max(0, curMax + prices[i] - prices[i-1]); sofarMax = Math.max(sofarMax, curMax); &#125; return sofarMax; &#125;&#125; T&amp;S AnalysisTime: O(N) Space: O(1)]]></content>
+    <content type="text"><![CDATA[Question Say you have an array for which the ith element is the price of a given stock on day i. If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit. Example1: Input: [7, 1, 5, 3, 6, 4] Output: 5 max. difference = 6-1 = 5 (not 7-1 = 6, as selling price needs to be larger than buying price) Example2: Input: [7, 6, 4, 3, 1]Output: 0 In this case, no transaction is done, i.e. max profit = 0. Solution 1 Dynamic ProgrammingJust record the smallest and keep finding the largest difference Code12345678910class Solution &#123; public int maxProfit(int[] prices) &#123; int lo = 0, profit = 0, i = 0; for(i = 0; i &lt; prices.length; i++)&#123; lo = prices[i] &gt; prices[lo]?lo:i; profit = Math.max(prices[i] - prices[lo], profit); &#125; return profit; &#125;&#125; T&amp;S AnalysisTime: O(N) Space: O(1) Solution 2 Kadane’s AlgorithmMore easy to deal with continous array problems Code1234567891011class Solution &#123; public int maxProfit(int[] prices) &#123; int curMax = 0, sofarMax = 0; for(int i = 1; i &lt; prices.length; i++)&#123; curMax = Math.max(0, curMax + prices[i] - prices[i-1]); sofarMax = Math.max(sofarMax, curMax); &#125; return sofarMax; &#125;&#125; T&amp;S AnalysisTime: O(N) Space: O(1)]]></content>
       <categories>
         <category>Algorithm</category>
       </categories>
@@ -64,8 +78,8 @@
         <tag>Facebook</tag>
         <tag>Uber</tag>
         <tag>Bloomberg</tag>
-        <tag>String</tag>
         <tag>Math</tag>
+        <tag>String</tag>
         <tag>Microsoft</tag>
         <tag>Yahoo</tag>
       </tags>
@@ -82,9 +96,9 @@
         <tag>Facebook</tag>
         <tag>Micorsoft</tag>
         <tag>Bloomberg</tag>
-        <tag>Apple</tag>
         <tag>Heap</tag>
         <tag>Divide and Conquer</tag>
+        <tag>Apple</tag>
         <tag>PocketGems</tag>
       </tags>
   </entry>
@@ -126,9 +140,9 @@
       <tags>
         <tag>Array</tag>
         <tag>Facebook</tag>
+        <tag>Apple</tag>
         <tag>LRU Cache</tag>
         <tag>Linkedin</tag>
-        <tag>Apple</tag>
         <tag>Micresoft</tag>
       </tags>
   </entry>
@@ -168,8 +182,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Math</tag>
+        <tag>String</tag>
         <tag>Twitter</tag>
       </tags>
   </entry>
@@ -185,8 +199,8 @@
         <tag>Facebook</tag>
         <tag>Uber</tag>
         <tag>Bloomberg</tag>
-        <tag>String</tag>
         <tag>Hash Table</tag>
+        <tag>String</tag>
         <tag>Yelp</tag>
       </tags>
   </entry>
@@ -275,8 +289,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Stack</tag>
         <tag>Greedy</tag>
+        <tag>Stack</tag>
       </tags>
   </entry>
   <entry>
@@ -365,8 +379,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Two Pointers</tag>
         <tag>String</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -596,8 +610,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Math</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -748,8 +762,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Two Pointers</tag>
         <tag>Linked List</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -782,8 +796,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Two Pointers</tag>
         <tag>Linked List</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -817,8 +831,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Linked List</tag>
         <tag>Hash Table</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
   <entry>
