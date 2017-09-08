@@ -90,8 +90,8 @@
         <tag>Facebook</tag>
         <tag>Uber</tag>
         <tag>Bloomberg</tag>
-        <tag>Math</tag>
         <tag>String</tag>
+        <tag>Math</tag>
         <tag>Microsoft</tag>
         <tag>Yahoo</tag>
       </tags>
@@ -152,10 +152,10 @@
       <tags>
         <tag>Array</tag>
         <tag>Facebook</tag>
+        <tag>Microsoft</tag>
         <tag>Apple</tag>
         <tag>LRU Cache</tag>
         <tag>Linkedin</tag>
-        <tag>Micresoft</tag>
       </tags>
   </entry>
   <entry>
@@ -194,8 +194,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Math</tag>
         <tag>String</tag>
+        <tag>Math</tag>
         <tag>Twitter</tag>
       </tags>
   </entry>
@@ -301,8 +301,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Stack</tag>
         <tag>Greedy</tag>
+        <tag>Stack</tag>
       </tags>
   </entry>
   <entry>
@@ -391,8 +391,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Two Pointers</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -419,8 +419,8 @@
       <tags>
         <tag>Array</tag>
         <tag>Facebook</tag>
-        <tag>Sort</tag>
         <tag>Two Pointers</tag>
+        <tag>Sort</tag>
       </tags>
   </entry>
   <entry>
@@ -622,8 +622,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Math</tag>
         <tag>String</tag>
+        <tag>Math</tag>
       </tags>
   </entry>
   <entry>
@@ -774,8 +774,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Linked List</tag>
         <tag>Two Pointers</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
   <entry>
@@ -808,8 +808,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Linked List</tag>
         <tag>Two Pointers</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
   <entry>
