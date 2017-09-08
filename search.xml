@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[309 Best time to Buy and Sell Stock with Cooldown]]></title>
+    <url>%2F2017%2F09%2F08%2F309-Best-time-to-Buy-and-Sell-Stock-with-Coolddown%2F</url>
+    <content type="text"><![CDATA[Question Say you have an array for which the ith element is the price of a given stock on day i. Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times) with the following restrictions: You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again). After you sell your stock, you cannot buy stock on next day. (ie, cooldown 1 day) Example: prices = [1, 2, 3, 0, 2] maxProfit = 3 transactions = [buy, sell, cooldown, buy, sell] Solution 1 Dynamic Programming with 3 days1234567891011121314151617181920212223242526272829303132333435363738394041424344class Solution &#123; public int maxProfit(int[] prices) &#123; if(prices.length &lt;= 1) return 0; int day3 = 0; int day2 = Math.max(prices[1] - prices[0], 0); if(prices.length == 2) return day2; int day1; if(day2 == 0) day1 = Math.max(prices[2] - prices[1], 0); else day1 = Math.max(day2, day2 + prices[2]-prices[1]); int temp=day1; for(int i = 3; i &lt; prices.length; i++)&#123; if(prices[i] &lt;= prices[i-1]) temp = day1; else&#123; if(day1 != day2) temp = day1 + prices[i] - prices[i-1]; else&#123; if(day2 == day3) temp = day1 + prices[i] - prices[i-1]; else&#123; if(prices[i] &gt; prices[i-2]) temp = Math.max(day2 + prices[i] - prices[i-2], day3 + prices[i] - prices[i-1]); else&#123; if(prices[i] - prices[i-1] &gt; day2 - day3) temp = day3 + prices[i] - prices[i-1]; else temp = day1; &#125; &#125; &#125; &#125; day3 = day2; day2 = day1; day1 = temp; &#125; return temp; &#125;&#125; T&amp;S AnalysisTime: O(N) Space: O(1) Solution 2 Dynamic Programming with 2 daysSuppose buy cost money could be negative, then: If Sell at today, the max profit is max profit buy yesterday + today’s price, or just sell yesterday If buy today, then the max profit is the sell day before yesterday and buy today or just buy yesterday Code1234567891011121314151617181920class Solution &#123; public int maxProfit(int[] prices) &#123; if(prices.length &lt;= 1) return 0; int buy0 = - prices[0], sell0 = 0; int buy1 = Math.max(buy0, -prices[1]); int sell1 = Math.max(sell0, prices[1] + buy0); int tempB = buy1, tempS = sell1; for(int i = 2; i &lt; prices.length; i++)&#123; tempB = Math.max(buy1, sell0 - prices[i]); tempS = Math.max(sell1, buy1 + prices[i]); buy0 = buy1; sell0 = sell1; buy1 = tempB; sell1 = tempS; &#125; return tempS; &#125;&#125; T&amp;S AnalysisTime: O(N) Space: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Dynamic Programming</tag>
+        <tag>Google</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[122 Best Time to Buy and Sell Stock II]]></title>
     <url>%2F2017%2F09%2F08%2F122-Best-Time-to-Buy-and-Sell-Stock-II%2F</url>
     <content type="text"><![CDATA[Question Say you have an array for which the ith element is the price of a given stock on day i. Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times). However, you may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again). Solution 1 Dynamic ProgrammingFind the relationship between this day and the day before. Initialize: f(0) = 0, obviously. Yesterday must be sold or did nothing: If yesterday sold, that means there is a lower price before yesterday If today’s price is higher than yesterday’s, then, it should be sold today rather than yesterday, f(i) = f(i-1) + p[i] - p[i-1] If today’s price is lower than yesterday’a, then, today makes no profit, so f(i) = f(i-1) If yesterday did nothing, that means it is lower than the previous sold price, If today’s price is higher than yesterday’s, then we can make profit by the difference, f(i) = f(i-1) + p(i) - p(i-1) If today’s price is even lower than yesterday’s, then, we keep doing nothing, so f(i) = f(i-1) As above, we could make f(i) = max(f(i-1), f(i-1) + p(i) - p(i-1)) Code123456789101112class Solution &#123; public int maxProfit(int[] prices) &#123; if(prices.length &lt;= 1) return 0; int former = 0, later = 0; for(int i = 1; i &lt; prices.length; i++)&#123; later = Math.max(former, former + prices[i]-prices[i-1]); former = later; &#125; return later; &#125;&#125; T&amp;S AnalysisTime: O(N) Space: O(1)]]></content>
@@ -23,9 +35,9 @@
       </categories>
       <tags>
         <tag>Array</tag>
+        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
         <tag>Amazon</tag>
-        <tag>Facebook</tag>
         <tag>Micorsoft</tag>
         <tag>Uber</tag>
         <tag>Bloomberg</tag>
@@ -78,8 +90,8 @@
         <tag>Facebook</tag>
         <tag>Uber</tag>
         <tag>Bloomberg</tag>
-        <tag>Math</tag>
         <tag>String</tag>
+        <tag>Math</tag>
         <tag>Microsoft</tag>
         <tag>Yahoo</tag>
       </tags>
@@ -92,8 +104,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Amazon</tag>
         <tag>Facebook</tag>
+        <tag>Amazon</tag>
         <tag>Micorsoft</tag>
         <tag>Bloomberg</tag>
         <tag>Heap</tag>
@@ -110,8 +122,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
         <tag>Google</tag>
         <tag>Game of Life</tag>
       </tags>
@@ -182,8 +194,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Math</tag>
         <tag>String</tag>
+        <tag>Math</tag>
         <tag>Twitter</tag>
       </tags>
   </entry>
@@ -195,11 +207,11 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Amazon</tag>
+        <tag>Hash Table</tag>
         <tag>Facebook</tag>
+        <tag>Amazon</tag>
         <tag>Uber</tag>
         <tag>Bloomberg</tag>
-        <tag>Hash Table</tag>
         <tag>String</tag>
         <tag>Yelp</tag>
       </tags>
@@ -379,8 +391,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Two Pointers</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -419,8 +431,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -432,8 +444,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Hash Table</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -472,8 +484,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -538,8 +550,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
         <tag>String</tag>
       </tags>
   </entry>
@@ -610,8 +622,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Math</tag>
         <tag>String</tag>
+        <tag>Math</tag>
       </tags>
   </entry>
   <entry>
@@ -762,8 +774,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Linked List</tag>
         <tag>Two Pointers</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
   <entry>
@@ -796,8 +808,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Linked List</tag>
         <tag>Two Pointers</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
   <entry>
