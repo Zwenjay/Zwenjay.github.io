@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Facebook,DFS,Tree," />
+  <meta name="keywords" content="Array,Dynamic Programming,Amazon,Facebook,Micorsoft,Uber,Bloomberg," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Question Given a binary tree, return all root-to-leaf paths. For example, given the following binary tree:    1  /   \ 2     3  \   5   All root-to-leaf paths are: [&quot;1-&amp;gt;2-&amp;gt;5&quot;, &quot;1-&amp;gt;3&quot;]   Solut">
-<meta name="keywords" content="Facebook,DFS,Tree">
+<meta name="description" content="Question Say you have an array for which the ith element is the price of a given stock on day i. If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the s">
+<meta name="keywords" content="Array,Dynamic Programming,Amazon,Facebook,Micorsoft,Uber,Bloomberg">
 <meta property="og:type" content="article">
-<meta property="og:title" content="257 Binary Tree Paths">
-<meta property="og:url" content="http://wenjiezhang.com/2017/08/28/257-Binary-Tree-Paths/index.html">
+<meta property="og:title" content="121 Best Time to Buy and Sell Stock">
+<meta property="og:url" content="http://wenjiezhang.com/2017/09/08/121-Best-Time-to-Buy-and-Sell-Stock-1/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="Question Given a binary tree, return all root-to-leaf paths. For example, given the following binary tree:    1  /   \ 2     3  \   5   All root-to-leaf paths are: [&quot;1-&amp;gt;2-&amp;gt;5&quot;, &quot;1-&amp;gt;3&quot;]   Solut">
+<meta property="og:description" content="Question Say you have an array for which the ith element is the price of a given stock on day i. If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the s">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-28T15:31:58.359Z">
+<meta property="og:updated_time" content="2017-09-08T16:34:05.149Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="257 Binary Tree Paths">
-<meta name="twitter:description" content="Question Given a binary tree, return all root-to-leaf paths. For example, given the following binary tree:    1  /   \ 2     3  \   5   All root-to-leaf paths are: [&quot;1-&amp;gt;2-&amp;gt;5&quot;, &quot;1-&amp;gt;3&quot;]   Solut">
+<meta name="twitter:title" content="121 Best Time to Buy and Sell Stock">
+<meta name="twitter:description" content="Question Say you have an array for which the ith element is the price of a given stock on day i. If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the s">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/2017/08/28/257-Binary-Tree-Paths/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/09/08/121-Best-Time-to-Buy-and-Sell-Stock-1/"/>
 
 
 
 
 
-  <title>257 Binary Tree Paths | Coding Zone</title>
+  <title>121 Best Time to Buy and Sell Stock | Coding Zone</title>
   
 
 
@@ -311,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/28/257-Binary-Tree-Paths/">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/08/121-Best-Time-to-Buy-and-Sell-Stock-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wenjie Zhang">
@@ -328,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">257 Binary Tree Paths</h1>
+          <h1 class="post-title" itemprop="name headline">121 Best Time to Buy and Sell Stock</h1>
         
 
         <div class="post-meta">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-28T08:20:54-07:00">
-                2017-08-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-08T09:24:56-07:00">
+                2017-09-08
               </time>
             
 
@@ -405,24 +405,27 @@
       
 
       
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/binary-tree-paths/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given a binary tree, return all root-to-leaf paths.</p>
-<p>For example, given the following binary tree:</p>
-<pre>   1
- /   \
-2     3
- \
-  5
-</pre>
-
-<p>All root-to-leaf paths are:</p>
-<pre>["1-&gt;2-&gt;5", "1-&gt;3"]</pre>
-
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Say you have an array for which the ith element is the price of a given stock on day i.</p>
+<p>If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit.</p>
+<p><strong>Example1:</strong></p>
+<p><pre>Input: [7, 1, 5, 3, 6, 4]<br>Output: 5</pre></p>
 </blockquote>
-<h2 id="Solution-1-DFS"><a href="#Solution-1-DFS" class="headerlink" title="Solution 1 DFS"></a>Solution 1 DFS</h2><p>It is easy preorder traversal.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">binaryTreePaths</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        List&lt;String&gt; res = <span class="keyword">new</span> ArrayList&lt;String&gt;();</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> res;</div><div class="line">        fillIn(root, <span class="string">""</span>, res);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">fillIn</span><span class="params">(TreeNode root, String s, List&lt;String&gt; res)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span> )</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        <span class="keyword">if</span>(root.left == <span class="keyword">null</span> &amp;&amp; root.right == <span class="keyword">null</span>)&#123;</div><div class="line">            s=s+<span class="string">"-&gt;"</span>+root.val;</div><div class="line">            res.add(s.substring(<span class="number">2</span>, s.length()));</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        s=s+<span class="string">"-&gt;"</span>+root.val;</div><div class="line">        fillIn(root.left, s, res);</div><div class="line">        fillIn(root.right, s, res);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(NlonN), N times, every time go at most logN deepth.</p>
-<p><strong>Space:</strong> O(logN) for recursion’s depth is logN, and every time it cost constant extra space.</p>
+<p>max. difference = 6-1 = 5 (not 7-1 = 6, as selling price needs to be larger than buying price)<br></p>
+<blockquote>
+<p><strong>Example2:</strong></p>
+<p><pre>Input: [7, 6, 4, 3, 1]<br>Output: 0</pre></p>
+</blockquote>
+<p>In this case, no transaction is done, i.e. max profit = 0.<br></p>
+<h2 id="Solution-1-Dynamic-Programming"><a href="#Solution-1-Dynamic-Programming" class="headerlink" title="Solution 1 Dynamic Programming"></a>Solution 1 Dynamic Programming</h2><p>Just record the smallest and keep finding the largest difference</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> lo = <span class="number">0</span>, profit = <span class="number">0</span>, i = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; prices.length; i++)&#123;</div><div class="line">            lo = prices[i] &gt; prices[lo]?lo:i;</div><div class="line">            profit = Math.max(prices[i] - prices[lo], profit);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> profit;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(N)</p>
+<p><strong>Space:</strong> O(1)</p>
+<p><br><br><br></p>
+<h2 id="Solution-2-Kadane’s-Algorithm"><a href="#Solution-2-Kadane’s-Algorithm" class="headerlink" title="Solution 2 Kadane’s Algorithm"></a>Solution 2 Kadane’s Algorithm</h2><p>More easy to deal with continous array problems</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> curMax = <span class="number">0</span>, sofarMax = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; prices.length; i++)&#123;</div><div class="line">            curMax = Math.max(<span class="number">0</span>, curMax + prices[i] - prices[i-<span class="number">1</span>]);</div><div class="line">            sofarMax = Math.max(sofarMax, curMax);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> sofarMax;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(N)</p>
+<p><strong>Space:</strong> O(1)</p>
 
       
     </div>
@@ -440,11 +443,19 @@
       
         <div class="post-tags">
           
+            <a href="/tags/Array/" rel="tag"># Array</a>
+          
+            <a href="/tags/Dynamic-Programming/" rel="tag"># Dynamic Programming</a>
+          
+            <a href="/tags/Amazon/" rel="tag"># Amazon</a>
+          
             <a href="/tags/Facebook/" rel="tag"># Facebook</a>
           
-            <a href="/tags/DFS/" rel="tag"># DFS</a>
+            <a href="/tags/Micorsoft/" rel="tag"># Micorsoft</a>
           
-            <a href="/tags/Tree/" rel="tag"># Tree</a>
+            <a href="/tags/Uber/" rel="tag"># Uber</a>
+          
+            <a href="/tags/Bloomberg/" rel="tag"># Bloomberg</a>
           
         </div>
       
@@ -457,8 +468,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/27/200-Number-of-Islands/" rel="next" title="200 Number of Islands">
-                <i class="fa fa-chevron-left"></i> 200 Number of Islands
+              <a href="/2017/09/07/376-Wiggle-Subsequence/" rel="next" title="376 Wiggle Subsequence">
+                <i class="fa fa-chevron-left"></i> 376 Wiggle Subsequence
               </a>
             
           </div>
@@ -466,10 +477,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/28/211-Add-and-Search-Word-Data-structure-design/" rel="prev" title="211 Add and Search Word-Data structure design">
-                211 Add and Search Word-Data structure design <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -605,7 +612,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-DFS"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 DFS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.1.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Dynamic-Programming"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Dynamic Programming</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2-Kadane’s-Algorithm"><span class="nav-number">1.2.</span> <span class="nav-text">Solution 2 Kadane’s Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
