@@ -311,6 +311,193 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/09/669-Trim-a-Binary-Search-Tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/09/669-Trim-a-Binary-Search-Tree/" itemprop="url">669 Trim a Binary Search Tree</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-09T09:21:52-07:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/trim-a-binary-search-tree/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a binary search tree and the lowest and highest boundaries as L and R, trim the tree so that all its elements lies in [L, R] (R &gt;= L). You might need to change the root of the tree, so the result should return the new root of the trimmed binary search tree.</p>
+<p><strong>Example 1:</strong></p>
+<pre><b>Input:</b> 
+    1
+   / \
+  0   2
+
+
+L = 1
+
+R = 2
+
+<b>Output:</b> 
+    1
+      \
+       2
+</pre>
+
+<p><strong>Example 2:</strong></p>
+<pre><b>Input:</b> 
+    3
+   / \
+  0   4
+   \
+    2
+   /
+  1
+
+L = 1
+
+R = 3
+
+<b>Output:</b> 
+      3
+     / 
+   2   
+  /
+ 1
+</pre>
+
+</blockquote>
+<h2 id="Solution-1-Recursive-solution"><a href="#Solution-1-Recursive-solution" class="headerlink" title="Solution 1 Recursive solution"></a>Solution 1 Recursive solution</h2><p>If the val is in the scope, than continue with left and right, other wise, find a nearest val that in this scope.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">trimBST</span><span class="params">(TreeNode root, <span class="keyword">int</span> L, <span class="keyword">int</span> R)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">if</span>(root.val &gt;= L &amp;&amp; root.val &lt;=R)&#123;</div><div class="line">            root.left = trimBST(root.left, L, R);</div><div class="line">            root.right = trimBST(root.right, L, R);</div><div class="line">            <span class="keyword">return</span> root;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(root.val &gt; R)&#123;</div><div class="line">            TreeNode temp = root.left;</div><div class="line">            <span class="keyword">while</span>(temp != <span class="keyword">null</span> &amp;&amp; temp.val &gt; R)</div><div class="line">                temp = temp.left;</div><div class="line">            <span class="keyword">return</span> trimBST(temp, L, R);</div><div class="line">        &#125;</div><div class="line">        TreeNode temp = root.right;</div><div class="line">        <span class="keyword">while</span>(temp != <span class="keyword">null</span> &amp;&amp; temp.val &lt; L)</div><div class="line">            temp = temp.right;</div><div class="line">        <span class="keyword">return</span> trimBST(temp, L, R);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(N)</p>
+<p><strong>Space:</strong> O(N)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/08/309-Best-time-to-Buy-and-Sell-Stock-with-Coolddown/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1744,194 +1931,6 @@ Therefore the output is <i><b>7</b></i>.
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/05/209-Minimum-Size-Subarray-Sum/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/05/209-Minimum-Size-Subarray-Sum/" itemprop="url">209 Minimum Size Subarray Sum</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-05T10:55:01-07:00">
-                2017-09-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/minimum-size-subarray-sum/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given an array of n positive integers and a positive integer s, find the minimal length of a contiguous subarray of which the sum ≥ s. If there isn’t one, return 0 instead.</p>
-<p>For example, given the array [2,3,1,2,4,3] and s = 7,<br>the subarray [4,3] has the minimal length under the problem constraint.</p>
-</blockquote>
-<h2 id="Solution-1-Two-Pointers"><a href="#Solution-1-Two-Pointers" class="headerlink" title="Solution 1 Two Pointers"></a>Solution 1 Two Pointers</h2><p>Use two pointers to compete it with O(N) time.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minSubArrayLen</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> minL = nums.length+<span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(j &lt; nums.length)&#123;</div><div class="line">            sum += nums[j];</div><div class="line">            <span class="keyword">while</span>(sum &gt;= s)&#123;</div><div class="line">                minL = Math.min(minL, j-i+<span class="number">1</span>);</div><div class="line">                sum -= nums[i];</div><div class="line">                i++;</div><div class="line">            &#125;</div><div class="line">            j++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(minL == nums.length+<span class="number">1</span>)</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        <span class="keyword">return</span> minL;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> O(n)</p>
-<p><strong>Space:</strong> O(1)</p>
-<h2 id="Solution-2-Binary-Search"><a href="#Solution-2-Binary-Search" class="headerlink" title="Solution 2 Binary Search"></a>Solution 2 Binary Search</h2><p>As the <em>more exercise</em> asked, it is a NlogN mthod</p>
-<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><pre><code class="java"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minSubArrayLen</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span>[] nums)</span> </span>{
-        <span class="keyword">int</span> j, minL = nums.length+<span class="number">1</span>;
-        <span class="keyword">int</span>[] sumArray = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length + <span class="number">1</span>];
-        sumArray[<span class="number">0</span>] = <span class="number">0</span>;
-        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; sumArray.length; i++)
-            sumArray[i] = sumArray[i-<span class="number">1</span>] + nums[i-<span class="number">1</span>];
-        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sumArray.length; i++){
-            <span class="keyword">if</span>(sumArray[i] &lt; s)
-                <span class="keyword">continue</span>;
-            j = findLast(i, sumArray, sumArray[i] - s);
-            minL = Math.min(i-j, minL);
-        }
-        <span class="keyword">if</span>(minL == nums.length+<span class="number">1</span>)
-            <span class="keyword">return</span> <span class="number">0</span>;
-        <span class="keyword">return</span> minL;
-    }
-
-    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">findLast</span><span class="params">(<span class="keyword">int</span> hi, <span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span></span>{
-        <span class="keyword">int</span> mid, lo = <span class="number">0</span>;
-        <span class="keyword">while</span>(lo &lt; hi){
-            mid = lo + (hi - lo)/<span class="number">2</span>;
-            <span class="keyword">if</span>(nums[mid] &gt; target){
-                <span class="keyword">if</span>(nums[mid-<span class="number">1</span>] &lt;= target)
-                    <span class="keyword">return</span> mid-<span class="number">1</span>;
-                hi = mid;
-            }<span class="keyword">else</span>{
-                <span class="keyword">if</span>(nums[mid+<span class="number">1</span>]&gt;target)
-                    <span class="keyword">return</span> mid;
-                lo = mid;
-            }
-        }
-        <span class="keyword">return</span> <span class="number">0</span>;
-    } 
-}
-</code></pre>
-<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> O(NlogN)</p>
-<p><strong>Space:</strong> O(N)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1982,7 +1981,7 @@ Therefore the output is <i><b>7</b></i>.
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">71</span>
+                <span class="site-state-item-count">72</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Facebook,Linked List," />
+  <meta name="keywords" content="Tree," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Question Given a linked list, swap every two adjacent nodes and return its head. For example,Given 1-&amp;gt;2-&amp;gt;3-&amp;gt;4, you should return the list as 2-&amp;gt;1-&amp;gt;4-&amp;gt;3. Your algorithm should use onl">
-<meta name="keywords" content="Facebook,Linked List">
+<meta name="description" content="Question Given a binary search tree and the lowest and highest boundaries as L and R, trim the tree so that all its elements lies in [L, R] (R &amp;gt;= L). You might need to change the root of the tree,">
+<meta name="keywords" content="Tree">
 <meta property="og:type" content="article">
-<meta property="og:title" content="24 Swap Nodes in Pairs">
-<meta property="og:url" content="http://wenjiezhang.com/2017/09/02/24-Swap-Nodes-in-Pairs/index.html">
+<meta property="og:title" content="669 Trim a Binary Search Tree">
+<meta property="og:url" content="http://wenjiezhang.com/2017/09/09/669-Trim-a-Binary-Search-Tree/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="Question Given a linked list, swap every two adjacent nodes and return its head. For example,Given 1-&amp;gt;2-&amp;gt;3-&amp;gt;4, you should return the list as 2-&amp;gt;1-&amp;gt;4-&amp;gt;3. Your algorithm should use onl">
+<meta property="og:description" content="Question Given a binary search tree and the lowest and highest boundaries as L and R, trim the tree so that all its elements lies in [L, R] (R &amp;gt;= L). You might need to change the root of the tree,">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-09-02T16:29:58.533Z">
+<meta property="og:updated_time" content="2017-09-09T16:29:07.203Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="24 Swap Nodes in Pairs">
-<meta name="twitter:description" content="Question Given a linked list, swap every two adjacent nodes and return its head. For example,Given 1-&amp;gt;2-&amp;gt;3-&amp;gt;4, you should return the list as 2-&amp;gt;1-&amp;gt;4-&amp;gt;3. Your algorithm should use onl">
+<meta name="twitter:title" content="669 Trim a Binary Search Tree">
+<meta name="twitter:description" content="Question Given a binary search tree and the lowest and highest boundaries as L and R, trim the tree so that all its elements lies in [L, R] (R &amp;gt;= L). You might need to change the root of the tree,">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/2017/09/02/24-Swap-Nodes-in-Pairs/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/09/09/669-Trim-a-Binary-Search-Tree/"/>
 
 
 
 
 
-  <title>24 Swap Nodes in Pairs | Coding Zone</title>
+  <title>669 Trim a Binary Search Tree | Coding Zone</title>
   
 
 
@@ -311,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/02/24-Swap-Nodes-in-Pairs/">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/09/669-Trim-a-Binary-Search-Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wenjie Zhang">
@@ -328,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">24 Swap Nodes in Pairs</h1>
+          <h1 class="post-title" itemprop="name headline">669 Trim a Binary Search Tree</h1>
         
 
         <div class="post-meta">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-02T09:27:53-07:00">
-                2017-09-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-09T09:21:52-07:00">
+                2017-09-09
               </time>
             
 
@@ -405,14 +405,52 @@
       
 
       
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/swap-nodes-in-pairs/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given a linked list, swap every two adjacent nodes and return its head.</p>
-<p>For example,<br>Given 1-&gt;2-&gt;3-&gt;4, you should return the list as 2-&gt;1-&gt;4-&gt;3.</p>
-<p>Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed.</p>
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/trim-a-binary-search-tree/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a binary search tree and the lowest and highest boundaries as L and R, trim the tree so that all its elements lies in [L, R] (R &gt;= L). You might need to change the root of the tree, so the result should return the new root of the trimmed binary search tree.</p>
+<p><strong>Example 1:</strong></p>
+<pre><b>Input:</b> 
+    1
+   / \
+  0   2
+
+
+L = 1
+
+R = 2
+
+<b>Output:</b> 
+    1
+      \
+       2
+</pre>
+
+<p><strong>Example 2:</strong></p>
+<pre><b>Input:</b> 
+    3
+   / \
+  0   4
+   \
+    2
+   /
+  1
+
+L = 1
+
+R = 3
+
+<b>Output:</b> 
+      3
+     / 
+   2   
+  /
+ 1
+</pre>
+
 </blockquote>
-<h2 id="Solution-1-Swap-Nodes"><a href="#Solution-1-Swap-Nodes" class="headerlink" title="Solution 1 Swap Nodes"></a>Solution 1 Swap Nodes</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">swapPairs</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        ListNode dumpy = <span class="keyword">new</span> ListNode(<span class="number">0</span>), temp, cur;</div><div class="line">        dumpy.next = head;</div><div class="line">        cur = dumpy;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span> &amp;&amp; cur.next != <span class="keyword">null</span> &amp;&amp; cur.next.next != <span class="keyword">null</span>)&#123;</div><div class="line">            temp = cur.next;</div><div class="line">            cur.next = temp.next;</div><div class="line">            temp.next = cur.next.next;</div><div class="line">            cur.next.next = temp;</div><div class="line">            cur = temp;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> dumpy.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> O(n)</p>
-<p><strong>Space:</strong>: O(1)</p>
+<h2 id="Solution-1-Recursive-solution"><a href="#Solution-1-Recursive-solution" class="headerlink" title="Solution 1 Recursive solution"></a>Solution 1 Recursive solution</h2><p>If the val is in the scope, than continue with left and right, other wise, find a nearest val that in this scope.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">trimBST</span><span class="params">(TreeNode root, <span class="keyword">int</span> L, <span class="keyword">int</span> R)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">if</span>(root.val &gt;= L &amp;&amp; root.val &lt;=R)&#123;</div><div class="line">            root.left = trimBST(root.left, L, R);</div><div class="line">            root.right = trimBST(root.right, L, R);</div><div class="line">            <span class="keyword">return</span> root;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(root.val &gt; R)&#123;</div><div class="line">            TreeNode temp = root.left;</div><div class="line">            <span class="keyword">while</span>(temp != <span class="keyword">null</span> &amp;&amp; temp.val &gt; R)</div><div class="line">                temp = temp.left;</div><div class="line">            <span class="keyword">return</span> trimBST(temp, L, R);</div><div class="line">        &#125;</div><div class="line">        TreeNode temp = root.right;</div><div class="line">        <span class="keyword">while</span>(temp != <span class="keyword">null</span> &amp;&amp; temp.val &lt; L)</div><div class="line">            temp = temp.right;</div><div class="line">        <span class="keyword">return</span> trimBST(temp, L, R);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(N)</p>
+<p><strong>Space:</strong> O(N)</p>
 
       
     </div>
@@ -430,9 +468,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Facebook/" rel="tag"># Facebook</a>
-          
-            <a href="/tags/Linked-List/" rel="tag"># Linked List</a>
+            <a href="/tags/Tree/" rel="tag"># Tree</a>
           
         </div>
       
@@ -445,8 +481,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/02/39-Combination-Sum/" rel="next" title="39 Combination Sum">
-                <i class="fa fa-chevron-left"></i> 39 Combination Sum
+              <a href="/2017/09/08/309-Best-time-to-Buy-and-Sell-Stock-with-Coolddown/" rel="next" title="309 Best time to Buy and Sell Stock with Cooldown">
+                <i class="fa fa-chevron-left"></i> 309 Best time to Buy and Sell Stock with Cooldown
               </a>
             
           </div>
@@ -454,10 +490,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/02/202-Happy-Number/" rel="prev" title="202 Happy Number">
-                202 Happy Number <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -593,7 +625,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Swap-Nodes"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Swap Nodes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.1.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1-Recursive-solution"><span class="nav-number">1.1.</span> <span class="nav-text">Solution 1 Recursive solution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.1.1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T-amp-S-Analysis"><span class="nav-number">1.1.2.</span> <span class="nav-text">T&S Analysis</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
