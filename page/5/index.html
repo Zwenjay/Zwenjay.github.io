@@ -311,6 +311,161 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/29/173-Binary-Search-Tree-Iterator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/29/173-Binary-Search-Tree-Iterator/" itemprop="url">173 Binary Search Tree Iterator</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-29T13:51:02-07:00">
+                2017-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/binary-search-tree-iterator/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.</p>
+<p>Calling next() will return the next smallest number in the BST.</p>
+<p><strong>Note:</strong> next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.</p>
+</blockquote>
+<h2 id="Solution-1-Use-Stack"><a href="#Solution-1-Use-Stack" class="headerlink" title="Solution 1 Use Stack"></a>Solution 1 Use Stack</h2><p>This is a easy binary tree inorder traversal with stack </p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BSTIterator</span> </span>&#123;</div><div class="line">    </div><div class="line">    Stack &lt;TreeNode&gt; s = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BSTIterator</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        TreeNode cur = root;</div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            s.push(cur);</div><div class="line">            cur = cur.left;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/** <span class="doctag">@return</span> whether we have a next smallest number */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> s.size()!=<span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/** <span class="doctag">@return</span> the next smallest number */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">next</span><span class="params">()</span> </span>&#123;</div><div class="line">        TreeNode  cur = <span class="keyword">new</span> TreeNode(<span class="number">0</span>);</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.hasNext())&#123;</div><div class="line">            cur = s.pop();</div><div class="line">            <span class="keyword">if</span>(cur.right != <span class="keyword">null</span>)&#123;</div><div class="line">                TreeNode p = cur.right;</div><div class="line">                <span class="keyword">while</span>(p!= <span class="keyword">null</span>)&#123;</div><div class="line">                    s.push(p);</div><div class="line">                    p = p.left;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> cur.val;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong></p>
+<ol>
+<li>Initialize: O(h)</li>
+<li>hasNext(): O(1)</li>
+<li>next(): O(h)</li>
+</ol>
+<p><strong>Space:</strong>: O(h)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/29/121-Best-Time-to-Buy-and-Sell-Stock/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1744,162 +1899,6 @@ The path sum is (3 + 1) = 4.
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/26/665-Non-decreasing-Array/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/26/665-Non-decreasing-Array/" itemprop="url">665 Non-decreasing Array</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T21:59:06-07:00">
-                2017-08-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/contest/leetcode-weekly-contest-47/problems/non-decreasing-array/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given an array with <code>n</code> integers, your task is to check if it could become non-decreasing by modifying <b>at most</b> <code>1</code> element.</p>
-<p>We define an array is non-decreasing if <code>array[i] &lt;= array[i + 1]</code> holds for every <code>i</code> (1 &lt;= i &lt; n).</p>
-<p><b>Example 1:</b><br><br></p><pre><b>Input:</b> [4,2,3]<br><b>Output:</b> True<br><b>Explanation:</b> You could modify the first <code>4</code> to <code>1</code> to get a non-decreasing array.<br></pre><br><p></p>
-
-<p><b>Example 2:</b><br><br></p><pre><b>Input:</b> [4,2,1]<br><b>Output:</b> False<br><b>Explanation:</b> You can’t get a non-decreasing array by modify at most one element.<br></pre><br><p></p>
-
-<p><b>Note:</b><br>The <code>n</code> belongs to [1, 10,000].<br></p><p></p>
-
-
-</blockquote>
-<p><br></p>
-<h2 id="Solution-1-Online-Solution"><a href="#Solution-1-Online-Solution" class="headerlink" title="Solution 1 Online Solution"></a>Solution 1 Online Solution</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkPossibility</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">        <span class="keyword">boolean</span> once = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; nums.length-<span class="number">1</span>; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(nums[i] &gt; nums[i+<span class="number">1</span>])&#123;</div><div class="line">                <span class="keyword">if</span>(once)</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                once = <span class="keyword">true</span>;</div><div class="line">                <span class="keyword">if</span>(i == <span class="number">0</span>)</div><div class="line">                    <span class="keyword">continue</span>;</div><div class="line">                <span class="keyword">if</span>(nums[i+<span class="number">1</span>] &gt;= nums[i-<span class="number">1</span>])</div><div class="line">                    <span class="keyword">continue</span>;</div><div class="line">                <span class="keyword">if</span>(i+<span class="number">2</span> &lt; nums.length &amp;&amp; nums[i] &gt;= nums[i+<span class="number">2</span>])</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Only scan once, time complexity: O(n)</p>
-<p><strong>Space:</strong> Constant extra space is used, space complexity:O(1)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1950,7 +1949,7 @@ The path sum is (3 + 1) = 4.
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-count">77</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
