@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[93 Restore IP Addresses]]></title>
+    <url>%2F2017%2F09%2F12%2F93-Resort-IP-Addresses%2F</url>
+    <content type="text"><![CDATA[Question Given a string containing only digits, restore it by returning all possible valid IP address combinations. For example:Given “25525511135”, return [“255.255.11.135”, “255.255.111.35”]. (Order does not matter) Solution 1 BacktrackingScan characters one by one, use judgement at the beginning of the backtracking function. Code123456789101112131415161718192021222324252627282930313233343536class Solution &#123; public List&lt;String&gt; restoreIpAddresses(String s) &#123; if (s.length() &gt; 12 || s.length() &lt; 4)&#123; return new ArrayList&lt;String&gt;(); &#125; List&lt;String&gt; res = new ArrayList&lt;String&gt;(); backtracking(res, s, 0, "", 4); return res; &#125; private void backtracking(List&lt;String&gt; res, String s, int pos, String temp, int parts)&#123; if (s.length() - pos &gt; parts * 3 || s.length() - pos &lt; parts)&#123; return; &#125; if (parts == 0)&#123; res.add(new String(temp)); return; &#125; int num = 0, digit = 0; for (int i = pos; i &lt; s.length(); i++)&#123; char ch = s.charAt(i); num = 10 * num + ch - '0'; digit++; temp += ch; if (num &gt; 255 || (digit &gt; 1 &amp;&amp; num &lt; 10))&#123; break; &#125; if (parts &gt; 1)&#123; backtracking(res, s, i + 1, temp + '.', parts - 1); &#125;else&#123; backtracking(res, s, i + 1, temp, parts - 1); &#125; &#125; &#125;&#125; T&amp;S AnalysisTime: O(1) Space: O(1)]]></content>
+      <categories>
+        <category>Algrithm</category>
+      </categories>
+      <tags>
+        <tag>String</tag>
+        <tag>Backtracking</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[207 Course Schedule]]></title>
+    <url>%2F2017%2F09%2F11%2F207-Course-Schedule%2F</url>
+    <content type="text"><![CDATA[Question There are a total of n courses you have to take, labeled from 0 to n - 1. Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1] Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses? For example: 2, [[1,0]] There are a total of 2 courses to take. To take course 1 you should have finished course 0. So it is possible. 2, [[1,0],[0,1]] There are a total of 2 courses to take. To take course 1 you should have finished course 0, and to take course 0 you should also have finished course 1. So it is impossible. Solutino 1 BFSEvery Node just do at most one BFS. Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546class Solution &#123; public boolean canFinish(int numCourses, int[][] prerequisites) &#123; Queue&lt;Integer&gt; queue = new LinkedList&lt;Integer&gt;(); //For BFS // For store former node and judge if a loop is formed. HashSet&lt;Integer&gt; set = new HashSet&lt;&gt;(); //Avoid repeating visiting same nodes boolean[] visited = new boolean[numCourses]; //Construct the graph int[][] graph = new int[numCourses][numCourses]; for(int i = 0; i &lt; prerequisites.length; i++)&#123; graph[prerequisites[i][0]][prerequisites[i][1]] = 1; &#125; int cur; for(int i = 0; i &lt; numCourses; i++)&#123; if(visited[i])&#123; continue; &#125; //In case that later node are stored first. set.clear(); queue.offer(i); while(queue.size() &gt; 0)&#123; cur = queue.poll(); if(visited[cur])&#123; continue; &#125; visited[cur] = true; set.add(cur); for(int j = 0; j &lt; numCourses; j++)&#123; if(graph[cur][j] == 0)&#123; continue; &#125; if(set.contains(j))&#123; return false; &#125; queue.add(j); &#125; &#125; &#125; return true; &#125;&#125; T&amp;S AnalysisTime: O(Node^2) Space: O(Node^2) Solutino 2 Topological SortUse Indgree Code1234567891011121314151617181920212223242526272829303132333435363738394041class Solution &#123; public boolean canFinish(int numCourses, int[][] prerequisites) &#123; List&lt;List&lt;Integer&gt;&gt; graph = new ArrayList&lt;List&lt;Integer&gt;&gt;(); int[] inDegree = new int[numCourses]; Queue&lt;Integer&gt; queue = new LinkedList&lt;Integer&gt;(); int cur, count=0; for(int i = 0; i &lt; numCourses; i++)&#123; graph.add(new ArrayList&lt;Integer&gt;()); &#125; for(int i = 0; i &lt; prerequisites.length; i++)&#123; graph.get(prerequisites[i][1]).add(prerequisites[i][0]); &#125; for(int i = 0; i &lt; numCourses; i++)&#123; for(int j = 0; j &lt; graph.get(i).size(); j++)&#123; inDegree[graph.get(i).get(j)]++; &#125; &#125; for(int i = 0; i &lt; numCourses; i++)&#123; if(inDegree[i] == 0)&#123; queue.offer(i); &#125; &#125; while(queue.size() &gt; 0)&#123; cur = queue.poll(); count ++; for(int i = 0; i &lt; graph.get(cur).size(); i++)&#123; if(--inDegree[graph.get(cur).get(i)] == 0)&#123; queue.offer(graph.get(cur).get(i)); &#125; &#125; &#125; return count == numCourses; &#125;&#125; T&amp;S AnalysisTime: O(Node + Edge) Space: O(Node + Edge)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+        <tag>BFS</tag>
+        <tag>Graph</tag>
+        <tag>Topological Sort</tag>
+        <tag>Zenifits</tag>
+        <tag>Apple</tag>
+        <tag>Yelp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[441 Arrange Coins]]></title>
     <url>%2F2017%2F09%2F09%2F441-Arrange-Coins%2F</url>
     <content type="text"><![CDATA[Question You have a total of n coins that you want to form in a staircase shape, where every k-th row must have exactly k coins. Given n, find the total number of full staircase rows that can be formed. n is a non-negative integer and fits within the range of a 32-bit signed integer. Example 1: n = 5 The coins can form the following rows: ¤ ¤ ¤ ¤ ¤ Because the 3rd row is incomplete, we return 2. Example 2: n = 8 The coins can form the following rows: ¤ ¤ ¤ ¤ ¤ ¤ ¤ ¤ Because the 4th row is incomplete, we return 3. Solution 1 Binary SearchCode123456789101112131415161718class Solution &#123; public int arrangeCoins(int n) &#123; if(n == 0) return 0; int head = 1, tail = n, mid; while(head + 1 &lt; tail)&#123; mid = head + (tail - head)/2; if(n &gt;= (long)(mid+1)*mid/2 &amp;&amp; n &lt; (long)(mid+2)*(mid+1)/2) return mid; if(n &gt;= (long)(mid+2)*(mid+1)/2) head = mid+1; else tail = mid-1; &#125; return (long)tail*(tail+1)/2&lt;=n?tail:head; &#125;&#125; T&amp;S AnalysisTime: O(lgN) Space: O(1)]]></content>
@@ -125,8 +154,8 @@
         <tag>Facebook</tag>
         <tag>Uber</tag>
         <tag>Bloomberg</tag>
-        <tag>String</tag>
         <tag>Math</tag>
+        <tag>String</tag>
         <tag>Microsoft</tag>
         <tag>Yahoo</tag>
       </tags>
@@ -143,9 +172,9 @@
         <tag>Facebook</tag>
         <tag>Micorsoft</tag>
         <tag>Bloomberg</tag>
+        <tag>Apple</tag>
         <tag>Heap</tag>
         <tag>Divide and Conquer</tag>
-        <tag>Apple</tag>
         <tag>PocketGems</tag>
       </tags>
   </entry>
@@ -229,8 +258,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Math</tag>
+        <tag>String</tag>
         <tag>Twitter</tag>
       </tags>
   </entry>
@@ -246,8 +275,8 @@
         <tag>Facebook</tag>
         <tag>Uber</tag>
         <tag>Bloomberg</tag>
-        <tag>Hash Table</tag>
         <tag>String</tag>
+        <tag>Hash Table</tag>
         <tag>Yelp</tag>
       </tags>
   </entry>
@@ -260,8 +289,8 @@
       </categories>
       <tags>
         <tag>Uber</tag>
-        <tag>DFS</tag>
         <tag>Tree</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -412,9 +441,9 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>DFS</tag>
         <tag>Tree</tag>
         <tag>Morris Order</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -426,8 +455,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Two Pointers</tag>
         <tag>String</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -532,8 +561,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Backtracking</tag>
         <tag>Design</tag>
+        <tag>Backtracking</tag>
         <tag>Tire</tag>
       </tags>
   </entry>
@@ -546,8 +575,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>DFS</tag>
         <tag>Tree</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -657,8 +686,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Math</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -728,9 +757,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Tree</tag>
         <tag>DFS</tag>
         <tag>BFS</tag>
-        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
