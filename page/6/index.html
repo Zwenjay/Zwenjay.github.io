@@ -311,6 +311,188 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/26/666-Path-Sum-IV/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/26/666-Path-Sum-IV/" itemprop="url">666 Path Sum IV</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T22:05:44-07:00">
+                2017-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/contest/leetcode-weekly-contest-47/problems/path-sum-iv/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>If the depth of a tree is smaller than 5, then this tree can be represented by a list of three-digits integers.</p>
+<p>For each integer in this list:</p>
+<ol>
+<li><p>The hundreds digit represents the depth D of this node, 1 &lt;= D &lt;= 4.</p>
+</li>
+<li><p>The tens digit represents the position P of this node in the level it belongs to, 1 &lt;= P &lt;= 8. The position is the same as that in a full binary tree.</p>
+</li>
+<li><p>The units digit represents the value V of this node, 0 &lt;= V &lt;= 9.<br>Given a list of ascending three-digits integers representing a binary with the depth smaller than 5. You need to return the sum of all paths from the root towards the leaves.</p>
+</li>
+</ol>
+<p>Given a list of ascending three-digits integers representing a binary with the depth smaller than 5. You need to return the sum of all paths from the root towards the leaves.</p>
+<p><strong>Example1:</strong></p>
+<pre><b>Input:</b> [113, 215, 221]
+<b>Output:</b> 12
+<b>Explanation:</b> 
+The tree that the list represents is:
+    3
+   / \
+  5   1
+
+The path sum is (3 + 5) + (3 + 1) = 12.
+</pre>
+
+<p><strong>Examlpe2:</strong></p>
+<pre><b>Input:</b> [113, 221]
+<b>Output:</b> 4
+<b>Explanation:</b> 
+The tree that the list represents is: 
+    3
+     \
+      1
+
+The path sum is (3 + 1) = 4.
+</pre>
+
+</blockquote>
+<p><br><br><br></p>
+<h2 id="Solution-1-Add-dumpy-to-null"><a href="#Solution-1-Add-dumpy-to-null" class="headerlink" title="Solution 1 Add dumpy to null"></a>Solution 1 Add dumpy to null</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pathSum</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>, p;</div><div class="line">        List&lt;Integer&gt; compTree = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        <span class="keyword">int</span> level = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x: nums)</div><div class="line">            level=Math.max(level, getDigit(x, <span class="number">3</span>));</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= level; i++)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">1</span>&lt;&lt;(i-<span class="number">1</span>); j++)&#123;</div><div class="line">                compTree.add(-<span class="number">1</span>*(i*<span class="number">100</span>+j*<span class="number">10</span>));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : nums)&#123;</div><div class="line">            <span class="keyword">int</span> index = (<span class="number">1</span>&lt;&lt;(getDigit(x,<span class="number">3</span>)-<span class="number">1</span>))+getDigit(x,<span class="number">2</span>)-<span class="number">2</span>;</div><div class="line">            compTree.set(index, compTree.get(index)*(-<span class="number">1</span>)+getDigit(x, <span class="number">1</span>));</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = (<span class="number">1</span>&lt;&lt;(level))-<span class="number">2</span>; i&gt;=<span class="number">0</span>; i--)&#123;</div><div class="line">            p = i;</div><div class="line">            <span class="keyword">if</span> (compTree.get(p) &lt; <span class="number">0</span>)</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            <span class="keyword">if</span>(<span class="number">2</span>*p+<span class="number">1</span> &lt; (<span class="number">1</span>&lt;&lt;(level))-<span class="number">2</span> &amp;&amp; (compTree.get(<span class="number">2</span>*p+<span class="number">1</span>) &gt; <span class="number">0</span> || compTree.get(<span class="number">2</span>*p+<span class="number">2</span>) &gt; <span class="number">0</span>))</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            <span class="keyword">while</span>(p&gt;=<span class="number">0</span>)&#123;</div><div class="line">                System.out.println(p);</div><div class="line">                sum+=getDigit(compTree.get(p), <span class="number">1</span>);</div><div class="line">                p=(p+<span class="number">1</span>)/<span class="number">2</span>-<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> sum;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getDigit</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> i)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(i == <span class="number">1</span>)</div><div class="line">            <span class="keyword">return</span> n%<span class="number">10</span>;</div><div class="line">        <span class="keyword">if</span>(i == <span class="number">2</span>)</div><div class="line">            <span class="keyword">return</span> (n/<span class="number">10</span>)%<span class="number">10</span>;</div><div class="line">        <span class="keyword">if</span>(i == <span class="number">3</span>)</div><div class="line">            <span class="keyword">return</span> n/<span class="number">100</span>;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Only scan constant times, time complexity: O(n)</p>
+<p><strong>Space:</strong> A list is used, space complexity:O(n)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/26/665-Non-decreasing-Array/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1769,179 +1951,6 @@ Output:
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/25/563-Binary-Tree-Tilt/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/25/563-Binary-Tree-Tilt/" itemprop="url">563 Binary Tree Tilt</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-25T08:19:36-07:00">
-                2017-08-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/binary-tree-tilt/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given a binary tree, return the tilt of the <strong>whole tree</strong>.</p>
-<p>The tilt of a <strong>tree node</strong> is defined as the <strong>absolute difference</strong> between the sum of all left subtree node values and the sum of all right subtree node values. Null node has tilt 0.</p>
-<p>The tilt of the <strong>whole tree</strong> is defined as the sum of all nodes’ tilt.</p>
-<p><strong>Example:</strong></p>
-<pre><b>Input:</b> 
-         1
-       /   \
-      2     3
-<b>Output:</b> 1
-<b>Explanation:</b> 
-Tilt of node 2 : 0
-Tilt of node 3 : 0
-Tilt of node 1 : |2-3| = 1
-Tilt of binary tree : 0 + 0 + 1 = 1
-</pre>
-
-<p><strong>Note:</strong></p>
-<ol>
-<li>The sum of node values in any subtree won’t exceed the range of 32-bit integer.</li>
-<li>All the tilt values won’t exceed the range of 32-bit integer.</li>
-</ol>
-</blockquote>
-<h2 id="Solution-1-Brute-Force-–-Recusion-in-Recusion"><a href="#Solution-1-Brute-Force-–-Recusion-in-Recusion" class="headerlink" title="Solution 1 Brute Force – Recusion in Recusion"></a>Solution 1 Brute Force – Recusion in Recusion</h2><p>It is the easiest way for a coder to come up with a recusion solution, but I have to addmit that it is hard for the computer. So, mostly, I’d rather think much longer to come up with a iterative way. This time, however, I can’t find one, and even put a recusion into a recusion. Though the solution is accepted, I am still not satisfied.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findTilt</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span>  getTilt(root);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getTilt</span><span class="params">(TreeNode t)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">if</span>(t == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        sum += Math.abs(getSum(t.left)-getSum(t.right));</div><div class="line">        <span class="keyword">return</span> sum + getTilt(t.left) + getTilt(t.right);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getSum</span><span class="params">(TreeNode t)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">if</span>(t == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        <span class="keyword">return</span> sum + getSum(t.left)+getSum(t.right)+t.val;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> As I calculated, the <strong>getSum()</strong> function has time complexity of O(n), and <strong>getTilt()</strong>‘s is O(nlogn).</p>
-<p><strong>Space:</strong> As calculated, both functions’ space complexities are O(n).</p>
-<p><br><br><br></p>
-<h2 id="Solution-2-Use-Global-Varible"><a href="#Solution-2-Use-Global-Varible" class="headerlink" title="Solution 2 Use Global Varible"></a>Solution 2 Use Global Varible</h2><p>As I see the <em>leetcode’s</em> official solution, there is only a method with a class-global varible, I thought it was not allowed.</p>
-<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code:"></a>Code:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> tilt=<span class="number">0</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findTilt</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        traverse(root);</div><div class="line">        <span class="keyword">return</span> tilt;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">traverse</span><span class="params">(TreeNode root)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span> )</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> left=traverse(root.left);</div><div class="line">        <span class="keyword">int</span> right=traverse(root.right);</div><div class="line">        tilt+=Math.abs(left-right);</div><div class="line">        <span class="keyword">return</span> left+right+root.val;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> In this case, the time complexity is O(n).</p>
-<p><strong>Space:</strong> As calculated the space complexity is also O(n).</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1992,7 +2001,7 @@ Tilt of binary tree : 0 + 0 + 1 = 1
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">77</span>
+                <span class="site-state-item-count">78</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -2014,7 +2023,7 @@ Tilt of binary tree : 0 + 0 + 1 = 1
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">46</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
