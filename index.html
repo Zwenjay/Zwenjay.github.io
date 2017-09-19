@@ -311,6 +311,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/18/212-Word-Search-II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/18/212-Word-Search-II/" itemprop="url">212 Word Search II</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-18T08:04:59-07:00">
+                2017-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/word-search-ii/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a 2D board and a list of words from the dictionary, find all words in the board.</p>
+<p>Each word must be constructed from letters of sequentially adjacent cell, where “adjacent” cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.</p>
+<p>For example,<br>Given words = [“oath”,”pea”,”eat”,”rain”] and board =</p>
+<pre>[
+  ['<span style="color:#d70">o</span>','<span style="color:#d70">a</span>','a','n'],
+  ['e','<span style="color:#d30">t</span>','<span style="color:#d00">a</span>','<span style="color:#d00">e</span>'],
+  ['i','<span style="color:#d70">h</span>','k','r'],
+  ['i','f','l','v']
+]
+</pre>
+
+<p>Return [“eat”,”oath”].</p>
+</blockquote>
+<h2 id="Solution-1-Backtracking-and-Trie"><a href="#Solution-1-Backtracking-and-Trie" class="headerlink" title="Solution 1 Backtracking and Trie"></a>Solution 1 Backtracking and Trie</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span></span>&#123;</div><div class="line">        TrieNode[] children = <span class="keyword">new</span> TrieNode[<span class="number">26</span>];</div><div class="line">        <span class="keyword">boolean</span> end;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">findWords</span><span class="params">(<span class="keyword">char</span>[][] board, String[] words)</span> </span>&#123;</div><div class="line">        TrieNode root = <span class="keyword">new</span> TrieNode();</div><div class="line">        <span class="keyword">for</span> (String s : words) &#123;</div><div class="line">            TrieNode cur = root;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">char</span> ch : s.toCharArray()) &#123;</div><div class="line">                <span class="keyword">if</span> (cur.children[ch - <span class="string">'a'</span>] == <span class="keyword">null</span>) &#123;</div><div class="line">                    cur.children[ch - <span class="string">'a'</span>] = <span class="keyword">new</span> TrieNode();</div><div class="line">                &#125;</div><div class="line">                cur = cur.children[ch - <span class="string">'a'</span>];</div><div class="line">            &#125;</div><div class="line">            cur.end = <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        List&lt;String&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; board.length; i++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; board[<span class="number">0</span>].length; j++) &#123;</div><div class="line">                backtracking(root, board, i, j, res, <span class="string">""</span>);                </div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">backtracking</span><span class="params">(TrieNode root, <span class="keyword">char</span>[][] board, <span class="keyword">int</span> i, <span class="keyword">int</span> j, List&lt;String&gt; res, String temp)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (i &lt; <span class="number">0</span> || j &lt; <span class="number">0</span> || i &gt;= board.length || j &gt;= board[<span class="number">0</span>].length || board[i][j] &gt; <span class="string">'z'</span> || board[i][j] &lt; <span class="string">'a'</span> || root.children[board[i][j] - <span class="string">'a'</span>] == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        temp += board[i][j];</div><div class="line">        <span class="keyword">if</span> (root.children[board[i][j] - <span class="string">'a'</span>].end) &#123;</div><div class="line">            <span class="keyword">if</span> (!res.contains(temp)) &#123;</div><div class="line">                res.add(<span class="keyword">new</span> String(temp));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">char</span> ch = board[i][j];</div><div class="line">        board[i][j] ^= <span class="number">255</span>;</div><div class="line">        backtracking(root.children[ch - <span class="string">'a'</span>], board, i + <span class="number">1</span>, j, res, temp);</div><div class="line">        backtracking(root.children[ch - <span class="string">'a'</span>], board, i, j + <span class="number">1</span>, res, temp);</div><div class="line">        backtracking(root.children[ch - <span class="string">'a'</span>], board, i - <span class="number">1</span>, j, res, temp);</div><div class="line">        backtracking(root.children[ch - <span class="string">'a'</span>], board, i, j - <span class="number">1</span>, res, temp);</div><div class="line">        board[i][j] ^= <span class="number">255</span>;</div><div class="line">        temp = temp.substring(<span class="number">0</span>, temp.length() - <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(row <em> col </em> depth)</p>
+<p><strong>Space:</strong> O(2^depth)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/16/124-Binary-Tree-Maximum-Path-Sum/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1742,181 +1900,11 @@ R = 3
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/08/309-Best-time-to-Buy-and-Sell-Stock-with-Coolddown/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/08/309-Best-time-to-Buy-and-Sell-Stock-with-Coolddown/" itemprop="url">309 Best time to Buy and Sell Stock with Cooldown</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-08T15:36:19-07:00">
-                2017-09-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Say you have an array for which the ith element is the price of a given stock on day i.</p>
-<p>Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times) with the following restrictions:</p>
-<ul>
-<li>You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).</li>
-<li>After you sell your stock, you cannot buy stock on next day. (ie, cooldown 1 day)</li>
-</ul>
-<p><strong>Example:</strong></p>
-<pre>prices = [1, 2, 3, 0, 2]
-maxProfit = 3
-transactions = [buy, sell, cooldown, buy, sell]
-</pre>
-
-
-</blockquote>
-<h2 id="Solution-1-Dynamic-Programming-with-3-days"><a href="#Solution-1-Dynamic-Programming-with-3-days" class="headerlink" title="Solution 1 Dynamic Programming with 3 days"></a>Solution 1 Dynamic Programming with 3 days</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(prices.length &lt;= <span class="number">1</span>)</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> day3 = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> day2 = Math.max(prices[<span class="number">1</span>] - prices[<span class="number">0</span>], <span class="number">0</span>);</div><div class="line">        <span class="keyword">if</span>(prices.length == <span class="number">2</span>)</div><div class="line">            <span class="keyword">return</span> day2;</div><div class="line">        <span class="keyword">int</span> day1;</div><div class="line">        <span class="keyword">if</span>(day2 == <span class="number">0</span>)</div><div class="line">            day1 = Math.max(prices[<span class="number">2</span>] - prices[<span class="number">1</span>], <span class="number">0</span>);</div><div class="line">        <span class="keyword">else</span></div><div class="line">            day1 = Math.max(day2, day2 + prices[<span class="number">2</span>]-prices[<span class="number">1</span>]);</div><div class="line">        <span class="keyword">int</span> temp=day1;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">3</span>; i &lt; prices.length; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(prices[i] &lt;= prices[i-<span class="number">1</span>])</div><div class="line">                temp = day1;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                <span class="keyword">if</span>(day1 != day2)</div><div class="line">                    temp = day1 + prices[i] - prices[i-<span class="number">1</span>];</div><div class="line">                <span class="keyword">else</span>&#123;</div><div class="line">                    <span class="keyword">if</span>(day2 == day3)</div><div class="line">                        temp = day1 + prices[i] - prices[i-<span class="number">1</span>];</div><div class="line">                    <span class="keyword">else</span>&#123;</div><div class="line">                        <span class="keyword">if</span>(prices[i] &gt; prices[i-<span class="number">2</span>])</div><div class="line">                            temp = Math.max(day2 + prices[i] - prices[i-<span class="number">2</span>], day3 + prices[i] - prices[i-<span class="number">1</span>]);</div><div class="line">                        <span class="keyword">else</span>&#123;</div><div class="line">                            <span class="keyword">if</span>(prices[i] - prices[i-<span class="number">1</span>] &gt; day2 - day3)</div><div class="line">                                temp = day3 + prices[i] - prices[i-<span class="number">1</span>];</div><div class="line">                            <span class="keyword">else</span></div><div class="line">                                temp = day1;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            day3 = day2;</div><div class="line">            day2 = day1;</div><div class="line">            day1 = temp;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> temp;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(N)</p>
-<p><strong>Space:</strong> O(1)</p>
-<p><br> <br> <br></p>
-<h2 id="Solution-2-Dynamic-Programming-with-2-days"><a href="#Solution-2-Dynamic-Programming-with-2-days" class="headerlink" title="Solution 2 Dynamic Programming with 2 days"></a>Solution 2 Dynamic Programming with 2 days</h2><p>Suppose buy cost money could be negative, then:</p>
-<ol>
-<li><p>If Sell at today, the max profit is max profit buy yesterday + today’s price, or just sell yesterday</p>
-</li>
-<li><p>If buy today, then the max profit is the sell day before yesterday and buy today or just buy yesterday</p>
-</li>
-</ol>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(prices.length &lt;= <span class="number">1</span>)</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> buy0 = - prices[<span class="number">0</span>], sell0 = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> buy1 = Math.max(buy0, -prices[<span class="number">1</span>]);</div><div class="line">        <span class="keyword">int</span> sell1 = Math.max(sell0, prices[<span class="number">1</span>] + buy0);</div><div class="line">        <span class="keyword">int</span> tempB = buy1, tempS = sell1;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; prices.length; i++)&#123;</div><div class="line">            tempB = Math.max(buy1, sell0 - prices[i]);</div><div class="line">            tempS = Math.max(sell1, buy1 + prices[i]);</div><div class="line">            buy0 = buy1;</div><div class="line">            sell0 = sell1;</div><div class="line">            buy1 = tempB;</div><div class="line">            sell1 = tempS;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> tempS;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(N)</p>
-<p><strong>Space:</strong> O(1)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1962,7 +1950,7 @@ transactions = [buy, sell, cooldown, buy, sell]
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">80</span>
+                <span class="site-state-item-count">81</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1984,7 +1972,7 @@ transactions = [buy, sell, cooldown, buy, sell]
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">49</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

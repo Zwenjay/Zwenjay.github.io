@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[212 Word Search II]]></title>
+    <url>%2F2017%2F09%2F18%2F212-Word-Search-II%2F</url>
+    <content type="text"><![CDATA[Question Given a 2D board and a list of words from the dictionary, find all words in the board. Each word must be constructed from letters of sequentially adjacent cell, where “adjacent” cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once in a word. For example,Given words = [“oath”,”pea”,”eat”,”rain”] and board = [ ['o','a','a','n'], ['e','t','a','e'], ['i','h','k','r'], ['i','f','l','v'] ] Return [“eat”,”oath”]. Solution 1 Backtracking and TrieCode12345678910111213141516171819202122232425262728293031323334353637383940414243444546class Solution &#123; private class TrieNode&#123; TrieNode[] children = new TrieNode[26]; boolean end; &#125; public List&lt;String&gt; findWords(char[][] board, String[] words) &#123; TrieNode root = new TrieNode(); for (String s : words) &#123; TrieNode cur = root; for (char ch : s.toCharArray()) &#123; if (cur.children[ch - 'a'] == null) &#123; cur.children[ch - 'a'] = new TrieNode(); &#125; cur = cur.children[ch - 'a']; &#125; cur.end = true; &#125; List&lt;String&gt; res = new ArrayList&lt;&gt;(); for (int i = 0; i &lt; board.length; i++) &#123; for (int j = 0; j &lt; board[0].length; j++) &#123; backtracking(root, board, i, j, res, ""); &#125; &#125; return res; &#125; private void backtracking(TrieNode root, char[][] board, int i, int j, List&lt;String&gt; res, String temp) &#123; if (i &lt; 0 || j &lt; 0 || i &gt;= board.length || j &gt;= board[0].length || board[i][j] &gt; 'z' || board[i][j] &lt; 'a' || root.children[board[i][j] - 'a'] == null) &#123; return; &#125; temp += board[i][j]; if (root.children[board[i][j] - 'a'].end) &#123; if (!res.contains(temp)) &#123; res.add(new String(temp)); &#125; &#125; char ch = board[i][j]; board[i][j] ^= 255; backtracking(root.children[ch - 'a'], board, i + 1, j, res, temp); backtracking(root.children[ch - 'a'], board, i, j + 1, res, temp); backtracking(root.children[ch - 'a'], board, i - 1, j, res, temp); backtracking(root.children[ch - 'a'], board, i, j - 1, res, temp); board[i][j] ^= 255; temp = temp.substring(0, temp.length() - 1); &#125;&#125; T&amp;S AnalysisTime: O(row col depth) Space: O(2^depth)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>backtracking</tag>
+        <tag>trie</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[124 Binary Tree Maximum Path Sum]]></title>
     <url>%2F2017%2F09%2F16%2F124-Binary-Tree-Maximum-Path-Sum%2F</url>
     <content type="text"><![CDATA[Question Given a binary tree, find the maximum path sum. For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to go through the root. For example:Given the below binary tree, 1 / \ 2 3 Return 6. Solution 1 DFSCode123456789101112131415161718192021222324252627class Solution &#123; //Record max sum private int curMax; public int maxPathSum(TreeNode root) &#123; curMax = Integer.MIN_VALUE; recTree(root); return curMax; &#125; private int recTree(TreeNode root) &#123; if (root == null) &#123; return 0; &#125; //calulate left and right for convenience of comparsion int left = recTree(root.left); int right = recTree(root.right); //contains this root and see if it's larger than current max int res = root.val + (left &gt; 0 ? left : 0) + (right &gt; 0 ? right : 0); curMax = Math.max(curMax, res); return Math.max(Math.max(left, right), 0) + root.val; &#125;&#125; T&amp;S AnalysisTime: O(nodes) Space: O(nodes)]]></content>
@@ -35,8 +47,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
         <tag>Apple</tag>
         <tag>Space Saving</tag>
         <tag>Palindrome Pairs</tag>
@@ -78,8 +90,8 @@
         <tag>BFS</tag>
         <tag>Graph</tag>
         <tag>Topological Sort</tag>
-        <tag>Zenifits</tag>
         <tag>Apple</tag>
+        <tag>Zenifits</tag>
         <tag>Yelp</tag>
       </tags>
   </entry>
@@ -153,9 +165,9 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
         <tag>Amazon</tag>
+        <tag>Facebook</tag>
         <tag>Micorsoft</tag>
         <tag>Uber</tag>
         <tag>Bloomberg</tag>
@@ -206,11 +218,11 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Microsoft</tag>
         <tag>Uber</tag>
         <tag>Bloomberg</tag>
-        <tag>String</tag>
+        <tag>Microsoft</tag>
         <tag>Math</tag>
+        <tag>String</tag>
         <tag>Yahoo</tag>
       </tags>
   </entry>
@@ -222,13 +234,13 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Amazon</tag>
+        <tag>Facebook</tag>
         <tag>Micorsoft</tag>
         <tag>Bloomberg</tag>
-        <tag>Apple</tag>
         <tag>Heap</tag>
         <tag>Divide and Conquer</tag>
+        <tag>Apple</tag>
         <tag>PocketGems</tag>
       </tags>
   </entry>
@@ -240,8 +252,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
         <tag>Google</tag>
         <tag>Game of Life</tag>
       </tags>
@@ -298,8 +310,8 @@
       <tags>
         <tag>Array</tag>
         <tag>Facebook</tag>
-        <tag>Microsoft</tag>
         <tag>Bloomberg</tag>
+        <tag>Microsoft</tag>
         <tag>Backtracking</tag>
       </tags>
   </entry>
@@ -312,8 +324,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Math</tag>
+        <tag>String</tag>
         <tag>Twitter</tag>
       </tags>
   </entry>
@@ -325,11 +337,11 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Hash Table</tag>
-        <tag>Facebook</tag>
         <tag>Amazon</tag>
+        <tag>Facebook</tag>
         <tag>Uber</tag>
         <tag>Bloomberg</tag>
+        <tag>Hash Table</tag>
         <tag>String</tag>
         <tag>Yelp</tag>
       </tags>
@@ -342,9 +354,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Uber</tag>
         <tag>Tree</tag>
         <tag>DFS</tag>
-        <tag>Uber</tag>
       </tags>
   </entry>
   <entry>
@@ -509,8 +521,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Two Pointers</tag>
         <tag>String</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -549,8 +561,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -562,8 +574,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Hash Table</tag>
         <tag>Facebook</tag>
+        <tag>Hash Table</tag>
       </tags>
   </entry>
   <entry>
@@ -602,8 +614,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -615,8 +627,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Design</tag>
         <tag>Backtracking</tag>
+        <tag>Design</tag>
         <tag>Tire</tag>
       </tags>
   </entry>
@@ -668,8 +680,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
         <tag>String</tag>
       </tags>
   </entry>
@@ -740,8 +752,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Math</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -892,8 +904,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Two Pointers</tag>
         <tag>Linked List</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -926,8 +938,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Two Pointers</tag>
         <tag>Linked List</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
