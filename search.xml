@@ -3,6 +3,130 @@
   
     
     <entry>
+      <title><![CDATA[135 Candy]]></title>
+      <url>/2017/09/26/135-Candy/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/candy/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>There are N children standing in a line. Each child is assigned a rating value.</p>
+<p>You are giving candies to these children subjected to the following requirements:</p>
+<ul>
+<li>Each child must have at least one candy.</li>
+<li>Children with a higher rating get more candies than their neighbors.</li>
+</ul>
+<p>What is the minimum candies you must give?</p>
+</blockquote>
+<h2 id="Solution-One-Scan"><a href="#Solution-One-Scan" class="headerlink" title="Solution One Scan"></a>Solution One Scan</h2><p>One Scan, </p>
+<ul>
+<li>if rating is larger than last one, than it get one more candy</li>
+<li>if same rating, get one candy</li>
+<li>if smaller <ul>
+<li>if before is more than 1 candy, get one candy</li>
+<li>get one candy and sum += the number of children between top and the last<ul>
+<li>if candy[top] is larger than candy[top+1], than candy[top+1] plus one and sum minus one Since the top does not need to add one</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">candy</span><span class="params">(<span class="keyword">int</span>[] ratings)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (ratings.length == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span>[] candies = <span class="keyword">new</span> <span class="keyword">int</span>[ratings.length];</div><div class="line">        candies[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> top = <span class="number">0</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; ratings.length; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (ratings[i - <span class="number">1</span>] &lt; ratings[i]) &#123;</div><div class="line">                top = i;</div><div class="line">                candies[i] = candies[i - <span class="number">1</span>] + <span class="number">1</span>;</div><div class="line">                sum += candies[i];</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ratings[i - <span class="number">1</span>] == ratings[i]) &#123;</div><div class="line">                candies[i] = <span class="number">1</span>;</div><div class="line">                sum += <span class="number">1</span>;</div><div class="line">                top = i;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">if</span> (candies[i - <span class="number">1</span>] == <span class="number">1</span>) &#123;</div><div class="line">                    sum += i - top;</div><div class="line">                    <span class="keyword">if</span> (candies[top] &gt;= candies[top + <span class="number">1</span>] + <span class="number">2</span>) &#123;</div><div class="line">                        sum--;</div><div class="line">                        candies[top + <span class="number">1</span>]++;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                candies[i] = <span class="number">1</span>;</div><div class="line">                sum += <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> sum;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n)</p>
+<p><strong>Space:</strong> O(n) — it could be O(1), since we only need top and last</p>
+<h2 id="Solution-2-Two-Scann"><a href="#Solution-2-Two-Scann" class="headerlink" title="Solution 2 Two Scann"></a>Solution 2 Two Scann</h2><p>It’s just too treaky</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"> <span class="function"><span class="keyword">int</span> <span class="title">candy</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt; &amp;ratings)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">int</span> size=ratings.size();</div><div class="line">    <span class="keyword">if</span>(size&lt;=<span class="number">1</span>)</div><div class="line">        <span class="keyword">return</span> size;</div><div class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">num</span><span class="params">(size,<span class="number">1</span>)</span></span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; size; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(ratings[i]&gt;ratings[i-<span class="number">1</span>])</div><div class="line">            num[i]=num[i-<span class="number">1</span>]+<span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i= size-<span class="number">1</span>; i&gt;<span class="number">0</span> ; i--)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(ratings[i-<span class="number">1</span>]&gt;ratings[i])</div><div class="line">            num[i-<span class="number">1</span>]=max(num[i]+<span class="number">1</span>,num[i-<span class="number">1</span>]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> result=<span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</div><div class="line">    &#123;</div><div class="line">        result+=num[i];</div><div class="line">       <span class="comment">// cout&lt;&lt;num[i]&lt;&lt;" ";</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n)<br><strong>Space:</strong> O(1)</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Greedy </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[632 Smallest Range]]></title>
+      <url>/2017/09/26/632-Smallest-Range/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/smallest-range/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>You have k lists of sorted integers in ascending order. Find the smallest range that includes at least one number from each of the k lists.</p>
+<p>We define the range [a,b] is smaller than range [c,d] if b-a &lt; d-c or a &lt; c if b-a == d-c.</p>
+<p><strong>Example 1:</strong></p>
+<pre><b>Input:</b>[[4,10,15,24,26], [0,9,12,20], [5,18,22,30]]
+<b>Output:</b> [20,24]
+<b>Explanation:</b> 
+List 1: [4, 10, 15, 24,26], 24 is in range [20,24].
+List 2: [0, 9, 12, 20], 20 is in range [20,24].
+List 3: [5, 18, 22, 30], 22 is in range [20,24].
+</pre>
+
+</blockquote>
+<h2 id="Solution-Min-Heap"><a href="#Solution-Min-Heap" class="headerlink" title="Solution Min-Heap"></a>Solution Min-Heap</h2><p>From left to right, store the elements of every row in a heap</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Cell</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> x;</div><div class="line">        <span class="keyword">int</span> row;</div><div class="line">        <span class="keyword">int</span> val;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Cell</span><span class="params">(<span class="keyword">int</span> rr, <span class="keyword">int</span> xx, <span class="keyword">int</span> vv)</span> </span>&#123;</div><div class="line">            x= xx;</div><div class="line">            row = rr;</div><div class="line">            val = vv;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">CellComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Cell</span>&gt;</span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Cell a, Cell b)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> a.val - b.val;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] smallestRange(List&lt;List&lt;Integer&gt;&gt; nums) &#123;</div><div class="line">        PriorityQueue&lt;Cell&gt; heap = <span class="keyword">new</span> PriorityQueue&lt;Cell&gt;(<span class="number">1</span>, <span class="keyword">new</span> CellComparator());</div><div class="line">        <span class="keyword">int</span> maxV = Integer.MIN_VALUE;</div><div class="line">        <span class="keyword">int</span> start = -<span class="number">1</span>, end = -<span class="number">1</span>, range = Integer.MAX_VALUE;</div><div class="line"></div><div class="line">        <span class="comment">// Time: O(log(nums.size()!) -&gt; nlogn)</span></div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) &#123;</div><div class="line">            heap.offer(<span class="keyword">new</span> Cell(i, <span class="number">0</span>, nums.get(i).get(<span class="number">0</span>)));</div><div class="line">            maxV = Math.max(maxV, nums.get(i).get(<span class="number">0</span>));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// Time: O(log(num[i].size()!))</span></div><div class="line">        <span class="keyword">while</span> (heap.size() == nums.size()) &#123;</div><div class="line">            Cell cur = heap.poll();</div><div class="line">            <span class="keyword">if</span> (maxV - cur.val &lt; range) &#123;</div><div class="line">                range = maxV - cur.val;</div><div class="line">                start = cur.val;</div><div class="line">                end = maxV;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (cur.x &lt; nums.get(cur.row).size() - <span class="number">1</span>) &#123;</div><div class="line">                heap.offer(<span class="keyword">new</span> Cell(cur.row, cur.x + <span class="number">1</span>, nums.get(cur.row).get(cur.x + <span class="number">1</span>)));</div><div class="line">                maxV = Math.max(maxV, nums.get(cur.row).get(cur.x + <span class="number">1</span>));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;start, end&#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong>  Max(row <em> col </em> log(row))</p>
+<p><strong>Space:</strong> O(row)</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Heap </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[76 Minimum Window Substring]]></title>
+      <url>/2017/09/26/76-Minimum-Window-Substring/</url>
+      <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/minimum-window-substring/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).</p>
+<p>For example,</p>
+<p>S = “ADOBECODEBANC”</p>
+<p>T = “ABC”</p>
+<p>Minimum window is “BANC”.</p>
+<p>Note:</p>
+<p>If there is no such window in S that covers all characters in T, return the empty string “”.</p>
+<p>If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S.</p>
+</blockquote>
+<h2 id="Solution-1-Hash-and-Two-Pointers"><a href="#Solution-1-Hash-and-Two-Pointers" class="headerlink" title="Solution 1 Hash and Two Pointers"></a>Solution 1 Hash and Two Pointers</h2><p>It’s a substring template</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">minWindow</span><span class="params">(String s, String t)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span>[] map = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">128</span>];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> ch : t.toCharArray()) &#123;</div><div class="line">            map[ch]++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> d = Integer.MAX_VALUE, begin = <span class="number">0</span>, head = <span class="number">0</span>, counter = t.length();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++) &#123;</div><div class="line">            <span class="keyword">if</span> (map[s.charAt(i)] &gt; <span class="number">0</span>) &#123;</div><div class="line">                counter--;</div><div class="line">            &#125;</div><div class="line">            map[s.charAt(i)]--;</div><div class="line">            <span class="keyword">while</span> (counter == <span class="number">0</span>) &#123;</div><div class="line">                <span class="keyword">if</span> (i - begin + <span class="number">1</span> &lt; d) &#123;</div><div class="line">                    d = i - begin + <span class="number">1</span>;</div><div class="line">                    head = begin;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> (map[s.charAt(begin)] == <span class="number">0</span>) &#123;</div><div class="line">                    counter++;</div><div class="line">                &#125;</div><div class="line">                map[s.charAt(begin)]++;</div><div class="line">                begin++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> d == Integer.MAX_VALUE ? <span class="string">""</span> : s.substring(head, d + head);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n), Since only one scan<br><strong>Space:</strong> O(1), The hash map’s size is limited</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Facebook </tag>
+            
+            <tag> Uber </tag>
+            
+            <tag> Hash Table </tag>
+            
+            <tag> Two Pointers </tag>
+            
+            <tag> String </tag>
+            
+            <tag> Linkedin </tag>
+            
+            <tag> Snapchat </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[329 Longest Increasing Path in a Matrix]]></title>
       <url>/2017/09/21/329-Longest-Increasing-Path-in-a-Matrix/</url>
       <content type="html"><![CDATA[<h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/longest-increasing-path-in-a-matrix/description/" target="_blank" rel="external">Question</a></h1><blockquote>
@@ -246,9 +370,9 @@ Return 4.
         
         <tags>
             
-            <tag> Tree </tag>
-            
             <tag> DFS </tag>
+            
+            <tag> Tree </tag>
             
             <tag> Microsoft </tag>
             
@@ -324,9 +448,9 @@ Return 4.
         
         <tags>
             
-            <tag> Facebook </tag>
-            
             <tag> Dynamic Programming </tag>
+            
+            <tag> Facebook </tag>
             
             <tag> Apple </tag>
             
@@ -456,9 +580,9 @@ Explanation:
             
             <tag> Topological Sort </tag>
             
-            <tag> Apple </tag>
-            
             <tag> Zenifits </tag>
+            
+            <tag> Apple </tag>
             
             <tag> Yelp </tag>
             
@@ -710,13 +834,13 @@ transactions = [buy, sell, cooldown, buy, sell]
         
         <tags>
             
+            <tag> Greedy </tag>
+            
             <tag> Array </tag>
             
             <tag> Dynamic Programming </tag>
             
             <tag> Bloomberg </tag>
-            
-            <tag> Greedy </tag>
             
         </tags>
         
@@ -761,11 +885,11 @@ max. difference = 6-1 = 5 (not 7-1 = 6, as selling price needs to be larger than
             
             <tag> Array </tag>
             
-            <tag> Facebook </tag>
-            
             <tag> Dynamic Programming </tag>
             
             <tag> Amazon </tag>
+            
+            <tag> Facebook </tag>
             
             <tag> Micorsoft </tag>
             
@@ -812,9 +936,9 @@ There are several subsequences that achieve this length. One is [1,17,10,13,10,1
         
         <tags>
             
-            <tag> Dynamic Programming </tag>
-            
             <tag> Greedy </tag>
+            
+            <tag> Dynamic Programming </tag>
             
         </tags>
         
@@ -921,11 +1045,11 @@ There are several subsequences that achieve this length. One is [1,17,10,13,10,1
             
             <tag> Bloomberg </tag>
             
-            <tag> Microsoft </tag>
-            
             <tag> String </tag>
             
             <tag> Math </tag>
+            
+            <tag> Microsoft </tag>
             
             <tag> Yahoo </tag>
             
@@ -955,19 +1079,19 @@ There are several subsequences that achieve this length. One is [1,17,10,13,10,1
         
         <tags>
             
-            <tag> Facebook </tag>
-            
             <tag> Amazon </tag>
+            
+            <tag> Facebook </tag>
             
             <tag> Micorsoft </tag>
             
             <tag> Bloomberg </tag>
             
+            <tag> Apple </tag>
+            
             <tag> Heap </tag>
             
             <tag> Divide and Conquer </tag>
-            
-            <tag> Apple </tag>
             
             <tag> PocketGems </tag>
             
@@ -1014,9 +1138,9 @@ Therefore the output is <i><b>7</b></i>.
         
         <tags>
             
-            <tag> Facebook </tag>
-            
             <tag> Dynamic Programming </tag>
+            
+            <tag> Facebook </tag>
             
             <tag> Google </tag>
             
@@ -1305,15 +1429,15 @@ Therefore the output is <i><b>7</b></i>.
         
         <tags>
             
-            <tag> Hash Table </tag>
+            <tag> Amazon </tag>
             
             <tag> Facebook </tag>
-            
-            <tag> Amazon </tag>
             
             <tag> Uber </tag>
             
             <tag> Bloomberg </tag>
+            
+            <tag> Hash Table </tag>
             
             <tag> String </tag>
             
@@ -1369,9 +1493,9 @@ Therefore the output is <i><b>7</b></i>.
             
             <tag> Uber </tag>
             
-            <tag> Tree </tag>
-            
             <tag> DFS </tag>
+            
+            <tag> Tree </tag>
             
         </tags>
         
@@ -1607,9 +1731,9 @@ Explanation: Remove all the digits from the number and it is left with nothing w
         
         <tags>
             
-            <tag> Facebook </tag>
-            
             <tag> Greedy </tag>
+            
+            <tag> Facebook </tag>
             
             <tag> Stack </tag>
             
@@ -1857,9 +1981,9 @@ Explanation: Remove all the digits from the number and it is left with nothing w
             
             <tag> Facebook </tag>
             
-            <tag> Tree </tag>
-            
             <tag> DFS </tag>
+            
+            <tag> Tree </tag>
             
             <tag> Morris Order </tag>
             
@@ -2021,9 +2145,9 @@ Explanation: Remove all the digits from the number and it is left with nothing w
         
         <tags>
             
-            <tag> Facebook </tag>
-            
             <tag> Dynamic Programming </tag>
+            
+            <tag> Facebook </tag>
             
         </tags>
         
@@ -2053,9 +2177,9 @@ Explanation: Remove all the digits from the number and it is left with nothing w
             
             <tag> Array </tag>
             
-            <tag> Hash Table </tag>
-            
             <tag> Facebook </tag>
+            
+            <tag> Hash Table </tag>
             
         </tags>
         
@@ -2180,9 +2304,9 @@ In this case, no transaction is done, i.e. max profit = 0.
             
             <tag> Array </tag>
             
-            <tag> Facebook </tag>
-            
             <tag> Dynamic Programming </tag>
+            
+            <tag> Facebook </tag>
             
         </tags>
         
@@ -2231,9 +2355,9 @@ search("b..") -&gt; true
             
             <tag> Facebook </tag>
             
-            <tag> Design </tag>
-            
             <tag> Backtracking </tag>
+            
+            <tag> Design </tag>
             
             <tag> Tire </tag>
             
@@ -2275,9 +2399,9 @@ search("b..") -&gt; true
             
             <tag> Facebook </tag>
             
-            <tag> Tree </tag>
-            
             <tag> DFS </tag>
+            
+            <tag> Tree </tag>
             
         </tags>
         
@@ -2399,9 +2523,9 @@ A solution set is:
         
         <tags>
             
-            <tag> Facebook </tag>
-            
             <tag> Dynamic Programming </tag>
+            
+            <tag> Facebook </tag>
             
             <tag> String </tag>
             
@@ -2805,9 +2929,9 @@ Merged tree:
         
         <tags>
             
-            <tag> Tree </tag>
-            
             <tag> String </tag>
+            
+            <tag> Tree </tag>
             
         </tags>
         
@@ -2921,11 +3045,11 @@ Output:
         
         <tags>
             
-            <tag> Tree </tag>
-            
             <tag> DFS </tag>
             
             <tag> BFS </tag>
+            
+            <tag> Tree </tag>
             
         </tags>
         
@@ -3578,9 +3702,9 @@ Tilt of binary tree : 0 + 0 + 1 = 1
         
         <tags>
             
-            <tag> Array </tag>
-            
             <tag> Greedy </tag>
+            
+            <tag> Array </tag>
             
             <tag> Queue </tag>
             
