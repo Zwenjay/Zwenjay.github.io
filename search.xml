@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[502 IPO]]></title>
+    <url>%2F2017%2F09%2F26%2F502-IPO%2F</url>
+    <content type="text"><![CDATA[Question Suppose LeetCode will start its IPO soon. In order to sell a good price of its shares to Venture Capital, LeetCode would like to work on some projects to increase its capital before the IPO. Since it has limited resources, it can only finish at most k distinct projects before the IPO. Help LeetCode design the best way to maximize its total capital after finishing at most k distinct projects. You are given several projects. For each project i, it has a pure profit Pi and a minimum capital of Ci is needed to start the corresponding project. Initially, you have W capital. When you finish a project, you will obtain its pure profit and the profit will be added to your total capital. To sum up, pick a list of at most k distinct projects from given projects to maximize your final capital, and output your final maximized capital. Example 1: Input: k=2, W=0, Profits=[1,2,3], Capital=[0,1,1]. Output: 4 Explanation: Since your initial capital is 0, you can only start the project indexed 0. After finishing it you will obtain profit 1 and your capital becomes 1. With capital 1, you can either start the project indexed 1 or the project indexed 2. Since you can choose at most 2 projects, you need to finish the project indexed 2 to get the maximum capital. Therefore, output the final maximized capital, which is 0 + 1 + 3 = 4. Note: You may assume all numbers in the input are non-negative integers. The length of Profits array and Capital array will not exceed 50,000. The answer is guaranteed to fit in a 32-bit signed integer. HeapsUse two Heaps Code123456789101112131415161718192021222324252627282930313233class Solution &#123; class Unit &#123; int cap; int pro; public Unit(int p, int c) &#123; pro = p; cap = c; &#125; &#125; class UnitComparator implements Comparator&lt;Unit&gt;&#123; @Override public int compare(Unit a, Unit b) &#123; return a.cap - b.cap; &#125; &#125; public int findMaximizedCapital(int k, int W, int[] Profits, int[] Capital) &#123; PriorityQueue&lt;Unit&gt; capLow = new PriorityQueue&lt;Unit&gt;(1, new UnitComparator()); PriorityQueue&lt;Integer&gt; proHigh = new PriorityQueue&lt;Integer&gt;(1, Collections.reverseOrder()); for (int i = 0; i &lt; Profits.length; i++) &#123; capLow.offer(new Unit(Profits[i], Capital[i])); &#125; while (k &gt; 0) &#123; while (!capLow.isEmpty() &amp;&amp; capLow.peek().cap &lt;= W) &#123; proHigh.offer(capLow.poll().pro); &#125; if (!proHigh.isEmpty()) &#123; W += proHigh.poll(); &#125; k--; &#125; return W; &#125;&#125; T&amp;S AnalysisTime: O(NlogN) Space: O(N)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Heap</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Dungeon Game]]></title>
     <url>%2F2017%2F09%2F26%2FDungeon-Game%2F</url>
     <content type="text"><![CDATA[Question The demons had captured the princess (P) and imprisoned her in the bottom-right corner of a dungeon. The dungeon consists of M x N rooms laid out in a 2D grid. Our valiant knight (K) was initially positioned in the top-left room and must fight his way through the dungeon to rescue the princess. The knight has an initial health point represented by a positive integer. If at any point his health point drops to 0 or below, he dies immediately. Some of the rooms are guarded by demons, so the knight loses health (negative integers) upon entering these rooms; other rooms are either empty (0’s) or contain magic orbs that increase the knight’s health (positive integers). In order to reach the princess as quickly as possible, the knight decides to move only rightward or downward in each step. Write a function to determine the knight’s minimum initial health so that he is able to rescue the princess. For example, given the dungeon below, the initial health of the knight must be at least 7 if he follows the optimal path RIGHT-&gt; RIGHT -&gt; DOWN -&gt; DOWN. -2 (K)-33-5-1011030-5 (P) Solution 1 DPCode1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class Solution &#123; public int calculateMinimumHP(int[][] dungeon) &#123; int rows = dungeon.length; if (rows == 0) &#123; return 0; &#125; int cols = dungeon[0].length; if (cols == 0) &#123; return 0; &#125; //preLife means before step into current dungeon, //knight must have remain that life //current dungeon starts at most right-bottom int preLife = Math.max(1 - dungeon[rows - 1][cols - 1], 1); // record records the next line of preLife int[] record = new int[rows]; record[rows - 1] = preLife; // nextPre means the next position's preLife in this col int nextPre = 1; for (int i = rows - 2; i &gt;= 0; i--) &#123; record[i] = Math.max(1, record[i + 1] - dungeon[i][cols - 1]); &#125; if (cols == 1) &#123; return record[0]; &#125; for (int j = cols - 2; j &gt;=0; j--) &#123; nextPre = Math.max(1, record[rows - 1] - dungeon[rows - 1][j]); record[rows - 1] = nextPre; if (rows == 1) &#123; preLife = nextPre; continue; &#125; for(int i = rows - 2; i &gt;= 0; i--) &#123; preLife = Math.max(1, Math.min(nextPre - dungeon[i][j], record[i] - dungeon[i][j])); nextPre = preLife; record[i] = preLife; &#125; &#125; return preLife; &#125;&#125; T&amp;S AnalysisTime: O(N*M) Space: O(M or N)]]></content>
@@ -39,11 +50,11 @@
     <url>%2F2017%2F09%2F26%2F76-Minimum-Window-Substring%2F</url>
     <content type="text"><![CDATA[Question Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n). For example, S = “ADOBECODEBANC” T = “ABC” Minimum window is “BANC”. Note: If there is no such window in S that covers all characters in T, return the empty string “”. If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S. Solution 1 Hash and Two PointersIt’s a substring template Code123456789101112131415161718192021222324252627class Solution &#123; public String minWindow(String s, String t) &#123; int[] map = new int[128]; for (char ch : t.toCharArray()) &#123; map[ch]++; &#125; int d = Integer.MAX_VALUE, begin = 0, head = 0, counter = t.length(); for (int i = 0; i &lt; s.length(); i++) &#123; if (map[s.charAt(i)] &gt; 0) &#123; counter--; &#125; map[s.charAt(i)]--; while (counter == 0) &#123; if (i - begin + 1 &lt; d) &#123; d = i - begin + 1; head = begin; &#125; if (map[s.charAt(begin)] == 0) &#123; counter++; &#125; map[s.charAt(begin)]++; begin++; &#125; &#125; return d == Integer.MAX_VALUE ? "" : s.substring(head, d + head); &#125;&#125; T&amp;S AnalysisTime: O(n), Since only one scanSpace: O(1), The hash map’s size is limited]]></content>
       <tags>
-        <tag>Hash Table</tag>
         <tag>Facebook</tag>
         <tag>Uber</tag>
         <tag>Two Pointers</tag>
         <tag>String</tag>
+        <tag>Hash Table</tag>
         <tag>Linkedin</tag>
         <tag>Snapchat</tag>
       </tags>
@@ -146,8 +157,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
         <tag>Apple</tag>
         <tag>Space Saving</tag>
         <tag>Palindrome Pairs</tag>
@@ -250,9 +261,9 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Greedy</tag>
         <tag>Dynamic Programming</tag>
         <tag>Bloomberg</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -264,12 +275,12 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
-        <tag>Bloomberg</tag>
         <tag>Amazon</tag>
+        <tag>Facebook</tag>
         <tag>Micorsoft</tag>
         <tag>Uber</tag>
+        <tag>Bloomberg</tag>
       </tags>
   </entry>
   <entry>
@@ -280,8 +291,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Greedy</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -317,8 +328,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Bloomberg</tag>
         <tag>Uber</tag>
+        <tag>Bloomberg</tag>
         <tag>Microsoft</tag>
         <tag>String</tag>
         <tag>Math</tag>
@@ -333,10 +344,10 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
-        <tag>Bloomberg</tag>
         <tag>Amazon</tag>
+        <tag>Facebook</tag>
         <tag>Micorsoft</tag>
+        <tag>Bloomberg</tag>
         <tag>Apple</tag>
         <tag>Heap</tag>
         <tag>Divide and Conquer</tag>
@@ -351,8 +362,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
         <tag>Google</tag>
         <tag>Game of Life</tag>
       </tags>
@@ -436,12 +447,12 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Hash Table</tag>
-        <tag>Facebook</tag>
-        <tag>Bloomberg</tag>
         <tag>Amazon</tag>
+        <tag>Facebook</tag>
         <tag>Uber</tag>
+        <tag>Bloomberg</tag>
         <tag>String</tag>
+        <tag>Hash Table</tag>
         <tag>Yelp</tag>
       </tags>
   </entry>
@@ -660,8 +671,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -673,8 +684,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Hash Table</tag>
         <tag>Facebook</tag>
+        <tag>Hash Table</tag>
       </tags>
   </entry>
   <entry>
@@ -713,8 +724,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -726,8 +737,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Backtracking</tag>
         <tag>Design</tag>
+        <tag>Backtracking</tag>
         <tag>Tire</tag>
       </tags>
   </entry>
@@ -779,8 +790,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
         <tag>String</tag>
       </tags>
   </entry>
@@ -1072,8 +1083,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Hash Table</tag>
         <tag>Linked List</tag>
+        <tag>Hash Table</tag>
       </tags>
   </entry>
   <entry>
