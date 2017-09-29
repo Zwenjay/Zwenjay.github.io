@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Array,Facebook,Backtracking," />
+  <meta name="keywords" content="Backtracking," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Question Given a set of candidate numbers (C) (without duplicates) and a target number (T), find all unique combinations in C where the candidate numbers sums to T. The same repeated number may be cho">
-<meta name="keywords" content="Array,Facebook,Backtracking">
+<meta name="description" content="Question Suppose you have N integers from 1 to N. We define a beautiful arrangement as an array that is constructed by these N numbers successfully if one of the following is true for the ith position">
+<meta name="keywords" content="Backtracking">
 <meta property="og:type" content="article">
-<meta property="og:title" content="39 Combination Sum">
-<meta property="og:url" content="http://wenjiezhang.com/2017/09/02/39-Combination-Sum/index.html">
+<meta property="og:title" content="526 Beautiful Arrangement">
+<meta property="og:url" content="http://wenjiezhang.com/2017/09/28/526-Beautiful-Arrangement/index.html">
 <meta property="og:site_name" content="Coding Zone">
-<meta property="og:description" content="Question Given a set of candidate numbers (C) (without duplicates) and a target number (T), find all unique combinations in C where the candidate numbers sums to T. The same repeated number may be cho">
+<meta property="og:description" content="Question Suppose you have N integers from 1 to N. We define a beautiful arrangement as an array that is constructed by these N numbers successfully if one of the following is true for the ith position">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-09-02T16:15:43.621Z">
+<meta property="og:updated_time" content="2017-09-29T01:00:48.077Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="39 Combination Sum">
-<meta name="twitter:description" content="Question Given a set of candidate numbers (C) (without duplicates) and a target number (T), find all unique combinations in C where the candidate numbers sums to T. The same repeated number may be cho">
+<meta name="twitter:title" content="526 Beautiful Arrangement">
+<meta name="twitter:description" content="Question Suppose you have N integers from 1 to N. We define a beautiful arrangement as an array that is constructed by these N numbers successfully if one of the following is true for the ith position">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://wenjiezhang.com/2017/09/02/39-Combination-Sum/"/>
+  <link rel="canonical" href="http://wenjiezhang.com/2017/09/28/526-Beautiful-Arrangement/"/>
 
 
 
 
 
-  <title>39 Combination Sum | Coding Zone</title>
+  <title>526 Beautiful Arrangement | Coding Zone</title>
   
 
 
@@ -311,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/02/39-Combination-Sum/">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/28/526-Beautiful-Arrangement/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wenjie Zhang">
@@ -328,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">39 Combination Sum</h1>
+          <h1 class="post-title" itemprop="name headline">526 Beautiful Arrangement</h1>
         
 
         <div class="post-meta">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-02T09:05:52-07:00">
-                2017-09-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-28T17:55:35-07:00">
+                2017-09-28
               </time>
             
 
@@ -405,28 +405,20 @@
       
 
       
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/combination-sum/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given a set of candidate numbers (C) (without duplicates) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.</p>
-<p>The same repeated number may be chosen from C unlimited number of times.</p>
-<p><strong>Note:</strong></p>
-<ul>
-<li><p>All numbers (including target) will be positive integers.</p>
-</li>
-<li><p>The solution set must not contain duplicate combinations.</p>
-</li>
-</ul>
-<p>For example, given candidate set [2, 3, 6, 7] and target 7,<br>A solution set is: </p>
-<pre>[
-  [7],
-  [2, 2, 3]
-]
-</pre>
-
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/beautiful-arrangement/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Suppose you have N integers from 1 to N. We define a beautiful arrangement as an array that is constructed by these N numbers successfully if one of the following is true for the ith position (1 &lt;= i &lt;= N) in this array:</p>
 </blockquote>
-<h2 id="Solution-1-Backtracking"><a href="#Solution-1-Backtracking" class="headerlink" title="Solution 1 Backtracking"></a>Solution 1 Backtracking</h2><p>Just normal backtracking method. One thing: since it could use same numbers more than one times, the position in next backtracking should be <em>i</em> rather than <em>i+1</em></p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; combinationSum(<span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target) &#123;</div><div class="line">        List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;List&lt;Integer&gt;&gt;();</div><div class="line">        backtracking(res, target, <span class="keyword">new</span> ArrayList&lt;Integer&gt;(), candidates, <span class="number">0</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">backtracking</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; res, <span class="keyword">int</span> target, List&lt;Integer&gt; temp, <span class="keyword">int</span>[] candidates, <span class="keyword">int</span> pos)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(target == <span class="number">0</span>)&#123;</div><div class="line">            res.add(<span class="keyword">new</span> ArrayList&lt;Integer&gt;(temp));</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(target &lt; <span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = pos; i &lt; candidates.length; i++)&#123;</div><div class="line">            temp.add(candidates[i]);</div><div class="line">            backtracking(res, target - candidates[i], temp, candidates, i);</div><div class="line">            temp.remove(temp.size()-<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> Hard to calculate, related to the size of nums, those numbers in set and the target number. </p>
-<p><strong>Space:</strong>: Same as above, because of use of recursion.</p>
+<ol>
+<li>The number at the ith position is divisible by i.</li>
+<li>i is divisible by the number at the ith position.</li>
+</ol>
+<blockquote>
+<p>Now given N, how many beautiful arrangements can you construct?</p>
+<p>__Example1:</p>
+<p><pre><b>Input:</b> 2<br><b>Output:</b> 2<br><b>Explanation:</b><br><br>The first beautiful arrangement is [1, 2]:<br><br>Number at the 1st position (i=1) is 1, and 1 is divisible by i (i=1).<br><br>Number at the 2nd position (i=2) is 2, and 2 is divisible by i (i=2).<br><br>The second beautiful arrangement is [2, 1]:<br><br>Number at the 1st position (i=1) is 2, and 2 is divisible by i (i=1).<br><br>Number at the 2nd position (i=2) is 1, and i (i=2) is divisible by 1.<br></pre>__</p>
+</blockquote>
+<h2 id="Solution-1-Backtracking"><a href="#Solution-1-Backtracking" class="headerlink" title="Solution 1 Backtracking"></a>Solution 1 Backtracking</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countArrangement</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</div><div class="line">        List&lt;Integer&gt; input = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">            input.add(i + <span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">        backtracking(input, <span class="number">1</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">backtracking</span> <span class="params">(List&lt;Integer&gt; input, <span class="keyword">int</span> pos)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (input.size() == <span class="number">0</span>) &#123;</div><div class="line">            res++;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; input.size(); i++) &#123;</div><div class="line">            <span class="keyword">if</span> (input.get(i) % pos == <span class="number">0</span> || pos % input.get(i) == <span class="number">0</span>) &#123;</div><div class="line">                <span class="keyword">int</span> x = input.remove(i);</div><div class="line">                backtracking(input, pos + <span class="number">1</span>);</div><div class="line">                input.add(i, x);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(expN)<br><strong>Space:</strong> O(expN)</p>
 
       
     </div>
@@ -444,10 +436,6 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Array/" rel="tag"># Array</a>
-          
-            <a href="/tags/Facebook/" rel="tag"># Facebook</a>
-          
             <a href="/tags/Backtracking/" rel="tag"># Backtracking</a>
           
         </div>
@@ -461,8 +449,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/01/22-Generate-Parentheses/" rel="next" title="22 Generate Parentheses">
-                <i class="fa fa-chevron-left"></i> 22 Generate Parentheses
+              <a href="/2017/09/26/373-Find-K-Pairs-with-Smallest-Sum/" rel="next" title="373 Find K Pairs with Smallest Sum">
+                <i class="fa fa-chevron-left"></i> 373 Find K Pairs with Smallest Sum
               </a>
             
           </div>
@@ -470,10 +458,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/02/24-Swap-Nodes-in-Pairs/" rel="prev" title="24 Swap Nodes in Pairs">
-                24 Swap Nodes in Pairs <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

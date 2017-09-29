@@ -311,6 +311,161 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/28/526-Beautiful-Arrangement/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/28/526-Beautiful-Arrangement/" itemprop="url">526 Beautiful Arrangement</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-28T17:55:35-07:00">
+                2017-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/beautiful-arrangement/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Suppose you have N integers from 1 to N. We define a beautiful arrangement as an array that is constructed by these N numbers successfully if one of the following is true for the ith position (1 &lt;= i &lt;= N) in this array:</p>
+</blockquote>
+<ol>
+<li>The number at the ith position is divisible by i.</li>
+<li>i is divisible by the number at the ith position.</li>
+</ol>
+<blockquote>
+<p>Now given N, how many beautiful arrangements can you construct?</p>
+<p>__Example1:</p>
+<p><pre><b>Input:</b> 2<br><b>Output:</b> 2<br><b>Explanation:</b><br><br>The first beautiful arrangement is [1, 2]:<br><br>Number at the 1st position (i=1) is 1, and 1 is divisible by i (i=1).<br><br>Number at the 2nd position (i=2) is 2, and 2 is divisible by i (i=2).<br><br>The second beautiful arrangement is [2, 1]:<br><br>Number at the 1st position (i=1) is 2, and 2 is divisible by i (i=1).<br><br>Number at the 2nd position (i=2) is 1, and i (i=2) is divisible by 1.<br></pre>__</p>
+</blockquote>
+<h2 id="Solution-1-Backtracking"><a href="#Solution-1-Backtracking" class="headerlink" title="Solution 1 Backtracking"></a>Solution 1 Backtracking</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countArrangement</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</div><div class="line">        List&lt;Integer&gt; input = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">            input.add(i + <span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">        backtracking(input, <span class="number">1</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">backtracking</span> <span class="params">(List&lt;Integer&gt; input, <span class="keyword">int</span> pos)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (input.size() == <span class="number">0</span>) &#123;</div><div class="line">            res++;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; input.size(); i++) &#123;</div><div class="line">            <span class="keyword">if</span> (input.get(i) % pos == <span class="number">0</span> || pos % input.get(i) == <span class="number">0</span>) &#123;</div><div class="line">                <span class="keyword">int</span> x = input.remove(i);</div><div class="line">                backtracking(input, pos + <span class="number">1</span>);</div><div class="line">                input.add(i, x);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(expN)<br><strong>Space:</strong> O(expN)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/26/373-Find-K-Pairs-with-Smallest-Sum/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -665,6 +820,160 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2017/09/26/174 Dungeon-Game/" itemprop="url">174 Dungeon Game</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-26T11:14:53-07:00">
+                2017-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/dungeon-game/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>The demons had captured the princess (P) and imprisoned her in the bottom-right corner of a dungeon. The dungeon consists of M x N rooms laid out in a 2D grid. Our valiant knight (K) was initially positioned in the top-left room and must fight his way through the dungeon to rescue the princess.</p>
+<p>The knight has an initial health point represented by a positive integer. If at any point his health point drops to 0 or below, he dies immediately.</p>
+<p>Some of the rooms are guarded by demons, so the knight loses health (negative integers) upon entering these rooms; other rooms are either empty (0’s) or contain magic orbs that increase the knight’s health (positive integers).</p>
+<p>In order to reach the princess as quickly as possible, the knight decides to move only rightward or downward in each step.</p>
+<p>Write a function to determine the knight’s minimum initial health so that he is able to rescue the princess.</p>
+<p>For example, given the dungeon below, the initial health of the knight must be at least 7 if he follows the optimal path RIGHT-&gt; RIGHT -&gt; DOWN -&gt; DOWN.</p>
+<table><tr><br><td>-2 (K)</td><br><td>-3</td><br><td>3</td><br></tr><br><tr><br><td>-5</td><br><td>-10</td><br><td>1</td><br></tr><br><tr><br><td>10</td><br><td>30</td><br><td>-5 (P)</td><br></tr><br></table>
+
+</blockquote>
+<h2 id="Solution-1-DP"><a href="#Solution-1-DP" class="headerlink" title="Solution 1 DP"></a>Solution 1 DP</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">calculateMinimumHP</span><span class="params">(<span class="keyword">int</span>[][] dungeon)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> rows = dungeon.length;</div><div class="line">        <span class="keyword">if</span> (rows == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> cols = dungeon[<span class="number">0</span>].length;</div><div class="line">        <span class="keyword">if</span> (cols == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//preLife means before step into current dungeon,</span></div><div class="line">        <span class="comment">//knight must have remain that life</span></div><div class="line">        <span class="comment">//current dungeon starts at most right-bottom</span></div><div class="line">        <span class="keyword">int</span> preLife = Math.max(<span class="number">1</span> - dungeon[rows - <span class="number">1</span>][cols - <span class="number">1</span>], <span class="number">1</span>);</div><div class="line">        </div><div class="line">        <span class="comment">// record records the next line of preLife</span></div><div class="line">        <span class="keyword">int</span>[] record = <span class="keyword">new</span> <span class="keyword">int</span>[rows];</div><div class="line">        record[rows - <span class="number">1</span>] = preLife;</div><div class="line">        </div><div class="line">        <span class="comment">// nextPre means the next position's preLife in this col</span></div><div class="line">        <span class="keyword">int</span> nextPre = <span class="number">1</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = rows - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">            record[i] = Math.max(<span class="number">1</span>, record[i + <span class="number">1</span>] - dungeon[i][cols - <span class="number">1</span>]);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (cols == <span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> record[<span class="number">0</span>];</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = cols - <span class="number">2</span>; j &gt;=<span class="number">0</span>; j--) &#123;</div><div class="line">            nextPre = Math.max(<span class="number">1</span>, record[rows - <span class="number">1</span>] - dungeon[rows - <span class="number">1</span>][j]);</div><div class="line">            record[rows - <span class="number">1</span>] = nextPre;</div><div class="line">            <span class="keyword">if</span> (rows == <span class="number">1</span>) &#123;</div><div class="line">                preLife = nextPre;</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            &#125;   </div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = rows - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">                preLife = Math.max(<span class="number">1</span>, Math.min(nextPre - dungeon[i][j], record[i] - dungeon[i][j]));</div><div class="line">                nextPre = preLife;</div><div class="line">                record[i] = preLife;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> preLife;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(N*M)</p>
+<p><strong>Space:</strong> O(M or N)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/26/Dungeon-Game/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/26/Dungeon-Game/" itemprop="url">174 Dungeon Game</a></h1>
         
 
         <div class="post-meta">
@@ -1570,333 +1879,11 @@ sentence = "the cattle was rattled by the battery"
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/18/295-Find-Median-from-Data-Stream/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/18/295-Find-Median-from-Data-Stream/" itemprop="url">295 Find Median from Data Stream</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-18T20:25:13-07:00">
-                2017-09-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/find-median-from-data-stream/description/" target="_blank" rel="external">Question</a></h1><h2 id="Solution-1-Use-Min-and-Max-Heap"><a href="#Solution-1-Use-Min-and-Max-Heap" class="headerlink" title="Solution 1 Use Min and Max Heap"></a>Solution 1 Use Min and Max Heap</h2><blockquote>
-<p>Median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value. So the median is the mean of the two middle value.</p>
-<p>Examples:<br>[2,3,4] , the median is 3</p>
-<p>[2,3], the median is (2 + 3) / 2 = 2.5</p>
-<p>Design a data structure that supports the following two operations:</p>
-<ul>
-<li>void addNum(int num) - Add a integer number from the data stream to the data structure.</li>
-<li>double findMedian() - Return the median of all elements so far.</li>
-</ul>
-<p>For example:</p>
-<pre>addNum(1)
-addNum(2)
-findMedian() -&gt; 1.5
-addNum(3) 
-findMedian() -&gt; 2
-</pre>
-
-</blockquote>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MedianFinder</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="comment">/** initialize your data structure here. */</span></div><div class="line">    PriorityQueue&lt;Integer&gt; left;</div><div class="line">    PriorityQueue&lt;Integer&gt; right;</div><div class="line">    <span class="keyword">double</span> mid;</div><div class="line">    <span class="keyword">int</span> count;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MedianFinder</span><span class="params">()</span> </span>&#123;</div><div class="line">        left = <span class="keyword">new</span> PriorityQueue&lt;Integer&gt;(<span class="number">1</span>, Collections.reverseOrder());</div><div class="line">        right = <span class="keyword">new</span> PriorityQueue&lt;Integer&gt;(<span class="number">1</span>);</div><div class="line">        mid = <span class="number">0</span>;</div><div class="line">        count = <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addNum</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (count == <span class="number">0</span>) &#123;</div><div class="line">            mid = num;</div><div class="line">            count++;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (count % <span class="number">2</span> == <span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (num &gt; mid)&#123;</div><div class="line">                right.offer(num);</div><div class="line">                left.offer((<span class="keyword">int</span>)mid);</div><div class="line">            &#125; </div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                left.offer(num);</div><div class="line">                right.offer((<span class="keyword">int</span>)mid);</div><div class="line">            &#125;</div><div class="line">            mid = <span class="number">1.0</span> * (left.peek() + right.peek()) / <span class="number">2</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">int</span> leftMax = left.peek();</div><div class="line">            <span class="keyword">int</span> rightMin = right.peek();</div><div class="line">            <span class="keyword">if</span> (num &gt; rightMin) &#123;</div><div class="line">                right.offer(num);</div><div class="line">                mid = right.poll();</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (num &lt; leftMax) &#123;</div><div class="line">                left.offer(num);</div><div class="line">                mid = left.poll();</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                mid = num;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        count++;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedian</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mid;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Your MedianFinder object will be instantiated and called as such:</span></div><div class="line"><span class="comment"> * MedianFinder obj = new MedianFinder();</span></div><div class="line"><span class="comment"> * obj.addNum(num);</span></div><div class="line"><span class="comment"> * double param_2 = obj.findMedian();</span></div><div class="line"><span class="comment"> */</span></div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p>Time:</p>
-<ul>
-<li>Insert: O(1)</li>
-<li>Find: O(1)</li>
-</ul>
-<p>Space: O(n)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/18/407-Trapping-Rain-Water-II/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/18/407-Trapping-Rain-Water-II/" itemprop="url">407 Trapping Rain Water II</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-18T19:54:25-07:00">
-                2017-09-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/trapping-rain-water-ii/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given an m x n matrix of positive integers representing the height of each unit cell in a 2D elevation map, compute the volume of water it is able to trap after raining.</p>
-<p>Note:<br>Both m and n are less than 110. The height of each unit cell is greater than 0 and is less than 20,000.</p>
-<p>Example:</p>
-<pre>Given the following 3x6 height map:
-[
-  [1,4,3,1,3,2],
-  [3,2,1,3,2,4],
-  [2,3,3,2,3,1]
-]
-
-Return 4.
-</pre>
-
-</blockquote>
-<h2 id="Solution-1-Min-Heap"><a href="#Solution-1-Min-Heap" class="headerlink" title="Solution 1 Min-Heap"></a>Solution 1 Min-Heap</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Cell</span> </span>&#123;</div><div class="line">        <span class="keyword">public</span> <span class="keyword">int</span> x, y, h;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Cell</span><span class="params">(<span class="keyword">int</span> xx, <span class="keyword">int</span> yy, <span class="keyword">int</span> hh)</span> </span>&#123;</div><div class="line">            x = xx;</div><div class="line">            y = yy;</div><div class="line">            h = hh;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">CellComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Cell</span>&gt; </span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Cell a, Cell b)</span> </span>&#123;</div><div class="line">            <span class="keyword">if</span> (a.h &gt; b.h) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (a.h == b.h) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">trapRainWater</span><span class="params">(<span class="keyword">int</span>[][] heightMap)</span> </span>&#123;</div><div class="line">        PriorityQueue&lt;Cell&gt; queue = <span class="keyword">new</span> PriorityQueue&lt;Cell&gt;(<span class="number">1</span>, <span class="keyword">new</span> CellComparator());</div><div class="line">        <span class="keyword">int</span>[] dx = &#123;<span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>&#125;;</div><div class="line">        <span class="keyword">int</span>[] dy = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>&#125;;</div><div class="line">        <span class="keyword">int</span> rows = heightMap.length;</div><div class="line">        <span class="keyword">if</span> (rows == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> cols = heightMap[<span class="number">0</span>].length;</div><div class="line">        <span class="keyword">boolean</span>[][] visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[rows][cols];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rows; i++) &#123;</div><div class="line">            queue.offer(<span class="keyword">new</span> Cell(i, <span class="number">0</span>, heightMap[i][<span class="number">0</span>]));</div><div class="line">            queue.offer(<span class="keyword">new</span> Cell(i, cols - <span class="number">1</span>, heightMap[i][cols - <span class="number">1</span>]));</div><div class="line">            visited[i][<span class="number">0</span>] = <span class="keyword">true</span>;</div><div class="line">            visited[i][cols - <span class="number">1</span>] = <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; cols; j++) &#123;</div><div class="line">            queue.offer(<span class="keyword">new</span> Cell(<span class="number">0</span>, j, heightMap[<span class="number">0</span>][j]));</div><div class="line">            queue.offer(<span class="keyword">new</span> Cell(rows - <span class="number">1</span>, j, heightMap[rows - <span class="number">1</span>][j]));</div><div class="line">            visited[<span class="number">0</span>][j] = <span class="keyword">true</span>;</div><div class="line">            visited[rows - <span class="number">1</span>][j] = <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</div><div class="line">            Cell now = queue.poll();</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</div><div class="line">                <span class="keyword">int</span> x = now.x + dx[i];</div><div class="line">                <span class="keyword">int</span> y = now.y + dy[i];</div><div class="line">                <span class="keyword">if</span> (x &gt;=<span class="number">0</span> &amp;&amp; x &lt;rows &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; cols &amp;&amp; !visited[x][y]) &#123;</div><div class="line">                    queue.offer(<span class="keyword">new</span> Cell(x, y, Math.max(heightMap[x][y], now.h)));</div><div class="line">                    visited[x][y] = <span class="keyword">true</span>;</div><div class="line">                    sum += Math.max(<span class="number">0</span>, now.h - heightMap[x][y]);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> sum;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1942,7 +1929,7 @@ Return 4.
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">90</span>
+                <span class="site-state-item-count">92</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
