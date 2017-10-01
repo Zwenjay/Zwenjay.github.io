@@ -311,6 +311,610 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/30/37-Sudoku-Solver/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/30/37-Sudoku-Solver/" itemprop="url">37 Sudoku Solver</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-30T21:28:30-07:00">
+                2017-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algotithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algotithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>Write a program to solve a Sudoku puzzle by filling the empty cells.</p>
+<p>Empty cells are indicated by the character ‘.’.</p>
+<p>You may assume that there will be only one unique solution.</p>
+</blockquote>
+<h2 id="Solution-1-Backtracking"><a href="#Solution-1-Backtracking" class="headerlink" title="Solution 1 Backtracking"></a>Solution 1 Backtracking</h2><p>Make the 2-D a 1-D, so I do not need a hash map</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">boolean</span> end = <span class="keyword">false</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">solveSudoku</span><span class="params">(<span class="keyword">char</span>[][] board)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> row, col;</div><div class="line">        <span class="comment">//map index: first row, 0-8, then col, 9-17, then box: 18-26</span></div><div class="line">        List&lt;HashSet&lt;Character&gt;&gt; map = <span class="keyword">new</span> ArrayList&lt;HashSet&lt;Character&gt;&gt;();</div><div class="line">        List&lt;Integer&gt; blank = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">27</span>; i++) &#123;</div><div class="line">            map.add(<span class="keyword">new</span> HashSet&lt;Character&gt;());</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">81</span>; i++) &#123;</div><div class="line">            row = i / <span class="number">9</span>;</div><div class="line">            col = i % <span class="number">9</span>;</div><div class="line">            <span class="keyword">if</span> (board[row][col] != <span class="string">'.'</span>) &#123;</div><div class="line">                map.get(row).add(board[row][col]);</div><div class="line">                map.get(<span class="number">9</span> + col).add(board[row][col]);</div><div class="line">                map.get(<span class="number">18</span> + row / <span class="number">3</span> * <span class="number">3</span> + col / <span class="number">3</span>).add(board[row][col]);   </div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                blank.add(i);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        </div><div class="line">        <span class="keyword">char</span>[] temp = <span class="keyword">new</span> <span class="keyword">char</span>[blank.size()];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; temp.length; i++) &#123;</div><div class="line">            temp[i] = <span class="string">'.'</span>;</div><div class="line">        &#125;</div><div class="line">        backtracking(blank, map, temp, <span class="number">0</span>);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; temp.length; i++) &#123;</div><div class="line">            row = blank.get(i) / <span class="number">9</span>;</div><div class="line">            col = blank.get(i) % <span class="number">9</span>;</div><div class="line">            board[row][col] = temp[i];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">backtracking</span><span class="params">(List&lt;Integer&gt; blank, List&lt;HashSet&lt;Character&gt;&gt;map, <span class="keyword">char</span>[] temp, <span class="keyword">int</span> counter)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (counter == blank.size()) &#123;</div><div class="line">            end = <span class="keyword">true</span>;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> index = blank.get(counter);</div><div class="line">        <span class="keyword">int</span> row = index / <span class="number">9</span>;</div><div class="line">        <span class="keyword">int</span> col = index % <span class="number">9</span>;</div><div class="line">        List&lt;Character&gt; candidate = <span class="keyword">new</span> ArrayList&lt;Character&gt;();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> j = <span class="string">'1'</span>; j &lt;= <span class="string">'9'</span>; j++) &#123;</div><div class="line">            <span class="keyword">if</span> (!map.get(row).contains(j) &amp;&amp; !map.get(<span class="number">9</span> + col).contains(j) &amp;&amp; !map.get(<span class="number">18</span> + row / <span class="number">3</span> * <span class="number">3</span> + col / <span class="number">3</span>).contains(j)) &#123;</div><div class="line">                  candidate.add(j);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (candidate.size() == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> j = <span class="number">0</span>; j &lt; candidate.size(); j++) &#123;</div><div class="line">            temp[counter] = candidate.get(j);</div><div class="line">            map.get(row).add(candidate.get(j));</div><div class="line">            map.get(<span class="number">9</span> + col).add(candidate.get(j));</div><div class="line">            map.get(<span class="number">18</span> + row / <span class="number">3</span> * <span class="number">3</span> + col / <span class="number">3</span>).add(candidate.get(j)); </div><div class="line"></div><div class="line">            backtracking(blank, map, temp, counter + <span class="number">1</span>);</div><div class="line">            <span class="keyword">if</span> (end) &#123;</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125;</div><div class="line">            temp[counter] = <span class="string">'.'</span>;</div><div class="line"></div><div class="line">            map.get(row).remove(candidate.get(j));</div><div class="line">            map.get(<span class="number">9</span> + col).remove(candidate.get(j));</div><div class="line">            map.get(<span class="number">18</span> + row / <span class="number">3</span> * <span class="number">3</span> + col / <span class="number">3</span>).remove(candidate.get(j)); </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> exp(blankNode)<br><strong>Space:</strong> O(blankNode)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/30/687-Longest-Univalue-Path/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/30/687-Longest-Univalue-Path/" itemprop="url">687 Longest Univalue Path</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-30T21:22:45-07:00">
+                2017-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/contest/leetcode-weekly-contest-52/problems/longest-univalue-path/" target="_blank" rel="external">Question</a></h1><h2 id="Solution-1-DFS"><a href="#Solution-1-DFS" class="headerlink" title="Solution 1 DFS"></a>Solution 1 DFS</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> curMax = <span class="number">0</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestUnivaluePath</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        helper(root);</div><div class="line">        <span class="keyword">return</span> curMax;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">helper</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> left = helper(root.left);</div><div class="line">        <span class="keyword">int</span> right = helper(root.right);</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (root.left == <span class="keyword">null</span> &amp;&amp; root.right == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (root.left != <span class="keyword">null</span> &amp;&amp; root.right == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (root.val == root.left.val) &#123;</div><div class="line">                curMax = Math.max(curMax, left + <span class="number">1</span>);</div><div class="line">                <span class="keyword">return</span> left + <span class="number">1</span>;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (root.left == <span class="keyword">null</span> &amp;&amp; root.right != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (root.val == root.right.val) &#123;</div><div class="line">                curMax = Math.max(curMax, right + <span class="number">1</span>);</div><div class="line">                <span class="keyword">return</span> right + <span class="number">1</span>;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">if</span> (root.val == root.left.val &amp;&amp; root.val != root.right.val) &#123;</div><div class="line">                curMax = Math.max(curMax, left + <span class="number">1</span>);</div><div class="line">                <span class="keyword">return</span> left + <span class="number">1</span>;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (root.val != root.left.val &amp;&amp; root.val == root.right.val) &#123;</div><div class="line">                curMax = Math.max(curMax, right + <span class="number">1</span>);</div><div class="line">                <span class="keyword">return</span> right + <span class="number">1</span>;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (root.val != root.left.val &amp;&amp; root.val != root.right.val) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                curMax = Math.max(curMax, left + right + <span class="number">2</span>);</div><div class="line">                <span class="keyword">return</span> Math.max(left , right) + <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(node)<br><strong>Space:</strong> O(1)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/30/686-Repeated-String-Match/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/30/686-Repeated-String-Match/" itemprop="url">686 Repeated String Match</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-30T21:16:07-07:00">
+                2017-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/contest/leetcode-weekly-contest-52/problems/repeated-string-match/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given two strings A and B, find the minimum number of times A has to be repeated such that B is a substring of it. If no such solution, return -1.</p>
+<p>For example, with A = “abcd” and B = “cdabcdab”.</p>
+<p>Return 3, because by repeating A three times (“abcdabcdabcd”), B is a substring of it; and B is not a substring of A repeated two times (“abcdabcd”).</p>
+<p><strong>Note:</strong><br>The length of A and B will be between 1 and 10000.</p>
+</blockquote>
+<h2 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution 1"></a>Solution 1</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">repeatedStringMatch</span><span class="params">(String A, String B)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (A.contains(B)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (A.length() &gt;= B.length()) &#123;</div><div class="line">            <span class="keyword">if</span> ( (A + A).contains(B)) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="number">2</span>;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> times = B.length() / A.length();</div><div class="line">        String s = <span class="string">""</span>;</div><div class="line">        <span class="keyword">int</span> i = <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= times; i++) &#123;</div><div class="line">            s += A;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (s.contains(B)) &#123;</div><div class="line">            <span class="keyword">return</span> i - <span class="number">1</span>;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((s + A).contains(B)) &#123;</div><div class="line">            <span class="keyword">return</span> i;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">    &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(B.len/A.len)</p>
+<p><strong>Space:</strong> O(B.len)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/30/686-Knight-Probability-in-Chessboard/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/30/686-Knight-Probability-in-Chessboard/" itemprop="url">686 Knight Probability in Chessboard</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-30T21:10:53-07:00">
+                2017-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#<a href="https://leetcode.com/contest/leetcode-weekly-contest-52/problems/knight-probability-in-chessboard/" target="_blank" rel="external">Question</a></p>
+<blockquote>
+<p>On an NxN chessboard, a knight starts at the r-th row and c-th column and attempts to make exactly K moves. The rows and columns are 0 indexed, so the top-left square is (0, 0), and the bottom-right square is (N-1, N-1).</p>
+<p>A chess knight has 8 possible moves it can make, as illustrated below. Each move is two squares in a cardinal direction, then one square in an orthogonal direction.</p>
+<p><img src="https://leetcode.com/static/images/problemset/knight.png" style="width:200px; height:200px"></p>
+<p>Each time the knight is to move, it chooses one of eight possible moves uniformly at random (even if the piece would go off the chessboard) and moves there.</p>
+<p>The knight continues moving until it has made exactly K moves or has moved off the chessboard. Return the probability that the knight remains on the board after it has stopped moving.</p>
+<p><strong>Example:</strong></p>
+<pre><b>Input:</b> 3, 2, 0, 0
+<b>Output:</b> 0.0625
+<b>Explanation:</b> There are two moves (to (1,2), (2,1)) that will keep the knight on the board.
+From each of those positions, there are also two moves that will keep the knight on the board.
+The total probability the knight stays on the board is 0.0625.
+</pre>
+
+<p><strong>Note:</strong><br>N will be between 1 and 25.</p>
+<p>K will be between 0 and 100.</p>
+<p>The knight always initially starts on the board.</p>
+</blockquote>
+<h2 id="Solution-1-Dynamic-Prograimming"><a href="#Solution-1-Dynamic-Prograimming" class="headerlink" title="Solution 1 Dynamic Prograimming"></a>Solution 1 Dynamic Prograimming</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">knightProbability</span><span class="params">(<span class="keyword">int</span> N, <span class="keyword">int</span> K, <span class="keyword">int</span> r, <span class="keyword">int</span> c)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, -<span class="number">1</span>, <span class="number">1</span>, -<span class="number">1</span>, <span class="number">2</span>, -<span class="number">2</span>, <span class="number">2</span>, -<span class="number">2</span>&#125;;</div><div class="line">        <span class="keyword">int</span> dy[] = &#123;<span class="number">2</span>, <span class="number">2</span>, -<span class="number">2</span>, -<span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>&#125;;</div><div class="line">        <span class="keyword">double</span> lastPro[][] = <span class="keyword">new</span> <span class="keyword">double</span>[N][N];</div><div class="line">        <span class="keyword">double</span> currentPro[][] = <span class="keyword">new</span> <span class="keyword">double</span>[N][N];</div><div class="line">        </div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; N; j++) &#123;</div><div class="line">                lastPro[i][j] = <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt; K; a++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; N; j++) &#123;</div><div class="line">                    currentPro[i][j] = <span class="number">0</span>;</div><div class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">8</span>; k++) &#123;</div><div class="line">                        <span class="keyword">if</span> (i + dx[k] &gt;= <span class="number">0</span> &amp;&amp; i + dx[k] &lt; N &amp;&amp; j + dy[k] &gt;=<span class="number">0</span> &amp;&amp; j + dy[k] &lt; N) &#123;</div><div class="line">                            currentPro[i][j] += lastPro[i + dx[k]][j + dy[k]] / <span class="number">8</span>;                        </div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; N; j++) &#123;</div><div class="line">                    lastPro[i][j] = currentPro[i][j];</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> lastPro[r][c];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(N^2*K)<br><strong>Space:</strong> O(N^2)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/28/526-Beautiful-Arrangement/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1264,621 +1868,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/26/632-Smallest-Range/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/26/632-Smallest-Range/" itemprop="url">632 Smallest Range</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-26T10:23:41-07:00">
-                2017-09-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/smallest-range/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>You have k lists of sorted integers in ascending order. Find the smallest range that includes at least one number from each of the k lists.</p>
-<p>We define the range [a,b] is smaller than range [c,d] if b-a &lt; d-c or a &lt; c if b-a == d-c.</p>
-<p><strong>Example 1:</strong></p>
-<pre><b>Input:</b>[[4,10,15,24,26], [0,9,12,20], [5,18,22,30]]
-<b>Output:</b> [20,24]
-<b>Explanation:</b> 
-List 1: [4, 10, 15, 24,26], 24 is in range [20,24].
-List 2: [0, 9, 12, 20], 20 is in range [20,24].
-List 3: [5, 18, 22, 30], 22 is in range [20,24].
-</pre>
-
-</blockquote>
-<h2 id="Solution-Min-Heap"><a href="#Solution-Min-Heap" class="headerlink" title="Solution Min-Heap"></a>Solution Min-Heap</h2><p>From left to right, store the elements of every row in a heap</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Cell</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> x;</div><div class="line">        <span class="keyword">int</span> row;</div><div class="line">        <span class="keyword">int</span> val;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Cell</span><span class="params">(<span class="keyword">int</span> rr, <span class="keyword">int</span> xx, <span class="keyword">int</span> vv)</span> </span>&#123;</div><div class="line">            x= xx;</div><div class="line">            row = rr;</div><div class="line">            val = vv;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">CellComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Cell</span>&gt;</span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Cell a, Cell b)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> a.val - b.val;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] smallestRange(List&lt;List&lt;Integer&gt;&gt; nums) &#123;</div><div class="line">        PriorityQueue&lt;Cell&gt; heap = <span class="keyword">new</span> PriorityQueue&lt;Cell&gt;(<span class="number">1</span>, <span class="keyword">new</span> CellComparator());</div><div class="line">        <span class="keyword">int</span> maxV = Integer.MIN_VALUE;</div><div class="line">        <span class="keyword">int</span> start = -<span class="number">1</span>, end = -<span class="number">1</span>, range = Integer.MAX_VALUE;</div><div class="line"></div><div class="line">        <span class="comment">// Time: O(log(nums.size()!) -&gt; nlogn)</span></div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) &#123;</div><div class="line">            heap.offer(<span class="keyword">new</span> Cell(i, <span class="number">0</span>, nums.get(i).get(<span class="number">0</span>)));</div><div class="line">            maxV = Math.max(maxV, nums.get(i).get(<span class="number">0</span>));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// Time: O(log(num[i].size()!))</span></div><div class="line">        <span class="keyword">while</span> (heap.size() == nums.size()) &#123;</div><div class="line">            Cell cur = heap.poll();</div><div class="line">            <span class="keyword">if</span> (maxV - cur.val &lt; range) &#123;</div><div class="line">                range = maxV - cur.val;</div><div class="line">                start = cur.val;</div><div class="line">                end = maxV;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (cur.x &lt; nums.get(cur.row).size() - <span class="number">1</span>) &#123;</div><div class="line">                heap.offer(<span class="keyword">new</span> Cell(cur.row, cur.x + <span class="number">1</span>, nums.get(cur.row).get(cur.x + <span class="number">1</span>)));</div><div class="line">                maxV = Math.max(maxV, nums.get(cur.row).get(cur.x + <span class="number">1</span>));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;start, end&#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong>  Max(row <em> col </em> log(row))</p>
-<p><strong>Space:</strong> O(row)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/26/76-Minimum-Window-Substring/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/26/76-Minimum-Window-Substring/" itemprop="url">76 Minimum Window Substring</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-26T10:16:54-07:00">
-                2017-09-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/minimum-window-substring/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).</p>
-<p>For example,</p>
-<p>S = “ADOBECODEBANC”</p>
-<p>T = “ABC”</p>
-<p>Minimum window is “BANC”.</p>
-<p>Note:</p>
-<p>If there is no such window in S that covers all characters in T, return the empty string “”.</p>
-<p>If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S.</p>
-</blockquote>
-<h2 id="Solution-1-Hash-and-Two-Pointers"><a href="#Solution-1-Hash-and-Two-Pointers" class="headerlink" title="Solution 1 Hash and Two Pointers"></a>Solution 1 Hash and Two Pointers</h2><p>It’s a substring template</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">minWindow</span><span class="params">(String s, String t)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span>[] map = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">128</span>];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> ch : t.toCharArray()) &#123;</div><div class="line">            map[ch]++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> d = Integer.MAX_VALUE, begin = <span class="number">0</span>, head = <span class="number">0</span>, counter = t.length();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++) &#123;</div><div class="line">            <span class="keyword">if</span> (map[s.charAt(i)] &gt; <span class="number">0</span>) &#123;</div><div class="line">                counter--;</div><div class="line">            &#125;</div><div class="line">            map[s.charAt(i)]--;</div><div class="line">            <span class="keyword">while</span> (counter == <span class="number">0</span>) &#123;</div><div class="line">                <span class="keyword">if</span> (i - begin + <span class="number">1</span> &lt; d) &#123;</div><div class="line">                    d = i - begin + <span class="number">1</span>;</div><div class="line">                    head = begin;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> (map[s.charAt(begin)] == <span class="number">0</span>) &#123;</div><div class="line">                    counter++;</div><div class="line">                &#125;</div><div class="line">                map[s.charAt(begin)]++;</div><div class="line">                begin++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> d == Integer.MAX_VALUE ? <span class="string">""</span> : s.substring(head, d + head);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n), Since only one scan<br><strong>Space:</strong> O(1), The hash map’s size is limited</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/21/329-Longest-Increasing-Path-in-a-Matrix/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/21/329-Longest-Increasing-Path-in-a-Matrix/" itemprop="url">329 Longest Increasing Path in a Matrix</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-21T21:04:57-07:00">
-                2017-09-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/longest-increasing-path-in-a-matrix/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given an integer matrix, find the length of the longest increasing path.</p>
-<p>From each cell, you can either move to four directions: left, right, up or down. You may NOT move diagonally or move outside of the boundary (i.e. wrap-around is not allowed).</p>
-<p><strong>Example 1:</strong></p>
-<pre>nums = [
-  [<font color="red">9</font>,9,4],
-  [<font color="red">6</font>,6,8],
-  [<font color="red">2</font>,<font color="red">1</font>,1]
-]
-</pre>
-
-<p>Return 4 The longest increasing path is [1, 2, 6, 9].</p>
-<p><strong>Example2:</strong></p>
-<pre>nums = [
-  [<font color="red">3</font>,<font color="red">4</font>,<font color="red">5</font>],
-  [3,2,<font color="red">6</font>],
-  [2,2,1]
-]
-</pre>
-
-<p>Return 4<br>The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.</p>
-</blockquote>
-<h2 id="Solution-1-Topological-Sort-like-BFS"><a href="#Solution-1-Topological-Sort-like-BFS" class="headerlink" title="Solution 1 Topological Sort (like BFS)"></a>Solution 1 Topological Sort (like BFS)</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestIncreasingPath</span><span class="params">(<span class="keyword">int</span>[][] matrix)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> rows = matrix.length;</div><div class="line">        <span class="keyword">if</span> (rows == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> cols = matrix[<span class="number">0</span>].length;</div><div class="line">        </div><div class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</div><div class="line">        </div><div class="line">        List&lt;List&lt;Integer&gt;&gt; graph = <span class="keyword">new</span> ArrayList&lt;List&lt;Integer&gt;&gt;();</div><div class="line">        <span class="keyword">int</span>[] inDegree = <span class="keyword">new</span> <span class="keyword">int</span>[rows * cols];</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rows * cols; i++) &#123;</div><div class="line">            <span class="keyword">int</span> x = i / cols;</div><div class="line">            <span class="keyword">int</span> y = i % cols;</div><div class="line">            fillGraph(x, y, matrix, graph, inDegree);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        System.out.println(<span class="string">""</span> + graph);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rows * cols; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (inDegree[i] == <span class="number">0</span>) &#123;</div><div class="line">                queue.offer(i);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</div><div class="line">            count++;</div><div class="line">            <span class="keyword">int</span> size = queue.size();</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt; size; a++) &#123;</div><div class="line">                <span class="keyword">int</span> cur = queue.poll();</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; graph.get(cur).size(); i++) &#123;</div><div class="line">                    <span class="keyword">if</span> (--inDegree[graph.get(cur).get(i)] == <span class="number">0</span>) &#123;</div><div class="line">                        queue.offer(graph.get(cur).get(i));</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> count;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">fillGraph</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span>[][] matrix, List&lt;List&lt;Integer&gt;&gt; graph, <span class="keyword">int</span>[] inDegree)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span>[] dx = &#123;<span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>&#125;;</div><div class="line">        <span class="keyword">int</span>[] dy = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>&#125;;</div><div class="line">        </div><div class="line">        List&lt;Integer&gt; temp = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        <span class="comment">// System.out.println("x " + x + " y " + y);</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</div><div class="line">            <span class="keyword">int</span> x1 = x + dx[i];</div><div class="line">            <span class="keyword">int</span> y1 = y + dy[i];</div><div class="line">            <span class="comment">// System.out.println("x1: " + x1 + " y1: " + y1 + " x: " + x + " y: " + y);</span></div><div class="line">            <span class="keyword">if</span> (x1 &gt;= <span class="number">0</span> &amp;&amp; x1 &lt; matrix.length &amp;&amp; y1 &gt;= <span class="number">0</span> &amp;&amp; y1 &lt; matrix[<span class="number">0</span>].length) &#123;</div><div class="line">                <span class="keyword">if</span> (matrix[x1][y1] &gt; matrix[x][y]) &#123;</div><div class="line">                    temp.add(x1 * matrix[<span class="number">0</span>].length + y1);</div><div class="line">                    inDegree[x1 * matrix[<span class="number">0</span>].length + y1]++;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        graph.add(temp);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(rows * cols)</p>
-<p><strong>Space:</strong> O(rows * cols)</p>
-<h2 id="Solution-2-DFS-with-store"><a href="#Solution-2-DFS-with-store" class="headerlink" title="Solution 2 DFS with store"></a>Solution 2 DFS with store</h2><h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestIncreasingPath</span><span class="params">(<span class="keyword">int</span>[][] matrix)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (matrix.length == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> maxCount = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span>[][] record = <span class="keyword">new</span> <span class="keyword">int</span>[matrix.length][matrix[<span class="number">0</span>].length];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; matrix.length; i++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; matrix[<span class="number">0</span>].length; j++) &#123;</div><div class="line">                maxCount = Math.max(maxCount, dfs(i, j, matrix, record));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> maxCount;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span>[][] matrix, <span class="keyword">int</span>[][] record)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (record[x][y] != <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> record[x][y];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span>[] dx = &#123;<span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>&#125;;</div><div class="line">        <span class="keyword">int</span>[] dy = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>&#125;;</div><div class="line">        <span class="keyword">int</span> maxCount = <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</div><div class="line">            <span class="keyword">int</span> x1 = x + dx[i];</div><div class="line">            <span class="keyword">int</span> y1 = y + dy[i];</div><div class="line">            <span class="keyword">if</span> (x1 &gt;=<span class="number">0</span> &amp;&amp; x1 &lt;matrix.length &amp;&amp; y1 &gt;= <span class="number">0</span> &amp;&amp; y1 &lt; matrix[<span class="number">0</span>].length) &#123;</div><div class="line">                <span class="keyword">if</span> (matrix[x1][y1] &gt; matrix[x][y]) &#123;</div><div class="line">                    maxCount = Math.max(maxCount, <span class="number">1</span> + dfs(x1, y1, matrix, record));</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        record[x][y] = maxCount;</div><div class="line">        <span class="keyword">return</span> maxCount;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(rows * cols)</p>
-<p><strong>Space:</strong> O(rows * cols)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/19/648-Replace-Words/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/19/648-Replace-Words/" itemprop="url">648 Replace Words</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-19T10:18:54-07:00">
-                2017-09-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/replace-words/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>In English, we have a concept called root, which can be followed by some other words to form another longer word - let’s call this word successor. For example, the root an, followed by other, which can form another word another.</p>
-<p>Now, given a dictionary consisting of many roots and a sentence. You need to replace all the successor in the sentence with the root forming it. If a successor has many roots can form it, replace it with the root with the shortest length.</p>
-<p>You need to output the sentence after the replacement.</p>
-<p><strong>Example 1:</strong></p>
-<pre><b>Input:</b> dict = ["cat", "bat", "rat"]
-sentence = "the cattle was rattled by the battery"
-<b>Output:</b> "the cat was rat by the bat"
-</pre>
-
-
-</blockquote>
-<h2 id="Solution-1-Trie-Tree-to-Store-dicr"><a href="#Solution-1-Trie-Tree-to-Store-dicr" class="headerlink" title="Solution 1 Trie Tree to Store dicr"></a>Solution 1 Trie Tree to Store dicr</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span> </span>&#123;</div><div class="line">        TrieNode[] children = <span class="keyword">new</span> TrieNode[<span class="number">26</span>];</div><div class="line">        String precessor;</div><div class="line">        <span class="keyword">boolean</span> end;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">replaceWords</span><span class="params">(List&lt;String&gt; dict, String sentence)</span> </span>&#123;</div><div class="line">        TrieNode root = <span class="keyword">new</span> TrieNode();</div><div class="line">        TrieNode cur;</div><div class="line">        </div><div class="line">        <span class="comment">//put the dict in a tiretree</span></div><div class="line">        <span class="keyword">for</span> (String pre : dict) &#123;</div><div class="line">            cur = root;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">char</span> ch : pre.toCharArray()) &#123;</div><div class="line">                <span class="keyword">if</span> (cur.children[ch - <span class="string">'a'</span>] == <span class="keyword">null</span>) &#123;</div><div class="line">                    cur.children[ch - <span class="string">'a'</span>] = <span class="keyword">new</span> TrieNode();</div><div class="line">                &#125;</div><div class="line">                cur = cur.children[ch - <span class="string">'a'</span>];</div><div class="line">            &#125;</div><div class="line">            cur.end = <span class="keyword">true</span>;</div><div class="line">            cur.precessor = pre;</div><div class="line">        &#125;</div><div class="line">        String[] words = sentence.split(<span class="string">" "</span>);</div><div class="line"></div><div class="line">        String res = <span class="string">""</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (String word : words) &#123;</div><div class="line">            cur = root;</div><div class="line">            <span class="keyword">int</span> i;</div><div class="line">            <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; word.length(); i++) &#123;</div><div class="line">                <span class="keyword">char</span> ch = word.charAt(i);</div><div class="line">                </div><div class="line">                <span class="comment">// handle case that no such precessor character</span></div><div class="line">                <span class="keyword">if</span> (cur.children[ch - <span class="string">'a'</span>] == <span class="keyword">null</span>) &#123;</div><div class="line">                    res += word + <span class="string">" "</span>;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                    <span class="comment">// continue if the character is matched</span></div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    cur = cur.children[ch - <span class="string">'a'</span>];</div><div class="line">                &#125;</div><div class="line">                <span class="comment">// find the precessor</span></div><div class="line">                <span class="keyword">if</span> (cur.end) &#123;</div><div class="line">                    res += cur.precessor + <span class="string">" "</span>;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="comment">// handle case that word is shorter than the precessor</span></div><div class="line">            <span class="keyword">if</span> (i == word.length() &amp;&amp; !cur.end) &#123;</div><div class="line">                res += word + <span class="string">" "</span>;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> res.substring(<span class="number">0</span>, res.length() - <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O (max(char in _dict, char in <em>Sentence</em>))</p>
-<p><strong>Space:</strong> O(char in _dict)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1929,7 +1918,7 @@ sentence = "the cattle was rattled by the battery"
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">92</span>
+                <span class="site-state-item-count">96</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1940,7 +1929,7 @@ sentence = "the cattle was rattled by the battery"
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1951,7 +1940,7 @@ sentence = "the cattle was rattled by the battery"
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

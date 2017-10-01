@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[37 Sudoku Solver]]></title>
+    <url>%2F2017%2F09%2F30%2F37-Sudoku-Solver%2F</url>
+    <content type="text"><![CDATA[Write a program to solve a Sudoku puzzle by filling the empty cells. Empty cells are indicated by the character ‘.’. You may assume that there will be only one unique solution. Solution 1 BacktrackingMake the 2-D a 1-D, so I do not need a hash map Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172class Solution &#123; boolean end = false; public void solveSudoku(char[][] board) &#123; int row, col; //map index: first row, 0-8, then col, 9-17, then box: 18-26 List&lt;HashSet&lt;Character&gt;&gt; map = new ArrayList&lt;HashSet&lt;Character&gt;&gt;(); List&lt;Integer&gt; blank = new ArrayList&lt;&gt;(); for (int i = 0; i &lt; 27; i++) &#123; map.add(new HashSet&lt;Character&gt;()); &#125; for (int i = 0; i &lt; 81; i++) &#123; row = i / 9; col = i % 9; if (board[row][col] != '.') &#123; map.get(row).add(board[row][col]); map.get(9 + col).add(board[row][col]); map.get(18 + row / 3 * 3 + col / 3).add(board[row][col]); &#125; else &#123; blank.add(i); &#125; &#125; char[] temp = new char[blank.size()]; for (int i = 0; i &lt; temp.length; i++) &#123; temp[i] = '.'; &#125; backtracking(blank, map, temp, 0); for (int i = 0; i &lt; temp.length; i++) &#123; row = blank.get(i) / 9; col = blank.get(i) % 9; board[row][col] = temp[i]; &#125; &#125; private void backtracking(List&lt;Integer&gt; blank, List&lt;HashSet&lt;Character&gt;&gt;map, char[] temp, int counter) &#123; if (counter == blank.size()) &#123; end = true; return; &#125; int index = blank.get(counter); int row = index / 9; int col = index % 9; List&lt;Character&gt; candidate = new ArrayList&lt;Character&gt;(); for (char j = '1'; j &lt;= '9'; j++) &#123; if (!map.get(row).contains(j) &amp;&amp; !map.get(9 + col).contains(j) &amp;&amp; !map.get(18 + row / 3 * 3 + col / 3).contains(j)) &#123; candidate.add(j); &#125; &#125; if (candidate.size() == 0) &#123; return; &#125; for (char j = 0; j &lt; candidate.size(); j++) &#123; temp[counter] = candidate.get(j); map.get(row).add(candidate.get(j)); map.get(9 + col).add(candidate.get(j)); map.get(18 + row / 3 * 3 + col / 3).add(candidate.get(j)); backtracking(blank, map, temp, counter + 1); if (end) &#123; return; &#125; temp[counter] = '.'; map.get(row).remove(candidate.get(j)); map.get(9 + col).remove(candidate.get(j)); map.get(18 + row / 3 * 3 + col / 3).remove(candidate.get(j)); &#125; &#125;&#125; T&amp;S AnalysisTime: exp(blankNode)Space: O(blankNode)]]></content>
+      <categories>
+        <category>Algotithm</category>
+      </categories>
+      <tags>
+        <tag>Backtracking</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[687 Longest Univalue Path]]></title>
+    <url>%2F2017%2F09%2F30%2F687-Longest-Univalue-Path%2F</url>
+    <content type="text"><![CDATA[QuestionSolution 1 DFSCode1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class Solution &#123; int curMax = 0; public int longestUnivaluePath(TreeNode root) &#123; helper(root); return curMax; &#125; private int helper(TreeNode root) &#123; if (root == null) &#123; return 0; &#125; int left = helper(root.left); int right = helper(root.right); if (root.left == null &amp;&amp; root.right == null) &#123; return 0; &#125; else if (root.left != null &amp;&amp; root.right == null) &#123; if (root.val == root.left.val) &#123; curMax = Math.max(curMax, left + 1); return left + 1; &#125; else &#123; return 0; &#125; &#125; else if (root.left == null &amp;&amp; root.right != null) &#123; if (root.val == root.right.val) &#123; curMax = Math.max(curMax, right + 1); return right + 1; &#125; else &#123; return 0; &#125; &#125; else &#123; if (root.val == root.left.val &amp;&amp; root.val != root.right.val) &#123; curMax = Math.max(curMax, left + 1); return left + 1; &#125; else if (root.val != root.left.val &amp;&amp; root.val == root.right.val) &#123; curMax = Math.max(curMax, right + 1); return right + 1; &#125; else if (root.val != root.left.val &amp;&amp; root.val != root.right.val) &#123; return 0; &#125; else &#123; curMax = Math.max(curMax, left + right + 2); return Math.max(left , right) + 1; &#125; &#125; &#125;&#125; T&amp;S AnalysisTime: O(node)Space: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Tree</tag>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[686 Repeated String Match]]></title>
+    <url>%2F2017%2F09%2F30%2F686-Repeated-String-Match%2F</url>
+    <content type="text"><![CDATA[Question Given two strings A and B, find the minimum number of times A has to be repeated such that B is a substring of it. If no such solution, return -1. For example, with A = “abcd” and B = “cdabcdab”. Return 3, because by repeating A three times (“abcdabcdabcd”), B is a substring of it; and B is not a substring of A repeated two times (“abcdabcd”). Note:The length of A and B will be between 1 and 10000. Solution 1Code123456789101112131415161718192021222324252627class Solution &#123; public int repeatedStringMatch(String A, String B) &#123; if (A.contains(B)) &#123; return 1; &#125; if (A.length() &gt;= B.length()) &#123; if ( (A + A).contains(B)) &#123; return 2; &#125; else &#123; return -1; &#125; &#125; int times = B.length() / A.length(); String s = ""; int i = 1; for (i = 1; i &lt;= times; i++) &#123; s += A; &#125; if (s.contains(B)) &#123; return i - 1; &#125; else if ((s + A).contains(B)) &#123; return i; &#125; else &#123; return -1; &#125; &#125; &#125; T&amp;S AnalysisTime: O(B.len/A.len) Space: O(B.len)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>String</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[686 Knight Probability in Chessboard]]></title>
+    <url>%2F2017%2F09%2F30%2F686-Knight-Probability-in-Chessboard%2F</url>
+    <content type="text"><![CDATA[#Question On an NxN chessboard, a knight starts at the r-th row and c-th column and attempts to make exactly K moves. The rows and columns are 0 indexed, so the top-left square is (0, 0), and the bottom-right square is (N-1, N-1). A chess knight has 8 possible moves it can make, as illustrated below. Each move is two squares in a cardinal direction, then one square in an orthogonal direction. Each time the knight is to move, it chooses one of eight possible moves uniformly at random (even if the piece would go off the chessboard) and moves there. The knight continues moving until it has made exactly K moves or has moved off the chessboard. Return the probability that the knight remains on the board after it has stopped moving. Example: Input: 3, 2, 0, 0 Output: 0.0625 Explanation: There are two moves (to (1,2), (2,1)) that will keep the knight on the board. From each of those positions, there are also two moves that will keep the knight on the board. The total probability the knight stays on the board is 0.0625. Note:N will be between 1 and 25. K will be between 0 and 100. The knight always initially starts on the board. Solution 1 Dynamic PrograimmingCode123456789101112131415161718192021222324252627282930313233class Solution &#123; public double knightProbability(int N, int K, int r, int c) &#123; int dx[] = &#123;1, -1, 1, -1, 2, -2, 2, -2&#125;; int dy[] = &#123;2, 2, -2, -2, 1, 1, -1, -1&#125;; double lastPro[][] = new double[N][N]; double currentPro[][] = new double[N][N]; for (int i = 0; i &lt; N; i++) &#123; for (int j = 0; j &lt; N; j++) &#123; lastPro[i][j] = 1; &#125; &#125; for (int a = 0; a &lt; K; a++) &#123; for (int i = 0; i &lt; N; i++) &#123; for (int j = 0; j &lt; N; j++) &#123; currentPro[i][j] = 0; for (int k = 0; k &lt; 8; k++) &#123; if (i + dx[k] &gt;= 0 &amp;&amp; i + dx[k] &lt; N &amp;&amp; j + dy[k] &gt;=0 &amp;&amp; j + dy[k] &lt; N) &#123; currentPro[i][j] += lastPro[i + dx[k]][j + dy[k]] / 8; &#125; &#125; &#125; &#125; for (int i = 0; i &lt; N; i++) &#123; for (int j = 0; j &lt; N; j++) &#123; lastPro[i][j] = currentPro[i][j]; &#125; &#125; &#125; return lastPro[r][c]; &#125;&#125; T&amp;S AnalysisTime: O(N^2*K)Space: O(N^2)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Dynamic Prograimming</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[526 Beautiful Arrangement]]></title>
     <url>%2F2017%2F09%2F28%2F526-Beautiful-Arrangement%2F</url>
     <content type="text"><![CDATA[Question Suppose you have N integers from 1 to N. We define a beautiful arrangement as an array that is constructed by these N numbers successfully if one of the following is true for the ith position (1 &lt;= i &lt;= N) in this array: The number at the ith position is divisible by i. i is divisible by the number at the ith position. Now given N, how many beautiful arrangements can you construct? __Example1: Input: 2Output: 2Explanation:The first beautiful arrangement is [1, 2]:Number at the 1st position (i=1) is 1, and 1 is divisible by i (i=1).Number at the 2nd position (i=2) is 2, and 2 is divisible by i (i=2).The second beautiful arrangement is [2, 1]:Number at the 1st position (i=1) is 2, and 2 is divisible by i (i=1).Number at the 2nd position (i=2) is 1, and i (i=2) is divisible by 1.__ Solution 1 BacktrackingCode12345678910111213141516171819202122232425class Solution &#123; int res = 0; public int countArrangement(int N) &#123; List&lt;Integer&gt; input = new ArrayList&lt;Integer&gt;(); for (int i = 0; i &lt; N; i++) &#123; input.add(i + 1); &#125; backtracking(input, 1); return res; &#125; private void backtracking (List&lt;Integer&gt; input, int pos) &#123; if (input.size() == 0) &#123; res++; return; &#125; for (int i = 0; i &lt; input.size(); i++) &#123; if (input.get(i) % pos == 0 || pos % input.get(i) == 0) &#123; int x = input.remove(i); backtracking(input, pos + 1); input.add(i, x); &#125; &#125; &#125;&#125; T&amp;S AnalysisTime: O(expN)Space: O(expN)]]></content>
@@ -86,11 +131,11 @@
     <url>%2F2017%2F09%2F26%2F76-Minimum-Window-Substring%2F</url>
     <content type="text"><![CDATA[Question Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n). For example, S = “ADOBECODEBANC” T = “ABC” Minimum window is “BANC”. Note: If there is no such window in S that covers all characters in T, return the empty string “”. If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S. Solution 1 Hash and Two PointersIt’s a substring template Code123456789101112131415161718192021222324252627class Solution &#123; public String minWindow(String s, String t) &#123; int[] map = new int[128]; for (char ch : t.toCharArray()) &#123; map[ch]++; &#125; int d = Integer.MAX_VALUE, begin = 0, head = 0, counter = t.length(); for (int i = 0; i &lt; s.length(); i++) &#123; if (map[s.charAt(i)] &gt; 0) &#123; counter--; &#125; map[s.charAt(i)]--; while (counter == 0) &#123; if (i - begin + 1 &lt; d) &#123; d = i - begin + 1; head = begin; &#125; if (map[s.charAt(begin)] == 0) &#123; counter++; &#125; map[s.charAt(begin)]++; begin++; &#125; &#125; return d == Integer.MAX_VALUE ? "" : s.substring(head, d + head); &#125;&#125; T&amp;S AnalysisTime: O(n), Since only one scanSpace: O(1), The hash map’s size is limited]]></content>
       <tags>
-        <tag>String</tag>
+        <tag>Hash Table</tag>
         <tag>Facebook</tag>
+        <tag>String</tag>
         <tag>Uber</tag>
         <tag>Two Pointers</tag>
-        <tag>Hash Table</tag>
         <tag>Linkedin</tag>
         <tag>Snapchat</tag>
       </tags>
@@ -193,8 +238,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
         <tag>Apple</tag>
         <tag>Space Saving</tag>
         <tag>Palindrome Pairs</tag>
@@ -297,8 +342,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Greedy</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Greedy</tag>
         <tag>Bloomberg</tag>
       </tags>
   </entry>
@@ -310,8 +355,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Greedy</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -346,11 +391,11 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Facebook</tag>
         <tag>Microsoft</tag>
         <tag>Bloomberg</tag>
         <tag>Math</tag>
         <tag>String</tag>
-        <tag>Facebook</tag>
         <tag>Uber</tag>
         <tag>Yahoo</tag>
       </tags>
@@ -363,9 +408,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Facebook</tag>
         <tag>Microsoft</tag>
         <tag>Bloomberg</tag>
-        <tag>Facebook</tag>
         <tag>Apple</tag>
         <tag>Heap</tag>
         <tag>Divide and Conquer</tag>
@@ -381,8 +426,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
         <tag>Google</tag>
         <tag>Game of Life</tag>
       </tags>
@@ -409,9 +454,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Microsoft</tag>
         <tag>Array</tag>
         <tag>Facebook</tag>
+        <tag>Microsoft</tag>
         <tag>Apple</tag>
         <tag>LRU Cache</tag>
         <tag>Linkedin</tag>
@@ -425,8 +470,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
         <tag>Facebook</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -437,10 +482,10 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Microsoft</tag>
         <tag>Array</tag>
-        <tag>Bloomberg</tag>
         <tag>Facebook</tag>
+        <tag>Microsoft</tag>
+        <tag>Bloomberg</tag>
         <tag>Backtracking</tag>
       </tags>
   </entry>
@@ -452,9 +497,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Facebook</tag>
         <tag>Math</tag>
         <tag>String</tag>
-        <tag>Facebook</tag>
         <tag>Twitter</tag>
       </tags>
   </entry>
@@ -466,11 +511,11 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Hash Table</tag>
+        <tag>Facebook</tag>
         <tag>Bloomberg</tag>
         <tag>String</tag>
-        <tag>Facebook</tag>
         <tag>Uber</tag>
-        <tag>Hash Table</tag>
         <tag>Yelp</tag>
         <tag>Amazon</tag>
       </tags>
@@ -496,8 +541,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Hash Table</tag>
+        <tag>Facebook</tag>
         <tag>Sort</tag>
       </tags>
   </entry>
@@ -509,8 +554,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Math</tag>
         <tag>Facebook</tag>
+        <tag>Math</tag>
       </tags>
   </entry>
   <entry>
@@ -546,8 +591,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
         <tag>Facebook</tag>
+        <tag>String</tag>
         <tag>Backtracking</tag>
       </tags>
   </entry>
@@ -559,8 +604,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Greedy</tag>
         <tag>Facebook</tag>
+        <tag>Greedy</tag>
         <tag>Stack</tag>
       </tags>
   </entry>
@@ -572,8 +617,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Math</tag>
         <tag>Facebook</tag>
+        <tag>Math</tag>
         <tag>Bit Manipulate</tag>
       </tags>
   </entry>
@@ -609,8 +654,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>DFS</tag>
         <tag>Facebook</tag>
+        <tag>DFS</tag>
         <tag>BFS</tag>
         <tag>Graph</tag>
       </tags>
@@ -623,8 +668,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Tree</tag>
         <tag>Facebook</tag>
+        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -635,9 +680,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Facebook</tag>
         <tag>Tree</tag>
         <tag>DFS</tag>
-        <tag>Facebook</tag>
         <tag>Morris Order</tag>
       </tags>
   </entry>
@@ -649,8 +694,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
         <tag>Facebook</tag>
+        <tag>String</tag>
         <tag>Two Pointers</tag>
       </tags>
   </entry>
@@ -690,8 +735,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -703,8 +748,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Hash Table</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -728,8 +773,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Tree</tag>
         <tag>Facebook</tag>
+        <tag>Tree</tag>
         <tag>Stack</tag>
         <tag>Design</tag>
       </tags>
@@ -743,8 +788,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -769,9 +814,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Facebook</tag>
         <tag>Tree</tag>
         <tag>DFS</tag>
-        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -782,8 +827,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>DFS</tag>
         <tag>Facebook</tag>
+        <tag>DFS</tag>
         <tag>BFS</tag>
         <tag>Union Find</tag>
       </tags>
@@ -809,9 +854,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
         <tag>String</tag>
-        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -880,9 +925,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Facebook</tag>
         <tag>Math</tag>
         <tag>String</tag>
-        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>

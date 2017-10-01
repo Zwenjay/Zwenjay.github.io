@@ -311,6 +311,622 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/26/401-Binary-Watch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/26/401-Binary-Watch/" itemprop="url">401 Binary Watch</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T16:01:17-07:00">
+                2017-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/binary-watch/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<div class="question-description"><br>        <p></p><p>A binary watch has 4 LEDs on the top which represent the <b>hours</b> (<b>0-11</b>), and the 6 LEDs on the bottom represent the <b>minutes</b> (<b>0-59</b>).</p><br><p>Each LED represents a zero or one, with the least significant bit on the right.</p><br><img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Binary_clock_samui_moon.jpg" height="300"><br><p>For example, the above binary watch reads “3:25”.</p><br><br><p>Given a non-negative integer <i>n</i> which represents the number of LEDs that are currently on, return all possible times the watch could represent.</p><br><br><p><b>Example:</b><br></p><pre>Input: n = 1<br>Return: [“1:00”, “2:00”, “4:00”, “8:00”, “0:01”, “0:02”, “0:04”, “0:08”, “0:16”, “0:32”]</pre><br><p></p><br><br><p><b>Note:</b><br><br></p><ul><br><li>The order of output does not matter.</li><br><li>The hour must not contain a leading zero, for example “01:00” is not valid, it should be “1:00”.</li><br><li>The minute must be consist of two digits and may contain a leading zero, for example “10:2” is not valid, it should be “10:02”.</li><br></ul><br><p></p><p></p><br>      </div>
+
+</blockquote>
+<h2 id="Solution-1-Backtracking"><a href="#Solution-1-Backtracking" class="headerlink" title="Solution 1 Backtracking"></a>Solution 1 Backtracking</h2><p>Use backtracking technology.</p>
+<ol>
+<li><p>Regard hour and minute as numbers, find out which numbers could be on the hours an minutes. Build two array representing for each point.</p>
+</li>
+<li><p><strong>Backtracking</strong>: </p>
+<ol>
+<li>Find out number of lights represent for hours and minutes accordingly, for example 6 lights could be from 0-6 to 4-2, we call the pair <em>hour-minute-pair</em>;</li>
+<li>For each <em>hour-minute-pair</em>, first for hour and then for minutes seprately, each has a initial 0 varible <em>sum</em>: <ol>
+<li>According to array order, add one number to <em>sum</em>, then <em>count</em> minus 1.</li>
+<li>repet <strong>a.</strong> until <em>count=0</em> ,which means we’ve finished one turn selection, put the sum to list, and continue next turn selection.  </li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Translate numbers to <em>String</em></p>
+</li>
+</ol>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">readBinaryWatch</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</div><div class="line">        List&lt;String&gt; ans = <span class="keyword">new</span> ArrayList&lt;String&gt;();</div><div class="line">        <span class="keyword">int</span> num1[] = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">8</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">1</span>&#125;;</div><div class="line">        <span class="keyword">int</span> num2[] = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">32</span>,<span class="number">16</span>,<span class="number">8</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">1</span>&#125;;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= Math.min(<span class="number">4</span>, num); i++)&#123;</div><div class="line">            List&lt;Integer&gt; l1 = getDigit(num1, i);</div><div class="line">            List&lt;Integer&gt; l2 = getDigit(num2, num-i);</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> h: l1)&#123;</div><div class="line">                <span class="keyword">if</span>(h &gt;= <span class="number">12</span>) <span class="keyword">continue</span>;</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> m: l2)&#123;</div><div class="line">                    <span class="keyword">if</span>(m &gt;= <span class="number">60</span>) <span class="keyword">continue</span>;</div><div class="line">                    ans.add(h + <span class="string">":"</span> + ((m &gt;= <span class="number">10</span>)? <span class="string">""</span>:<span class="string">"0"</span>) + m);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> ans; </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">       <span class="function"><span class="keyword">private</span> List&lt;Integer&gt; <span class="title">getDigit</span><span class="params">( <span class="keyword">int</span>[] nums, <span class="keyword">int</span> count)</span></span>&#123;</div><div class="line">            List&lt;Integer&gt; l = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">            getDigitHelper(l, nums, count, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line">            <span class="keyword">return</span> l;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">getDigitHelper</span><span class="params">(List&lt;Integer&gt; l, <span class="keyword">int</span>[] nums, <span class="keyword">int</span> count, <span class="keyword">int</span> pos, <span class="keyword">int</span> sum)</span></span>&#123;</div><div class="line">            <span class="keyword">if</span>(count == <span class="number">0</span>)&#123;</div><div class="line">                l.add(sum);</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = pos; i &lt; nums.length; i++)&#123;</div><div class="line">                getDigitHelper(l, nums, count-<span class="number">1</span>, i+<span class="number">1</span>, sum+nums[i]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> This question is all limited, thus time complex is O(1)</p>
+<p><strong>Space:</strong> O(1)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/26/67-Add-Binary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/26/67-Add-Binary/" itemprop="url">67 Add Binary</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T11:07:12-07:00">
+                2017-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/add-binary/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given two binary strings, return their sum (also a binary string).</p>
+<p>For example,<br>a = “11”<br>b = “1”<br>Return “100”.</p>
+</blockquote>
+<h2 id="Solution-1-From-tail-to-head"><a href="#Solution-1-From-tail-to-head" class="headerlink" title="Solution 1 From tail to head"></a>Solution 1 From tail to head</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">addBinary</span><span class="params">(String a, String b)</span> </span>&#123;</div><div class="line">        String res = <span class="string">""</span>, tempS;</div><div class="line">        <span class="keyword">int</span> i = a.length()-<span class="number">1</span>, j = b.length()-<span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> carry = <span class="number">0</span>, temp;</div><div class="line">        <span class="keyword">while</span>(i &gt;=<span class="number">0</span> &amp;&amp; j&gt;=<span class="number">0</span>)&#123;</div><div class="line">            temp = a.charAt(i)-<span class="string">'0'</span>+b.charAt(j)-<span class="string">'0'</span>+carry; </div><div class="line">            <span class="keyword">switch</span>(temp)&#123;</div><div class="line">                <span class="keyword">case</span> <span class="number">0</span>:</div><div class="line">                    res = <span class="string">"0"</span> + res;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">                    res = <span class="string">"1"</span> + res;</div><div class="line">                    carry =<span class="number">0</span>;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">                    res = <span class="string">"0"</span> + res;</div><div class="line">                    carry =<span class="number">1</span>;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> <span class="number">3</span>:</div><div class="line">                    res = <span class="string">"1"</span> + res;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            j--;</div><div class="line">            i--;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(i == -<span class="number">1</span>)</div><div class="line">            tempS = b.substring(<span class="number">0</span>, j+<span class="number">1</span>);</div><div class="line">        <span class="keyword">else</span></div><div class="line">            tempS = a.substring(<span class="number">0</span>, i+<span class="number">1</span>);</div><div class="line">        <span class="keyword">int</span> k = tempS.length()-<span class="number">1</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(k&gt;=<span class="number">0</span> &amp;&amp; carry==<span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(tempS.charAt(k) == <span class="string">'1'</span>)</div><div class="line">                res = <span class="string">"0"</span>+res;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                res = <span class="string">"1"</span> +res;</div><div class="line">                carry =<span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">            k--;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(carry ==<span class="number">0</span> )</div><div class="line">            <span class="keyword">return</span> tempS.substring(<span class="number">0</span>, k+<span class="number">1</span>)+res;</div><div class="line">        <span class="keyword">else</span></div><div class="line">            <span class="keyword">return</span> <span class="string">"1"</span> + res;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n)</p>
+<p><strong>Space:</strong> O(1)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/26/20-Valid-Parentheses/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/26/20-Valid-Parentheses/" itemprop="url">20 Valid Parentheses</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T08:33:22-07:00">
+                2017-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/valid-parentheses/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a string containing just the characters ‘(‘, ‘)’, ‘{‘, ‘}’, ‘[‘ and ‘]’, determine if the input string is valid.</p>
+<p>The brackets must close in the correct order, “()” and “()[]{}” are all valid but “(]” and “([)]” are not.</p>
+</blockquote>
+<h2 id="Solution-1-Use-Stack"><a href="#Solution-1-Use-Stack" class="headerlink" title="Solution 1 Use Stack"></a>Solution 1 Use Stack</h2><p>Use Stack to store left symbol accordingly, if the comming right symbol does not match the top, return false. If left-right count doesn’t match, stack will be empty when right comming or still not empty after the string is all checked</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        Stack&lt;Character&gt; stack = <span class="keyword">new</span> Stack&lt;Character&gt;();</div><div class="line">        HashMap&lt;Character, Character&gt; map = <span class="keyword">new</span> HashMap&lt;Character, Character&gt;();</div><div class="line">        map.put(<span class="string">')'</span>,<span class="string">'('</span>);</div><div class="line">        map.put(<span class="string">']'</span>,<span class="string">'['</span>);</div><div class="line">        map.put(<span class="string">'&#125;'</span>,<span class="string">'&#123;'</span>);</div><div class="line">        </div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++)&#123;</div><div class="line">            <span class="keyword">if</span>(s.charAt(i) == <span class="string">'('</span> || s.charAt(i)== <span class="string">'['</span> || s.charAt(i)==<span class="string">'&#123;'</span>)&#123;</div><div class="line">                stack.push(s.charAt(i));</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                <span class="keyword">if</span>(stack.size()==<span class="number">0</span>)</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                <span class="keyword">if</span>(stack.pop() != map.get(s.charAt(i)))</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(stack.size() &gt; <span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Only scan once, so it’s O(n). </p>
+<p><strong>Space:</strong> Also, O(n) for using the stack.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/26/283-Move-Zeros/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/26/283-Move-Zeros/" itemprop="url">283 Move Zeros</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T08:03:30-07:00">
+                2017-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/move-zeroes/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given an array nums, write a function to move all 0’s to the end of it while maintaining the relative order of the non-zero elements.</p>
+<p>For example, given nums = [0, 1, 0, 3, 12], after calling your function, nums should be [1, 3, 12, 0, 0]</p>
+<p><strong>Note:</strong></p>
+<ol>
+<li>You must do this in-place without making a copy of the array.</li>
+<li>Minimize the total number of operations.</li>
+</ol>
+</blockquote>
+<h2 id="Solution-1-Two-Pointers"><a href="#Solution-1-Two-Pointers" class="headerlink" title="Solution 1 Two Pointers"></a>Solution 1 Two Pointers</h2><p>One for first zero position, one for curser.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">moveZeroes</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> zeroH = -<span class="number">1</span>, cur = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(cur =<span class="number">0</span>; cur &lt; nums.length; cur++)&#123;</div><div class="line">            <span class="keyword">if</span>(nums[cur] == <span class="number">0</span>)&#123;</div><div class="line">                <span class="keyword">if</span>(zeroH == -<span class="number">1</span>)</div><div class="line">                    zeroH = cur;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                <span class="keyword">if</span>(zeroH &gt;= <span class="number">0</span>)&#123;</div><div class="line">                    swap(nums, zeroH, cur);</div><div class="line">                    <span class="keyword">if</span>(zeroH &lt; nums.length-<span class="number">1</span> &amp;&amp; nums[zeroH+<span class="number">1</span>] == <span class="number">0</span>)</div><div class="line">                        zeroH++;</div><div class="line">                    <span class="keyword">else</span></div><div class="line">                        zeroH = cur;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> temp = nums[i];</div><div class="line">        nums[i] = nums[j];</div><div class="line">        nums[j] = temp;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Only scan once, so it’s O(n). But in this problem, swap operation’s count is important. The operation is O(<em>nonzeros</em>) in worst case.</p>
+<p><strong>Space:</strong> O(1)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/25/617-Merge-Two-Binary-Trees/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1341,626 +1957,6 @@ Tilt of binary tree : 0 + 0 + 1 = 1
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/94-Binary-Tree-Inorder-Traversal/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/24/94-Binary-Tree-Inorder-Traversal/" itemprop="url">94 Binary Tree Inorder Traversal</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T22:30:10-07:00">
-                2017-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/binary-tree-inorder-traversal/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given a binary tree, return the inorder traversal of its nodes’ values.</p>
-<p>For example:</p>
-<p>Given binary tree [1,null,2,3],</p>
-<p><strong>Note:</strong> Recursive solution is trivial, could you do it iteratively?</p>
-</blockquote>
-<h2 id="Solution-1-Morris-Order-Traverse"><a href="#Solution-1-Morris-Order-Traverse" class="headerlink" title="Solution 1 Morris Order Traverse"></a>Solution 1 Morris Order Traverse</h2><p>As I see this problem, I thought I need a <em>Stack</em> or <em>Queue</em> or something like that. But I was wrong. After I knew this solution, I was so surprised that I decided to consider this method of traversing every time I meet <em>Tree</em> problem. </p>
-<p>Let me explain, to make inorder with using only constant space and linear time, we need only follow these principles:</p>
-<ul>
-<li><p>When <em>left child</em> is null, visit the <em>current node</em> and set current node as itd <em>right child</em>.</p>
-</li>
-<li><p>Other wise, find the <em>pre-node</em> of <em>current node</em>:</p>
-<ul>
-<li>if the <em>pre-node</em>‘s <em>right child</em> is null, then set its <em>right child</em> as current node and set current child as its <em>left child</em></li>
-<li>otherwise, the <em>pre-node</em>‘s <em>right child</em> must be <em>current node</em>, visit <em>current node</em> and set <em>pre-node</em>‘s _right child as null to reset the original tree. Then set <em>current node</em> as its <em>right child</em>.</li>
-</ul>
-</li>
-</ul>
-<p><strong>Q:</strong> How to find ones <em>pre-node</em>?</p>
-<p><strong>A:</strong> In its left <em>subtree</em>, find the mose right node.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        List&lt;Integer&gt; ans = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        morrisOrder(ans, root);</div><div class="line">        <span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">morrisOrder</span><span class="params">(List&lt;Integer&gt; li, TreeNode t)</span></span>&#123;</div><div class="line">        TreeNode p;</div><div class="line">        <span class="keyword">while</span>(t != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(t.left == <span class="keyword">null</span>)&#123;</div><div class="line">                li.add(t.val);</div><div class="line">                t=t.right;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                p = t.left;</div><div class="line">                <span class="keyword">while</span>(p.right != t &amp;&amp; p.right != <span class="keyword">null</span>)</div><div class="line">                    p = p.right;</div><div class="line">                <span class="keyword">if</span>(p.right == <span class="keyword">null</span>)&#123;</div><div class="line">                    p.right = t;</div><div class="line">                    t = t.left;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    p.right = <span class="keyword">null</span>;</div><div class="line">                    li.add(t.val);</div><div class="line">                    t = t.right;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> As analysed, every node would be visted at most twice, thus time complexity is O(n);</p>
-<p><strong>Space:</strong> This is where it’s excellent, we did not use any other space that is proportion to node numbers, nor do we used recursion, thus extra space complexity is O(1);</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/455-Add-Two-Numbers-II/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/24/455-Add-Two-Numbers-II/" itemprop="url">455 Add Two Numbers II</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T16:32:54-07:00">
-                2017-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/add-two-numbers-ii/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
-<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
-<p><strong>Follow up</strong>:</p>
-<p>What if you cannot modify the input lists? In other words, reversing the lists is not allowed.</p>
-<p><strong>Example:</strong></p>
-<p><strong>Input:</strong> (7 -&gt; 2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br><strong>Output:</strong> 7 -&gt; 8 -&gt; 0 -&gt; 7</p>
-</blockquote>
-<h2 id="Solution-1-Use-Stack"><a href="#Solution-1-Use-Stack" class="headerlink" title="Solution 1 Use Stack"></a>Solution 1 Use Stack</h2><p>Use Stack to save time, but lose space.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> len1 = <span class="number">0</span>, len2 = <span class="number">0</span>;</div><div class="line">        ListNode dumpy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">        ListNode cur1 = l1, cur2 = l2, cur = dumpy;</div><div class="line">        <span class="keyword">int</span> c = <span class="number">0</span>;</div><div class="line">        Stack&lt;ListNode&gt; s = <span class="keyword">new</span> Stack&lt;ListNode&gt;();</div><div class="line">            </div><div class="line">        <span class="keyword">while</span>(cur1 != <span class="keyword">null</span>)&#123;</div><div class="line">            len1++;</div><div class="line">            cur1 = cur1.next;    </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(cur2 != <span class="keyword">null</span>)&#123;</div><div class="line">            len2++;</div><div class="line">            cur2 = cur2.next;    </div><div class="line">        &#125;</div><div class="line">        cur1 = l1;</div><div class="line">        cur2 = l2;</div><div class="line">        </div><div class="line">        s.push(dumpy);</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(len1 &gt;= len2)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i&lt; len1-len2; i++)&#123;</div><div class="line">                cur.next = <span class="keyword">new</span> ListNode(cur1.val);</div><div class="line">                cur1 = cur1.next;</div><div class="line">                cur = cur.next;</div><div class="line">                s.push(cur);</div><div class="line">            &#125;</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i&lt; len2-len1; i++)&#123;</div><div class="line">                    cur.next = <span class="keyword">new</span> ListNode(cur2.val);</div><div class="line">                    cur2 = cur2.next;</div><div class="line">                    cur = cur.next;</div><div class="line">                    s.push(cur);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line"></div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(cur1 != <span class="keyword">null</span>)&#123;</div><div class="line">            cur.next = <span class="keyword">new</span> ListNode(cur1.val + cur2.val);</div><div class="line">            s.push(cur.next);</div><div class="line">            cur1 = cur1.next;</div><div class="line">            cur2 = cur2.next;</div><div class="line">            cur = cur.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(s.size()&gt;<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(s.peek().val+c&gt;=<span class="number">10</span>)&#123;</div><div class="line">                s.pop().val+=c-<span class="number">10</span>;</div><div class="line">                c=<span class="number">1</span>;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                s.pop().val+=c;</div><div class="line">                c=<span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(dumpy.val == <span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> dumpy.next;</div><div class="line">        <span class="keyword">return</span> dumpy;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> I sanned the list and <em>Stack</em> for constant, so time complexity is O(n).</p>
-<p><strong>Space:</strong> Obviously, O(n), since I used the Stack.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/328-Odd-Even-Linked-List/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/24/328-Odd-Even-Linked-List/" itemprop="url">328 Odd Even Linked List</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T15:31:56-07:00">
-                2017-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/odd-even-linked-list/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given a singly linked list, group all odd nodes together followed by the even nodes. Please note here we are talking about the node number and not the value in the nodes.</p>
-<p>You should try to do it in place. The program should run in O(1) space complexity and O(nodes) time complexity.</p>
-<p><strong>Example:</strong></p>
-<p>Given 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL,</p>
-<p>return 1-&gt;3-&gt;5-&gt;2-&gt;4-&gt;NULL.</p>
-<p><strong>Note:</strong></p>
-<p>The relative order inside both the even and odd groups should remain as it was in the input. </p>
-<p>The first node is considered odd, the second node even and so on …</p>
-</blockquote>
-<h2 id="Solution-1-Pointers-Tracking"><a href="#Solution-1-Pointers-Tracking" class="headerlink" title="Solution 1 Pointers Tracking"></a>Solution 1 Pointers Tracking</h2><p>I use three pointers to track the list, and add to the tail according.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">oddEvenList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        ListNode headOdd = <span class="keyword">new</span> ListNode(<span class="number">0</span>), headEven = <span class="keyword">new</span> ListNode(<span class="number">0</span>), curOdd = headOdd, curEven = headEven, cur=<span class="keyword">new</span> ListNode(<span class="number">0</span>), dumpy = cur;</div><div class="line">        </div><div class="line">        cur.next = head;</div><div class="line">        <span class="keyword">boolean</span> isOdd = <span class="keyword">false</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</div><div class="line">            isOdd = !isOdd;</div><div class="line">            cur = cur.next;</div><div class="line">            <span class="keyword">if</span>(isOdd)&#123;</div><div class="line">                curOdd.next = cur;</div><div class="line">                curOdd = curOdd.next;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                curEven.next = cur;</div><div class="line">                curEven = curEven.next; </div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        cur = dumpy;</div><div class="line">        curEven = headEven.next;</div><div class="line">        curOdd = headOdd.next;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(curOdd != <span class="keyword">null</span>)&#123;</div><div class="line">            cur.next = curOdd;</div><div class="line">            cur = cur.next;</div><div class="line">            curOdd = curOdd.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(curEven != <span class="keyword">null</span>)&#123;</div><div class="line">            cur.next = curEven;</div><div class="line">            cur = cur.next;</div><div class="line">            curEven = curEven.next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> dumpy.next;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> I sanned the list for constant, so time complexity is O(n).</p>
-<p><strong>Space:</strong> Obviously, O(1).</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/24/237-Delete-Node-in-a-Linked-List/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/24/237-Delete-Node-in-a-Linked-List/" itemprop="url">237 Delete Node in a Linked List</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T14:58:01-07:00">
-                2017-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/delete-node-in-a-linked-list/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Write a function to delete a node (except the tail) in a singly linked list, given only access to that node.</p>
-<p>Supposed the linked list is 1 -&gt; 2 -&gt; 3 -&gt; 4 and you are given the third node with value 3, the linked list should become 1 -&gt; 2 -&gt; 4 after calling your function.</p>
-</blockquote>
-<h2 id="Solution-1-Easy-Solution"><a href="#Solution-1-Easy-Solution" class="headerlink" title="Solution 1 Easy Solution"></a>Solution 1 Easy Solution</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span> </span>&#123;</div><div class="line">        node.val = node.next.val;</div><div class="line">        node.next = node.next.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> Obviously, O(1).</p>
-<p><strong>Space:</strong> Obviously, O(1).</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2011,7 +2007,7 @@ Tilt of binary tree : 0 + 0 + 1 = 1
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">92</span>
+                <span class="site-state-item-count">96</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -2022,7 +2018,7 @@ Tilt of binary tree : 0 + 0 + 1 = 1
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -2033,7 +2029,7 @@ Tilt of binary tree : 0 + 0 + 1 = 1
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
