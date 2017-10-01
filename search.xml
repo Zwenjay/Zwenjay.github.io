@@ -5,7 +5,7 @@
     <url>%2F2017%2F09%2F30%2F37-Sudoku-Solver%2F</url>
     <content type="text"><![CDATA[Write a program to solve a Sudoku puzzle by filling the empty cells. Empty cells are indicated by the character ‘.’. You may assume that there will be only one unique solution. Solution 1 BacktrackingMake the 2-D a 1-D, so I do not need a hash map Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172class Solution &#123; boolean end = false; public void solveSudoku(char[][] board) &#123; int row, col; //map index: first row, 0-8, then col, 9-17, then box: 18-26 List&lt;HashSet&lt;Character&gt;&gt; map = new ArrayList&lt;HashSet&lt;Character&gt;&gt;(); List&lt;Integer&gt; blank = new ArrayList&lt;&gt;(); for (int i = 0; i &lt; 27; i++) &#123; map.add(new HashSet&lt;Character&gt;()); &#125; for (int i = 0; i &lt; 81; i++) &#123; row = i / 9; col = i % 9; if (board[row][col] != '.') &#123; map.get(row).add(board[row][col]); map.get(9 + col).add(board[row][col]); map.get(18 + row / 3 * 3 + col / 3).add(board[row][col]); &#125; else &#123; blank.add(i); &#125; &#125; char[] temp = new char[blank.size()]; for (int i = 0; i &lt; temp.length; i++) &#123; temp[i] = '.'; &#125; backtracking(blank, map, temp, 0); for (int i = 0; i &lt; temp.length; i++) &#123; row = blank.get(i) / 9; col = blank.get(i) % 9; board[row][col] = temp[i]; &#125; &#125; private void backtracking(List&lt;Integer&gt; blank, List&lt;HashSet&lt;Character&gt;&gt;map, char[] temp, int counter) &#123; if (counter == blank.size()) &#123; end = true; return; &#125; int index = blank.get(counter); int row = index / 9; int col = index % 9; List&lt;Character&gt; candidate = new ArrayList&lt;Character&gt;(); for (char j = '1'; j &lt;= '9'; j++) &#123; if (!map.get(row).contains(j) &amp;&amp; !map.get(9 + col).contains(j) &amp;&amp; !map.get(18 + row / 3 * 3 + col / 3).contains(j)) &#123; candidate.add(j); &#125; &#125; if (candidate.size() == 0) &#123; return; &#125; for (char j = 0; j &lt; candidate.size(); j++) &#123; temp[counter] = candidate.get(j); map.get(row).add(candidate.get(j)); map.get(9 + col).add(candidate.get(j)); map.get(18 + row / 3 * 3 + col / 3).add(candidate.get(j)); backtracking(blank, map, temp, counter + 1); if (end) &#123; return; &#125; temp[counter] = '.'; map.get(row).remove(candidate.get(j)); map.get(9 + col).remove(candidate.get(j)); map.get(18 + row / 3 * 3 + col / 3).remove(candidate.get(j)); &#125; &#125;&#125; T&amp;S AnalysisTime: exp(blankNode)Space: O(blankNode)]]></content>
       <categories>
-        <category>Algotithm</category>
+        <category>Algorithm</category>
       </categories>
       <tags>
         <tag>Backtracking</tag>
@@ -82,26 +82,14 @@
   </entry>
   <entry>
     <title><![CDATA[174 Dungeon Game]]></title>
-    <url>%2F2017%2F09%2F26%2FDungeon-Game%2F</url>
-    <content type="text"><![CDATA[Question The demons had captured the princess (P) and imprisoned her in the bottom-right corner of a dungeon. The dungeon consists of M x N rooms laid out in a 2D grid. Our valiant knight (K) was initially positioned in the top-left room and must fight his way through the dungeon to rescue the princess. The knight has an initial health point represented by a positive integer. If at any point his health point drops to 0 or below, he dies immediately. Some of the rooms are guarded by demons, so the knight loses health (negative integers) upon entering these rooms; other rooms are either empty (0’s) or contain magic orbs that increase the knight’s health (positive integers). In order to reach the princess as quickly as possible, the knight decides to move only rightward or downward in each step. Write a function to determine the knight’s minimum initial health so that he is able to rescue the princess. For example, given the dungeon below, the initial health of the knight must be at least 7 if he follows the optimal path RIGHT-&gt; RIGHT -&gt; DOWN -&gt; DOWN. -2 (K)-33-5-1011030-5 (P) Solution 1 DPCode1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class Solution &#123; public int calculateMinimumHP(int[][] dungeon) &#123; int rows = dungeon.length; if (rows == 0) &#123; return 0; &#125; int cols = dungeon[0].length; if (cols == 0) &#123; return 0; &#125; //preLife means before step into current dungeon, //knight must have remain that life //current dungeon starts at most right-bottom int preLife = Math.max(1 - dungeon[rows - 1][cols - 1], 1); // record records the next line of preLife int[] record = new int[rows]; record[rows - 1] = preLife; // nextPre means the next position's preLife in this col int nextPre = 1; for (int i = rows - 2; i &gt;= 0; i--) &#123; record[i] = Math.max(1, record[i + 1] - dungeon[i][cols - 1]); &#125; if (cols == 1) &#123; return record[0]; &#125; for (int j = cols - 2; j &gt;=0; j--) &#123; nextPre = Math.max(1, record[rows - 1] - dungeon[rows - 1][j]); record[rows - 1] = nextPre; if (rows == 1) &#123; preLife = nextPre; continue; &#125; for(int i = rows - 2; i &gt;= 0; i--) &#123; preLife = Math.max(1, Math.min(nextPre - dungeon[i][j], record[i] - dungeon[i][j])); nextPre = preLife; record[i] = preLife; &#125; &#125; return preLife; &#125;&#125; T&amp;S AnalysisTime: O(N*M) Space: O(M or N)]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Microsoft</tag>
-        <tag>Dynamic Programming</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[174 Dungeon Game]]></title>
     <url>%2F2017%2F09%2F26%2F174%20Dungeon-Game%2F</url>
     <content type="text"><![CDATA[Question The demons had captured the princess (P) and imprisoned her in the bottom-right corner of a dungeon. The dungeon consists of M x N rooms laid out in a 2D grid. Our valiant knight (K) was initially positioned in the top-left room and must fight his way through the dungeon to rescue the princess. The knight has an initial health point represented by a positive integer. If at any point his health point drops to 0 or below, he dies immediately. Some of the rooms are guarded by demons, so the knight loses health (negative integers) upon entering these rooms; other rooms are either empty (0’s) or contain magic orbs that increase the knight’s health (positive integers). In order to reach the princess as quickly as possible, the knight decides to move only rightward or downward in each step. Write a function to determine the knight’s minimum initial health so that he is able to rescue the princess. For example, given the dungeon below, the initial health of the knight must be at least 7 if he follows the optimal path RIGHT-&gt; RIGHT -&gt; DOWN -&gt; DOWN. -2 (K)-33-5-1011030-5 (P) Solution 1 DPCode1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class Solution &#123; public int calculateMinimumHP(int[][] dungeon) &#123; int rows = dungeon.length; if (rows == 0) &#123; return 0; &#125; int cols = dungeon[0].length; if (cols == 0) &#123; return 0; &#125; //preLife means before step into current dungeon, //knight must have remain that life //current dungeon starts at most right-bottom int preLife = Math.max(1 - dungeon[rows - 1][cols - 1], 1); // record records the next line of preLife int[] record = new int[rows]; record[rows - 1] = preLife; // nextPre means the next position's preLife in this col int nextPre = 1; for (int i = rows - 2; i &gt;= 0; i--) &#123; record[i] = Math.max(1, record[i + 1] - dungeon[i][cols - 1]); &#125; if (cols == 1) &#123; return record[0]; &#125; for (int j = cols - 2; j &gt;=0; j--) &#123; nextPre = Math.max(1, record[rows - 1] - dungeon[rows - 1][j]); record[rows - 1] = nextPre; if (rows == 1) &#123; preLife = nextPre; continue; &#125; for(int i = rows - 2; i &gt;= 0; i--) &#123; preLife = Math.max(1, Math.min(nextPre - dungeon[i][j], record[i] - dungeon[i][j])); nextPre = preLife; record[i] = preLife; &#125; &#125; return preLife; &#125;&#125; T&amp;S AnalysisTime: O(N*M) Space: O(M or N)]]></content>
       <categories>
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Microsoft</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Microsoft</tag>
       </tags>
   </entry>
   <entry>
@@ -392,9 +380,9 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
+        <tag>Bloomberg</tag>
         <tag>Microsoft</tag>
         <tag>String</tag>
-        <tag>Bloomberg</tag>
         <tag>Math</tag>
         <tag>Uber</tag>
         <tag>Yahoo</tag>
@@ -409,8 +397,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Microsoft</tag>
         <tag>Bloomberg</tag>
+        <tag>Microsoft</tag>
         <tag>Apple</tag>
         <tag>Heap</tag>
         <tag>Divide and Conquer</tag>
@@ -484,8 +472,8 @@
       <tags>
         <tag>Array</tag>
         <tag>Facebook</tag>
-        <tag>Microsoft</tag>
         <tag>Bloomberg</tag>
+        <tag>Microsoft</tag>
         <tag>Backtracking</tag>
       </tags>
   </entry>
@@ -513,8 +501,8 @@
       <tags>
         <tag>Hash Table</tag>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Bloomberg</tag>
+        <tag>String</tag>
         <tag>Uber</tag>
         <tag>Yelp</tag>
         <tag>Amazon</tag>
@@ -855,8 +843,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Dynamic Programming</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
