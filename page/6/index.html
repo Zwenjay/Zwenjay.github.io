@@ -311,6 +311,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/31/133-Clone-Graph/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/31/133-Clone-Graph/" itemprop="url">133 Clone Graph</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-31T14:58:47-07:00">
+                2017-08-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/clone-graph/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Clone an undirected graph. Each node in the graph contains a label and a list of its neighbors.</p>
+<p>OJ’s undirected graph serialization:<br>Nodes are labeled uniquely.</p>
+<p>We use # as a separator for each node, and , as a separator for node label and each neighbor of the node.<br>As an example, consider the serialized graph {0,1,2#1,2#2,2}.</p>
+<p>The graph has a total of three nodes, and therefore contains three parts as separated by #.</p>
+<ol>
+<li>First node is labeled as 0. Connect node 0 to both nodes 1 and 2.</li>
+<li>Second node is labeled as 1. Connect node 1 to node 2.</li>
+<li>Third node is labeled as 2. Connect node 2 to node 2 (itself), thus forming a self-cycle.</li>
+</ol>
+<p>Visually, the graph looks like the following:</p>
+<pre>       1
+      / \
+     /   \
+    0 --- 2
+         / \
+         \_/
+</pre>
+
+</blockquote>
+<h2 id="Solution-1-BFS"><a href="#Solution-1-BFS" class="headerlink" title="Solution 1 BFS"></a>Solution 1 BFS</h2><p>Use BFS, one set to stroe those are already visited, and one map to map the relation between original node to current node.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> UndirectedGraphNode <span class="title">cloneGraph</span><span class="params">(UndirectedGraphNode node)</span> </span>&#123;</div><div class="line">        List&lt;UndirectedGraphNode&gt; q = <span class="keyword">new</span> ArrayList&lt;UndirectedGraphNode&gt;();</div><div class="line">        HashMap&lt;UndirectedGraphNode, UndirectedGraphNode&gt; map = <span class="keyword">new</span> HashMap&lt;UndirectedGraphNode, UndirectedGraphNode&gt;();</div><div class="line">        Set&lt;Integer&gt; visited = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</div><div class="line">        UndirectedGraphNode res, cur;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(node == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        q.add(node);</div><div class="line">        res = <span class="keyword">new</span> UndirectedGraphNode(node.label);</div><div class="line">        cur = res;</div><div class="line">        q.add(cur);</div><div class="line">        <span class="keyword">while</span>(q.size()&gt;<span class="number">0</span>)&#123;</div><div class="line">            UndirectedGraphNode x = q.remove(<span class="number">0</span>);</div><div class="line">            cur = q.remove(<span class="number">0</span>);</div><div class="line">            <span class="keyword">if</span>(visited.contains(x.label))</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            List&lt;UndirectedGraphNode&gt; nei = x.neighbors;</div><div class="line">            map.put(x, cur);</div><div class="line">            visited.add(x.label);</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt; nei.size(); i++)&#123;</div><div class="line">                <span class="keyword">if</span>(!map.containsKey(nei.get(i)))&#123;</div><div class="line">                    UndirectedGraphNode tempNode = <span class="keyword">new</span> UndirectedGraphNode((nei.get(i).label));</div><div class="line">                    cur.neighbors.add(tempNode);</div><div class="line">                    map.put(nei.get(i), tempNode);</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    cur.neighbors.add(map.get(nei.get(i)));</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(!visited.contains(nei.get(i).label))&#123;</div><div class="line">                    System.out.println(<span class="number">1</span>);</div><div class="line">                    q.add(nei.get(i));</div><div class="line">                    q.add(cur.neighbors.get(i));</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">                <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(node+edge)</p>
+<p><strong>Space:</strong> O(n) for queue, set and map.</p>
+<h2 id="Solution-2-DFS"><a href="#Solution-2-DFS" class="headerlink" title="Solution 2 DFS"></a>Solution 2 DFS</h2><h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    HashMap&lt;Integer, UndirectedGraphNode&gt; map = <span class="keyword">new</span> HashMap&lt;Integer, UndirectedGraphNode&gt;();</div><div class="line">    <span class="function"><span class="keyword">public</span> UndirectedGraphNode <span class="title">cloneGraph</span><span class="params">(UndirectedGraphNode node)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> clone(node);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> UndirectedGraphNode <span class="title">clone</span><span class="params">(UndirectedGraphNode node)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(node == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">if</span>(map.containsKey(node.label))&#123;</div><div class="line">            <span class="keyword">return</span> map.get(node.label);</div><div class="line">        &#125;</div><div class="line">        UndirectedGraphNode cp = <span class="keyword">new</span> UndirectedGraphNode(node.label);</div><div class="line">        map.put(cp.label, cp);</div><div class="line">        <span class="keyword">for</span>(UndirectedGraphNode n : node.neighbors)&#123;</div><div class="line">            cp.neighbors.add(clone(n));</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> cp;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(node+edge)</p>
+<p><strong>Space:</strong> O(node+edge) for recursion.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/30/236-Lowest-Common-Ancestor-of-a-Binary-Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1713,169 +1881,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/08/29/121-Best-Time-to-Buy-and-Sell-Stock/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/29/121-Best-Time-to-Buy-and-Sell-Stock/" itemprop="url">121 Best Time to Buy and Sell Stock</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-29T13:12:47-07:00">
-                2017-08-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Say you have an array for which the ith element is the price of a given stock on day i.</p>
-<p>If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit.</p>
-<p><strong>Example 1:</strong></p>
-<pre>Input: [7, 1, 5, 3, 6, 4]
-Output: 5
-
-max. difference = 6-1 = 5 (not 7-1 = 6, as selling price needs to be larger than buying price)
-</pre>
-
-<p><strong>Example 2:</strong></p>
-<pre>Input: [7, 6, 4, 3, 1]
-Output: 0
-
-In this case, no transaction is done, i.e. max profit = 0.
-</pre>
-
-</blockquote>
-<h2 id="Solution-1-Find-the-Lowest"><a href="#Solution-1-Find-the-Lowest" class="headerlink" title="Solution 1 Find the Lowest"></a>Solution 1 Find the Lowest</h2><p>Dynamic programming requiring recording former information. In this problem, the information is the lowest before current day.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> lo = <span class="number">0</span>, profit = <span class="number">0</span>, i = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; prices.length; i++)&#123;</div><div class="line">            lo = prices[i] &gt; prices[lo]?lo:i;</div><div class="line">            profit = Math.max(prices[i] - prices[lo], profit);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> profit;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time: </strong> O(n).</p>
-<p><strong>Space:</strong> O(1).</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1926,7 +1931,7 @@ In this case, no transaction is done, i.e. max profit = 0.
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">95</span>
+                <span class="site-state-item-count">96</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1948,7 +1953,7 @@ In this case, no transaction is done, i.e. max profit = 0.
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">48</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
