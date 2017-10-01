@@ -14,7 +14,7 @@
   <entry>
     <title><![CDATA[687 Longest Univalue Path]]></title>
     <url>%2F2017%2F09%2F30%2F687-Longest-Univalue-Path%2F</url>
-    <content type="text"><![CDATA[QuestionSolution 1 DFSCode1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class Solution &#123; int curMax = 0; public int longestUnivaluePath(TreeNode root) &#123; helper(root); return curMax; &#125; private int helper(TreeNode root) &#123; if (root == null) &#123; return 0; &#125; int left = helper(root.left); int right = helper(root.right); if (root.left == null &amp;&amp; root.right == null) &#123; return 0; &#125; else if (root.left != null &amp;&amp; root.right == null) &#123; if (root.val == root.left.val) &#123; curMax = Math.max(curMax, left + 1); return left + 1; &#125; else &#123; return 0; &#125; &#125; else if (root.left == null &amp;&amp; root.right != null) &#123; if (root.val == root.right.val) &#123; curMax = Math.max(curMax, right + 1); return right + 1; &#125; else &#123; return 0; &#125; &#125; else &#123; if (root.val == root.left.val &amp;&amp; root.val != root.right.val) &#123; curMax = Math.max(curMax, left + 1); return left + 1; &#125; else if (root.val != root.left.val &amp;&amp; root.val == root.right.val) &#123; curMax = Math.max(curMax, right + 1); return right + 1; &#125; else if (root.val != root.left.val &amp;&amp; root.val != root.right.val) &#123; return 0; &#125; else &#123; curMax = Math.max(curMax, left + right + 2); return Math.max(left , right) + 1; &#125; &#125; &#125;&#125; T&amp;S AnalysisTime: O(node)Space: O(1)]]></content>
+    <content type="text"><![CDATA[Question Given a binary tree, find the length of the longest path where each node in the path has the same value. This path may or may not pass through the root. Note: The length of path between two nodes is represented by the number of edges between them. Example 1: Input: 5 / \ 4 5 / \ \ 1 1 5 Output: 2 Solution 1 DFSCode1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class Solution &#123; int curMax = 0; public int longestUnivaluePath(TreeNode root) &#123; helper(root); return curMax; &#125; private int helper(TreeNode root) &#123; if (root == null) &#123; return 0; &#125; int left = helper(root.left); int right = helper(root.right); if (root.left == null &amp;&amp; root.right == null) &#123; return 0; &#125; else if (root.left != null &amp;&amp; root.right == null) &#123; if (root.val == root.left.val) &#123; curMax = Math.max(curMax, left + 1); return left + 1; &#125; else &#123; return 0; &#125; &#125; else if (root.left == null &amp;&amp; root.right != null) &#123; if (root.val == root.right.val) &#123; curMax = Math.max(curMax, right + 1); return right + 1; &#125; else &#123; return 0; &#125; &#125; else &#123; if (root.val == root.left.val &amp;&amp; root.val != root.right.val) &#123; curMax = Math.max(curMax, left + 1); return left + 1; &#125; else if (root.val != root.left.val &amp;&amp; root.val == root.right.val) &#123; curMax = Math.max(curMax, right + 1); return right + 1; &#125; else if (root.val != root.left.val &amp;&amp; root.val != root.right.val) &#123; return 0; &#125; else &#123; curMax = Math.max(curMax, left + right + 2); return Math.max(left , right) + 1; &#125; &#125; &#125;&#125; T&amp;S AnalysisTime: O(node)Space: O(1)]]></content>
       <categories>
         <category>Algorithm</category>
       </categories>
@@ -82,7 +82,7 @@
   </entry>
   <entry>
     <title><![CDATA[174 Dungeon Game]]></title>
-    <url>%2F2017%2F09%2F26%2F174%20Dungeon-Game%2F</url>
+    <url>%2F2017%2F09%2F26%2FDungeon-Game%2F</url>
     <content type="text"><![CDATA[Question The demons had captured the princess (P) and imprisoned her in the bottom-right corner of a dungeon. The dungeon consists of M x N rooms laid out in a 2D grid. Our valiant knight (K) was initially positioned in the top-left room and must fight his way through the dungeon to rescue the princess. The knight has an initial health point represented by a positive integer. If at any point his health point drops to 0 or below, he dies immediately. Some of the rooms are guarded by demons, so the knight loses health (negative integers) upon entering these rooms; other rooms are either empty (0’s) or contain magic orbs that increase the knight’s health (positive integers). In order to reach the princess as quickly as possible, the knight decides to move only rightward or downward in each step. Write a function to determine the knight’s minimum initial health so that he is able to rescue the princess. For example, given the dungeon below, the initial health of the knight must be at least 7 if he follows the optimal path RIGHT-&gt; RIGHT -&gt; DOWN -&gt; DOWN. -2 (K)-33-5-1011030-5 (P) Solution 1 DPCode1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class Solution &#123; public int calculateMinimumHP(int[][] dungeon) &#123; int rows = dungeon.length; if (rows == 0) &#123; return 0; &#125; int cols = dungeon[0].length; if (cols == 0) &#123; return 0; &#125; //preLife means before step into current dungeon, //knight must have remain that life //current dungeon starts at most right-bottom int preLife = Math.max(1 - dungeon[rows - 1][cols - 1], 1); // record records the next line of preLife int[] record = new int[rows]; record[rows - 1] = preLife; // nextPre means the next position's preLife in this col int nextPre = 1; for (int i = rows - 2; i &gt;= 0; i--) &#123; record[i] = Math.max(1, record[i + 1] - dungeon[i][cols - 1]); &#125; if (cols == 1) &#123; return record[0]; &#125; for (int j = cols - 2; j &gt;=0; j--) &#123; nextPre = Math.max(1, record[rows - 1] - dungeon[rows - 1][j]); record[rows - 1] = nextPre; if (rows == 1) &#123; preLife = nextPre; continue; &#125; for(int i = rows - 2; i &gt;= 0; i--) &#123; preLife = Math.max(1, Math.min(nextPre - dungeon[i][j], record[i] - dungeon[i][j])); nextPre = preLife; record[i] = preLife; &#125; &#125; return preLife; &#125;&#125; T&amp;S AnalysisTime: O(N*M) Space: O(M or N)]]></content>
       <categories>
         <category>Algorithm</category>
@@ -94,7 +94,7 @@
   </entry>
   <entry>
     <title><![CDATA[174 Dungeon Game]]></title>
-    <url>%2F2017%2F09%2F26%2FDungeon-Game%2F</url>
+    <url>%2F2017%2F09%2F26%2F174%20Dungeon-Game%2F</url>
     <content type="text"><![CDATA[Question The demons had captured the princess (P) and imprisoned her in the bottom-right corner of a dungeon. The dungeon consists of M x N rooms laid out in a 2D grid. Our valiant knight (K) was initially positioned in the top-left room and must fight his way through the dungeon to rescue the princess. The knight has an initial health point represented by a positive integer. If at any point his health point drops to 0 or below, he dies immediately. Some of the rooms are guarded by demons, so the knight loses health (negative integers) upon entering these rooms; other rooms are either empty (0’s) or contain magic orbs that increase the knight’s health (positive integers). In order to reach the princess as quickly as possible, the knight decides to move only rightward or downward in each step. Write a function to determine the knight’s minimum initial health so that he is able to rescue the princess. For example, given the dungeon below, the initial health of the knight must be at least 7 if he follows the optimal path RIGHT-&gt; RIGHT -&gt; DOWN -&gt; DOWN. -2 (K)-33-5-1011030-5 (P) Solution 1 DPCode1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class Solution &#123; public int calculateMinimumHP(int[][] dungeon) &#123; int rows = dungeon.length; if (rows == 0) &#123; return 0; &#125; int cols = dungeon[0].length; if (cols == 0) &#123; return 0; &#125; //preLife means before step into current dungeon, //knight must have remain that life //current dungeon starts at most right-bottom int preLife = Math.max(1 - dungeon[rows - 1][cols - 1], 1); // record records the next line of preLife int[] record = new int[rows]; record[rows - 1] = preLife; // nextPre means the next position's preLife in this col int nextPre = 1; for (int i = rows - 2; i &gt;= 0; i--) &#123; record[i] = Math.max(1, record[i + 1] - dungeon[i][cols - 1]); &#125; if (cols == 1) &#123; return record[0]; &#125; for (int j = cols - 2; j &gt;=0; j--) &#123; nextPre = Math.max(1, record[rows - 1] - dungeon[rows - 1][j]); record[rows - 1] = nextPre; if (rows == 1) &#123; preLife = nextPre; continue; &#125; for(int i = rows - 2; i &gt;= 0; i--) &#123; preLife = Math.max(1, Math.min(nextPre - dungeon[i][j], record[i] - dungeon[i][j])); nextPre = preLife; record[i] = preLife; &#125; &#125; return preLife; &#125;&#125; T&amp;S AnalysisTime: O(N*M) Space: O(M or N)]]></content>
       <categories>
         <category>Algorithm</category>
@@ -133,9 +133,9 @@
       <tags>
         <tag>Hash Table</tag>
         <tag>Facebook</tag>
+        <tag>Two Pointers</tag>
         <tag>String</tag>
         <tag>Uber</tag>
-        <tag>Two Pointers</tag>
         <tag>Linkedin</tag>
         <tag>Snapchat</tag>
       </tags>
@@ -342,8 +342,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Dynamic Programming</tag>
         <tag>Greedy</tag>
+        <tag>Dynamic Programming</tag>
         <tag>Bloomberg</tag>
       </tags>
   </entry>
@@ -355,8 +355,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Greedy</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -393,9 +393,9 @@
       <tags>
         <tag>Facebook</tag>
         <tag>Microsoft</tag>
+        <tag>String</tag>
         <tag>Bloomberg</tag>
         <tag>Math</tag>
-        <tag>String</tag>
         <tag>Uber</tag>
         <tag>Yahoo</tag>
       </tags>
@@ -498,8 +498,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Math</tag>
         <tag>String</tag>
+        <tag>Math</tag>
         <tag>Twitter</tag>
       </tags>
   </entry>
@@ -513,8 +513,8 @@
       <tags>
         <tag>Hash Table</tag>
         <tag>Facebook</tag>
-        <tag>Bloomberg</tag>
         <tag>String</tag>
+        <tag>Bloomberg</tag>
         <tag>Uber</tag>
         <tag>Yelp</tag>
         <tag>Amazon</tag>
@@ -695,8 +695,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>String</tag>
         <tag>Two Pointers</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -855,8 +855,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Dynamic Programming</tag>
         <tag>String</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -926,8 +926,8 @@
       </categories>
       <tags>
         <tag>Facebook</tag>
-        <tag>Math</tag>
         <tag>String</tag>
+        <tag>Math</tag>
       </tags>
   </entry>
   <entry>
