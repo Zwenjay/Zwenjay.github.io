@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title><![CDATA[218 The Skyline Problem]]></title>
+      <title><![CDATA[<font color = "red">218 The Skyline Problem</font>]]></title>
       <url>/2017/10/01/218-The-Skyline-Problem/</url>
       <content type="html"><![CDATA[<h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><a href="https://leetcode.com/problems/the-skyline-problem/description/" target="_blank" rel="external">Problem</a></h1><blockquote>
 <p>A city’s skyline is the outer contour of the silhouette formed by all the buildings in that city when viewed from a distance. Now suppose you are given the locations and height of all the buildings as shown on a cityscape photo (Figure A), write a program to output the skyline formed by these buildings collectively (Figure B).</p>
@@ -53,7 +53,7 @@
             
             <tag> Twitter </tag>
             
-            <tag> Favorate </tag>
+            <tag> &lt;font color=&quot;red&quot;&gt;Favorate&lt;/font&gt; </tag>
             
         </tags>
         
@@ -357,9 +357,9 @@ The total probability the knight stays on the board is 0.0625.
         
         <tags>
             
-            <tag> Dynamic Programming </tag>
-            
             <tag> Microsoft </tag>
+            
+            <tag> Dynamic Programming </tag>
             
         </tags>
         
