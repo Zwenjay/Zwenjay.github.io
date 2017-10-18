@@ -25,17 +25,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Smart Cab]]></title>
-    <url>%2F2017%2F10%2F05%2FSmart-Cab%2F</url>
-    <content type="text"><![CDATA[Smart CabMake the cab move in the environment, regardless of any problems about optimization in driving. Notice that your cab will provide the following information: Position of the next cross (according to the current position and forward direction); The state of the cross (red or green light, car existing or not); Current deadline (how much time left). To complete this task, randomly choose one of the following movement for your cab. (None, forward, left, right) Regardless of the above information, set the deadline in the virtual environment, that is to set enforce_deadline as False, and watch the behavior of the intelligent cab.]]></content>
-      <categories>
-        <category>Machine Learning</category>
-      </categories>
-      <tags>
-        <tag>Reinforcement Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[218 The Skyline Problem]]></title>
     <url>%2F2017%2F10%2F01%2F218-The-Skyline-Problem%2F</url>
     <content type="text"><![CDATA[Problem A city’s skyline is the outer contour of the silhouette formed by all the buildings in that city when viewed from a distance. Now suppose you are given the locations and height of all the buildings as shown on a cityscape photo (Figure A), write a program to output the skyline formed by these buildings collectively (Figure B). The geometric information of each building is represented by a triplet of integers [Li, Ri, Hi], where Li and Ri are the x coordinates of the left and right edge of the ith building, respectively, and Hi is its height. It is guaranteed that 0 ≤ Li, Ri ≤ INT_MAX, 0 &lt; Hi ≤ INT_MAX, and Ri - Li &gt; 0. You may assume all buildings are perfect rectangles grounded on an absolutely flat surface at height 0. For instance, the dimensions of all buildings in Figure A are recorded as: [ [2 9 10], [3 7 15], [5 12 12], [15 20 10], [19 24 8] ] . The output is a list of “key points” (red dots in Figure B) in the format of [ [x1,y1], [x2, y2], [x3, y3], … ] that uniquely defines a skyline. A key point is the left endpoint of a horizontal line segment. Note that the last key point, where the rightmost building ends, is merely used to mark the termination of the skyline, and always has zero height. Also, the ground in between any two adjacent buildings should be considered part of the skyline contour. For instance, the skyline in Figure B should be represented as:[ [2 10], [3 15], [7 12], [12 0], [15 10], [20 8], [24, 0] ]. Notes: The number of buildings in any input list is guaranteed to be in the range [0, 10000]. The input list is already sorted in ascending order by the left x position Li. The output list must be sorted by the x position. There must be no consecutive horizontal lines of equal height in the output skyline. For instance, […[2 3], [4 5], [7 5], [11 5], [12 7]…] is not acceptable; the three lines of height 5 should be merged into one in the final output as such: […[2 3], [4 5], [12 7], …] Solution 1 HeapReference Link Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465class Solution &#123; class ArrComparator implements Comparator&lt;int[]&gt; &#123; @Override public int compare(int[] a, int[] b) &#123; return (a[2] - b[2]) * -1; &#125; &#125; public List&lt;int[]&gt; getSkyline(int[][] buildings) &#123; List&lt;Integer&gt; cPoint = new ArrayList&lt;Integer&gt;(); HashMap&lt;Integer, List&lt;Integer&gt;&gt; leftE = new HashMap&lt;Integer, List&lt;Integer&gt;&gt;(); HashMap&lt;Integer, List&lt;Integer&gt;&gt; rightE = new HashMap&lt;Integer, List&lt;Integer&gt;&gt;(); PriorityQueue&lt;int[]&gt; heap = new PriorityQueue&lt;int[]&gt;(1, new ArrComparator()); for (int i = 0; i &lt; buildings.length; i++) &#123; if (!leftE.containsKey(buildings[i][0])) &#123; leftE.put(buildings[i][0], new ArrayList&lt;Integer&gt;()); &#125; leftE.get(buildings[i][0]).add(i); if (!rightE.containsKey(buildings[i][1])) &#123; rightE.put(buildings[i][1], new ArrayList&lt;Integer&gt;()); &#125; rightE.get(buildings[i][1]).add(i); cPoint.add(buildings[i][0]); cPoint.add(buildings[i][1]); &#125; Collections.sort(cPoint); HashMap&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;(); for (int k = 0; k &lt; cPoint.size(); k++) &#123; int cpoint = cPoint.get(k); if (leftE.containsKey(cpoint)) &#123; for (int i = 0; i &lt; leftE.get(cpoint).size(); i++) &#123; heap.offer(buildings[leftE.get(cpoint).get(i)]); &#125; leftE.remove(cpoint); &#125; if (rightE.containsKey(cpoint)) &#123; for (int i = 0; i &lt; rightE.get(cpoint).size(); i++) &#123; heap.remove(buildings[rightE.get(cpoint).get(i)]); &#125; rightE.remove(cpoint); &#125; if (!heap.isEmpty()) &#123; map.put(cpoint, heap.peek()[2]); &#125; else &#123; map.put(cpoint, 0); &#125; &#125; int last = 0; List&lt;int[]&gt; res = new ArrayList&lt;int[]&gt;(); for (int i = 0; i &lt; cPoint.size(); i++) &#123; // System.out.println(cPoint.get(i) + " : " + map.get(cPoint.get(i))); if (i &gt; 0 &amp;&amp; cPoint.get(i) == cPoint.get(i - 1) || map.get(cPoint.get(i)) == last) &#123; continue; &#125; res.add(new int[] &#123;cPoint.get(i), map.get(cPoint.get(i))&#125;); last = map.get(cPoint.get(i)); &#125; return res; &#125;&#125; T&amp;S AnalysisTime: O(NlogN) Space: O(N)]]></content>
@@ -174,8 +163,8 @@
     <url>%2F2017%2F09%2F26%2F76-Minimum-Window-Substring%2F</url>
     <content type="text"><![CDATA[Question Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n). For example, S = “ADOBECODEBANC” T = “ABC” Minimum window is “BANC”. Note: If there is no such window in S that covers all characters in T, return the empty string “”. If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S. Solution 1 Hash and Two PointersIt’s a substring template Code123456789101112131415161718192021222324252627class Solution &#123; public String minWindow(String s, String t) &#123; int[] map = new int[128]; for (char ch : t.toCharArray()) &#123; map[ch]++; &#125; int d = Integer.MAX_VALUE, begin = 0, head = 0, counter = t.length(); for (int i = 0; i &lt; s.length(); i++) &#123; if (map[s.charAt(i)] &gt; 0) &#123; counter--; &#125; map[s.charAt(i)]--; while (counter == 0) &#123; if (i - begin + 1 &lt; d) &#123; d = i - begin + 1; head = begin; &#125; if (map[s.charAt(begin)] == 0) &#123; counter++; &#125; map[s.charAt(begin)]++; begin++; &#125; &#125; return d == Integer.MAX_VALUE ? "" : s.substring(head, d + head); &#125;&#125; T&amp;S AnalysisTime: O(n), Since only one scanSpace: O(1), The hash map’s size is limited]]></content>
       <tags>
-        <tag>Hash Table</tag>
         <tag>Facebook</tag>
+        <tag>Hash Table</tag>
         <tag>Two Pointers</tag>
         <tag>String</tag>
         <tag>Uber</tag>
@@ -281,8 +270,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
         <tag>Apple</tag>
         <tag>Space Saving</tag>
         <tag>Palindrome Pairs</tag>
@@ -469,8 +458,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
         <tag>Google</tag>
         <tag>Game of Life</tag>
       </tags>
@@ -554,8 +543,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Hash Table</tag>
         <tag>Facebook</tag>
+        <tag>Hash Table</tag>
         <tag>Bloomberg</tag>
         <tag>String</tag>
         <tag>Uber</tag>
@@ -584,8 +573,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Hash Table</tag>
         <tag>Facebook</tag>
+        <tag>Hash Table</tag>
         <tag>Sort</tag>
       </tags>
   </entry>
@@ -778,8 +767,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -791,8 +780,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Hash Table</tag>
         <tag>Facebook</tag>
+        <tag>Hash Table</tag>
       </tags>
   </entry>
   <entry>
@@ -831,8 +820,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -897,8 +886,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
         <tag>String</tag>
       </tags>
   </entry>
