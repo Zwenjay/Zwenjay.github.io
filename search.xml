@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[84 Largest Rectangle in Histogram]]></title>
+    <url>%2F2017%2F10%2F18%2F84-Largest-Rectangle-in-Histogram%2F</url>
+    <content type="text"><![CDATA[Question Given n non-negative integers representing the histogram’s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram. Above is a histogram where width of each bar is 1, given height = [2,1,5,6,2,3]. The largest rectangle is shown in the shaded area, which has area = 10 unit. For example, Given heights = [2,1,5,6,2,3], return 10. Solution 1 Monotonous stackMaintain a Code12345678910111213141516171819class Solution &#123; public int largestRectangleArea(int[] heights) &#123; Stack&lt;Integer&gt; stack = new Stack&lt;Integer&gt;(); int currentHeight; int height, width; int maxArea = 0; for (int i = 0; i &lt;= heights.length; i++) &#123; currentHeight = ((i == heights.length) ? -1 : heights[i]); while (!stack.isEmpty() &amp;&amp; currentHeight &lt; heights[stack.peek()]) &#123; height = heights[stack.pop()]; width = i - ((stack.isEmpty()) ? 0 : (stack.peek() + 1)); // System.out.println(height + ", " + width); maxArea = Math.max(maxArea, height * width); &#125; stack.push(i); &#125; return maxArea; &#125;&#125; T &amp; S AnalysisTime: O(n) Space: O(n)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Array</tag>
+        <tag>Monotonous stack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[689 Maximum Sum of 3 Non-Overlapping Subarrays]]></title>
     <url>%2F2017%2F10%2F18%2F689-Maximum-Sum-of-3-Non-Overlapping-Subarrays%2F</url>
     <content type="text"><![CDATA[Question In a given array nums of positive integers, find three non-overlapping subarrays with maximum sum. Each subarray will be of size k, and we want to maximize the sum of all 3*k entries. Return the result as a list of indices representing the starting position of each interval (0-indexed). If there are multiple answers, return the lexicographically smallest one. Example: Input: [1,2,1,2,6,7,5,1], 2 Output: [0, 3, 5] Explanation: Subarrays [1, 2], [2, 6], [7, 5] correspond to the starting indices [0, 3, 5]. We could have also taken [2, 1], but an answer of [1, 3, 5] would be lexicographically larger. Solution 1 Dynamic Programming Left &amp; RightFor every middle subarray, get the corresponding maximum left and right subarrays, according to the indices, which defined the possible range of those subarrays Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152class Solution &#123; public int[] maxSumOfThreeSubarrays(int[] nums, int k) &#123; int[] leftMax = new int[nums.length]; int[] rightMax = new int[nums.length]; int[] sum = new int[nums.length + 1]; int[] res = new int[3]; int l, r; sum[0] = 0; for (int i = 0; i &lt; nums.length; i++) &#123; sum[i + 1] = sum[i] + nums[i]; &#125; int max = sum[k] - sum[0]; leftMax[k - 1] = 0; for (int i = k; i &lt; nums.length; i++) &#123; if (sum[i + 1] - sum[i + 1 - k] &gt; max) &#123; leftMax[i] = i + 1 - k; max = sum[i + 1] - sum[i + 1 - k]; &#125; else &#123; leftMax[i] = leftMax[i - 1]; &#125; &#125; max = sum[nums.length] - sum[nums.length - k]; rightMax[nums.length - k] = nums.length - k; for (int i = nums.length - k - 1; i &gt;= 0; i--) &#123; if (sum[i + k] - sum[i] &gt; max) &#123; rightMax[i] = i; max = sum[i + k] - sum[i]; &#125; else &#123; rightMax[i] = rightMax[i + 1]; &#125; &#125; max = 0; for (int i = k; i &lt;= nums.length - 2 * k; i++) &#123; l = leftMax[i - 1]; r = rightMax[i + k]; if (sum[l + k] - sum[l] + sum[i + k] - sum[i] + sum[r + k] - sum[r] &gt; max) &#123; res[0] = l; res[1] = i; res[2] = r; max = sum[l + k] - sum[l] + sum[i + k] - sum[i] + sum[r + k] - sum[r]; &#125; &#125; return res; &#125;&#125; T &amp; S Analysis Time: O(n) Space: O(n)]]></content>
@@ -373,8 +385,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Greedy</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Greedy</tag>
         <tag>Bloomberg</tag>
       </tags>
   </entry>
@@ -386,8 +398,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Greedy</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
