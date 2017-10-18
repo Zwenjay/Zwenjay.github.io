@@ -311,6 +311,316 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/15/210-Course-Schedule-II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/15/210-Course-Schedule-II/" itemprop="url">210 Course Schedule II</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-15T20:39:27-07:00">
+                2017-09-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/course-schedule/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>There are a total of n courses you have to take, labeled from 0 to n - 1.</p>
+<p>Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]</p>
+<p>Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?</p>
+<p>For example:</p>
+<pre>2, [[1,0]]</pre>
+
+<p>There are a total of 2 courses to take. To take course 1 you should have finished course 0. So the correct course order is [0,1]</p>
+<pre>4, [[1,0],[2,0],[3,1],[3,2]]</pre>
+
+<p>There are a total of 4 courses to take. To take course 3 you should have finished both courses 1 and 2. Both courses 1 and 2 should be taken after you finished course 0. So one correct course order is [0,1,2,3]. Another correct ordering is[0,2,1,3].</p>
+</blockquote>
+<h2 id="Solution-1-Topological-Sort"><a href="#Solution-1-Topological-Sort" class="headerlink" title="Solution 1 Topological Sort"></a>Solution 1 Topological Sort</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] findOrder(<span class="keyword">int</span> numCourses, <span class="keyword">int</span>[][] prerequisites) &#123;</div><div class="line">        <span class="keyword">if</span> (numCourses == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[numCourses];</div><div class="line">        <span class="keyword">int</span> cur = <span class="number">0</span>, now;</div><div class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</div><div class="line">        <span class="keyword">int</span>[] inDegree = <span class="keyword">new</span> <span class="keyword">int</span>[numCourses];</div><div class="line">        List&lt;List&lt;Integer&gt;&gt; graph = <span class="keyword">new</span> ArrayList&lt;List&lt;Integer&gt;&gt;();</div><div class="line">        </div><div class="line">        </div><div class="line">        <span class="comment">// Build the Graph and fill the indegree array, Time: O(numCourses + edge)</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numCourses; i++) &#123;</div><div class="line">            graph.add(<span class="keyword">new</span> ArrayList&lt;Integer&gt;());</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; prerequisites.length; i++) &#123;</div><div class="line">            graph.get(prerequisites[i][<span class="number">1</span>]).add(prerequisites[i][<span class="number">0</span>]);</div><div class="line">            inDegree[prerequisites[i][<span class="number">0</span>]]++;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">       </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numCourses; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (inDegree[i] == <span class="number">0</span>) &#123;</div><div class="line">                queue.offer(i);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">//Topological traversal, time: O(numCourse + edge)</span></div><div class="line">        <span class="keyword">while</span> (queue.size() &gt; <span class="number">0</span>) &#123;</div><div class="line">            now = queue.poll();</div><div class="line">            res[cur++] = now;</div><div class="line">            <span class="keyword">if</span> (cur &gt; numCourses) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[numCourses];</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; graph.get(now).size(); i++) &#123;</div><div class="line">                <span class="keyword">if</span> (--inDegree[graph.get(now).get(i)] == <span class="number">0</span>) &#123;</div><div class="line">                    queue.offer(graph.get(now).get(i));</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (cur &lt; numCourses) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(numCourse + edge)</p>
+<p><strong>Space:</strong> O(numCourse + edge)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/13/221-Maximal-Square/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/13/221-Maximal-Square/" itemprop="url">221 Maximal Square</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-13T09:49:49-07:00">
+                2017-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/maximal-square/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a 2D binary matrix filled with 0’s and 1’s, find the largest square containing only 1’s and return its area.<br>For example, given the following matrix:</p>
+<pre>1 0 1 0 0
+1 0 <font color="red">1</font> <font color="red">1</font> 1
+1 1 <font color="red">1</font> <font color="red">1</font> 1
+1 0 0 1 0
+</pre>
+
+<p>Return 4.</p>
+</blockquote>
+<h2 id="Solution-1-Dynamic-Programming"><a href="#Solution-1-Dynamic-Programming" class="headerlink" title="Solution 1 Dynamic Programming"></a>Solution 1 Dynamic Programming</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximalSquare</span><span class="params">(<span class="keyword">char</span>[][] matrix)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> rows = matrix.length, maxSize = <span class="number">0</span>, temp;</div><div class="line">        <span class="keyword">if</span> (rows == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> cols = matrix[<span class="number">0</span>].length;</div><div class="line">        <span class="keyword">int</span>[] lastRow = <span class="keyword">new</span> <span class="keyword">int</span>[cols];</div><div class="line">        <span class="keyword">int</span> lastSize = <span class="number">0</span>;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cols; i++) &#123;    </div><div class="line">            lastRow[i] = matrix[<span class="number">0</span>][i] == <span class="string">'1'</span>? <span class="number">1</span>:<span class="number">0</span>;</div><div class="line">            maxSize = Math.max(lastRow[i], maxSize);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; rows; i++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; cols; j++) &#123;</div><div class="line">                <span class="keyword">if</span> (j == <span class="number">0</span>) &#123; </div><div class="line">                   lastSize =  ( matrix[i][j] == <span class="string">'1'</span> ) ? <span class="number">1</span> : <span class="number">0</span>;</div><div class="line">                   maxSize = Math.max(lastSize, maxSize);</div><div class="line">                &#125; <span class="keyword">else</span>&#123;</div><div class="line">                    <span class="keyword">if</span> (matrix[i][j] == <span class="string">'0'</span>) &#123;</div><div class="line">                       lastRow[j-<span class="number">1</span>] = lastSize;</div><div class="line">                       lastSize = <span class="number">0</span>;</div><div class="line">                       <span class="keyword">continue</span>; </div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        temp = lastSize;</div><div class="line">                        lastSize = Math.min(Math.min(lastSize, lastRow[j]), lastRow[j - <span class="number">1</span>]) + <span class="number">1</span>;</div><div class="line">                        maxSize = Math.max(lastSize, maxSize); </div><div class="line">                        lastRow[j - <span class="number">1</span>] = temp;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                lastRow[cols - <span class="number">1</span>] = lastSize;</div><div class="line">            &#125;</div><div class="line">        <span class="keyword">return</span> maxSize * maxSize;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(COL * ROW)</p>
+<p><strong>Space:</strong> O(COL or ROW)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/12/389-Find-the-Difference/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1622,320 +1932,6 @@ transactions = [buy, sell, cooldown, buy, sell]
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/07/376-Wiggle-Subsequence/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/07/376-Wiggle-Subsequence/" itemprop="url">376 Wiggle Subsequence</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-07T21:03:39-07:00">
-                2017-09-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/wiggle-subsequence/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>A sequence of numbers is called a wiggle sequence if the differences between successive numbers strictly alternate between positive and negative. The first difference (if one exists) may be either positive or negative. A sequence with fewer than two elements is trivially a wiggle sequence.</p>
-<p>For example, [1,7,4,9,2,5] is a wiggle sequence because the differences (6,-3,5,-7,3) are alternately positive and negative. In contrast, [1,4,7,2,5] and [1,7,4,5,5] are not wiggle sequences, the first because its first two differences are positive and the second because its last difference is zero.</p>
-<p>Given a sequence of integers, return the length of the longest subsequence that is a wiggle sequence. A subsequence is obtained by deleting some number of elements (eventually, also zero) from the original sequence, leaving the remaining elements in their original order.</p>
-<p><strong>Examples:</strong></p>
-<pre><b>Input:</b> [1,7,4,9,2,5]
-<b>Output:</b> 6
-The entire sequence is a wiggle sequence.
-
-<b>Input:</b> [1,17,5,10,13,15,10,5,16,8]
-<b>Output:</b> 7
-There are several subsequences that achieve this length. One is [1,17,10,13,10,16,8].
-
-<b>Input:</b> [1,2,3,4,5,6,7,8,9]
-<b>Output:</b> 2
-</pre>
-
-</blockquote>
-<h2 id="Solution-1-Dynamic-Programming"><a href="#Solution-1-Dynamic-Programming" class="headerlink" title="Solution 1 Dynamic Programming"></a>Solution 1 Dynamic Programming</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> lens = nums.length;</div><div class="line">        <span class="keyword">boolean</span> up;</div><div class="line">        <span class="keyword">if</span>(lens &lt;= <span class="number">1</span>)</div><div class="line">            <span class="keyword">return</span> lens;</div><div class="line">        <span class="comment">// int[] record = new int[lens];</span></div><div class="line">        </div><div class="line">        <span class="keyword">int</span> record1, record2;</div><div class="line">        record1 = <span class="number">1</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> j = <span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span>(j &lt; nums.length &amp;&amp; nums[j] == nums[<span class="number">0</span>])&#123;</div><div class="line">            record2 = <span class="number">1</span>;</div><div class="line">            record1 = <span class="number">1</span>;</div><div class="line">            j++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(j &gt;= nums.length)</div><div class="line">            <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">        </div><div class="line">        record2 = <span class="number">2</span>;</div><div class="line">        <span class="keyword">if</span>(nums[j] &gt; nums[<span class="number">0</span>])</div><div class="line">            up = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">else</span></div><div class="line">            up = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = j + <span class="number">1</span>; i &lt; lens; i++)&#123;</div><div class="line">            <span class="keyword">if</span>((!up &amp;&amp; nums[i-<span class="number">1</span>] &lt; nums[i]) || (up &amp;&amp; nums[i-<span class="number">1</span>] &gt; nums[i]))&#123;</div><div class="line">                record1 = record2;</div><div class="line">                record2 = record2+<span class="number">1</span>;</div><div class="line">                up = !up;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> record2;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(N)</p>
-<p><strong>Space:</strong> O(1)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/07/322-Coin-Change/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/07/322-Coin-Change/" itemprop="url">322 Coin Change</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-07T19:50:28-07:00">
-                2017-09-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/coin-change/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.</p>
-<p><strong>Example 1:</strong></p>
-<p>coins = [1, 2, 5], amount = 11<br>return 3 (11 = 5 + 5 + 1)</p>
-<p><strong>Example 2:</strong></p>
-<p>coins = [2], amount = 3<br>return -1.</p>
-<p><strong>Note:</strong><br>You may assume that you have an infinite number of each kind of coin.</p>
-</blockquote>
-<h2 id="Solution-1-Dynamic-Programming"><a href="#Solution-1-Dynamic-Programming" class="headerlink" title="Solution 1 Dynamic Programming"></a>Solution 1 Dynamic Programming</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">coinChange</span><span class="params">(<span class="keyword">int</span>[] coins, <span class="keyword">int</span> amount)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span>[] count = <span class="keyword">new</span> <span class="keyword">int</span>[amount+<span class="number">1</span>];</div><div class="line">        <span class="keyword">return</span> rec(count, coins, amount);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">rec</span><span class="params">(<span class="keyword">int</span>[] count, <span class="keyword">int</span>[] coins, <span class="keyword">int</span> amount)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(amount &lt; <span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        <span class="keyword">if</span>(amount == <span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        <span class="keyword">if</span>(count[amount] != <span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> count[amount];</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> mins = Integer.MAX_VALUE;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; coins.length; i++)&#123;</div><div class="line">            <span class="keyword">int</span> res = rec(count, coins, amount - coins[i]);</div><div class="line">            <span class="keyword">if</span>(res &gt;= <span class="number">0</span>)&#123;</div><div class="line">                mins = Math.min(mins, res + <span class="number">1</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(mins == Integer.MAX_VALUE)&#123;</div><div class="line">            count[amount] = -<span class="number">1</span>;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        count[amount] = mins;</div><div class="line">        <span class="keyword">return</span> mins;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(Nset^amount)</p>
-<p><strong>Space:</strong> O(amount)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1986,7 +1982,7 @@ There are several subsequences that achieve this length. One is [1,17,10,13,10,1
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">96</span>
+                <span class="site-state-item-count">98</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1997,7 +1993,7 @@ There are several subsequences that achieve this length. One is [1,17,10,13,10,1
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -2008,7 +2004,7 @@ There are several subsequences that achieve this length. One is [1,17,10,13,10,1
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

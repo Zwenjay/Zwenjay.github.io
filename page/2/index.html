@@ -311,6 +311,329 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/26/174 Dungeon-Game/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/26/174 Dungeon-Game/" itemprop="url">174 Dungeon Game</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-26T11:14:53-07:00">
+                2017-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/dungeon-game/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>The demons had captured the princess (P) and imprisoned her in the bottom-right corner of a dungeon. The dungeon consists of M x N rooms laid out in a 2D grid. Our valiant knight (K) was initially positioned in the top-left room and must fight his way through the dungeon to rescue the princess.</p>
+<p>The knight has an initial health point represented by a positive integer. If at any point his health point drops to 0 or below, he dies immediately.</p>
+<p>Some of the rooms are guarded by demons, so the knight loses health (negative integers) upon entering these rooms; other rooms are either empty (0’s) or contain magic orbs that increase the knight’s health (positive integers).</p>
+<p>In order to reach the princess as quickly as possible, the knight decides to move only rightward or downward in each step.</p>
+<p>Write a function to determine the knight’s minimum initial health so that he is able to rescue the princess.</p>
+<p>For example, given the dungeon below, the initial health of the knight must be at least 7 if he follows the optimal path RIGHT-&gt; RIGHT -&gt; DOWN -&gt; DOWN.</p>
+<table><tr><br><td>-2 (K)</td><br><td>-3</td><br><td>3</td><br></tr><br><tr><br><td>-5</td><br><td>-10</td><br><td>1</td><br></tr><br><tr><br><td>10</td><br><td>30</td><br><td>-5 (P)</td><br></tr><br></table>
+
+</blockquote>
+<h2 id="Solution-1-DP"><a href="#Solution-1-DP" class="headerlink" title="Solution 1 DP"></a>Solution 1 DP</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">calculateMinimumHP</span><span class="params">(<span class="keyword">int</span>[][] dungeon)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> rows = dungeon.length;</div><div class="line">        <span class="keyword">if</span> (rows == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> cols = dungeon[<span class="number">0</span>].length;</div><div class="line">        <span class="keyword">if</span> (cols == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//preLife means before step into current dungeon,</span></div><div class="line">        <span class="comment">//knight must have remain that life</span></div><div class="line">        <span class="comment">//current dungeon starts at most right-bottom</span></div><div class="line">        <span class="keyword">int</span> preLife = Math.max(<span class="number">1</span> - dungeon[rows - <span class="number">1</span>][cols - <span class="number">1</span>], <span class="number">1</span>);</div><div class="line">        </div><div class="line">        <span class="comment">// record records the next line of preLife</span></div><div class="line">        <span class="keyword">int</span>[] record = <span class="keyword">new</span> <span class="keyword">int</span>[rows];</div><div class="line">        record[rows - <span class="number">1</span>] = preLife;</div><div class="line">        </div><div class="line">        <span class="comment">// nextPre means the next position's preLife in this col</span></div><div class="line">        <span class="keyword">int</span> nextPre = <span class="number">1</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = rows - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">            record[i] = Math.max(<span class="number">1</span>, record[i + <span class="number">1</span>] - dungeon[i][cols - <span class="number">1</span>]);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (cols == <span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> record[<span class="number">0</span>];</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = cols - <span class="number">2</span>; j &gt;=<span class="number">0</span>; j--) &#123;</div><div class="line">            nextPre = Math.max(<span class="number">1</span>, record[rows - <span class="number">1</span>] - dungeon[rows - <span class="number">1</span>][j]);</div><div class="line">            record[rows - <span class="number">1</span>] = nextPre;</div><div class="line">            <span class="keyword">if</span> (rows == <span class="number">1</span>) &#123;</div><div class="line">                preLife = nextPre;</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            &#125;   </div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = rows - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">                preLife = Math.max(<span class="number">1</span>, Math.min(nextPre - dungeon[i][j], record[i] - dungeon[i][j]));</div><div class="line">                nextPre = preLife;</div><div class="line">                record[i] = preLife;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> preLife;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(N*M)</p>
+<p><strong>Space:</strong> O(M or N)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/26/135-Candy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/26/135-Candy/" itemprop="url">135 Candy</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-26T10:34:05-07:00">
+                2017-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/candy/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>There are N children standing in a line. Each child is assigned a rating value.</p>
+<p>You are giving candies to these children subjected to the following requirements:</p>
+<ul>
+<li>Each child must have at least one candy.</li>
+<li>Children with a higher rating get more candies than their neighbors.</li>
+</ul>
+<p>What is the minimum candies you must give?</p>
+</blockquote>
+<h2 id="Solution-One-Scan"><a href="#Solution-One-Scan" class="headerlink" title="Solution One Scan"></a>Solution One Scan</h2><p>One Scan, </p>
+<ul>
+<li>if rating is larger than last one, than it get one more candy</li>
+<li>if same rating, get one candy</li>
+<li>if smaller <ul>
+<li>if before is more than 1 candy, get one candy</li>
+<li>get one candy and sum += the number of children between top and the last<ul>
+<li>if candy[top] is larger than candy[top+1], than candy[top+1] plus one and sum minus one Since the top does not need to add one</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">candy</span><span class="params">(<span class="keyword">int</span>[] ratings)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (ratings.length == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span>[] candies = <span class="keyword">new</span> <span class="keyword">int</span>[ratings.length];</div><div class="line">        candies[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> top = <span class="number">0</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; ratings.length; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (ratings[i - <span class="number">1</span>] &lt; ratings[i]) &#123;</div><div class="line">                top = i;</div><div class="line">                candies[i] = candies[i - <span class="number">1</span>] + <span class="number">1</span>;</div><div class="line">                sum += candies[i];</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ratings[i - <span class="number">1</span>] == ratings[i]) &#123;</div><div class="line">                candies[i] = <span class="number">1</span>;</div><div class="line">                sum += <span class="number">1</span>;</div><div class="line">                top = i;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">if</span> (candies[i - <span class="number">1</span>] == <span class="number">1</span>) &#123;</div><div class="line">                    sum += i - top;</div><div class="line">                    <span class="keyword">if</span> (candies[top] &gt;= candies[top + <span class="number">1</span>] + <span class="number">2</span>) &#123;</div><div class="line">                        sum--;</div><div class="line">                        candies[top + <span class="number">1</span>]++;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                candies[i] = <span class="number">1</span>;</div><div class="line">                sum += <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> sum;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n)</p>
+<p><strong>Space:</strong> O(n) — it could be O(1), since we only need top and last</p>
+<h2 id="Solution-2-Two-Scann"><a href="#Solution-2-Two-Scann" class="headerlink" title="Solution 2 Two Scann"></a>Solution 2 Two Scann</h2><p>It’s just too treaky</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"> <span class="function"><span class="keyword">int</span> <span class="title">candy</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt; &amp;ratings)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">int</span> size=ratings.size();</div><div class="line">    <span class="keyword">if</span>(size&lt;=<span class="number">1</span>)</div><div class="line">        <span class="keyword">return</span> size;</div><div class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">num</span><span class="params">(size,<span class="number">1</span>)</span></span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; size; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(ratings[i]&gt;ratings[i-<span class="number">1</span>])</div><div class="line">            num[i]=num[i-<span class="number">1</span>]+<span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i= size-<span class="number">1</span>; i&gt;<span class="number">0</span> ; i--)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(ratings[i-<span class="number">1</span>]&gt;ratings[i])</div><div class="line">            num[i-<span class="number">1</span>]=max(num[i]+<span class="number">1</span>,num[i-<span class="number">1</span>]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> result=<span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</div><div class="line">    &#123;</div><div class="line">        result+=num[i];</div><div class="line">       <span class="comment">// cout&lt;&lt;num[i]&lt;&lt;" ";</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n)<br><strong>Space:</strong> O(1)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/26/632-Smallest-Range/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1548,316 +1871,6 @@ Return 4.
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/15/210-Course-Schedule-II/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/15/210-Course-Schedule-II/" itemprop="url">210 Course Schedule II</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-15T20:39:27-07:00">
-                2017-09-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/course-schedule/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>There are a total of n courses you have to take, labeled from 0 to n - 1.</p>
-<p>Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]</p>
-<p>Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?</p>
-<p>For example:</p>
-<pre>2, [[1,0]]</pre>
-
-<p>There are a total of 2 courses to take. To take course 1 you should have finished course 0. So the correct course order is [0,1]</p>
-<pre>4, [[1,0],[2,0],[3,1],[3,2]]</pre>
-
-<p>There are a total of 4 courses to take. To take course 3 you should have finished both courses 1 and 2. Both courses 1 and 2 should be taken after you finished course 0. So one correct course order is [0,1,2,3]. Another correct ordering is[0,2,1,3].</p>
-</blockquote>
-<h2 id="Solution-1-Topological-Sort"><a href="#Solution-1-Topological-Sort" class="headerlink" title="Solution 1 Topological Sort"></a>Solution 1 Topological Sort</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] findOrder(<span class="keyword">int</span> numCourses, <span class="keyword">int</span>[][] prerequisites) &#123;</div><div class="line">        <span class="keyword">if</span> (numCourses == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[numCourses];</div><div class="line">        <span class="keyword">int</span> cur = <span class="number">0</span>, now;</div><div class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</div><div class="line">        <span class="keyword">int</span>[] inDegree = <span class="keyword">new</span> <span class="keyword">int</span>[numCourses];</div><div class="line">        List&lt;List&lt;Integer&gt;&gt; graph = <span class="keyword">new</span> ArrayList&lt;List&lt;Integer&gt;&gt;();</div><div class="line">        </div><div class="line">        </div><div class="line">        <span class="comment">// Build the Graph and fill the indegree array, Time: O(numCourses + edge)</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numCourses; i++) &#123;</div><div class="line">            graph.add(<span class="keyword">new</span> ArrayList&lt;Integer&gt;());</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; prerequisites.length; i++) &#123;</div><div class="line">            graph.get(prerequisites[i][<span class="number">1</span>]).add(prerequisites[i][<span class="number">0</span>]);</div><div class="line">            inDegree[prerequisites[i][<span class="number">0</span>]]++;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">       </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numCourses; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (inDegree[i] == <span class="number">0</span>) &#123;</div><div class="line">                queue.offer(i);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">//Topological traversal, time: O(numCourse + edge)</span></div><div class="line">        <span class="keyword">while</span> (queue.size() &gt; <span class="number">0</span>) &#123;</div><div class="line">            now = queue.poll();</div><div class="line">            res[cur++] = now;</div><div class="line">            <span class="keyword">if</span> (cur &gt; numCourses) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[numCourses];</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; graph.get(now).size(); i++) &#123;</div><div class="line">                <span class="keyword">if</span> (--inDegree[graph.get(now).get(i)] == <span class="number">0</span>) &#123;</div><div class="line">                    queue.offer(graph.get(now).get(i));</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (cur &lt; numCourses) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(numCourse + edge)</p>
-<p><strong>Space:</strong> O(numCourse + edge)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/13/221-Maximal-Square/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/13/221-Maximal-Square/" itemprop="url">221 Maximal Square</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-13T09:49:49-07:00">
-                2017-09-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/maximal-square/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given a 2D binary matrix filled with 0’s and 1’s, find the largest square containing only 1’s and return its area.<br>For example, given the following matrix:</p>
-<pre>1 0 1 0 0
-1 0 <font color="red">1</font> <font color="red">1</font> 1
-1 1 <font color="red">1</font> <font color="red">1</font> 1
-1 0 0 1 0
-</pre>
-
-<p>Return 4.</p>
-</blockquote>
-<h2 id="Solution-1-Dynamic-Programming"><a href="#Solution-1-Dynamic-Programming" class="headerlink" title="Solution 1 Dynamic Programming"></a>Solution 1 Dynamic Programming</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximalSquare</span><span class="params">(<span class="keyword">char</span>[][] matrix)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> rows = matrix.length, maxSize = <span class="number">0</span>, temp;</div><div class="line">        <span class="keyword">if</span> (rows == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> cols = matrix[<span class="number">0</span>].length;</div><div class="line">        <span class="keyword">int</span>[] lastRow = <span class="keyword">new</span> <span class="keyword">int</span>[cols];</div><div class="line">        <span class="keyword">int</span> lastSize = <span class="number">0</span>;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cols; i++) &#123;    </div><div class="line">            lastRow[i] = matrix[<span class="number">0</span>][i] == <span class="string">'1'</span>? <span class="number">1</span>:<span class="number">0</span>;</div><div class="line">            maxSize = Math.max(lastRow[i], maxSize);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; rows; i++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; cols; j++) &#123;</div><div class="line">                <span class="keyword">if</span> (j == <span class="number">0</span>) &#123; </div><div class="line">                   lastSize =  ( matrix[i][j] == <span class="string">'1'</span> ) ? <span class="number">1</span> : <span class="number">0</span>;</div><div class="line">                   maxSize = Math.max(lastSize, maxSize);</div><div class="line">                &#125; <span class="keyword">else</span>&#123;</div><div class="line">                    <span class="keyword">if</span> (matrix[i][j] == <span class="string">'0'</span>) &#123;</div><div class="line">                       lastRow[j-<span class="number">1</span>] = lastSize;</div><div class="line">                       lastSize = <span class="number">0</span>;</div><div class="line">                       <span class="keyword">continue</span>; </div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        temp = lastSize;</div><div class="line">                        lastSize = Math.min(Math.min(lastSize, lastRow[j]), lastRow[j - <span class="number">1</span>]) + <span class="number">1</span>;</div><div class="line">                        maxSize = Math.max(lastSize, maxSize); </div><div class="line">                        lastRow[j - <span class="number">1</span>] = temp;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                lastRow[cols - <span class="number">1</span>] = lastSize;</div><div class="line">            &#125;</div><div class="line">        <span class="keyword">return</span> maxSize * maxSize;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(COL * ROW)</p>
-<p><strong>Space:</strong> O(COL or ROW)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1908,7 +1921,7 @@ Return 4.
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">96</span>
+                <span class="site-state-item-count">98</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1919,7 +1932,7 @@ Return 4.
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1930,7 +1943,7 @@ Return 4.
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
