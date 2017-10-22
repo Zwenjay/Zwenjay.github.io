@@ -1,9 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[126 Word Ladder II]]></title>
+    <url>%2F2017%2F10%2F21%2F126-Word-Ladder-II%2F</url>
+    <content type="text"><![CDATA[Question Given two words (beginWord and endWord), and a dictionary’s word list, find all shortest transformation sequence(s) from beginWord to endWord, such that: Only one letter can be changed at a time Each transformed word must exist in the word list. Note that beginWord is not a transformed word. For example, Given: beginWord = “hit” endWord = “cog” wordList = [“hot”,”dot”,”dog”,”lot”,”log”,”cog”] Rerurn [ ["hit","hot","dot","dog","cog"], ["hit","hot","lot","log","cog"] ] Solution 1 Dijkstra’s algorithmSame as shortest path algorithm, except that it has to store multiply precessor in a path Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697class Solution &#123; public List&lt;List&lt;String&gt;&gt; findLadders(String beginWord, String endWord, List&lt;String&gt; wordList) &#123; Map&lt;String, List&lt;String&gt;&gt; path = new HashMap&lt;&gt;(); Map&lt;String, Integer&gt; distance = new HashMap&lt;&gt;(); Set&lt;String&gt; dict = new HashSet&lt;&gt;(wordList); for (String word : dict) &#123; path.put(word, new ArrayList&lt;String&gt;()); &#125; path.put(beginWord, new ArrayList&lt;String&gt;()); distance.put(beginWord, 0); bfs(path, distance, beginWord, endWord, dict); // for (String word : dict) &#123; // System.out.print(word + ": "); // List&lt;String&gt; last = path.get(word); // for (int i = 0; i &lt; last.size(); i++) &#123; // System.out.print(last.get(i) + " "); // &#125; // System.out.println(); // &#125; List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;List&lt;String&gt;&gt;(); LinkedList&lt;String&gt; temp = new LinkedList&lt;String&gt;(); temp.add(endWord); dfs(res, path, endWord, beginWord, temp); return res; &#125; private void dfs(List&lt;List&lt;String&gt;&gt; res, Map&lt;String, List&lt;String&gt;&gt; path, String endWord, String beginWord, LinkedList&lt;String&gt; temp) &#123; if (endWord.equals(beginWord)) &#123; res.add(new LinkedList&lt;String&gt;(temp)); return; &#125; if (path.get(endWord) == null) &#123; return; &#125; List&lt;String&gt; last = path.get(endWord); for (int i = 0; i &lt; last.size(); i++) &#123; temp.offerFirst(last.get(i)); dfs(res, path, last.get(i), beginWord, temp); temp.pollFirst(); &#125; &#125; private void bfs(Map&lt;String, List&lt;String&gt;&gt; path, Map&lt;String, Integer&gt; distance, String beginWord, String endWord, Set&lt;String&gt; dict) &#123; Queue&lt;String&gt; queue = new LinkedList&lt;String&gt;(); queue.offer(beginWord); int dis = 1; while(!queue.isEmpty()) &#123; int len = queue.size(); for (int i = 0; i &lt; len; i++) &#123; String cur = queue.poll(); List&lt;String&gt; next = getNext(cur, dict); // System.out.print(cur + ": "); // for (int j = 0; j &lt; next.size(); j++) &#123; // System.out.print(next.get(j) + " "); // &#125; // System.out.println(); for (int j = 0; j &lt; next.size(); j++) &#123; if (!distance.containsKey(next.get(j))) &#123; distance.put(next.get(j), dis); queue.offer(next.get(j)); &#125; if (distance.get(next.get(j)) == distance.get(cur) + 1) &#123; path.get(next.get(j)).add(cur); &#125; &#125; &#125; dis++; &#125; &#125; private List&lt;String&gt; getNext(String cur, Set&lt;String&gt; dict) &#123; char[] charArr = cur.toCharArray(); List&lt;String&gt; res = new ArrayList&lt;String&gt;(); for (int i = 0; i &lt; charArr.length; i++) &#123; char ch = charArr[i]; for (char newCh = 'a'; newCh &lt;= 'z'; newCh++) &#123; if (ch == newCh) &#123; continue; &#125; charArr[i] = newCh; String temp = new String(charArr); if (dict.contains(temp)) &#123; res.add(temp); &#125; &#125; charArr[i] = ch; &#125; return res; &#125;&#125; T &amp; S AnalysisTime: O(node + edge) Space: O(node + edge)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Array</tag>
+        <tag>BFS</tag>
+        <tag>DFS</tag>
+        <tag>Dijkstra&#39;s algorithm</tag>
+        <tag>Amazon</tag>
+        <tag>Yelp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[670 Maximum Swap]]></title>
+    <url>%2F2017%2F10%2F19%2F670-Maximum-Swap%2F</url>
+    <content type="text"><![CDATA[Question Given a non-negative integer, you could swap two digits at most once to get the maximum valued number. Return the maximum valued number you could get. Example1 Input: 2736 Output: 7236 Explanation: Swap the number 2 and the number 7. Example2 Input: 9973 Output: 9973 Explanation: No swap. Solution 1 Turn to ArrayCode123456789101112131415161718192021222324class Solution &#123; public int maximumSwap(int num) &#123; int[] buckets = new int[10]; char[] digits = Integer.toString(num).toCharArray(); for (int i = 0; i &lt; buckets.length; i++) &#123; buckets[i] = -1; &#125; for (int i = 0; i &lt; digits.length; i++) &#123; buckets[digits[i] - '0'] = i; &#125; boolean done = false; for (int i = 0; i &lt; digits.length &amp;&amp; !done; i++) &#123; for (char j = '9'; j &gt; digits[i]; j--) &#123; if (buckets[j - '0'] &gt; i) &#123; digits[buckets[j - '0']] = digits[i]; digits[i] = j; done = true; break; &#125; &#125; &#125; return Integer.valueOf(new String(digits)); &#125;&#125; T &amp; S AnalysisTime: O(n^2) Space: O(1) Solution 2 Find Last index of numbersCode123456789101112131415161718192021222324class Solution &#123; public int maximumSwap(int num) &#123; int[] buckets = new int[10]; char[] digits = Integer.toString(num).toCharArray(); for (int i = 0; i &lt; buckets.length; i++) &#123; buckets[i] = -1; &#125; for (int i = 0; i &lt; digits.length; i++) &#123; buckets[digits[i] - '0'] = i; &#125; boolean done = false; for (int i = 0; i &lt; digits.length &amp;&amp; !done; i++) &#123; for (char j = '9'; j &gt; digits[i]; j--) &#123; if (buckets[j - '0'] &gt; i) &#123; digits[buckets[j - '0']] = digits[i]; digits[i] = j; done = true; break; &#125; &#125; &#125; return Integer.valueOf(new String(digits)); &#125;&#125; T &amp; S AnalysisTime: O(n) Space: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Array</tag>
+        <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[667 Beautiful Arrangement II]]></title>
+    <url>%2F2017%2F10%2F19%2F667-Beautiful-Arrangement-II%2F</url>
+    <content type="text"><![CDATA[Question Given two integers n and k, you need to construct a list which contains n different positive integers ranging from 1 to n and obeys the following requirement:Suppose this list is [a1, a2, a3, … , an], then the list [|a1 - a2|, |a2 - a3|, |a3 - a4|, … , |an-1 - an|] has exactly k distinct integers. If there are multiple answers, print any of them. Example 1: Input: n = 3, k = 1 Output: [1, 2, 3] Explanation: The [1, 2, 3] has three different positive integers ranging from 1 to 3, and the [1, 1] has exactly 1 distinct integer: 1. Example 2: Input: n = 3, k = 2 Output: [1, 3, 2] Explanation: The [1, 3, 2] has three different positive integers ranging from 1 to 3, and the [2, 1] has exactly 2 distinct integers: 1 and 2. Solution 1 One Tricky SolutionCode123456789101112131415161718class Solution &#123; public int[] constructArray(int n, int k) &#123; int validNum = k + 1; int[] res = new int[n]; int index = 0, head = 1, tail = validNum; while(index &lt; validNum) &#123; res[index++] = head++; if (index == validNum) &#123; break; &#125; res[index++] = tail--; &#125; for(int i = validNum + 1; i &lt;= n; i++) &#123; res[index++] = i; &#125; return res; &#125;&#125; T &amp; S AnalysisTime: O(N) Space: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[127 Word Ladder]]></title>
+    <url>%2F2017%2F10%2F18%2F127-Word-Ladder%2F</url>
+    <content type="text"><![CDATA[Given two words (beginWord and endWord), and a dictionary’s word list, find the length of shortest transformation sequence from beginWord to endWord, such that: Only one letter can be changed at a time. Each transformed word must exist in the word list. Note that beginWord is not a transformed word. For example, Given: beginWord = “hit” endWord = “cog” wordList = [“hot”,”dot”,”dog”,”lot”,”log”,”cog”] As one shortest transformation is “hit” -&gt; “hot” -&gt; “dot” -&gt; “dog” -&gt; “cog”, return its length 5. Note: Return 0 if there is no such transformation sequence. All words have the same length. All words contain only lowercase alphabetic characters. You may assume no duplicates in the word list. You may assume beginWord and endWord are non-empty and are not the same. Solution 1 Graph and BFSBuild a graph according to the relationship whether one could be turned to another, then use BFS Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374class Solution &#123; public int ladderLength(String beginWord, String endWord, List&lt;String&gt; wordList) &#123; List&lt;List&lt;Integer&gt;&gt; graph = new ArrayList&lt;List&lt;Integer&gt;&gt;(); List&lt;Integer&gt; startList = new ArrayList&lt;Integer&gt;(); //The possible start, take O(wordLength * N) time for (int i = 0; i &lt; wordList.size(); i++) &#123; if (connected(beginWord, wordList.get(i))) &#123; startList.add(i); &#125; &#125; //Build Graph, take O(wordLength * N * N) time for (int i = 0; i &lt; wordList.size(); i++) &#123; List temp = new ArrayList&lt;Integer&gt;(); for (int j = 0; j &lt; wordList.size(); j++) &#123; if (i != j &amp;&amp; connected(wordList.get(i), wordList.get(j))) &#123; temp.add(j); &#125; &#125; graph.add(temp); &#125; int end = -1; for (int i = 0; i &lt; wordList.size(); i++) &#123; if (wordList.get(i).equals(endWord)) &#123; end = i; &#125; &#125; if (end == -1) &#123; return 0; &#125; boolean[] visited = new boolean[wordList.size()]; Queue&lt;Integer&gt; queue = new LinkedList&lt;Integer&gt;(); for (int i = 0; i &lt; startList.size(); i++) &#123; queue.offer(startList.get(i)); &#125; int count = 2; //BFS, take O(N + edges) time while (!queue.isEmpty()) &#123; int len = queue.size(); for (int i = 0; i &lt; len; i++) &#123; int cur = queue.poll(); visited[cur] = true; if (cur == end) &#123; return count; &#125; for (int j = 0; j &lt; graph.get(cur).size(); j++) &#123; if (!visited[graph.get(cur).get(j)]) &#123; queue.offer(graph.get(cur).get(j)); &#125; &#125; &#125; count++; &#125; return 0; &#125; //Take O(WordLength) time private boolean connected(String a, String b) &#123; boolean once = false; for (int i = 0; i &lt; a.length(); i++) &#123; if (a.charAt(i) != b.charAt(i)) &#123; if (once) &#123; return false; &#125; once = true; &#125; &#125; return true; &#125;&#125; T &amp; S AnalysisTime: O(wordLength N N)Space: O(N + edges)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>BFS</tag>
+        <tag>Amazon</tag>
+        <tag>Yelp</tag>
+        <tag>Facebook</tag>
+        <tag>Graph</tag>
+        <tag>Linkedin</tag>
+        <tag>Snapchat</tag>
+        <tag>&lt;font color=&quot;red&quot;&gt;Favorite&lt;/font&gt;</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[55 Jump Game]]></title>
+    <url>%2F2017%2F10%2F18%2F55-Jump-Game%2F</url>
+    <content type="text"><![CDATA[Question Given an array of non-negative integers, you are initially positioned at the first index of the array. Each element in the array represents your maximum jump length at that position. Determine if you are able to reach the last index. For example: A = [2,3,1,1,4], return true. A = [3,2,1,0,4], return false. Solution 1 GreedyIf it can reach a postion, it can also reach every position before that posotion Code1234567891011121314151617class Solution &#123; public boolean canJump(int[] nums) &#123; int farest = 0; int pos = 0; while (pos &lt; nums.length &amp;&amp; pos &lt;= farest) &#123; farest = Math.max(farest, pos + nums[pos]); if (farest &gt;= nums.length - 1) &#123; return true; &#125; pos++; &#125; if (pos &gt; farest) &#123; return false; &#125; return true; &#125;&#125; T &amp; S AnalysisTime: O(N) Space: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Array</tag>
+        <tag>Microsoft</tag>
+        <tag>Greedy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[239 Sliding Window Maximum]]></title>
+    <url>%2F2017%2F10%2F18%2F239-Sliding-Window-Maximum%2F</url>
+    <content type="text"><![CDATA[Question Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position. For example, Given nums = [1,3,-1,-3,5,3,6,7], and k = 3. Window position Max --------------- ----- [1 3 -1] -3 5 3 6 7 3 1 [3 -1 -3] 5 3 6 7 3 1 3 [-1 -3 5] 3 6 7 5 1 3 -1 [-3 5 3] 6 7 5 1 3 -1 -3 [5 3 6] 7 6 1 3 -1 -3 5 [3 6 7] 7 Therefore, return the max sliding window as [3,3,5,5,6,7]. Solution 1 HeapMaintain a heap to keep the maxium value Code1234567891011121314151617181920class Solution &#123; public int[] maxSlidingWindow(int[] nums, int k) &#123; if (nums.length == 0) &#123; return new int[0]; &#125; PriorityQueue&lt;Integer&gt; heap = new PriorityQueue&lt;Integer&gt;(k, Collections.reverseOrder()); int[] res = new int[nums.length - k + 1]; int head = 0, index = 0; for (int i = 0; i &lt; k; i++) &#123; heap.offer(nums[i]); &#125; for (int i = k; i &lt; nums.length; i++) &#123; res[index++] = heap.peek(); heap.remove(nums[head++]); heap.offer(nums[i]); &#125; res[index] = heap.peek(); return res; &#125;&#125; T &amp; S AnalysisTime: O(NlogK) Space: O(K) Solution 2 DequeMaintain a deque, whenever new inputs are larger than the last one, pop that last one, and also pop the first one if it is no longer in the window, so it can be assured that the first one is always the largest. Code123456789101112131415161718192021222324252627282930class Solution &#123; public int[] maxSlidingWindow(int[] nums, int k) &#123; if (k == 0) &#123; return new int[0]; &#125; Deque&lt;Integer&gt; deque = new LinkedList&lt;Integer&gt;(); int[] res = new int[nums.length - k + 1]; int index = 0; res[index] = Integer.MIN_VALUE; for (int i = 0; i &lt; k; i++) &#123; res[index] = Math.max(res[index], nums[i]); while (!deque.isEmpty() &amp;&amp; nums[deque.peekLast()] &lt; nums[i]) &#123; deque.pollLast(); &#125; deque.offerLast(i); &#125; index++; for (int i = k; i &lt; nums.length; i++) &#123; while (!deque.isEmpty() &amp;&amp; nums[deque.peekLast()] &lt; nums[i]) &#123; deque.pollLast(); &#125; if (!deque.isEmpty() &amp;&amp; deque.peekFirst() &lt;= i - k) &#123; deque.pollFirst(); &#125; deque.offerLast(i); res[index++] = nums[deque.peekFirst()]; &#125; return res; &#125;&#125; Time: O(N) Space: O(K)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Amazon</tag>
+        <tag>Google</tag>
+        <tag>Zenefits</tag>
+        <tag>Heap</tag>
+        <tag>Deque</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[85 Maximal Rectangle]]></title>
+    <url>%2F2017%2F10%2F18%2F85-Maximal-Rectangle%2F</url>
+    <content type="text"><![CDATA[Question Given a 2D binary matrix filled with 0’s and 1’s, find the largest rectangle containing only 1’s and return its area. For example, given the following matrix: 1 0 1 0 0 1 0 1 1 1 1 1 1 1 1 1 0 0 1 0 Return 6. Solution 1 Monotonous stackFor every row, define a new array where every element is the number of ‘1’ before a ‘0’ looking up, for the example above, the new defined matrix is 1 0 1 0 0 2 0 2 1 1 3 1 3 2 2 4 0 0 3 0 So, for every row, we can find max value using Largest Rectangle in Histogram Code123456789101112131415161718192021222324252627282930313233343536373839class Solution &#123; public int maximalRectangle(char[][] matrix) &#123; int row = matrix.length; int maxArea = 0; if (row == 0) &#123; return 0; &#125; int col = matrix[0].length; int[][] proj = new int[row][col]; for (int i = 0; i &lt; row; i++) &#123; for (int j = 0; j &lt; col; j++) &#123; if (i == 0) &#123; proj[i][j] = matrix[i][j] == '1' ? 1 : 0; &#125; else &#123; proj[i][j] = matrix[i][j] == '1' ? proj[i - 1][j] + 1 : 0; &#125; &#125; maxArea = Math.max(maxArea, maxRow(proj[i])); &#125; return maxArea; &#125; private int maxRow(int[] heights) &#123; Stack&lt;Integer&gt; stack = new Stack&lt;Integer&gt;(); int currentHeight; int height, width; int maxArea = 0; for (int i = 0; i &lt;= heights.length; i++) &#123; currentHeight = (i == heights.length) ? -1 : heights[i]; while (!stack.isEmpty() &amp;&amp; heights[stack.peek()] &gt; currentHeight) &#123; height = heights[stack.pop()]; width = (stack.isEmpty()) ? i : (i - stack.peek() - 1); maxArea = Math.max(maxArea, height * width); &#125; stack.push(i); &#125; return maxArea; &#125;&#125; T &amp; S AnalysisTime: O(col * row) Space: O(col * row)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Facebook</tag>
+        <tag>Monotonous stack</tag>
+        <tag>&lt;font color=&quot;red&quot;&gt;favorite&lt;/font&gt;</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[162 Find Peak Element]]></title>
+    <url>%2F2017%2F10%2F18%2F162-Find-Peak-Element%2F</url>
+    <content type="text"><![CDATA[A peak element is an element that is greater than its neighbors. Given an input array where num[i] ≠ num[i+1], find a peak element and return its index. The array may contain multiple peaks, in that case return the index to any one of the peaks is fine. You may imagine that num[-1] = num[n] = -∞. For example, in array [1, 2, 3, 1], 3 is a peak element and your function should return the index number 2. Solution 1 Binary SearchWhen using Binary Search in this question, we need two numbers difference, always choose the former one. And define the number at -1 and tail + 1 as -inf before visit those indexes. Code123456789101112131415161718class Solution &#123; public int findPeakElement(int[] nums) &#123; int head = -1, tail = nums.length - 1; int mid = head + (tail - head) / 2; while (head + 1 &lt; tail) &#123; mid = head + (tail - head) / 2; if (mid == -1 || nums[mid + 1] &gt; nums[mid]) &#123; head = mid; &#125; else &#123; tail = mid; &#125; &#125; if (mid == -1) &#123; return 0; &#125; return nums[mid] &gt; nums[mid + 1] ? mid : mid + 1; &#125;&#125; T &amp; S AnalysisTime: O(logN) Space: O(1)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Array</tag>
+        <tag>Microsoft</tag>
+        <tag>Google</tag>
+        <tag>Binary Search</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[84 Largest Rectangle in Histogram]]></title>
     <url>%2F2017%2F10%2F18%2F84-Largest-Rectangle-in-Histogram%2F</url>
-    <content type="text"><![CDATA[Question Given n non-negative integers representing the histogram’s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram. Above is a histogram where width of each bar is 1, given height = [2,1,5,6,2,3]. The largest rectangle is shown in the shaded area, which has area = 10 unit. For example, Given heights = [2,1,5,6,2,3], return 10. Solution 1 Monotonous stackMaintain a Code12345678910111213141516171819class Solution &#123; public int largestRectangleArea(int[] heights) &#123; Stack&lt;Integer&gt; stack = new Stack&lt;Integer&gt;(); int currentHeight; int height, width; int maxArea = 0; for (int i = 0; i &lt;= heights.length; i++) &#123; currentHeight = ((i == heights.length) ? -1 : heights[i]); while (!stack.isEmpty() &amp;&amp; currentHeight &lt; heights[stack.peek()]) &#123; height = heights[stack.pop()]; width = i - ((stack.isEmpty()) ? 0 : (stack.peek() + 1)); // System.out.println(height + ", " + width); maxArea = Math.max(maxArea, height * width); &#125; stack.push(i); &#125; return maxArea; &#125;&#125; T &amp; S AnalysisTime: O(n) Space: O(n)]]></content>
+    <content type="text"><![CDATA[Question Given n non-negative integers representing the histogram’s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram. Above is a histogram where width of each bar is 1, given height = [2,1,5,6,2,3]. The largest rectangle is shown in the shaded area, which has area = 10 unit. For example, Given heights = [2,1,5,6,2,3], return 10. Solution 1 Monotonous stackMaintain a decreasing Stack Code12345678910111213141516171819class Solution &#123; public int largestRectangleArea(int[] heights) &#123; Stack&lt;Integer&gt; stack = new Stack&lt;Integer&gt;(); int currentHeight; int height, width; int maxArea = 0; for (int i = 0; i &lt;= heights.length; i++) &#123; currentHeight = ((i == heights.length) ? -1 : heights[i]); while (!stack.isEmpty() &amp;&amp; currentHeight &lt; heights[stack.peek()]) &#123; height = heights[stack.pop()]; width = i - ((stack.isEmpty()) ? 0 : (stack.peek() + 1)); // System.out.println(height + ", " + width); maxArea = Math.max(maxArea, height * width); &#125; stack.push(i); &#125; return maxArea; &#125;&#125; T &amp; S AnalysisTime: O(n) Space: O(n)]]></content>
       <categories>
         <category>Algorithm</category>
       </categories>
@@ -32,16 +144,16 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Yelp</tag>
         <tag>Facebook</tag>
         <tag>Microsoft</tag>
-        <tag>Yelp</tag>
+        <tag>&lt;font color=&quot;red&quot;&gt;Favorite&lt;/font&gt;</tag>
+        <tag>Google</tag>
         <tag>Heap</tag>
         <tag>Divide and Conquer</tag>
         <tag>Binary Indexed Tree</tag>
         <tag>Segment Tree</tag>
-        <tag>Google</tag>
         <tag>Twitter</tag>
-        <tag>&lt;font color=&quot;red&quot;&gt;Favorite&lt;/font&gt;</tag>
       </tags>
   </entry>
   <entry>
@@ -63,8 +175,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Tree</tag>
         <tag>DFS</tag>
+        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -109,8 +221,8 @@
       </categories>
       <tags>
         <tag>Uber</tag>
-        <tag>Heap</tag>
         <tag>Google</tag>
+        <tag>Heap</tag>
       </tags>
   </entry>
   <entry>
@@ -132,8 +244,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Microsoft</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -163,13 +275,13 @@
     <url>%2F2017%2F09%2F26%2F76-Minimum-Window-Substring%2F</url>
     <content type="text"><![CDATA[Question Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n). For example, S = “ADOBECODEBANC” T = “ABC” Minimum window is “BANC”. Note: If there is no such window in S that covers all characters in T, return the empty string “”. If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S. Solution 1 Hash and Two PointersIt’s a substring template Code123456789101112131415161718192021222324252627class Solution &#123; public String minWindow(String s, String t) &#123; int[] map = new int[128]; for (char ch : t.toCharArray()) &#123; map[ch]++; &#125; int d = Integer.MAX_VALUE, begin = 0, head = 0, counter = t.length(); for (int i = 0; i &lt; s.length(); i++) &#123; if (map[s.charAt(i)] &gt; 0) &#123; counter--; &#125; map[s.charAt(i)]--; while (counter == 0) &#123; if (i - begin + 1 &lt; d) &#123; d = i - begin + 1; head = begin; &#125; if (map[s.charAt(begin)] == 0) &#123; counter++; &#125; map[s.charAt(begin)]++; begin++; &#125; &#125; return d == Integer.MAX_VALUE ? "" : s.substring(head, d + head); &#125;&#125; T&amp;S AnalysisTime: O(n), Since only one scanSpace: O(1), The hash map’s size is limited]]></content>
       <tags>
-        <tag>Facebook</tag>
-        <tag>Hash Table</tag>
         <tag>Two Pointers</tag>
         <tag>String</tag>
+        <tag>Facebook</tag>
         <tag>Uber</tag>
         <tag>Linkedin</tag>
         <tag>Snapchat</tag>
+        <tag>Hash Table</tag>
       </tags>
   </entry>
   <entry>
@@ -181,8 +293,8 @@
       </categories>
       <tags>
         <tag>DFS</tag>
-        <tag>Topological Sort</tag>
         <tag>Google</tag>
+        <tag>Topological Sort</tag>
       </tags>
   </entry>
   <entry>
@@ -204,9 +316,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Google</tag>
         <tag>Design</tag>
         <tag>Heap</tag>
-        <tag>Google</tag>
       </tags>
   </entry>
   <entry>
@@ -218,8 +330,8 @@
       </categories>
       <tags>
         <tag>BFS</tag>
-        <tag>Heap</tag>
         <tag>Google</tag>
+        <tag>Heap</tag>
         <tag>Twitter</tag>
       </tags>
   </entry>
@@ -243,9 +355,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Tree</tag>
         <tag>DFS</tag>
         <tag>Microsoft</tag>
+        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -270,8 +382,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
         <tag>Apple</tag>
         <tag>Space Saving</tag>
         <tag>Palindrome Pairs</tag>
@@ -309,13 +421,13 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>DFS</tag>
         <tag>BFS</tag>
+        <tag>DFS</tag>
+        <tag>Yelp</tag>
         <tag>Graph</tag>
         <tag>Topological Sort</tag>
         <tag>Zenefits</tag>
         <tag>Apple</tag>
-        <tag>Yelp</tag>
       </tags>
   </entry>
   <entry>
@@ -338,8 +450,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Bloomberg</tag>
         <tag>Math</tag>
+        <tag>Bloomberg</tag>
       </tags>
   </entry>
   <entry>
@@ -374,9 +486,9 @@
       </categories>
       <tags>
         <tag>Array</tag>
+        <tag>Bloomberg</tag>
         <tag>Dynamic Programming</tag>
         <tag>Greedy</tag>
-        <tag>Bloomberg</tag>
       </tags>
   </entry>
   <entry>
@@ -423,13 +535,13 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
-        <tag>Bloomberg</tag>
-        <tag>Microsoft</tag>
         <tag>String</tag>
+        <tag>Facebook</tag>
         <tag>Math</tag>
         <tag>Uber</tag>
+        <tag>Microsoft</tag>
         <tag>Yahoo</tag>
+        <tag>Bloomberg</tag>
       </tags>
   </entry>
   <entry>
@@ -440,13 +552,13 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Amazon</tag>
         <tag>Facebook</tag>
-        <tag>Bloomberg</tag>
         <tag>Microsoft</tag>
+        <tag>Bloomberg</tag>
         <tag>Apple</tag>
         <tag>Heap</tag>
         <tag>Divide and Conquer</tag>
-        <tag>Amazon</tag>
         <tag>PocketGems</tag>
       </tags>
   </entry>
@@ -458,8 +570,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
         <tag>Google</tag>
         <tag>Game of Life</tag>
       </tags>
@@ -473,8 +585,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Two Pointers</tag>
+        <tag>Facebook</tag>
         <tag>Binary Search</tag>
       </tags>
   </entry>
@@ -489,9 +601,9 @@
         <tag>Array</tag>
         <tag>Facebook</tag>
         <tag>Microsoft</tag>
+        <tag>Linkedin</tag>
         <tag>Apple</tag>
         <tag>LRU Cache</tag>
-        <tag>Linkedin</tag>
       </tags>
   </entry>
   <entry>
@@ -502,8 +614,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>String</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -516,8 +628,8 @@
       <tags>
         <tag>Array</tag>
         <tag>Facebook</tag>
-        <tag>Bloomberg</tag>
         <tag>Microsoft</tag>
+        <tag>Bloomberg</tag>
         <tag>Backtracking</tag>
       </tags>
   </entry>
@@ -529,8 +641,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>String</tag>
+        <tag>Facebook</tag>
         <tag>Math</tag>
         <tag>Twitter</tag>
       </tags>
@@ -543,13 +655,13 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
-        <tag>Hash Table</tag>
-        <tag>Bloomberg</tag>
-        <tag>String</tag>
-        <tag>Uber</tag>
-        <tag>Yelp</tag>
         <tag>Amazon</tag>
+        <tag>Yelp</tag>
+        <tag>String</tag>
+        <tag>Facebook</tag>
+        <tag>Uber</tag>
+        <tag>Bloomberg</tag>
+        <tag>Hash Table</tag>
       </tags>
   </entry>
   <entry>
@@ -560,9 +672,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Tree</tag>
         <tag>DFS</tag>
         <tag>Uber</tag>
+        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -623,8 +735,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>String</tag>
+        <tag>Facebook</tag>
         <tag>Backtracking</tag>
       </tags>
   </entry>
@@ -686,9 +798,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
-        <tag>DFS</tag>
         <tag>BFS</tag>
+        <tag>DFS</tag>
+        <tag>Facebook</tag>
         <tag>Graph</tag>
       </tags>
   </entry>
@@ -712,9 +824,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>DFS</tag>
         <tag>Facebook</tag>
         <tag>Tree</tag>
-        <tag>DFS</tag>
         <tag>Morris Order</tag>
       </tags>
   </entry>
@@ -726,9 +838,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Two Pointers</tag>
         <tag>String</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -754,8 +866,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Two Pointers</tag>
+        <tag>Facebook</tag>
         <tag>Sort</tag>
       </tags>
   </entry>
@@ -767,8 +879,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -820,8 +932,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -846,9 +958,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>DFS</tag>
         <tag>Facebook</tag>
         <tag>Tree</tag>
-        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -859,9 +971,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
-        <tag>DFS</tag>
         <tag>BFS</tag>
+        <tag>DFS</tag>
+        <tag>Facebook</tag>
         <tag>Union Find</tag>
       </tags>
   </entry>
@@ -874,8 +986,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Two Pointers</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -886,9 +998,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
-        <tag>Facebook</tag>
         <tag>String</tag>
+        <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -957,8 +1069,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>String</tag>
+        <tag>Facebook</tag>
         <tag>Math</tag>
       </tags>
   </entry>
@@ -983,8 +1095,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Two Pointers</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -1006,8 +1118,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Tree</tag>
         <tag>String</tag>
+        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -1029,9 +1141,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Tree</tag>
-        <tag>DFS</tag>
         <tag>BFS</tag>
+        <tag>DFS</tag>
+        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>

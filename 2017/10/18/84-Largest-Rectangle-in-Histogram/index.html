@@ -104,7 +104,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://leetcode.com/static/images/problemset/histogram.png">
 <meta property="og:image" content="https://leetcode.com/static/images/problemset/histogram_area.png">
-<meta property="og:updated_time" content="2017-10-18T15:35:37.902Z">
+<meta property="og:updated_time" content="2017-10-18T15:38:45.389Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="84 Largest Rectangle in Histogram">
 <meta name="twitter:description" content="Question Given n non-negative integers representing the histogram’s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.  Above is a histogram where width">
@@ -418,7 +418,7 @@
 <p>Given heights = [2,1,5,6,2,3],</p>
 <p>return 10.</p>
 </blockquote>
-<h2 id="Solution-1-Monotonous-stack"><a href="#Solution-1-Monotonous-stack" class="headerlink" title="Solution 1 Monotonous stack"></a>Solution 1 Monotonous stack</h2><p>Maintain a </p>
+<h2 id="Solution-1-Monotonous-stack"><a href="#Solution-1-Monotonous-stack" class="headerlink" title="Solution 1 Monotonous stack"></a>Solution 1 Monotonous stack</h2><p>Maintain a decreasing Stack</p>
 <h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="keyword">int</span>[] heights)</span> </span>&#123;</div><div class="line">        Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;Integer&gt;();</div><div class="line">        <span class="keyword">int</span> currentHeight;</div><div class="line">        <span class="keyword">int</span> height, width;</div><div class="line">        <span class="keyword">int</span> maxArea = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= heights.length; i++) &#123;</div><div class="line">            currentHeight = ((i == heights.length) ? -<span class="number">1</span> : heights[i]);</div><div class="line">            <span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; currentHeight &lt; heights[stack.peek()]) &#123;</div><div class="line">                height = heights[stack.pop()];</div><div class="line">                width = i - ((stack.isEmpty()) ? <span class="number">0</span> : (stack.peek() + <span class="number">1</span>));</div><div class="line">                <span class="comment">// System.out.println(height + ", " + width);</span></div><div class="line">                maxArea = Math.max(maxArea, height * width);</div><div class="line">            &#125;</div><div class="line">            stack.push(i);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> maxArea;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T &amp; S Analysis"></a>T &amp; S Analysis</h3><p><strong>Time:</strong> O(n)</p>
 <p><strong>Space:</strong> O(n)</p>
@@ -463,6 +463,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/18/162-Find-Peak-Element/" rel="prev" title="162 Find Peak Element">
+                162 Find Peak Element <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -541,7 +545,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">98</span>
+                <span class="site-state-item-count">106</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -563,7 +567,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">54</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
