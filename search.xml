@@ -1,6 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[315 Count of Smaller Number After Self]]></title>
+    <url>%2F2017%2F10%2F24%2F315-Count-of-Smaller-Number-After-Self%2F</url>
+    <content type="text"><![CDATA[Question You are given an integer array nums and you have to return a new counts array. The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i]. Example: Given nums = [5, 2, 6, 1] To the right of 5 there are 2 smaller elements (2 and 1). To the right of 2 there is only 1 smaller element (1). To the right of 6 there is 1 smaller element (1). To the right of 1 there is 0 smaller element. Return the array [2, 1, 1, 0]. Solution 1 Binary Search TreeFrom right to left, put element into a Binary Search Tree, record and update the number of left bottom element and the duplication of itself. Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061class Solution &#123; class TreeNode &#123; int leftBottom; int num; int val; TreeNode left; TreeNode right; TreeNode(int val) &#123; this.num = 1; this.leftBottom = 0; this.val = val; this.left = null; this.right = null; &#125; &#125; public List&lt;Integer&gt; countSmaller(int[] nums) &#123; int[] res = new int[nums.length]; if (nums.length == 0) &#123; return Arrays.stream(res).boxed().collect(Collectors.toList()); &#125; TreeNode root = new TreeNode(nums[nums.length - 1]); for (int i = nums.length - 2; i &gt;= 0; i--) &#123; buildTree(root, nums[i], i, res); &#125; return Arrays.stream(res).boxed().collect(Collectors.toList()); &#125; private void buildTree(TreeNode root, int val, int i, int[] res) &#123; TreeNode cur = root; int ans = 0; while (cur != null) &#123; if (val == cur.val) &#123; cur.num++; res[i] = ans + cur.leftBottom; return; &#125; if (val &lt; cur.val) &#123; cur.leftBottom++; if (cur.left == null) &#123; cur.left = new TreeNode(val); res[i] = ans; return; &#125; else &#123; cur = cur.left; &#125; &#125; else &#123; ans += ( cur.num + cur.leftBottom ); if (cur.right == null) &#123; cur.right = new TreeNode(val); res[i] = ans; return; &#125; else &#123; cur = cur.right; &#125; &#125; &#125; &#125; &#125; T &amp; S AnalysisTime: O(NlogN) Space: O(N)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Tree</tag>
+        <tag>Google</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[130 Surrounded Regions]]></title>
+    <url>%2F2017%2F10%2F24%2F130-Surrounded-Regions%2F</url>
+    <content type="text"><![CDATA[Quesion Given a 2D board containing ‘X’ and ‘O’ (the letter O), capture all regions surrounded by ‘X’. A region is captured by flipping all ‘O’s into ‘X’s in that surrounded region. For example, X X X X X O O X X X O X X O X X After running your function, the board should be: X X X X X X X X X X X X X O X X Solution 1 Union FindFirst Union all ‘O’, then traverse the root array, once the point is at edge, make its root’s value special, then traverse it again, if ‘O’’s root is not special, turn it to ‘X’ Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455class Solution &#123; public void solve(char[][] board) &#123; int row = board.length; if (row == 0) &#123; return; &#125; int col = board[0].length; int[] root = new int[row * col]; for (int i = 0; i &lt; row * col; i++) &#123; root[i] = i; &#125; for (int i = 0; i &lt; row; i++) &#123; for (int j = 0; j &lt; col; j++) &#123; if (i &lt; row - 1 &amp;&amp; board[i][j] == 'O' &amp;&amp; board[i + 1][j] == 'O') &#123; union(root, i * col + j, (i + 1) * col + j); &#125; if (j &lt; col - 1 &amp;&amp; board[i][j] == 'O' &amp;&amp; board[i][j + 1] == 'O') &#123; union(root, i * col + j, i * col + j + 1); &#125; &#125; &#125; for (int i = 0; i &lt; row; i++) &#123; for (int j = 0; j &lt; col; j++) &#123; if ((i == 0 || i == row - 1 || j == 0 || j == col - 1) &amp;&amp; board[i][j] == 'O') &#123; root[find(root, i * col + j)] = -1; &#125; &#125; &#125; for (int i = 0; i &lt; row; i++) &#123; for (int j = 0; j &lt; col; j++) &#123; if (board[i][j] == 'O' &amp;&amp; root[find(root, i * col + j)] != -1) &#123; board[i][j] = 'X'; &#125; &#125; &#125; &#125; private void union(int[] root, int i, int j) &#123; int root1 = find(root, i); int root2 = find(root, j); root[root1] = root2; &#125; private int find(int[] root, int i) &#123; int j = i; while (root[i] != i &amp;&amp; root[i] != -1) &#123; i = root[i]; &#125; while (root[j] != j &amp;&amp; root[j] != -1) &#123; root[j] = i; j = root[j]; &#125; return i; &#125;&#125; T &amp; S AnalysisTime: Depends on Find time, suppose it’s f(n), then time is O( f(n) col row ) Space: O(row * col) Solution 2 BFSFirst, put all edge ‘O’ into queue, than do BFS, which could visit all ‘O’ that are related to edge ‘O’.After that, traverse the visit array, if ‘O’ is not visited, turn it to ‘X’ Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253class Solution &#123; public void solve(char[][] board) &#123; Queue&lt;Integer&gt; queue = new LinkedList&lt;Integer&gt;(); int[] dx = &#123;0, 1, 0, -1&#125;; int[] dy = &#123;1, 0, -1, 0&#125;; int row = board.length; if (row == 0) &#123; return; &#125; int col = board[0].length; boolean[][] visited = new boolean[row][col]; for (int j = 0; j &lt; col; j++) &#123; if (board[0][j] == 'O') &#123; visited[0][j] = true; queue.offer(j); &#125; if (board[row - 1][j] == 'O') &#123; visited[row - 1][j] = true; queue.offer((row - 1) * col + j); &#125; &#125; for (int i = 0; i &lt; row; i++) &#123; if (board[i][0] == 'O') &#123; visited[i][0] = true; queue.offer(i * col); &#125; if (board[i][col - 1] == 'O') &#123; visited[i][col - 1] = true; queue.offer(i * col + col - 1); &#125; &#125; while (!queue.isEmpty()) &#123; int index = queue.poll(); int cRow = index / col; int cCol = index % col; for (int i = 0; i &lt; 4; i++) &#123; if (cRow + dy[i] &gt;= 0 &amp;&amp; cRow + dy[i] &lt; row &amp;&amp; cCol + dx[i] &gt;= 0 &amp;&amp; cCol + dx[i] &lt; col &amp;&amp; !visited[cRow + dy[i]][cCol + dx[i]] &amp;&amp; board[cRow + dy[i]][cCol + dx[i]] == 'O') &#123; visited[cRow + dy[i]][cCol + dx[i]] = true; queue.offer((cRow + dy[i]) * col + cCol + dx[i]); &#125; &#125; &#125; for (int i = 0; i &lt; row; i++) &#123; for (int j = 0; j &lt; col; j++) &#123; if (!visited[i][j] &amp;&amp; board[i][j] == 'O') &#123; board[i][j] = 'X'; &#125; &#125; &#125; &#125;&#125; T &amp; S AnalysisTime: O(row * col) Space: O(row * col)]]></content>
+      <tags>
+        <tag>BFS</tag>
+        <tag>Union Find</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[542 01 Matrix]]></title>
+    <url>%2F2017%2F10%2F24%2F542-01-Matrix%2F</url>
+    <content type="text"><![CDATA[Question Given a matrix consists of 0 and 1, find the distance of the nearest 0 for each cell. The distance between two adjacent cells is 1. Example 1: Input: 0 0 0 0 1 0 0 0 0 Output: 0 0 0 0 1 0 0 0 0 Example 2: Input: 0 0 0 0 1 0 1 1 1 Output 0 0 0 0 1 0 1 2 1 Solution 1 BFSMake all zeroes as start point Code123456789101112131415161718192021222324252627282930313233343536373839class Solution &#123; public int[][] updateMatrix(int[][] matrix) &#123; int[] dx = &#123;0, 1, 0, -1&#125;; int[] dy = &#123;1, 0, -1, 0&#125;; int row = matrix.length; if (row == 0) &#123; return new int[0][0]; &#125; int col = matrix[0].length; int[][] res = new int[row][col]; boolean[][] visited = new boolean[row][col]; Queue&lt;Integer&gt; queue = new LinkedList&lt;Integer&gt;(); for (int i = 0; i &lt; row * col; i++) &#123; int curRow = i / col; int curCol = i % col; if (matrix[curRow][curCol] == 0) &#123; visited[curRow][curCol] = true; queue.offer(i); &#125; &#125; while (!queue.isEmpty()) &#123; int curIndex = queue.poll(); int curRow = curIndex / col; int curCol = curIndex % col; int curDis = res[curRow][curCol]; for (int i = 0; i &lt; 4; i++) &#123; if (curRow + dx[i] &gt;=0 &amp;&amp; curRow + dx[i] &lt; row &amp;&amp; curCol + dy[i] &gt;= 0 &amp;&amp; curCol + dy[i] &lt; col) &#123; if (!visited[curRow + dx[i]][curCol + dy[i]]) &#123; visited[curRow + dx[i]][curCol + dy[i]] = true; res[curRow + dx[i]][curCol + dy[i]] = curDis + 1; queue.offer((curRow + dx[i]) * col + curCol + dy[i]); &#125; &#125; &#125; &#125; return res; &#125;&#125; T &amp; S AnalysisTime: O(row * col) Space: O(row * col) for the queue and visited array Solution 2 DPScan two times, first form up left to bottom right and second opposite Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849class Solution &#123; public int[][] updateMatrix(int[][] matrix) &#123; int row = matrix.length; if (row == 0) &#123; return new int[0][0]; &#125; int col = matrix[0].length; int[][] dp = new int[row][col]; dp[0][0] = matrix[0][0] == 0 ? 0 : Integer.MAX_VALUE - 10000; for (int j = 1; j &lt; col; j++) &#123; dp[0][j] = matrix[0][j] == 0 ? 0 : dp[0][j - 1] + 1; &#125; for (int i = 1; i &lt; row; i++) &#123; for (int j = 0; j &lt; col; j++) &#123; if (matrix[i][j] == 0) &#123; dp[i][j] = 0; &#125; else &#123; if (j == 0) &#123; dp[i][0] = dp[i - 1][0] + 1; &#125; else &#123; dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + 1; &#125; &#125; &#125; &#125; dp[row - 1][col - 1] = matrix[row - 1][col - 1] == 0? 0 : Math.min(dp[row - 1][col - 1], Integer.MAX_VALUE - 10000); for (int j = col - 2; j &gt;= 0; j--) &#123; dp[row - 1][j] = matrix[row - 1][j] == 0 ? 0 : Math.min(dp[row - 1][j + 1] + 1, dp[row - 1][j]); &#125; for (int i = row - 2; i &gt;= 0; i--) &#123; for (int j = col - 1; j &gt;= 0; j--) &#123; if (matrix[i][j] == 0) &#123; dp[i][j] = 0; &#125; else &#123; if (j == col - 1) &#123; dp[i][col - 1] = Math.min(dp[i + 1][col - 1] + 1, dp[i][col - 1]); &#125; else &#123; dp[i][j] = Math.min(Math.min(dp[i + 1][j], dp[i][j + 1]) + 1, dp[i][j]); &#125; &#125; &#125; &#125; return dp; &#125;&#125; T &amp; S AnalysisTime: O(row * col) Space: O(1), actually dp is the result, so does not be counted as extra space]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>BFS</tag>
+        <tag>DP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[307 Range Sum Query - Mutable]]></title>
+    <url>%2F2017%2F10%2F23%2F307-Range-Sum-Query-Mutable%2F</url>
+    <content type="text"><![CDATA[Question Given an integer array nums, find the sum of the elements between indices i and j (i ≤ j), inclusive. The update(i, val) function modifies nums by updating the element at index i to val. Example: Given nums = [1, 3, 5] sumRange(0, 2) -&gt; 9 update(1, 2) sumRange(0, 2) -&gt; 8 Solution 1 Segment TreeUtilized Segment Tree Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394class NumArray &#123; class TreeNode &#123; int val; int head; int tail; TreeNode left; TreeNode right; public TreeNode(int val, int head, int tail) &#123; this.val = val; this.head = head; this.tail = tail; &#125; public TreeNode()&#123;&#125; public TreeNode(int head, int tail)&#123; this.head = head; this.tail = tail; &#125; &#125; TreeNode root; public NumArray(int[] nums) &#123; if (nums.length == 0) &#123; root = null; return; &#125; root = buildHelper(nums, 0, nums.length - 1); &#125; public void update(int i, int val) &#123; TreeNode cur = root; while(cur.head &lt; cur.tail) &#123; if (i &lt;= cur.left.tail) &#123; cur = cur.left; &#125; else &#123; cur = cur.right; &#125; &#125; int diff = val - cur.val; cur = root; while(cur.head &lt; cur.tail) &#123; if (i &lt;= cur.left.tail) &#123; cur.val += diff; cur = cur.left; &#125; else &#123; cur.val += diff; cur = cur.right; &#125; &#125; cur.val += diff; &#125; public int sumRange(int i, int j) &#123; return sumRange(root, i, j); &#125; private int sumRange(TreeNode root, int i, int j) &#123; if (root.head == i &amp;&amp; root.tail == j) &#123; // System.out.println(root.val); return root.val; &#125; int mid = root.head + (root.tail - root.head) / 2; if (i &gt; mid) &#123; return sumRange(root.right, i, j); &#125; else if (j &lt;= mid) &#123; return sumRange(root.left, i, j); &#125; else &#123; return sumRange(root.left, i, mid) + sumRange(root.right, mid + 1, j); &#125; &#125; private TreeNode buildHelper(int[] nums, int head, int tail) &#123; if (head == tail) &#123; return new TreeNode(nums[head], head, tail); &#125; TreeNode res = new TreeNode(); res.left = buildHelper(nums, head, head + (tail - head) / 2); res.right = buildHelper(nums, head + (tail - head) / 2 + 1, tail); res.val = res.left.val + res.right.val; res.head = head; res.tail = tail; return res; &#125;&#125;/** * Your NumArray object will be instantiated and called as such: * NumArray obj = new NumArray(nums); * obj.update(i,val); * int param_2 = obj.sumRange(i,j); */]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Segment Tree</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[52 N-Queens II]]></title>
+    <url>%2F2017%2F10%2F23%2F52-N-Queens-II%2F</url>
+    <content type="text"><![CDATA[Question Follow up for N-Queens problem. Now, instead outputting board configurations, return the total number of distinct solutions. Solution 1 Almost same as N-QueensCode12345678910111213141516171819202122232425262728class Solution &#123; int res = 0; public int totalNQueens(int n) &#123; boolean[] col = new boolean[n]; boolean[] left = new boolean[2 * n - 1]; boolean[] right = new boolean[2 * n - 1]; backtracking(col, left, right, n, 0); return res; &#125; private void backtracking(boolean[] col, boolean[] left, boolean[] right, int n, int m) &#123; if (m == n) &#123; res++; return; &#125; for (int i = 0; i &lt; n; i++) &#123; if (!col[i] &amp;&amp; !left[i + m] &amp;&amp; !right[(n - 1) - (m - i)]) &#123; col[i] = true; left[i + m] = true; right[(n - 1) - (m - i)] = true; backtracking(col, left, right, n, m + 1); col[i] = false; left[i + m] = false; right[(n - 1) - (m - i)] = false; &#125; &#125; &#125;&#125; T &amp; S AnalysisTime: O(expN) Space: O(expN)]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Backtracking</tag>
+        <tag>Zenefits</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[51 N-Queens]]></title>
+    <url>%2F2017%2F10%2F23%2F51-N-Queens%2F</url>
+    <content type="text"><![CDATA[Question The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other. Given an integer n, return all distinct solutions to the n-queens puzzle. Each solution contains a distinct board configuration of the n-queens’ placement, where ‘Q’ and ‘.’ both indicate a queen and an empty space respectively. For example, There exist two distinct solutions to the 4-queens puzzle: [ [“.Q..”, // Solution 1 “…Q”, “Q…”, “..Q.”], [“..Q.”, // Solution 2 “Q…”, “…Q”, “.Q..”]] Solution 1 Backtracking with 1Dreshape the chess board to one demension and use backtracking Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950class Solution &#123; public List&lt;List&lt;String&gt;&gt; solveNQueens(int n) &#123; List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;List&lt;String&gt;&gt;(); List&lt;Integer&gt; recorder = new ArrayList&lt;Integer&gt;(); backtracking(res, recorder, n, new ArrayList&lt;String&gt;(), 0); return res; &#125; private void backtracking(List&lt;List&lt;String&gt;&gt; res, List&lt;Integer&gt; recorder, int n, List&lt;String&gt; temp, int pos) &#123; if (temp.size() == n) &#123; res.add(new ArrayList(temp)); return; &#125; int eRow, eCol, row, col; String element; for (int i = pos; i &lt; pos + n; i++) &#123; element = ""; row = i / n; col = i % n; boolean goAhead = true; for (int j = 0; j &lt; recorder.size(); j++) &#123; eRow = recorder.get(j) / n; eCol = recorder.get(j) % n; if (row &lt;= eRow || col == eCol || row - col == eRow - eCol || row + col == eRow + eCol) &#123; goAhead = false; break; &#125; &#125; if (!goAhead) &#123; continue; &#125; recorder.add(i); for (int j = 0; j &lt; col; j++) &#123; element += "."; &#125; element += "Q"; for (int j = col + 1; j &lt; n; j++) &#123; element += "."; &#125; temp.add(element); backtracking(res, recorder, n, temp, n * (row + 1)); // System.out.println(recorder.size()); recorder.remove(Integer.valueOf(i)); // System.out.println(recorder.size()); temp.remove(element); &#125; &#125;&#125; T &amp; S AnalysisTime: O(exp(N)) Space: O(exp(N)) Solution 2 Backtracking with 2DEvery time only fill one row, than fill next row Code12345678910111213141516171819202122232425262728293031323334353637class Solution &#123; public List&lt;List&lt;String&gt;&gt; solveNQueens(int n) &#123; List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;List&lt;String&gt;&gt;(); boolean[] col = new boolean[n]; boolean[] left = new boolean[2 * n - 1]; boolean[] right = new boolean[2 * n - 1]; backtracking(res, col, left, right, 0, n, new ArrayList&lt;String&gt;()); return res; &#125; private void backtracking(List&lt;List&lt;String&gt;&gt; res, boolean[] col, boolean[] left, boolean[] right, int m, int n, List&lt;String&gt; temp) &#123; if (temp.size() == n) &#123; res.add(new ArrayList&lt;String&gt;(temp)); return; &#125; char[] curRow = new char[n]; Arrays.fill(curRow, '.'); for (int i = 0; i &lt; n; i++) &#123; if (!col[i] &amp;&amp; !left[i + m] &amp;&amp; !right[(n - 1) - (m - i)]) &#123; col[i] = true; left[i + m] = true; right[(n - 1) - (m - i)] = true; curRow[i] = 'Q'; temp.add(String.valueOf(curRow)); backtracking(res, col, left, right, m + 1, n, temp); col[i] = false; left[i + m] = false; right[(n - 1) - (m - i)] = false; temp.remove(String.valueOf(curRow)); curRow[i] = '.'; &#125; &#125; &#125;&#125; T &amp; S AnalysisTime: O(exp(N)) Space: O(exp(N))]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Backtracking</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[691 Stickers to Spell Word]]></title>
+    <url>%2F2017%2F10%2F22%2F691-Stickers-to-Spell-Word%2F</url>
+    <content type="text"><![CDATA[Question We are given N different types of stickers. Each sticker has a lowercase English word on it. You would like to spell out the given target string by cutting individual letters from your collection of stickers and rearranging them. You can use each sticker more than once if you want, and you have infinite quantities of each sticker. What is the minimum number of stickers that you need to spell out the target? If the task is impossible, return -1. Example 1: Input: ["with", "example", "science"], "thehat" Output: 3 Explanation: We can use 2 "with" stickers, and 1 "example" sticker. After cutting and rearrange the letters of those stickers, we can form the target "thehat". Also, this is the minimum number of stickers necessary to form the target string. Solution 1 Backtracking with Store and String MappingNeed to check everytime so that at least on character is deleted once. Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455class Solution &#123; public int minStickers(String[] stickers, String target) &#123; int[] mp = new int[26]; for (int i = 0; i &lt; target.length(); i++) &#123; mp[target.charAt(i) - 'a']++; &#125; int n = stickers.length; int[][] stickMap = new int[n][26]; for (int i = 0; i &lt; n; i++) &#123; for (int j = 0; j &lt; stickers[i].length(); j++) &#123; stickMap[i][stickers[i].charAt(j) - 'a']++; &#125; &#125; Map&lt;String, Integer&gt; dp = new HashMap&lt;&gt;(); dp.put("", 0); return helper(mp, stickMap, dp); &#125; private int helper (int[] mp, int[][] stickMap, Map&lt;String, Integer&gt; dp) &#123; int res = Integer.MAX_VALUE; String key = ""; for (int i = 0; i &lt; 26; i++) &#123; if (mp[i] == 0) &#123; continue; &#125; for (int j = 0; j &lt; mp[i]; j++) &#123; key = key + (char)('a' + i); &#125; &#125; if (dp.containsKey(key)) &#123; return dp.get(key); &#125; for (int i = 0; i &lt; stickMap.length; i++) &#123; if (stickMap[i][key.charAt(0) - 'a'] == 0) &#123; continue; &#125; int[] nextMp = new int[26]; for (int j = 0; j &lt; 26; j++) &#123; nextMp[j] = Math.max(0, mp[j] - stickMap[i][j]); &#125; int temp = helper(nextMp, stickMap, dp); if (temp != -1) &#123; res= Math.min(temp + 1, res); &#125; dp.put(key, res == Integer.MAX_VALUE ? -1 : res); &#125; if (!dp.containsKey(key)) &#123; dp.put(key, -1); &#125; return dp.get(key); &#125;&#125; T &amp; S AnalysisTime: Space:]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Dynamic Programming</tag>
+        <tag>String</tag>
+        <tag>Backtracking</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[140 Word Break II]]></title>
+    <url>%2F2017%2F10%2F22%2F140-Word-Break-II%2F</url>
+    <content type="text"><![CDATA[Question Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, add spaces in s to construct a sentence where each word is a valid dictionary word. You may assume the dictionary does not contain duplicate words. Return all such possible sentences. For example, given s = “catsanddog”, dict = [“cat”, “cats”, “and”, “sand”, “dog”]. A solution is [“cats and dog”, “cat sand dog”]. Solution 1 Backtracking with memoryEverytime before return, store the result in a map, and at the beginning of the function, check if we find the key in the map. Code123456789101112131415161718192021222324252627class Solution &#123; public List&lt;String&gt; wordBreak(String s, List&lt;String&gt; wordDict) &#123; return dfs(s, wordDict, new HashMap&lt;String, List&lt;String&gt;&gt;()); &#125; private List&lt;String&gt; dfs(String s, List&lt;String&gt; wordDict, Map&lt;String, List&lt;String&gt;&gt; map) &#123; if (map.containsKey(s)) &#123; return map.get(s); &#125; List&lt;String&gt; res = new ArrayList&lt;String&gt;(); if (s.equals("")) &#123; res.add(""); return res; &#125; for (String word : wordDict) &#123; if (s.startsWith(word)) &#123; List&lt;String&gt; sublist = dfs(s.substring(word.length()), wordDict, map); for (String sub : sublist) &#123; res.add(word + (sub.equals("") ? "" : " ") + sub); &#125; &#125; &#125; map.put(s, res); return res; &#125;&#125; T &amp; S AnalysisTime: O() Space:]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Dynamic Programming</tag>
+        <tag>Snapchat</tag>
+        <tag>Uber</tag>
+        <tag>Google</tag>
+        <tag>Twitter</tag>
+        <tag>Dropbox</tag>
+        <tag>Backtracking</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[126 Word Ladder II]]></title>
     <url>%2F2017%2F10%2F21%2F126-Word-Ladder-II%2F</url>
     <content type="text"><![CDATA[Question Given two words (beginWord and endWord), and a dictionary’s word list, find all shortest transformation sequence(s) from beginWord to endWord, such that: Only one letter can be changed at a time Each transformed word must exist in the word list. Note that beginWord is not a transformed word. For example, Given: beginWord = “hit” endWord = “cog” wordList = [“hot”,”dot”,”dog”,”lot”,”log”,”cog”] Rerurn [ ["hit","hot","dot","dog","cog"], ["hit","hot","lot","log","cog"] ] Solution 1 Dijkstra’s algorithmSame as shortest path algorithm, except that it has to store multiply precessor in a path Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697class Solution &#123; public List&lt;List&lt;String&gt;&gt; findLadders(String beginWord, String endWord, List&lt;String&gt; wordList) &#123; Map&lt;String, List&lt;String&gt;&gt; path = new HashMap&lt;&gt;(); Map&lt;String, Integer&gt; distance = new HashMap&lt;&gt;(); Set&lt;String&gt; dict = new HashSet&lt;&gt;(wordList); for (String word : dict) &#123; path.put(word, new ArrayList&lt;String&gt;()); &#125; path.put(beginWord, new ArrayList&lt;String&gt;()); distance.put(beginWord, 0); bfs(path, distance, beginWord, endWord, dict); // for (String word : dict) &#123; // System.out.print(word + ": "); // List&lt;String&gt; last = path.get(word); // for (int i = 0; i &lt; last.size(); i++) &#123; // System.out.print(last.get(i) + " "); // &#125; // System.out.println(); // &#125; List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;List&lt;String&gt;&gt;(); LinkedList&lt;String&gt; temp = new LinkedList&lt;String&gt;(); temp.add(endWord); dfs(res, path, endWord, beginWord, temp); return res; &#125; private void dfs(List&lt;List&lt;String&gt;&gt; res, Map&lt;String, List&lt;String&gt;&gt; path, String endWord, String beginWord, LinkedList&lt;String&gt; temp) &#123; if (endWord.equals(beginWord)) &#123; res.add(new LinkedList&lt;String&gt;(temp)); return; &#125; if (path.get(endWord) == null) &#123; return; &#125; List&lt;String&gt; last = path.get(endWord); for (int i = 0; i &lt; last.size(); i++) &#123; temp.offerFirst(last.get(i)); dfs(res, path, last.get(i), beginWord, temp); temp.pollFirst(); &#125; &#125; private void bfs(Map&lt;String, List&lt;String&gt;&gt; path, Map&lt;String, Integer&gt; distance, String beginWord, String endWord, Set&lt;String&gt; dict) &#123; Queue&lt;String&gt; queue = new LinkedList&lt;String&gt;(); queue.offer(beginWord); int dis = 1; while(!queue.isEmpty()) &#123; int len = queue.size(); for (int i = 0; i &lt; len; i++) &#123; String cur = queue.poll(); List&lt;String&gt; next = getNext(cur, dict); // System.out.print(cur + ": "); // for (int j = 0; j &lt; next.size(); j++) &#123; // System.out.print(next.get(j) + " "); // &#125; // System.out.println(); for (int j = 0; j &lt; next.size(); j++) &#123; if (!distance.containsKey(next.get(j))) &#123; distance.put(next.get(j), dis); queue.offer(next.get(j)); &#125; if (distance.get(next.get(j)) == distance.get(cur) + 1) &#123; path.get(next.get(j)).add(cur); &#125; &#125; &#125; dis++; &#125; &#125; private List&lt;String&gt; getNext(String cur, Set&lt;String&gt; dict) &#123; char[] charArr = cur.toCharArray(); List&lt;String&gt; res = new ArrayList&lt;String&gt;(); for (int i = 0; i &lt; charArr.length; i++) &#123; char ch = charArr[i]; for (char newCh = 'a'; newCh &lt;= 'z'; newCh++) &#123; if (ch == newCh) &#123; continue; &#125; charArr[i] = newCh; String temp = new String(charArr); if (dict.contains(temp)) &#123; res.add(temp); &#125; &#125; charArr[i] = ch; &#125; return res; &#125;&#125; T &amp; S AnalysisTime: O(node + edge) Space: O(node + edge)]]></content>
@@ -9,8 +106,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>BFS</tag>
         <tag>DFS</tag>
+        <tag>BFS</tag>
         <tag>Dijkstra&#39;s algorithm</tag>
         <tag>Amazon</tag>
         <tag>Yelp</tag>
@@ -47,10 +144,10 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Facebook</tag>
         <tag>BFS</tag>
         <tag>Amazon</tag>
         <tag>Yelp</tag>
-        <tag>Facebook</tag>
         <tag>Graph</tag>
         <tag>Linkedin</tag>
         <tag>Snapchat</tag>
@@ -66,8 +163,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Microsoft</tag>
         <tag>Greedy</tag>
+        <tag>Microsoft</tag>
       </tags>
   </entry>
   <entry>
@@ -144,16 +241,16 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Yelp</tag>
         <tag>Facebook</tag>
         <tag>Microsoft</tag>
+        <tag>Yelp</tag>
         <tag>&lt;font color=&quot;red&quot;&gt;Favorite&lt;/font&gt;</tag>
         <tag>Google</tag>
+        <tag>Twitter</tag>
         <tag>Heap</tag>
         <tag>Divide and Conquer</tag>
         <tag>Binary Indexed Tree</tag>
         <tag>Segment Tree</tag>
-        <tag>Twitter</tag>
       </tags>
   </entry>
   <entry>
@@ -175,8 +272,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>DFS</tag>
         <tag>Tree</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -244,8 +341,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Microsoft</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Microsoft</tag>
       </tags>
   </entry>
   <entry>
@@ -275,13 +372,13 @@
     <url>%2F2017%2F09%2F26%2F76-Minimum-Window-Substring%2F</url>
     <content type="text"><![CDATA[Question Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n). For example, S = “ADOBECODEBANC” T = “ABC” Minimum window is “BANC”. Note: If there is no such window in S that covers all characters in T, return the empty string “”. If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S. Solution 1 Hash and Two PointersIt’s a substring template Code123456789101112131415161718192021222324252627class Solution &#123; public String minWindow(String s, String t) &#123; int[] map = new int[128]; for (char ch : t.toCharArray()) &#123; map[ch]++; &#125; int d = Integer.MAX_VALUE, begin = 0, head = 0, counter = t.length(); for (int i = 0; i &lt; s.length(); i++) &#123; if (map[s.charAt(i)] &gt; 0) &#123; counter--; &#125; map[s.charAt(i)]--; while (counter == 0) &#123; if (i - begin + 1 &lt; d) &#123; d = i - begin + 1; head = begin; &#125; if (map[s.charAt(begin)] == 0) &#123; counter++; &#125; map[s.charAt(begin)]++; begin++; &#125; &#125; return d == Integer.MAX_VALUE ? "" : s.substring(head, d + head); &#125;&#125; T&amp;S AnalysisTime: O(n), Since only one scanSpace: O(1), The hash map’s size is limited]]></content>
       <tags>
+        <tag>Hash Table</tag>
+        <tag>Facebook</tag>
         <tag>Two Pointers</tag>
         <tag>String</tag>
-        <tag>Facebook</tag>
-        <tag>Uber</tag>
         <tag>Linkedin</tag>
         <tag>Snapchat</tag>
-        <tag>Hash Table</tag>
+        <tag>Uber</tag>
       </tags>
   </entry>
   <entry>
@@ -331,8 +428,8 @@
       <tags>
         <tag>BFS</tag>
         <tag>Google</tag>
-        <tag>Heap</tag>
         <tag>Twitter</tag>
+        <tag>Heap</tag>
       </tags>
   </entry>
   <entry>
@@ -355,9 +452,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Tree</tag>
         <tag>DFS</tag>
         <tag>Microsoft</tag>
-        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -382,8 +479,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
         <tag>Apple</tag>
         <tag>Space Saving</tag>
         <tag>Palindrome Pairs</tag>
@@ -421,8 +518,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>BFS</tag>
         <tag>DFS</tag>
+        <tag>BFS</tag>
         <tag>Yelp</tag>
         <tag>Graph</tag>
         <tag>Topological Sort</tag>
@@ -450,8 +547,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Math</tag>
         <tag>Bloomberg</tag>
+        <tag>Math</tag>
       </tags>
   </entry>
   <entry>
@@ -486,9 +583,9 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Bloomberg</tag>
-        <tag>Dynamic Programming</tag>
         <tag>Greedy</tag>
+        <tag>Dynamic Programming</tag>
+        <tag>Bloomberg</tag>
       </tags>
   </entry>
   <entry>
@@ -499,8 +596,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Greedy</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -535,13 +632,13 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
+        <tag>Bloomberg</tag>
         <tag>Facebook</tag>
+        <tag>Microsoft</tag>
+        <tag>String</tag>
         <tag>Math</tag>
         <tag>Uber</tag>
-        <tag>Microsoft</tag>
         <tag>Yahoo</tag>
-        <tag>Bloomberg</tag>
       </tags>
   </entry>
   <entry>
@@ -552,10 +649,10 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Amazon</tag>
+        <tag>Bloomberg</tag>
         <tag>Facebook</tag>
         <tag>Microsoft</tag>
-        <tag>Bloomberg</tag>
+        <tag>Amazon</tag>
         <tag>Apple</tag>
         <tag>Heap</tag>
         <tag>Divide and Conquer</tag>
@@ -570,8 +667,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
         <tag>Google</tag>
         <tag>Game of Life</tag>
       </tags>
@@ -585,8 +682,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Two Pointers</tag>
         <tag>Facebook</tag>
+        <tag>Two Pointers</tag>
         <tag>Binary Search</tag>
       </tags>
   </entry>
@@ -614,8 +711,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
         <tag>Facebook</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -627,9 +724,9 @@
       </categories>
       <tags>
         <tag>Array</tag>
+        <tag>Bloomberg</tag>
         <tag>Facebook</tag>
         <tag>Microsoft</tag>
-        <tag>Bloomberg</tag>
         <tag>Backtracking</tag>
       </tags>
   </entry>
@@ -641,8 +738,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
         <tag>Facebook</tag>
+        <tag>String</tag>
         <tag>Math</tag>
         <tag>Twitter</tag>
       </tags>
@@ -655,13 +752,13 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Amazon</tag>
-        <tag>Yelp</tag>
-        <tag>String</tag>
-        <tag>Facebook</tag>
-        <tag>Uber</tag>
         <tag>Bloomberg</tag>
         <tag>Hash Table</tag>
+        <tag>Facebook</tag>
+        <tag>String</tag>
+        <tag>Amazon</tag>
+        <tag>Yelp</tag>
+        <tag>Uber</tag>
       </tags>
   </entry>
   <entry>
@@ -672,9 +769,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Tree</tag>
         <tag>DFS</tag>
         <tag>Uber</tag>
-        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -685,8 +782,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Hash Table</tag>
+        <tag>Facebook</tag>
         <tag>Sort</tag>
       </tags>
   </entry>
@@ -735,8 +832,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
         <tag>Facebook</tag>
+        <tag>String</tag>
         <tag>Backtracking</tag>
       </tags>
   </entry>
@@ -748,8 +845,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Greedy</tag>
+        <tag>Facebook</tag>
         <tag>Stack</tag>
       </tags>
   </entry>
@@ -798,9 +895,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>BFS</tag>
-        <tag>DFS</tag>
         <tag>Facebook</tag>
+        <tag>DFS</tag>
+        <tag>BFS</tag>
         <tag>Graph</tag>
       </tags>
   </entry>
@@ -824,9 +921,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>DFS</tag>
         <tag>Facebook</tag>
         <tag>Tree</tag>
+        <tag>DFS</tag>
         <tag>Morris Order</tag>
       </tags>
   </entry>
@@ -838,9 +935,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
+        <tag>Facebook</tag>
         <tag>Two Pointers</tag>
         <tag>String</tag>
-        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -866,8 +963,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Two Pointers</tag>
         <tag>Facebook</tag>
+        <tag>Two Pointers</tag>
         <tag>Sort</tag>
       </tags>
   </entry>
@@ -879,8 +976,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -892,8 +989,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Hash Table</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -932,8 +1029,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
       </tags>
   </entry>
   <entry>
@@ -958,9 +1055,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>DFS</tag>
         <tag>Facebook</tag>
         <tag>Tree</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -971,9 +1068,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>BFS</tag>
-        <tag>DFS</tag>
         <tag>Facebook</tag>
+        <tag>DFS</tag>
+        <tag>BFS</tag>
         <tag>Union Find</tag>
       </tags>
   </entry>
@@ -986,8 +1083,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Two Pointers</tag>
         <tag>Facebook</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -998,9 +1095,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
-        <tag>Facebook</tag>
         <tag>Dynamic Programming</tag>
+        <tag>Facebook</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -1069,8 +1166,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
         <tag>Facebook</tag>
+        <tag>String</tag>
         <tag>Math</tag>
       </tags>
   </entry>
@@ -1095,8 +1192,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Two Pointers</tag>
         <tag>Facebook</tag>
+        <tag>Two Pointers</tag>
       </tags>
   </entry>
   <entry>
@@ -1118,8 +1215,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
         <tag>Tree</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -1141,9 +1238,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>BFS</tag>
-        <tag>DFS</tag>
         <tag>Tree</tag>
+        <tag>DFS</tag>
+        <tag>BFS</tag>
       </tags>
   </entry>
   <entry>
