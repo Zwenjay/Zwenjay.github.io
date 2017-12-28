@@ -311,6 +311,304 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/12/28/214-Shortest-Palindrome/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/28/214-Shortest-Palindrome/" itemprop="url">214 Shortest Palindrome</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-28T09:05:25-08:00">
+                2017-12-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/shortest-palindrome/description/" target="_blank" rel="external">Question</a></h1><blockquote>
+<p>Given a string S, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the shortest palindrome you can find by performing this transformation.</p>
+<p>For example:</p>
+<p>Given “aacecaaa”, return “aaacecaaa”.</p>
+<p>Given “abcd”, return “dcbabcd”.</p>
+</blockquote>
+<h2 id="Solution-1-Using-KMP-algotithm"><a href="#Solution-1-Using-KMP-algotithm" class="headerlink" title="Solution 1 Using KMP algotithm"></a>Solution 1 Using KMP algotithm</h2><h3 id="Step1-Create-a-temp-string-for-matching"><a href="#Step1-Create-a-temp-string-for-matching" class="headerlink" title="Step1 Create a temp string for matching"></a>Step1 Create a temp string for matching</h3><p>Build a new string as follows:  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String temp = s + <span class="string">"#"</span> + <span class="keyword">new</span> StringBuilder(s).reverse().toString();</div></pre></td></tr></table></figure>
+<h3 id="Step2-Build-the-KMP-table"><a href="#Step2-Build-the-KMP-table" class="headerlink" title="Step2 Build the KMP table"></a>Step2 Build the KMP table</h3><p>Build KMP table of <em>temp</em>, which is an integer array with same length as the string, each element means the longest same prefix and postfix substring.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">int</span>[] getTable(String s) &#123;</div><div class="line">    <span class="keyword">int</span>[] table = <span class="keyword">new</span> <span class="keyword">int</span>[s.length()];</div><div class="line">    <span class="keyword">int</span> index = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; s.length(); i++) &#123;</div><div class="line">        <span class="keyword">if</span> (s.charAt(i) == s.charAt(index)) &#123;</div><div class="line">            table[i] = table[i - <span class="number">1</span>] + <span class="number">1</span>;</div><div class="line">            index++;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            index = table[i - <span class="number">1</span>];</div><div class="line">            <span class="keyword">while</span> (index &gt; <span class="number">0</span> &amp;&amp; s.charAt(i) != s.charAt(index)) &#123;</div><div class="line">                index = table[index - <span class="number">1</span>];</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (s.charAt(i) == s.charAt(index)) &#123;</div><div class="line">                index++;</div><div class="line">            &#125;</div><div class="line">            table[i] = index;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> table;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Step-3-Get-the-shortest-palindrom"><a href="#Step-3-Get-the-shortest-palindrom" class="headerlink" title="Step 3 Get the shortest palindrom"></a>Step 3 Get the shortest palindrom</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> <span class="keyword">new</span> StringBuilder(s.substring(table[table.length - <span class="number">1</span>])).reverse().toString() + s;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/12/27/Bit_Manipulate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/27/Bit_Manipulate/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-27T17:31:16-08:00">
+                2017-12-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>title: Bit Manipulate<br>date: 2017-12-28 15:23:27<br>categories: Java</p>
+<h1 id="Bit-Manipulate-Java"><a href="#Bit-Manipulate-Java" class="headerlink" title="Bit Manipulate (Java)"></a>Bit Manipulate (Java)</h1><ul>
+<li><p>left move: &lt;&lt;</p>
+<p>​    positive fill with 0</p>
+<p>​    negative fill with 0</p>
+</li>
+<li><p>right move: &gt;&gt;</p>
+<p>​    positive fill with 0</p>
+<p>​    negative fill with 1</p>
+</li>
+<li><p>unsigned left move: &lt;&lt;&lt;</p>
+<p>​    positive fill with 0</p>
+<p>​    negative fill with 0</p>
+</li>
+<li><p>unsigned right move: &gt;&gt;&gt;</p>
+<p>​    positive fill with 0</p>
+<p>​    negative fill with 0</p>
+</li>
+<li><p>and: &amp;</p>
+</li>
+<li><p>or: |</p>
+</li>
+<li><p>not: ~</p>
+</li>
+<li><p>xor: ^</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/10/24/315-Count-of-Smaller-Number-After-Self/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1568,332 +1866,6 @@ Also, this is the minimum number of stickers necessary to form the target string
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/10/21/126-Word-Ladder-II/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/21/126-Word-Ladder-II/" itemprop="url"><font color = "red">126 Word Ladder II</font></a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-21T14:24:49-07:00">
-                2017-10-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/word-ladder-ii/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given two words (beginWord and endWord), and a dictionary’s word list, find all shortest transformation sequence(s) from beginWord to endWord, such that:</p>
-<ol>
-<li>Only one letter can be changed at a time</li>
-<li>Each transformed word must exist in the word list. Note that beginWord is not a transformed word.</li>
-</ol>
-<p>For example,</p>
-<p>Given:</p>
-<p>beginWord = “hit”</p>
-<p>endWord = “cog”</p>
-<p>wordList = [“hot”,”dot”,”dog”,”lot”,”log”,”cog”]</p>
-<p>Rerurn</p>
-<pre>  [
-    ["hit","hot","dot","dog","cog"],
-    ["hit","hot","lot","log","cog"]
-  ]
-</pre>
-
-</blockquote>
-<h2 id="Solution-1-Dijkstra’s-algorithm"><a href="#Solution-1-Dijkstra’s-algorithm" class="headerlink" title="Solution 1 Dijkstra’s algorithm"></a>Solution 1 Dijkstra’s algorithm</h2><p>Same as shortest path algorithm, except that it has to store multiply precessor in a path</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> List&lt;List&lt;String&gt;&gt; findLadders(String beginWord, String endWord, List&lt;String&gt; wordList) &#123;</div><div class="line">        Map&lt;String, List&lt;String&gt;&gt; path = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">        Map&lt;String, Integer&gt; distance = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">        Set&lt;String&gt; dict = <span class="keyword">new</span> HashSet&lt;&gt;(wordList);</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (String word : dict) &#123;</div><div class="line">            path.put(word, <span class="keyword">new</span> ArrayList&lt;String&gt;());</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        path.put(beginWord, <span class="keyword">new</span> ArrayList&lt;String&gt;());</div><div class="line">        distance.put(beginWord, <span class="number">0</span>);</div><div class="line">        bfs(path, distance, beginWord, endWord, dict);</div><div class="line">        </div><div class="line">        <span class="comment">// for (String word : dict) &#123;</span></div><div class="line">        <span class="comment">//     System.out.print(word + ": ");</span></div><div class="line">        <span class="comment">//     List&lt;String&gt; last = path.get(word);</span></div><div class="line">        <span class="comment">//     for (int i = 0; i &lt; last.size(); i++) &#123;</span></div><div class="line">        <span class="comment">//         System.out.print(last.get(i) + " ");</span></div><div class="line">        <span class="comment">//     &#125;</span></div><div class="line">        <span class="comment">//     System.out.println();</span></div><div class="line">        <span class="comment">// &#125;</span></div><div class="line">        </div><div class="line">        </div><div class="line">        List&lt;List&lt;String&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;List&lt;String&gt;&gt;();</div><div class="line">        LinkedList&lt;String&gt; temp = <span class="keyword">new</span> LinkedList&lt;String&gt;();</div><div class="line">        temp.add(endWord);</div><div class="line">        dfs(res, path, endWord, beginWord, temp);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(List&lt;List&lt;String&gt;&gt; res, Map&lt;String, List&lt;String&gt;&gt; path, String endWord, String beginWord, LinkedList&lt;String&gt; temp)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (endWord.equals(beginWord)) &#123;</div><div class="line">            res.add(<span class="keyword">new</span> LinkedList&lt;String&gt;(temp));</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (path.get(endWord) == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        List&lt;String&gt; last = path.get(endWord);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; last.size(); i++) &#123;</div><div class="line">            temp.offerFirst(last.get(i));</div><div class="line">            dfs(res, path, last.get(i), beginWord, temp);</div><div class="line">            temp.pollFirst();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(Map&lt;String, List&lt;String&gt;&gt; path, Map&lt;String, Integer&gt; distance, String beginWord, String endWord, Set&lt;String&gt; dict)</span> </span>&#123;</div><div class="line">        Queue&lt;String&gt; queue = <span class="keyword">new</span> LinkedList&lt;String&gt;();</div><div class="line">        queue.offer(beginWord);</div><div class="line">        <span class="keyword">int</span> dis = <span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span>(!queue.isEmpty()) &#123;</div><div class="line">            <span class="keyword">int</span> len = queue.size();</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</div><div class="line">                String cur = queue.poll();</div><div class="line">                List&lt;String&gt; next = getNext(cur, dict);</div><div class="line">                <span class="comment">// System.out.print(cur + ": ");</span></div><div class="line">                <span class="comment">// for (int j = 0; j &lt; next.size(); j++) &#123;</span></div><div class="line">                <span class="comment">//     System.out.print(next.get(j) + " ");</span></div><div class="line">                <span class="comment">// &#125;</span></div><div class="line">                <span class="comment">// System.out.println();</span></div><div class="line"></div><div class="line">                </div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; next.size(); j++) &#123;</div><div class="line">                    <span class="keyword">if</span> (!distance.containsKey(next.get(j))) &#123;</div><div class="line">                        distance.put(next.get(j), dis);</div><div class="line">                        queue.offer(next.get(j));</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">if</span> (distance.get(next.get(j)) == distance.get(cur) + <span class="number">1</span>) &#123;</div><div class="line">                        path.get(next.get(j)).add(cur);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            dis++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> List&lt;String&gt; <span class="title">getNext</span><span class="params">(String cur, Set&lt;String&gt; dict)</span> </span>&#123;</div><div class="line">        <span class="keyword">char</span>[] charArr = cur.toCharArray();</div><div class="line">        List&lt;String&gt; res = <span class="keyword">new</span> ArrayList&lt;String&gt;();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; charArr.length; i++) &#123;</div><div class="line">            <span class="keyword">char</span> ch = charArr[i];</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">char</span> newCh = <span class="string">'a'</span>; newCh &lt;= <span class="string">'z'</span>; newCh++) &#123;</div><div class="line">                <span class="keyword">if</span> (ch == newCh) &#123;</div><div class="line">                    <span class="keyword">continue</span>;</div><div class="line">                &#125;</div><div class="line">                charArr[i] = newCh;</div><div class="line">                String temp = <span class="keyword">new</span> String(charArr);</div><div class="line">                <span class="keyword">if</span> (dict.contains(temp)) &#123;</div><div class="line">                    res.add(temp);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            charArr[i] = ch;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T &amp; S Analysis"></a>T &amp; S Analysis</h3><p><strong>Time:</strong> O(node + edge)</p>
-<p><strong>Space:</strong> O(node + edge)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/10/19/670-Maximum-Swap/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/19/670-Maximum-Swap/" itemprop="url">670 Maximum Swap</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-19T15:54:55-07:00">
-                2017-10-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/maximum-swap/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given a non-negative integer, you could swap two digits at most once to get the maximum valued number. Return the maximum valued number you could get.</p>
-<p><strong>Example1</strong></p>
-<pre><b>Input:</b> 2736
-<b>Output:</b> 7236
-<b>Explanation:</b> Swap the number 2 and the number 7.
-</pre>
-
-<p><strong>Example2</strong></p>
-<pre><b>Input:</b> 9973
-<b>Output:</b> 9973
-<b>Explanation:</b> No swap.
-</pre>
-
-</blockquote>
-<h2 id="Solution-1-Turn-to-Array"><a href="#Solution-1-Turn-to-Array" class="headerlink" title="Solution 1 Turn to Array"></a>Solution 1 Turn to Array</h2><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumSwap</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span>[] buckets = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</div><div class="line">        <span class="keyword">char</span>[] digits = Integer.toString(num).toCharArray();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; buckets.length; i++) &#123;</div><div class="line">            buckets[i] = -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; digits.length; i++) &#123;</div><div class="line">            buckets[digits[i] - <span class="string">'0'</span>] = i;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">boolean</span> done = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; digits.length &amp;&amp; !done; i++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">char</span> j = <span class="string">'9'</span>; j &gt; digits[i]; j--) &#123;</div><div class="line">                <span class="keyword">if</span> (buckets[j - <span class="string">'0'</span>] &gt; i) &#123;</div><div class="line">                    digits[buckets[j - <span class="string">'0'</span>]] = digits[i];</div><div class="line">                    digits[i] = j;</div><div class="line">                    done = <span class="keyword">true</span>;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> Integer.valueOf(<span class="keyword">new</span> String(digits));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T &amp; S Analysis"></a>T &amp; S Analysis</h3><p><strong>Time:</strong> O(n^2)</p>
-<p><strong>Space:</strong> O(1)</p>
-<h2 id="Solution-2-Find-Last-index-of-numbers"><a href="#Solution-2-Find-Last-index-of-numbers" class="headerlink" title="Solution 2 Find Last index of numbers"></a>Solution 2 Find Last index of numbers</h2><h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximumSwap</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span>[] buckets = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</div><div class="line">        <span class="keyword">char</span>[] digits = Integer.toString(num).toCharArray();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; buckets.length; i++) &#123;</div><div class="line">            buckets[i] = -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; digits.length; i++) &#123;</div><div class="line">            buckets[digits[i] - <span class="string">'0'</span>] = i;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">boolean</span> done = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; digits.length &amp;&amp; !done; i++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">char</span> j = <span class="string">'9'</span>; j &gt; digits[i]; j--) &#123;</div><div class="line">                <span class="keyword">if</span> (buckets[j - <span class="string">'0'</span>] &gt; i) &#123;</div><div class="line">                    digits[buckets[j - <span class="string">'0'</span>]] = digits[i];</div><div class="line">                    digits[i] = j;</div><div class="line">                    done = <span class="keyword">true</span>;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> Integer.valueOf(<span class="keyword">new</span> String(digits));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis-1"><a href="#T-amp-S-Analysis-1" class="headerlink" title="T &amp; S Analysis"></a>T &amp; S Analysis</h3><p><strong>Time:</strong> O(n)</p>
-<p><strong>Space:</strong> O(1)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1944,7 +1916,7 @@ Also, this is the minimum number of stickers necessary to form the target string
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">114</span>
+                <span class="site-state-item-count">116</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1966,7 +1938,7 @@ Also, this is the minimum number of stickers necessary to form the target string
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

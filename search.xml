@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[214 Shortest Palindrome]]></title>
+    <url>%2F2017%2F12%2F28%2F214-Shortest-Palindrome%2F</url>
+    <content type="text"><![CDATA[Question Given a string S, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the shortest palindrome you can find by performing this transformation. For example: Given “aacecaaa”, return “aaacecaaa”. Given “abcd”, return “dcbabcd”. Solution 1 Using KMP algotithmStep1 Create a temp string for matchingBuild a new string as follows: 1String temp = s + "#" + new StringBuilder(s).reverse().toString(); Step2 Build the KMP tableBuild KMP table of temp, which is an integer array with same length as the string, each element means the longest same prefix and postfix substring. 1234567891011121314151617181920private int[] getTable(String s) &#123; int[] table = new int[s.length()]; int index = 0; for (int i = 1; i &lt; s.length(); i++) &#123; if (s.charAt(i) == s.charAt(index)) &#123; table[i] = table[i - 1] + 1; index++; &#125; else &#123; index = table[i - 1]; while (index &gt; 0 &amp;&amp; s.charAt(i) != s.charAt(index)) &#123; index = table[index - 1]; &#125; if (s.charAt(i) == s.charAt(index)) &#123; index++; &#125; table[i] = index; &#125; &#125; return table;&#125; Step 3 Get the shortest palindrom1return new StringBuilder(s.substring(table[table.length - 1])).reverse().toString() + s; T&amp;S Analysis]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>String</tag>
+        <tag>KMP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>%2F2017%2F12%2F27%2FBit_Manipulate%2F</url>
+    <content type="text"><![CDATA[title: Bit Manipulatedate: 2017-12-28 15:23:27categories: Java Bit Manipulate (Java) left move: &lt;&lt; ​ positive fill with 0 ​ negative fill with 0 right move: &gt;&gt; ​ positive fill with 0 ​ negative fill with 1 unsigned left move: &lt;&lt;&lt; ​ positive fill with 0 ​ negative fill with 0 unsigned right move: &gt;&gt;&gt; ​ positive fill with 0 ​ negative fill with 0 and: &amp; or: | not: ~ xor: ^]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[315 Count of Smaller Number After Self]]></title>
     <url>%2F2017%2F10%2F24%2F315-Count-of-Smaller-Number-After-Self%2F</url>
     <content type="text"><![CDATA[Question You are given an integer array nums and you have to return a new counts array. The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i]. Example: Given nums = [5, 2, 6, 1] To the right of 5 there are 2 smaller elements (2 and 1). To the right of 2 there is only 1 smaller element (1). To the right of 6 there is 1 smaller element (1). To the right of 1 there is 0 smaller element. Return the array [2, 1, 1, 0]. Solution 1 Binary Search TreeFrom right to left, put element into a Binary Search Tree, record and update the number of left bottom element and the duplication of itself. Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061class Solution &#123; class TreeNode &#123; int leftBottom; int num; int val; TreeNode left; TreeNode right; TreeNode(int val) &#123; this.num = 1; this.leftBottom = 0; this.val = val; this.left = null; this.right = null; &#125; &#125; public List&lt;Integer&gt; countSmaller(int[] nums) &#123; int[] res = new int[nums.length]; if (nums.length == 0) &#123; return Arrays.stream(res).boxed().collect(Collectors.toList()); &#125; TreeNode root = new TreeNode(nums[nums.length - 1]); for (int i = nums.length - 2; i &gt;= 0; i--) &#123; buildTree(root, nums[i], i, res); &#125; return Arrays.stream(res).boxed().collect(Collectors.toList()); &#125; private void buildTree(TreeNode root, int val, int i, int[] res) &#123; TreeNode cur = root; int ans = 0; while (cur != null) &#123; if (val == cur.val) &#123; cur.num++; res[i] = ans + cur.leftBottom; return; &#125; if (val &lt; cur.val) &#123; cur.leftBottom++; if (cur.left == null) &#123; cur.left = new TreeNode(val); res[i] = ans; return; &#125; else &#123; cur = cur.left; &#125; &#125; else &#123; ans += ( cur.num + cur.leftBottom ); if (cur.right == null) &#123; cur.right = new TreeNode(val); res[i] = ans; return; &#125; else &#123; cur = cur.right; &#125; &#125; &#125; &#125; &#125; T &amp; S AnalysisTime: O(NlogN) Space: O(N)]]></content>
@@ -249,8 +266,8 @@
         <tag>Twitter</tag>
         <tag>Heap</tag>
         <tag>Divide and Conquer</tag>
-        <tag>Binary Indexed Tree</tag>
         <tag>Segment Tree</tag>
+        <tag>Binary Indexed Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -479,8 +496,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
         <tag>Apple</tag>
         <tag>Space Saving</tag>
         <tag>Palindrome Pairs</tag>
@@ -632,8 +649,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Bloomberg</tag>
         <tag>Facebook</tag>
+        <tag>Bloomberg</tag>
         <tag>Microsoft</tag>
         <tag>String</tag>
         <tag>Math</tag>
@@ -649,13 +666,13 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Bloomberg</tag>
         <tag>Facebook</tag>
+        <tag>Bloomberg</tag>
         <tag>Microsoft</tag>
         <tag>Amazon</tag>
-        <tag>Apple</tag>
         <tag>Heap</tag>
         <tag>Divide and Conquer</tag>
+        <tag>Apple</tag>
         <tag>PocketGems</tag>
       </tags>
   </entry>
@@ -667,8 +684,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
         <tag>Google</tag>
         <tag>Game of Life</tag>
       </tags>
@@ -724,8 +741,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Bloomberg</tag>
         <tag>Facebook</tag>
+        <tag>Bloomberg</tag>
         <tag>Microsoft</tag>
         <tag>Backtracking</tag>
       </tags>
@@ -752,9 +769,9 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Bloomberg</tag>
         <tag>Hash Table</tag>
         <tag>Facebook</tag>
+        <tag>Bloomberg</tag>
         <tag>String</tag>
         <tag>Amazon</tag>
         <tag>Yelp</tag>
@@ -845,8 +862,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Greedy</tag>
         <tag>Facebook</tag>
+        <tag>Greedy</tag>
         <tag>Stack</tag>
       </tags>
   </entry>
@@ -976,8 +993,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -1029,8 +1046,8 @@
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
       </tags>
   </entry>
   <entry>
@@ -1095,8 +1112,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>Dynamic Programming</tag>
         <tag>Facebook</tag>
+        <tag>Dynamic Programming</tag>
         <tag>String</tag>
       </tags>
   </entry>

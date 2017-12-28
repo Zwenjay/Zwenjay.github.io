@@ -311,6 +311,315 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/10/01/218-The-Skyline-Problem/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/01/218-The-Skyline-Problem/" itemprop="url"><font color = "red">218 The Skyline Problem</font></a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-01T10:53:37-07:00">
+                2017-10-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><a href="https://leetcode.com/problems/the-skyline-problem/description/" target="_blank" rel="external">Problem</a></h1><blockquote>
+<p>A city’s skyline is the outer contour of the silhouette formed by all the buildings in that city when viewed from a distance. Now suppose you are given the locations and height of all the buildings as shown on a cityscape photo (Figure A), write a program to output the skyline formed by these buildings collectively (Figure B).</p>
+<p><img style="max-width: 45%;" src="/static/images/problemset/skyline2.jpg" border="0" alt="Skyline Contour"></p>
+<p>The geometric information of each building is represented by a triplet of integers [Li, Ri, Hi], where Li and Ri are the x coordinates of the left and right edge of the ith building, respectively, and Hi is its height. It is guaranteed that 0 ≤ Li, Ri ≤ INT_MAX, 0 &lt; Hi ≤ INT_MAX, and Ri - Li &gt; 0. You may assume all buildings are perfect rectangles grounded on an absolutely flat surface at height 0.</p>
+<p>For instance, the dimensions of all buildings in Figure A are recorded as: [ [2 9 10], [3 7 15], [5 12 12], [15 20 10], [19 24 8] ] .</p>
+<p>The output is a list of “key points” (red dots in Figure B) in the format of [ [x1,y1], [x2, y2], [x3, y3], … ] that uniquely defines a skyline. A key point is the left endpoint of a horizontal line segment. Note that the last key point, where the rightmost building ends, is merely used to mark the termination of the skyline, and always has zero height. Also, the ground in between any two adjacent buildings should be considered part of the skyline contour.</p>
+<p>For instance, the skyline in Figure B should be represented as:[ [2 10], [3 15], [7 12], [12 0], [15 10], [20 8], [24, 0] ].</p>
+<p>Notes:</p>
+<ul>
+<li>The number of buildings in any input list is guaranteed to be in the range [0, 10000].</li>
+<li>The input list is already sorted in ascending order by the left x position Li.</li>
+<li>The output list must be sorted by the x position.</li>
+<li>There must be no consecutive horizontal lines of equal height in the output skyline. For instance, […[2 3], [4 5], [7 5], [11 5], [12 7]…] is not acceptable; the three lines of height 5 should be merged into one in the final output as such: […[2 3], [4 5], [12 7], …]</li>
+</ul>
+</blockquote>
+<h2 id="Solution-1-Heap"><a href="#Solution-1-Heap" class="headerlink" title="Solution 1 Heap"></a>Solution 1 Heap</h2><p><a href="https://briangordon.github.io/2014/08/the-skyline-problem.html" target="_blank" rel="external">Reference Link</a></p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    </div><div class="line">    class ArrComparator implements Comparator&lt;int[]&gt; &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span>[] b)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> (a[<span class="number">2</span>] - b[<span class="number">2</span>]) * -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> List&lt;<span class="keyword">int</span>[]&gt; getSkyline(<span class="keyword">int</span>[][] buildings) &#123;</div><div class="line">        List&lt;Integer&gt; cPoint = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        HashMap&lt;Integer, List&lt;Integer&gt;&gt; leftE = <span class="keyword">new</span> HashMap&lt;Integer, List&lt;Integer&gt;&gt;();</div><div class="line">        HashMap&lt;Integer, List&lt;Integer&gt;&gt; rightE = <span class="keyword">new</span> HashMap&lt;Integer, List&lt;Integer&gt;&gt;(); </div><div class="line">        </div><div class="line">        PriorityQueue&lt;<span class="keyword">int</span>[]&gt; heap = <span class="keyword">new</span> PriorityQueue&lt;<span class="keyword">int</span>[]&gt;(<span class="number">1</span>, <span class="keyword">new</span> ArrComparator());</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; buildings.length; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (!leftE.containsKey(buildings[i][<span class="number">0</span>])) &#123;</div><div class="line">                leftE.put(buildings[i][<span class="number">0</span>], <span class="keyword">new</span> ArrayList&lt;Integer&gt;());</div><div class="line">            &#125;</div><div class="line">            leftE.get(buildings[i][<span class="number">0</span>]).add(i);</div><div class="line">            <span class="keyword">if</span> (!rightE.containsKey(buildings[i][<span class="number">1</span>])) &#123;</div><div class="line">                rightE.put(buildings[i][<span class="number">1</span>], <span class="keyword">new</span> ArrayList&lt;Integer&gt;());</div><div class="line">            &#125;</div><div class="line">            rightE.get(buildings[i][<span class="number">1</span>]).add(i);</div><div class="line">            cPoint.add(buildings[i][<span class="number">0</span>]);</div><div class="line">            cPoint.add(buildings[i][<span class="number">1</span>]);</div><div class="line">        &#125;</div><div class="line">        Collections.sort(cPoint);</div><div class="line">        HashMap&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; cPoint.size(); k++) &#123;</div><div class="line">            <span class="keyword">int</span> cpoint = cPoint.get(k);</div><div class="line">            <span class="keyword">if</span> (leftE.containsKey(cpoint)) &#123;</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; leftE.get(cpoint).size(); i++) &#123;</div><div class="line">                    heap.offer(buildings[leftE.get(cpoint).get(i)]);</div><div class="line">                &#125;</div><div class="line">                leftE.remove(cpoint);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (rightE.containsKey(cpoint)) &#123;</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rightE.get(cpoint).size(); i++) &#123;</div><div class="line">                    heap.remove(buildings[rightE.get(cpoint).get(i)]);</div><div class="line">                &#125;</div><div class="line">                rightE.remove(cpoint);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (!heap.isEmpty()) &#123;</div><div class="line">                map.put(cpoint, heap.peek()[<span class="number">2</span>]);                </div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                map.put(cpoint, <span class="number">0</span>);                </div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> last = <span class="number">0</span>;</div><div class="line">        List&lt;<span class="keyword">int</span>[]&gt; res = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">int</span>[]&gt;();</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cPoint.size(); i++) &#123;</div><div class="line">            <span class="comment">// System.out.println(cPoint.get(i) +  " : "  + map.get(cPoint.get(i)));</span></div><div class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; cPoint.get(i) == cPoint.get(i - <span class="number">1</span>) || map.get(cPoint.get(i)) == last) &#123;</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            &#125;</div><div class="line">            res.add(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;cPoint.get(i), map.get(cPoint.get(i))&#125;);</div><div class="line">            last = map.get(cPoint.get(i));</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(NlogN)</p>
+<p><strong>Space:</strong> O(N)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/30/37-Sudoku-Solver/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wenjie Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding Zone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/30/37-Sudoku-Solver/" itemprop="url">37 Sudoku Solver</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-30T21:28:30-07:00">
+                2017-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>Write a program to solve a Sudoku puzzle by filling the empty cells.</p>
+<p>Empty cells are indicated by the character ‘.’.</p>
+<p>You may assume that there will be only one unique solution.</p>
+</blockquote>
+<h2 id="Solution-1-Backtracking"><a href="#Solution-1-Backtracking" class="headerlink" title="Solution 1 Backtracking"></a>Solution 1 Backtracking</h2><p>Make the 2-D a 1-D, so I do not need a hash map</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">boolean</span> end = <span class="keyword">false</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">solveSudoku</span><span class="params">(<span class="keyword">char</span>[][] board)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> row, col;</div><div class="line">        <span class="comment">//map index: first row, 0-8, then col, 9-17, then box: 18-26</span></div><div class="line">        List&lt;HashSet&lt;Character&gt;&gt; map = <span class="keyword">new</span> ArrayList&lt;HashSet&lt;Character&gt;&gt;();</div><div class="line">        List&lt;Integer&gt; blank = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">27</span>; i++) &#123;</div><div class="line">            map.add(<span class="keyword">new</span> HashSet&lt;Character&gt;());</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">81</span>; i++) &#123;</div><div class="line">            row = i / <span class="number">9</span>;</div><div class="line">            col = i % <span class="number">9</span>;</div><div class="line">            <span class="keyword">if</span> (board[row][col] != <span class="string">'.'</span>) &#123;</div><div class="line">                map.get(row).add(board[row][col]);</div><div class="line">                map.get(<span class="number">9</span> + col).add(board[row][col]);</div><div class="line">                map.get(<span class="number">18</span> + row / <span class="number">3</span> * <span class="number">3</span> + col / <span class="number">3</span>).add(board[row][col]);   </div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                blank.add(i);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        </div><div class="line">        <span class="keyword">char</span>[] temp = <span class="keyword">new</span> <span class="keyword">char</span>[blank.size()];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; temp.length; i++) &#123;</div><div class="line">            temp[i] = <span class="string">'.'</span>;</div><div class="line">        &#125;</div><div class="line">        backtracking(blank, map, temp, <span class="number">0</span>);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; temp.length; i++) &#123;</div><div class="line">            row = blank.get(i) / <span class="number">9</span>;</div><div class="line">            col = blank.get(i) % <span class="number">9</span>;</div><div class="line">            board[row][col] = temp[i];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">backtracking</span><span class="params">(List&lt;Integer&gt; blank, List&lt;HashSet&lt;Character&gt;&gt;map, <span class="keyword">char</span>[] temp, <span class="keyword">int</span> counter)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (counter == blank.size()) &#123;</div><div class="line">            end = <span class="keyword">true</span>;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> index = blank.get(counter);</div><div class="line">        <span class="keyword">int</span> row = index / <span class="number">9</span>;</div><div class="line">        <span class="keyword">int</span> col = index % <span class="number">9</span>;</div><div class="line">        List&lt;Character&gt; candidate = <span class="keyword">new</span> ArrayList&lt;Character&gt;();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> j = <span class="string">'1'</span>; j &lt;= <span class="string">'9'</span>; j++) &#123;</div><div class="line">            <span class="keyword">if</span> (!map.get(row).contains(j) &amp;&amp; !map.get(<span class="number">9</span> + col).contains(j) &amp;&amp; !map.get(<span class="number">18</span> + row / <span class="number">3</span> * <span class="number">3</span> + col / <span class="number">3</span>).contains(j)) &#123;</div><div class="line">                  candidate.add(j);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (candidate.size() == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> j = <span class="number">0</span>; j &lt; candidate.size(); j++) &#123;</div><div class="line">            temp[counter] = candidate.get(j);</div><div class="line">            map.get(row).add(candidate.get(j));</div><div class="line">            map.get(<span class="number">9</span> + col).add(candidate.get(j));</div><div class="line">            map.get(<span class="number">18</span> + row / <span class="number">3</span> * <span class="number">3</span> + col / <span class="number">3</span>).add(candidate.get(j)); </div><div class="line"></div><div class="line">            backtracking(blank, map, temp, counter + <span class="number">1</span>);</div><div class="line">            <span class="keyword">if</span> (end) &#123;</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125;</div><div class="line">            temp[counter] = <span class="string">'.'</span>;</div><div class="line"></div><div class="line">            map.get(row).remove(candidate.get(j));</div><div class="line">            map.get(<span class="number">9</span> + col).remove(candidate.get(j));</div><div class="line">            map.get(<span class="number">18</span> + row / <span class="number">3</span> * <span class="number">3</span> + col / <span class="number">3</span>).remove(candidate.get(j)); </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> exp(blankNode)<br><strong>Space:</strong> O(blankNode)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/30/687-Longest-Univalue-Path/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1584,296 +1893,6 @@ The total probability the knight stays on the board is 0.0625.
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/26/632-Smallest-Range/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/26/632-Smallest-Range/" itemprop="url">632 Smallest Range</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-26T10:23:41-07:00">
-                2017-09-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/smallest-range/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>You have k lists of sorted integers in ascending order. Find the smallest range that includes at least one number from each of the k lists.</p>
-<p>We define the range [a,b] is smaller than range [c,d] if b-a &lt; d-c or a &lt; c if b-a == d-c.</p>
-<p><strong>Example 1:</strong></p>
-<pre><b>Input:</b>[[4,10,15,24,26], [0,9,12,20], [5,18,22,30]]
-<b>Output:</b> [20,24]
-<b>Explanation:</b> 
-List 1: [4, 10, 15, 24,26], 24 is in range [20,24].
-List 2: [0, 9, 12, 20], 20 is in range [20,24].
-List 3: [5, 18, 22, 30], 22 is in range [20,24].
-</pre>
-
-</blockquote>
-<h2 id="Solution-Min-Heap"><a href="#Solution-Min-Heap" class="headerlink" title="Solution Min-Heap"></a>Solution Min-Heap</h2><p>From left to right, store the elements of every row in a heap</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Cell</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> x;</div><div class="line">        <span class="keyword">int</span> row;</div><div class="line">        <span class="keyword">int</span> val;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Cell</span><span class="params">(<span class="keyword">int</span> rr, <span class="keyword">int</span> xx, <span class="keyword">int</span> vv)</span> </span>&#123;</div><div class="line">            x= xx;</div><div class="line">            row = rr;</div><div class="line">            val = vv;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">CellComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Cell</span>&gt;</span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Cell a, Cell b)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> a.val - b.val;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] smallestRange(List&lt;List&lt;Integer&gt;&gt; nums) &#123;</div><div class="line">        PriorityQueue&lt;Cell&gt; heap = <span class="keyword">new</span> PriorityQueue&lt;Cell&gt;(<span class="number">1</span>, <span class="keyword">new</span> CellComparator());</div><div class="line">        <span class="keyword">int</span> maxV = Integer.MIN_VALUE;</div><div class="line">        <span class="keyword">int</span> start = -<span class="number">1</span>, end = -<span class="number">1</span>, range = Integer.MAX_VALUE;</div><div class="line"></div><div class="line">        <span class="comment">// Time: O(log(nums.size()!) -&gt; nlogn)</span></div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) &#123;</div><div class="line">            heap.offer(<span class="keyword">new</span> Cell(i, <span class="number">0</span>, nums.get(i).get(<span class="number">0</span>)));</div><div class="line">            maxV = Math.max(maxV, nums.get(i).get(<span class="number">0</span>));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// Time: O(log(num[i].size()!))</span></div><div class="line">        <span class="keyword">while</span> (heap.size() == nums.size()) &#123;</div><div class="line">            Cell cur = heap.poll();</div><div class="line">            <span class="keyword">if</span> (maxV - cur.val &lt; range) &#123;</div><div class="line">                range = maxV - cur.val;</div><div class="line">                start = cur.val;</div><div class="line">                end = maxV;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (cur.x &lt; nums.get(cur.row).size() - <span class="number">1</span>) &#123;</div><div class="line">                heap.offer(<span class="keyword">new</span> Cell(cur.row, cur.x + <span class="number">1</span>, nums.get(cur.row).get(cur.x + <span class="number">1</span>)));</div><div class="line">                maxV = Math.max(maxV, nums.get(cur.row).get(cur.x + <span class="number">1</span>));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;start, end&#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong>  Max(row <em> col </em> log(row))</p>
-<p><strong>Space:</strong> O(row)</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wenjiezhang.com/2017/09/26/76-Minimum-Window-Substring/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wenjie Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxWW_8B0_Vq48f1PUO-voIwkp9dX0cw1XasQLG2JPWXAjWE81HOg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding Zone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/26/76-Minimum-Window-Substring/" itemprop="url">76 Minimum Window Substring</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-26T10:16:54-07:00">
-                2017-09-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a><a href="https://leetcode.com/problems/minimum-window-substring/description/" target="_blank" rel="external">Question</a></h1><blockquote>
-<p>Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).</p>
-<p>For example,</p>
-<p>S = “ADOBECODEBANC”</p>
-<p>T = “ABC”</p>
-<p>Minimum window is “BANC”.</p>
-<p>Note:</p>
-<p>If there is no such window in S that covers all characters in T, return the empty string “”.</p>
-<p>If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S.</p>
-</blockquote>
-<h2 id="Solution-1-Hash-and-Two-Pointers"><a href="#Solution-1-Hash-and-Two-Pointers" class="headerlink" title="Solution 1 Hash and Two Pointers"></a>Solution 1 Hash and Two Pointers</h2><p>It’s a substring template</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">minWindow</span><span class="params">(String s, String t)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span>[] map = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">128</span>];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> ch : t.toCharArray()) &#123;</div><div class="line">            map[ch]++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> d = Integer.MAX_VALUE, begin = <span class="number">0</span>, head = <span class="number">0</span>, counter = t.length();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++) &#123;</div><div class="line">            <span class="keyword">if</span> (map[s.charAt(i)] &gt; <span class="number">0</span>) &#123;</div><div class="line">                counter--;</div><div class="line">            &#125;</div><div class="line">            map[s.charAt(i)]--;</div><div class="line">            <span class="keyword">while</span> (counter == <span class="number">0</span>) &#123;</div><div class="line">                <span class="keyword">if</span> (i - begin + <span class="number">1</span> &lt; d) &#123;</div><div class="line">                    d = i - begin + <span class="number">1</span>;</div><div class="line">                    head = begin;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> (map[s.charAt(begin)] == <span class="number">0</span>) &#123;</div><div class="line">                    counter++;</div><div class="line">                &#125;</div><div class="line">                map[s.charAt(begin)]++;</div><div class="line">                begin++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> d == Integer.MAX_VALUE ? <span class="string">""</span> : s.substring(head, d + head);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="T-amp-S-Analysis"><a href="#T-amp-S-Analysis" class="headerlink" title="T&amp;S Analysis"></a>T&amp;S Analysis</h3><p><strong>Time:</strong> O(n), Since only one scan<br><strong>Space:</strong> O(1), The hash map’s size is limited</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1924,7 +1943,7 @@ List 3: [5, 18, 22, 30], 22 is in range [20,24].
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">114</span>
+                <span class="site-state-item-count">116</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1946,7 +1965,7 @@ List 3: [5, 18, 22, 30], 22 is in range [20,24].
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
